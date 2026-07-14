@@ -63,3 +63,18 @@
   bedienbar sein.
 - Diagnosebegriffe und Fortschrittszähler müssen exakt ausdrücken, was gezählt
   beziehungsweise nur anhand geladener Daten bestätigt wurde.
+
+## Veröffentlichung und Updates
+
+- `@version` und `ap.VERSION` müssen denselben Versionsstand tragen.
+- `@updateURL` und `@downloadURL` müssen auf eine dauerhaft erreichbare,
+  freigegebene Userscript-Datei zeigen und dürfen keine Entwicklungsfassung
+  ausliefern.
+- Versionierte `.user.js`- und `.txt`-Releases sowie die stabilen Dateien ohne
+  Versionsnummer müssen bei jeder Freigabe inhaltlich identisch sein.
+- Die stabile Datei darf erst nach bestätigtem IITC-Praxistest aktualisiert
+  werden.
+- Der Community-Katalog muss Draw Tools als Abhängigkeit und Bookmarks als
+  Empfehlung ausweisen.
+- Automatisches Nachladen von Portalnamen und der Planexport müssen im
+  Community-Katalog transparent als `scraper` und `export` deklariert sein.
