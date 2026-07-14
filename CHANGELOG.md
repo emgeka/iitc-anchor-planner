@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.41
+
+- Stabile Update- und Downloadadresse für die Aufnahme in den IITC Community
+  Plugins-Katalog ergänzt.
+- Userscript-Metadaten um Projekt- und Supportlinks erweitert; das funktionale
+  Pluginverhalten bleibt unverändert.
+
 ## 0.1.40
 
 - Das nächste offene Portal wird dynamisch anhand des vom offiziellen

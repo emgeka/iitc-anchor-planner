@@ -29,6 +29,9 @@ Diese Regeln gelten für das gesamte Projekt. Die maßgebliche Arbeitsfassung is
 - Während der Entwicklung nur die Datei unter `src/` ändern.
 - Erst nach bestätigtem Praxistest identische Releasefassungen als
   `.user.js` und `.txt` unter `releases/` erzeugen.
+- Die stabilen Community-Dateien `releases/iitc-anchor-planner.user.js` und
+  `releases/iitc-anchor-planner.txt` bei jeder Freigabe bytegleich zur
+  jeweiligen versionierten Releasefassung aktualisieren.
 - Release-Dateinamen enthalten keinen Browser- oder Uploadzusatz wie `(1)`.
 - Metadaten wie `@id`, `@namespace` und `@author` nicht ohne ausdrücklichen
   Auftrag ändern. Die importierte Version 0.1.35 ist hierfür maßgeblich.
@@ -55,4 +58,3 @@ Bei jeder Implementierung nennen:
 - durchgeführte Prüfungen,
 - verbleibende Unsicherheiten,
 - konkrete Schritte für den Praxistest in IITC.
-
