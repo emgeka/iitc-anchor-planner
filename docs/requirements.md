@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.40
+# Anforderungen für Version 0.1.41
 
 ## Planerfassung und Portalauflösung
 

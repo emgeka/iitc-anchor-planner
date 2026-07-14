@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.40
+# Architekturübersicht 0.1.41
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich

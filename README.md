@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.40**
+- Aktuelle Version: **0.1.41**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.40>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.41>
 
 ## Funktionen
 
@@ -64,10 +64,13 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 Die freigegebene `.user.js`-Datei wird über einen Userscript-Manager oder die
 jeweilige IITC-Plugin-Installation eingebunden:
 
-<https://github.com/emgeka/iitc-anchor-planner/releases/download/v0.1.40/iitc-anchor-planner-v0.1.40.user.js>
+<https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/releases/iitc-anchor-planner.user.js>
 
 Für Umgebungen, in denen der Download als `.user.js` problematisch ist, steht
 im Release eine inhaltlich identische `.txt`-Fassung bereit.
+
+Die stabile Installationsadresse zeigt immer auf die zuletzt freigegebene
+Version und wird auch vom IITC Community Plugins-Katalog verwendet.
 
 ## Entwicklung
 
