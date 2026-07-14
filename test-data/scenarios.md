@@ -109,3 +109,24 @@ aktivieren und **Ab Standort sortieren** auswählen.
   erledigte Portale stehen hinten.
 - Manuelle Pfeiltasten bleiben anschließend wirksam.
 - Ein initialer oder ungültiger Standort `0/0` wird nicht verwendet.
+
+## 11. Release-Metadaten und Community-Datei
+
+**Aufbau:** Nach bestätigtem IITC-Praxistest eine neue Version freigeben und
+die versionierten sowie stabilen Dateien unter `releases/` erzeugen. Den
+Community-Eintrag mit der offiziellen IITC-CE-Generierung verarbeiten.
+
+**Erwartung:**
+
+- `@version` und `ap.VERSION` sind identisch.
+- `@updateURL` und `@downloadURL` zeigen auf
+  `releases/iitc-anchor-planner.user.js` im öffentlichen Projekt-Repository.
+- Arbeitsfassung, versionierte `.user.js`/`.txt` und stabile
+  `.user.js`/`.txt` sind vor dem Commit bytegleich.
+- Die öffentliche stabile Datei enthält die freigegebene Version und besteht
+  die JavaScript-Syntaxprüfung.
+- Die Community-Generierung erzeugt die ID `anchor-planner@emgeka`, übernimmt
+  Draw Tools und Bookmarks sowie die Anti-Features `scraper|export` und liefert
+  ein syntaktisch gültiges Userscript.
+- Es werden keine Entwicklungsänderungen aus `src/` veröffentlicht, die nicht
+  zuvor praktisch getestet und freigegeben wurden.

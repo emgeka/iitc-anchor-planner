@@ -23,6 +23,16 @@ Diese Regeln gelten für das gesamte Projekt. Die maßgebliche Arbeitsfassung is
 
 ## Versionierung und Releases
 
+- Vor jedem Commit projektweit prüfen, dass alle nicht-historischen Dateien
+  den aktuellsten vorgesehenen Versionsstand abbilden. Dazu gehören mindestens
+  Arbeitsfassung, aktuelle README- und Docs-Angaben, Changelog sowie bei einer
+  Freigabe die versionierten und stabilen Distributionsdateien.
+- Solange Versionsstand, Dokumentation oder Distributionsdateien voneinander
+  abweichen, darf kein Commit erstellt werden. Ein noch nicht vollständig
+  dokumentierter Entwicklungsstand bleibt uncommitted unter `src/`.
+- Ausgenommen sind nur ausdrücklich historische Changelog-Abschnitte und
+  versionierte Alt-Releases; diese müssen ihren jeweiligen damaligen
+  Versionsstand unverändert behalten.
 - Versionsangaben in `@version` und `ap.VERSION` müssen identisch sein.
 - `plugin_info.dateTimeVersion` bei einer neuen Version aktualisieren.
 - Jede freigegebene Änderung knapp in `CHANGELOG.md` dokumentieren.

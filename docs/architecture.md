@@ -88,6 +88,31 @@ Blockierte Planlinks werden rot gestrichelt gezeichnet. Bei **zeigen** speichert
 hervor, markiert den berechneten Kreuzungspunkt und bewegt die Karte dorthin.
 Ein neuer Scan verwirft diese temporäre Auswahl.
 
+## Release- und Community-Datenfluss
+
+Die Entwicklungsfassung liegt ausschließlich unter
+`src/iitc-anchor-planner.user.js`. Nach einem bestätigten Praxistest wird
+derselbe Inhalt in vier Distributionsdateien übernommen:
+
+- `releases/iitc-anchor-planner-vX.Y.Z.user.js`,
+- `releases/iitc-anchor-planner-vX.Y.Z.txt`,
+- `releases/iitc-anchor-planner.user.js`,
+- `releases/iitc-anchor-planner.txt`.
+
+Die versionierten Dateien dokumentieren eine konkrete Freigabe. Die stabilen
+Dateien ohne Versionsnummer bilden immer die zuletzt freigegebene Version und
+sind das Ziel von `@updateURL` und `@downloadURL`.
+
+Der Community-Katalog liest die stabile Userscript-Datei über
+`metadata/emgeka/anchor-planner.yml`. Beim Katalogbau ersetzt IITC-CE die
+Update- und Downloadadressen im erzeugten Plugin durch seine eigenen Dateien
+unter `dist/emgeka/`. Die Community-ID wird dabei aus Dateiname und
+Autorenordner als `anchor-planner@emgeka` gebildet.
+
+Der Katalogeintrag ergänzt die Laufzeit-Metadaten um die Abhängigkeit
+`draw-tools@breunigs`, die Empfehlung `bookmarks@ZasoGD` und die Anti-Features
+`scraper|export`. Diese Angaben verändern den Plugin-Code nicht.
+
 ## Technische Grenzen
 
 - Räumliche Nähe allein beweist keine Portalidentität.

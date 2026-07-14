@@ -56,3 +56,17 @@
   Desktop und Mobilgeräten geprüft werden.
 - Externe Navigation hängt davon ab, welche Karten-Apps und URL-Schemata das
   jeweilige Mobilgerät unterstützt.
+
+## Installation und Updates
+
+- Die stabile Updateadresse folgt dem `main`-Branch des Projekt-Repositorys.
+  Sie darf deshalb nur durch einen vollständigen, getesteten Release aktualisiert
+  werden.
+- GitHub-Rohdateien und heruntergeladene Release-Anhänge können wegen
+  unterschiedlicher LF/CRLF-Zeilenenden verschiedene Prüfsummen besitzen,
+  obwohl der JavaScript-Inhalt gleich ist.
+- Die Aufnahme oder Aktualisierung im IITC Community Plugins-Katalog wird erst
+  nach Prüfung und Übernahme des zugehörigen Community-PR wirksam.
+- Nach der Aufnahme liefert der Community-Katalog eine von IITC-CE erzeugte
+  Kopie mit eigener Update- und Downloadadresse aus. Das Quell-Userscript bleibt
+  weiterhin im Projekt-Repository maßgeblich.

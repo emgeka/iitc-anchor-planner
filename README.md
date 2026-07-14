@@ -70,11 +70,24 @@ Für Umgebungen, in denen der Download als `.user.js` problematisch ist, steht
 im Release eine inhaltlich identische `.txt`-Fassung bereit.
 
 Die stabile Installationsadresse zeigt immer auf die zuletzt freigegebene
-Version und wird auch vom IITC Community Plugins-Katalog verwendet.
+Version und ist als Quelle für den IITC Community Plugins-Katalog vorgesehen.
+
+## Updates und Community Plugins
+
+- Community-ID: `anchor-planner@emgeka`
+- Erforderliches Plugin: `draw-tools@breunigs`
+- Empfohlenes Plugin: `bookmarks@ZasoGD`
+- Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender
+  Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
+
+Die Metadaten `@updateURL` und `@downloadURL` verweisen auf die stabile
+Releasefassung. Entwicklungsänderungen unter `src/` erreichen installierte
+Plugins deshalb erst nach einem bestätigten und veröffentlichten Release.
 
 ## Entwicklung
 
 Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale
 Änderungen erfolgen zunächst nur in `src/`. Identische Releasefassungen als
 `.user.js` und `.txt` werden erst nach erfolgreichem Praxistest auf Desktop-IITC
-und IITC Mobile erzeugt.
+und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei
+auf denselben Inhalt aktualisiert.
