@@ -1,34 +1,58 @@
-# Bekannte und historisch relevante Punkte
+# Bekannte Grenzen in 0.1.40
 
-## Portalzuordnung
+## Portalzuordnung und Namen
 
 - Bei unvollständig geladenem Kartenausschnitt können Draw-Tools-Endpunkte ohne
-  direkt verfügbares Portal bleiben.
-- Historischer Testfall: Endpunkt `52.209596, 9.704723`; ein ungefähr 198 Meter
-  entferntes geladenes Portal „Sportzentrum“ durfte nicht als sichere
-  Entsprechung des tatsächlich geplanten Portals behandelt werden.
-- Eine Kandidatenliste und manuelle Zuordnung sind einer stillen falschen
+  direkt verfügbares Portal bleiben. Zoomen, Laden der Portale und ein erneuter
+  Scan können erforderlich sein.
+- Eine Kandidatenliste und ein offener Endpunkt sind einer stillen falschen
   Zuordnung vorzuziehen.
+- Portalnamen sind erst verfügbar, nachdem IITC die Portale beziehungsweise
+  deren Details geladen hat. Bis dahin werden in Blocker-Details Koordinaten
+  statt technischer GUIDs angezeigt.
 
-## Diagnoseanzeige
+## Abdeckung vorhandener Links und Blocker
+
+- Blockerprüfung und Erkennung vorhandener Planlinks werten ausschließlich die
+  aktuell in IITC geladenen `window.links` aus.
+- „Nicht bestätigt“ bedeutet daher nicht sicher „nicht vorhanden“; ebenso ist
+  ein nicht gefundener Blocker keine vollständige Entwarnung.
+- Blocker-Details und Exporte dokumentieren diese begrenzte Datenabdeckung.
+- Der Kartenfokus verwendet einen geometrisch berechneten Kreuzungspunkt. Kann
+  dieser nicht bestimmt werden, bleibt die Karte unverändert und das Panel
+  meldet den Fehler.
+
+## Standort und Route
+
+- Die dynamische Zielwahl funktioniert nur mit dem offiziellen
+  IITC-User-Location-Plugin und einem von diesem gelieferten gültigen Standort.
+- Ohne Standort bleibt die gespeicherte manuelle Reihenfolge maßgeblich.
+- Der Anchor Planner erhält keine unabhängige Aussage zur GPS-Genauigkeit. Das
+  geografisch nächste Portal kann bei ungenauer IITC-Position falsch sein.
+- **Ab Standort sortieren** ist eine Luftlinien-Näherung und keine
+  straßenbasierte Routenoptimierung. Spätere Standortänderungen sortieren die
+  sichtbare Liste nicht automatisch neu, beeinflussen aber das dynamische
+  nächste Portal.
+- Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
+  exportiert.
+
+## Diagnose und Zähler
 
 - `Draw-Tools-Punkte: 0` kann trotz korrekt erkannter Liniensegmente richtig
-  sein: gezählt werden nur separate Draw-Tools-Punkt-/Markerobjekte.
-- Die Anzahl verfügbarer Bookmarks ist nicht gleich der Anzahl der Bookmarks,
-  die für den aktuellen Plan verwendet werden.
-- Ein Bookmark-Treffer kann an mehreren Linkendpunkten auftreten.
+  sein: Gezählt werden nur separate Draw-Tools-Punkt- oder Markerobjekte.
+- Die Anzahl verfügbarer Bookmarks ist nicht gleich der Anzahl der für den Plan
+  verwendeten Bookmark-Treffer. Ein Bookmark kann an mehreren Endpunkten
+  verwendet werden.
+- Die Filterzähler **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
+  **Erledigt** beziehen sich auf Planportale. Ein Planlink besitzt zwei
+  Endportale und kann daher bei beiden Portalen zum Status beitragen.
 
-## Abdeckung der Intel-Daten
+## Desktop und Mobil
 
-- Blockerprüfung und Erkennung vorhandener Links können nur die aktuell in IITC
-  geladenen `window.links` auswerten.
-- Fehlende Bestätigung muss von „nicht vorhanden“ oder „nicht blockiert“
-  unterschieden werden.
-
-## Mobile Oberfläche
-
-- Nach Änderungen an Panel oder Exportdialog prüfen, ob das letzte Portal
-  erreichbar bleibt und Statusleisten nicht überdeckt werden.
-- Overlay- und Badge-Z-Index sowohl mit IITC-Panels als auch mit
-  Bookmark-Markern testen.
-
+- Nach Änderungen an Panel oder Exportdialog ist weiterhin zu prüfen, ob das
+  letzte Portal erreichbar bleibt und IITC-Statusleisten nicht überdeckt
+  werden.
+- Overlay- und Badge-Z-Index müssen mit IITC-Panels und Bookmark-Markern auf
+  Desktop und Mobilgeräten geprüft werden.
+- Externe Navigation hängt davon ab, welche Karten-Apps und URL-Schemata das
+  jeweilige Mobilgerät unterstützt.
