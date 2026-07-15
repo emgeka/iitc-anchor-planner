@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.44
+
+- Kompakten Blockerbereich ergänzt, der Endportale nach der Zahl eindeutiger
+  Blocklinks priorisiert und geeignete Endpunkte für die Arbeitsroute vormerken
+  lässt.
+- Offene Planportale und vorgemerkte Blocker-Portale werden ohne Duplikate zu
+  einer standortabhängigen Arbeitsroute mit Zieltyp, Zielentfernung und
+  geschätzter Reststrecke zusammengeführt.
+- Alle erkannten betroffenen Planlinks, Blocklinks und Kreuzungspunkte werden
+  automatisch in einer eigenen Kartenebene hervorgehoben; doppelte Blocklinks
+  werden nur einmal gezeichnet.
+- Blockeranzeige, gemeinsame Route und automatische Kartenhervorhebung wurden
+  praktisch auf Desktop-IITC und IITC Mobile geprüft.
+
 ## 0.1.43
 
 - Die Zielzeile zeigt bei gültigem IITC-Standort die gerundete
