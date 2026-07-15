@@ -49,7 +49,9 @@ einmal mit geladenen Portaldetails prüfen.
 
 - Die Blocker-Details nennen Planlink und konkrete Blocklinks.
 - Ohne geladene Namen erscheinen Koordinaten und keine technischen GUIDs.
-- Nach Laden der Portaldetails erscheinen die Portalnamen.
+- Nach Hineinzoomen und Laden der IITC-Kartendaten erscheinen verfügbare
+  Portalnamen bereits erkannter Blocker automatisch, ohne erneuten Scan.
+- Geöffnete Blocker-Details bleiben bei dieser Aktualisierung geöffnet.
 - **zeigen** hebt Planlink, Blocklink und Kreuzungspunkt hervor und bewegt die
   Karte dorthin.
 - Ein neuer Scan entfernt die temporäre Hervorhebung.
@@ -110,7 +112,25 @@ aktivieren und **Ab Standort sortieren** auswählen.
 - Manuelle Pfeiltasten bleiben anschließend wirksam.
 - Ein initialer oder ungültiger Standort `0/0` wird nicht verwendet.
 
-## 11. Release-Metadaten und Community-Datei
+## 11. Kompakter Einsatzcheck
+
+**Aufbau:** Einen Plan nacheinander mit blockiertem Planlink, fehlendem Key,
+offenem Endpunkt und fehlendem Portalnamen prüfen. Danach alle erkannten
+Hindernisse beseitigen beziehungsweise einen vollständig aufgelösten Plan ohne
+geladene Blocker verwenden.
+
+**Erwartung:**
+
+- Blockierte Planlinks, fehlende Keys und offene Endpunkte führen zu **Nicht
+  bereit** und erscheinen mit korrekter Anzahl in der kompakten Kopfzeile.
+- Fehlende Namen oder nicht auswertbare vorhandene Links führen zu **Prüfen**.
+- Ohne erkannte Hindernisse erscheint **Bereit (geladener Stand)**.
+- Aufgeklappt nennt der Einsatzcheck nicht bestätigte Planlinks, geladene
+  vorhandene Links und die begrenzte IITC-Datenabdeckung.
+- Auf- und Zuklappen, Panelhöhe und Listenende bleiben auf Desktop und Mobil
+  nutzbar.
+
+## 12. Release-Metadaten und Community-Datei
 
 **Aufbau:** Nach bestätigtem IITC-Praxistest eine neue Version freigeben und
 die versionierten sowie stabilen Dateien unter `releases/` erzeugen. Den

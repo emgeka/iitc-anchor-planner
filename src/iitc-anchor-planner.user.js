@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.41
+// @version        0.1.42
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -23,13 +23,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260714143016';
+  plugin_info.dateTimeVersion = '20260715110500';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.41';
+  ap.VERSION = '0.1.42';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -60,7 +60,8 @@ function wrapper(plugin_info) {
     userLocationHooksBound: false,
     nextTargetKey: null,
     overlayCount: 0,
-    htmlOverlay: null
+    htmlOverlay: null,
+    mapDataPanelRefreshTimer: null
   };
 
   ap.escapeHtml = function (value) {
@@ -1280,6 +1281,63 @@ function wrapper(plugin_info) {
     return counts;
   };
 
+  ap.getReadiness = function (stats) {
+    var last = ap.state.lastScan;
+    if (!last) return null;
+
+    var result = {
+      key: 'ready',
+      label: 'Bereit (geladener Stand)',
+      summary: [],
+      missingKeyPortals: 0,
+      missingKeys: 0,
+      missingNames: 0,
+      unconfirmedLinks: Number(last.unconfirmedLinks) || 0,
+      loadedExistingLinks: Number(last.loadedExistingLinks) || 0,
+      unresolvedExistingLinks: Number(last.unresolvedExistingLinks) || 0
+    };
+
+    (stats || []).forEach(function (stat) {
+      var local = ap.ensureAnchorState(stat.guid);
+      if (!local.done) {
+        var keyDeficit = Math.max(0, (Number(stat.requiredKeys) || 0) - (Number(local.ownedKeys) || 0));
+        if (keyDeficit) {
+          result.missingKeyPortals++;
+          result.missingKeys += keyDeficit;
+        }
+      }
+      if (!ap.cleanTitle(stat.title) || stat.title === 'Name nicht geladen') result.missingNames++;
+    });
+
+    var unresolvedEndpoints = Number(last.unresolvedEndpoints) || 0;
+    var blockedPlannedLinks = Number(last.blockedPlannedLinks) || 0;
+    var needsScan = !(stats || []).length && ((Number(last.resolvedPortals) || 0) > 0 || (Number(last.plannedLinks) || 0) > 0);
+    var noPlan = !needsScan && !(Number(last.plannedLinks) || 0) && !unresolvedEndpoints;
+
+    if (needsScan) {
+      result.key = 'check';
+      result.label = 'Neu scannen';
+      result.summary.push('Sitzungsdaten fehlen');
+    } else {
+      if (unresolvedEndpoints) result.summary.push(unresolvedEndpoints + (unresolvedEndpoints === 1 ? ' offener Endpunkt' : ' offene Endpunkte'));
+      if (blockedPlannedLinks) result.summary.push(blockedPlannedLinks + (blockedPlannedLinks === 1 ? ' Planlink blockiert' : ' Planlinks blockiert'));
+      if (result.missingKeys) result.summary.push(result.missingKeys + (result.missingKeys === 1 ? ' Key fehlt' : ' Keys fehlen'));
+      if (result.missingNames) result.summary.push(result.missingNames + (result.missingNames === 1 ? ' Name fehlt' : ' Namen fehlen'));
+      if (result.unresolvedExistingLinks) result.summary.push(result.unresolvedExistingLinks + (result.unresolvedExistingLinks === 1 ? ' Link nicht auswertbar' : ' Links nicht auswertbar'));
+      if (noPlan) result.summary.push('kein Planlink erkannt');
+
+      if (unresolvedEndpoints || blockedPlannedLinks || result.missingKeys) {
+        result.key = 'blocked';
+        result.label = 'Nicht bereit';
+      } else if (result.missingNames || result.unresolvedExistingLinks || noPlan) {
+        result.key = 'check';
+        result.label = 'Prüfen';
+      }
+    }
+
+    return result;
+  };
+
   ap.sortedStats = function (doneLast) {
     if (doneLast == null) doneLast = true;
     var arr = Object.keys(ap.runtime.stats).map(function (guid) { return ap.runtime.stats[guid]; });
@@ -1804,6 +1862,8 @@ function wrapper(plugin_info) {
   ap.renderPanel = function () {
     var panel = ap.runtime.panel;
     if (!panel) return;
+    var readinessOpen = !!panel.querySelector('.ap-readiness[open]');
+    var blockerDetailsOpen = !!panel.querySelector('.ap-blocker-details[open]');
     panel.style.display = ap.runtime.enabled ? '' : 'none';
     if (!ap.runtime.enabled) return;
 
@@ -1816,6 +1876,7 @@ function wrapper(plugin_info) {
       return count + (local.done ? 1 : 0);
     }, 0);
     var last = ap.state.lastScan;
+    var readiness = ap.getReadiness(stats);
     var blockedLinks = (ap.runtime.links || []).filter(function (link) {
       return link && !link.existing && link.blocked && link.blockers && link.blockers.length;
     });
@@ -1842,6 +1903,16 @@ function wrapper(plugin_info) {
       html += '<button class="ap-filter' + ((ap.state.listFilter || 'all') === item[0] ? ' ap-filter-active' : '') + '" data-filter="' + item[0] + '">' + item[1] + ' <span>' + item[2] + '</span></button>';
     });
     html += '</div>';
+    if (readiness) {
+      html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>Einsatzcheck:</b> ' + ap.escapeHtml(readiness.label);
+      if (readiness.summary.length) html += ' · ' + ap.escapeHtml(readiness.summary.join(' · '));
+      html += '</summary><div class="ap-readiness-detail">';
+      html += '<div>Nicht bestätigte Planlinks: ' + ap.escapeHtml(readiness.unconfirmedLinks) + '</div>';
+      if (readiness.missingKeyPortals) html += '<div>Keys fehlen an ' + ap.escapeHtml(readiness.missingKeyPortals) + (readiness.missingKeyPortals === 1 ? ' Portal.' : ' Portalen.') + '</div>';
+      html += '<div>Geladene vorhandene Links: ' + ap.escapeHtml(readiness.loadedExistingLinks);
+      if (readiness.unresolvedExistingLinks) html += ' · nicht auswertbar: ' + ap.escapeHtml(readiness.unresolvedExistingLinks);
+      html += '</div><div class="ap-readiness-hint">Link- und Blockerprüfung nur anhand der aktuell in IITC geladenen vorhandenen Links.</div></div></details>';
+    }
     html += '<div id="ap-message" class="ap-message">';
     if (last) {
       html += 'Letzter Scan: ' + ap.escapeHtml(last.plannedLinks) + ' Links, ' + ap.escapeHtml(last.resolvedPortals) + ' Planportale, ' + ap.escapeHtml(last.unresolvedEndpoints) + ' offene Endpunkte.';
@@ -1883,7 +1954,7 @@ function wrapper(plugin_info) {
     html += '</div>';
 
     if (blockedLinks.length) {
-      html += '<details class="ap-blocker-details"><summary>Blocker-Details (' + ap.escapeHtml(blockedLinks.length) + ')</summary>';
+      html += '<details class="ap-blocker-details"' + (blockerDetailsOpen ? ' open' : '') + '><summary>Blocker-Details (' + ap.escapeHtml(blockedLinks.length) + ')</summary>';
       blockedLinks.forEach(function (link, linkIndex) {
         var plannedA = ap.portalDisplayLabel(link.a, link.titleA, link.latlngA);
         var plannedB = ap.portalDisplayLabel(link.b, link.titleB, link.latlngB);
@@ -1976,6 +2047,7 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner button{margin:2px;padding:3px 6px;background:#333;color:#eee;border:1px solid #777;border-radius:3px}#iitc-anchor-planner button:hover{background:#444}\
 #iitc-anchor-planner input{background:#111;color:#fff;border:1px solid #666;border-radius:2px}#iitc-anchor-planner .ap-settings input,#iitc-anchor-planner .ap-owned{width:42px}\
 #iitc-anchor-planner .ap-filters{display:flex;flex-wrap:wrap;gap:4px;padding:5px 8px;border-bottom:1px solid #333}#iitc-anchor-planner .ap-filter{margin:0;padding:4px 7px}#iitc-anchor-planner .ap-filter span{color:#aaa;font-size:10px}#iitc-anchor-planner .ap-filter-active{background:#666;color:#fff;border-color:#bbb}#iitc-anchor-planner .ap-filter-active span{color:#fff}.ap-list-empty,.ap-list-end{padding:7px 8px;color:#aaa;text-align:center}\
+#iitc-anchor-planner .ap-readiness{padding:5px 8px;border-bottom:1px solid #333}#iitc-anchor-planner .ap-readiness summary{cursor:pointer;overflow-wrap:anywhere}#iitc-anchor-planner .ap-readiness-ready summary{color:#8ee68e}#iitc-anchor-planner .ap-readiness-check summary{color:#f5d76e}#iitc-anchor-planner .ap-readiness-blocked summary{color:#ff8b80}#iitc-anchor-planner .ap-readiness-detail{margin-top:5px;color:#ddd;font-size:11px;line-height:1.35}#iitc-anchor-planner .ap-readiness-hint{margin-top:3px;color:#aaa}\
 #iitc-anchor-planner .ap-actions,.ap-settings,.ap-message,.ap-mini{padding:5px 8px;border-bottom:1px solid #333}.ap-message{color:#ccc}.ap-source{margin-top:2px;color:#9fd0ff}.ap-progress{margin-top:4px;color:#ddd;font-size:11px;line-height:1.3}.ap-unresolved-item{margin-top:4px;border-top:1px solid #554;padding-top:3px}.ap-mini{color:#ddd}.ap-unresolved{margin-top:4px;color:#f5d76e;font-size:11px;line-height:1.3}\
 #iitc-anchor-planner .ap-blocker-details{padding:5px 8px;border-bottom:1px solid #443;color:#ddd}#iitc-anchor-planner .ap-blocker-details summary{cursor:pointer;color:#ff8b80;font-weight:bold}#iitc-anchor-planner .ap-blocker-item{margin-top:5px;padding-top:5px;border-top:1px solid #443;overflow-wrap:anywhere}#iitc-anchor-planner .ap-blocker-existing{display:flex;align-items:flex-start;gap:4px;margin-top:3px;color:#ffb0a8}#iitc-anchor-planner .ap-blocker-existing span{flex:1}#iitc-anchor-planner .ap-show-blocker{flex:none;margin:0;padding:2px 6px}#iitc-anchor-planner .ap-blocker-hint{margin-top:5px;color:#aaa;font-size:11px}\
 #iitc-anchor-planner .ap-list{overflow:visible;padding-bottom:16px}\
@@ -1988,6 +2060,14 @@ function wrapper(plugin_info) {
 .ap-map-html-overlay{position:absolute!important;left:0!important;top:0!important;right:0!important;bottom:0!important;z-index:2500!important;pointer-events:none!important;overflow:visible!important}.ap-map-badge{position:absolute!important;transform:translate(-50%,-50%)!important;min-width:24px!important;height:24px!important;padding:0 3px!important;border-radius:13px!important;border:3px solid #ff9f43!important;background:rgba(0,0,0,.88)!important;color:#fff!important;font:bold 10px/24px Arial,sans-serif!important;text-align:center!important;white-space:nowrap!important;box-sizing:border-box!important;text-shadow:0 1px 2px #000!important;z-index:2501!important}.ap-map-badge-done{font-size:9px!important}.ap-map-badge-ready{font-size:14px!important}.ap-map-badge-partial{font-size:13px!important}\
 @media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);font-size:12px}#iitc-anchor-planner .ap-list{padding-bottom:20px}}\
 ').appendTo('head');
+  };
+
+  ap.scheduleMapDataPanelRefresh = function (delay) {
+    if (ap.runtime.mapDataPanelRefreshTimer) clearTimeout(ap.runtime.mapDataPanelRefreshTimer);
+    ap.runtime.mapDataPanelRefreshTimer = setTimeout(function () {
+      ap.runtime.mapDataPanelRefreshTimer = null;
+      if (ap.runtime.enabled && ap.runtime.panel && (ap.runtime.links || []).length) ap.renderPanel();
+    }, delay == null ? 150 : delay);
   };
 
   ap.setupLayer = function () {
@@ -2016,7 +2096,15 @@ function wrapper(plugin_info) {
           ap.renderPanel();
         }
       });
-      window.map.on('zoomend moveend resize', function () { if (ap.runtime.enabled) ap.renderOverlays(); });
+      window.map.on('zoomend moveend resize', function () {
+        if (!ap.runtime.enabled) return;
+        ap.renderOverlays();
+        // Fallback for IITC variants that do not expose mapDataRefreshEnd reliably.
+        ap.scheduleMapDataPanelRefresh(1200);
+      });
+    }
+    if (typeof window.addHook === 'function') {
+      try { window.addHook('mapDataRefreshEnd', function () { ap.scheduleMapDataPanelRefresh(100); }); } catch (e) {}
     }
   };
 

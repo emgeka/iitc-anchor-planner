@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.41
+# Bekannte Grenzen in 0.1.42
 
 ## Portalzuordnung und Namen
 
@@ -10,6 +10,9 @@
 - Portalnamen sind erst verfügbar, nachdem IITC die Portale beziehungsweise
   deren Details geladen hat. Bis dahin werden in Blocker-Details Koordinaten
   statt technischer GUIDs angezeigt.
+- Nach dem Hineinzoomen werden neu verfügbare Namen bereits erkannter Blocker
+  automatisch aktualisiert. Neu geladene Blocklinks selbst erfordern weiterhin
+  einen erneuten Scan.
 
 ## Abdeckung vorhandener Links und Blocker
 
@@ -46,6 +49,8 @@
 - Die Filterzähler **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
   **Erledigt** beziehen sich auf Planportale. Ein Planlink besitzt zwei
   Endportale und kann daher bei beiden Portalen zum Status beitragen.
+- **Bereit (geladener Stand)** ist keine vollständige Entwarnung für außerhalb
+  des aktuellen IITC-Kartenstands liegende vorhandene Links oder Blocker.
 
 ## Desktop und Mobil
 

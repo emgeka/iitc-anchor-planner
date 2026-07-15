@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.41
+# Architekturübersicht 0.1.42
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -22,6 +22,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - aktuell geladene vorhandene Links und Blocker,
 - ungelöste Endpunkte und Diagnosekandidaten,
 - Layer, HTML-Statusmarker und ausgewählten Blocker,
+- verzögerten Panel-Refresh nach IITC-Kartendatenänderungen,
 - zuletzt vom IITC-User-Location-Plugin gemeldeten Standort sowie das
   dynamische nächste Ziel.
 
@@ -48,9 +49,9 @@ keinem Export.
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
-| Planberechnung | `scan`, `getStatus`, `filterCounts`, `sortedStats` |
+| Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getNextPortal`, `sortRouteFromUserLocation` |
-| Karte und Panel | `renderOverlays`, `renderPanel`, `focusBlocker`, `showPortalActions` |
+| Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `focusBlocker`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
 
 ## Datenfluss eines Scans
@@ -66,8 +67,9 @@ keinem Export.
    mit vorhandenen Links geprüft.
 7. `scan` erzeugt Portalstatistiken, Schlüsselbedarf, Linkzustände,
    Blockerlisten und den Scanbericht.
-8. Panel, Kartenlayer und Export verwenden denselben Laufzeitstand; fehlende
-   Portalnamen werden anschließend asynchron nachgeladen.
+8. Panel, Kartenlayer, Einsatzcheck und Export verwenden denselben
+   Laufzeitstand; fehlende Portalnamen werden anschließend asynchron
+   nachgeladen.
 
 ## Standort- und Routenlogik
 
@@ -87,6 +89,19 @@ Blockierte Planlinks werden rot gestrichelt gezeichnet. Bei **zeigen** speichert
 `focusBlocker` die Auswahl nur zur Laufzeit, hebt Planlink und Blocklink farblich
 hervor, markiert den berechneten Kreuzungspunkt und bewegt die Karte dorthin.
 Ein neuer Scan verwirft diese temporäre Auswahl.
+
+Nach `mapDataRefreshEnd` rendert `scheduleMapDataPanelRefresh` das Panel
+verzögert neu. Ein Kartenereignis-Fallback deckt IITC-Varianten ohne
+zuverlässigen Hook ab. Dadurch erscheinen neu verfügbare Namen bereits
+erkannter Blocker automatisch; die Blockergeometrie bleibt weiterhin die
+Momentaufnahme des letzten Scans. Geöffnete Blocker-Details und der
+Einsatzcheck werden beim Rendern beibehalten.
+
+`getReadiness` fasst offene Endpunkte, blockierte Planlinks und fehlende Keys
+als nicht einsatzbereit zusammen. Fehlende Namen, nicht auswertbare vorhandene
+Links oder ein fehlender Plan führen zu einem Prüfhinweis. Ein positiver Status
+lautet bewusst **Bereit (geladener Stand)**, weil IITC nur geladene Links
+bereitstellt.
 
 ## Release- und Community-Datenfluss
 
