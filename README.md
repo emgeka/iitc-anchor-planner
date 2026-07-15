@@ -80,6 +80,14 @@ Version und ist als Quelle für den IITC Community Plugins-Katalog vorgesehen.
 - Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender
   Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
 
+`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs:
+Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen
+fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht
+nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden
+keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft
+gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Deshalb ist
+`highLoad` nicht deklariert.
+
 Die Metadaten `@updateURL` und `@downloadURL` verweisen auf die stabile
 Releasefassung. Entwicklungsänderungen unter `src/` erreichen installierte
 Plugins deshalb erst nach einem bestätigten und veröffentlichten Release.

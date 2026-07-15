@@ -70,3 +70,16 @@
 - Nach der Aufnahme liefert der Community-Katalog eine von IITC-CE erzeugte
   Kopie mit eigener Update- und Downloadadresse aus. Das Quell-Userscript bleibt
   weiterhin im Projekt-Repository maßgeblich.
+
+## Bedeutung des Anti-Features `scraper`
+
+- `scraper` ist die Bezeichnung des IITC Community Plugins-Katalogs für
+  zusätzliche Detailanfragen zu Portalen, die der Nutzer nicht einzeln
+  angeklickt hat.
+- Anchor Planner verwendet diese Anfragen nur für fehlende Namen erkannter
+  Planportale. Sie werden nach einem Scan automatisch oder über **Namen laden**
+  nacheinander über IITCs Portal-Detailfunktionen ausgeführt.
+- Das Plugin durchsucht keine externen Webseiten und sammelt nicht dauerhaft
+  unabhängig vom aktuellen Plan weiter.
+- `highLoad` ist nicht deklariert, weil keine kontinuierliche oder
+  massenhafte Intel-Abfragefunktion vorhanden ist.

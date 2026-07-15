@@ -128,5 +128,8 @@ Community-Eintrag mit der offiziellen IITC-CE-Generierung verarbeiten.
 - Die Community-Generierung erzeugt die ID `anchor-planner@emgeka`, übernimmt
   Draw Tools und Bookmarks sowie die Anti-Features `scraper|export` und liefert
   ein syntaktisch gültiges Userscript.
+- Die Dokumentation erklärt `scraper` mit dem begrenzten Nachladen fehlender
+  Planportalnamen über IITC und grenzt es von externem Scraping und `highLoad`
+  ab.
 - Es werden keine Entwicklungsänderungen aus `src/` veröffentlicht, die nicht
   zuvor praktisch getestet und freigegeben wurden.
