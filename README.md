@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.43**
+- Aktuelle Version: **0.1.44**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.43>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.44>
 
 ## Funktionen
 
@@ -22,18 +22,21 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
   unsichere Endpunkte mit Koordinaten und Kandidaten diagnostizieren.
 - Vorhandene Planlinks erkennen und den verbleibenden Schlüsselbedarf je
   Portal berechnen.
-- Kreuzende, aktuell in IITC geladene Links als Blocker erkennen, mit
-  Portalnamen oder Koordinaten auflisten und auf der Karte hervorheben.
+- Kreuzende, aktuell in IITC geladene Links als Blocker erkennen und zusammen
+  mit den betroffenen Planlinks und Kreuzungspunkten automatisch auf der Karte
+  hervorheben.
+- Blocker-Endportale nach der Zahl eindeutiger Blocklinks priorisieren und
+  geeignete Endpunkte für die gemeinsame Arbeitsroute vormerken.
 - Einen kompakten Einsatzcheck aus offenen Endpunkten, Blockern, fehlenden
   Keys, fehlenden Namen und der begrenzten Linkabdeckung anzeigen.
 - Namen bereits erkannter Blocker nach neu geladenen IITC-Kartendaten
   automatisch aktualisieren, ohne geöffnete Detailbereiche zu schließen.
 - Portale nach offen, blockiert, fehlenden Keys und erledigt filtern sowie
   Keys, Reihenfolge und Erledigt-Status verwalten.
-- Das nächste offene Portal dynamisch anhand des offiziellen IITC-
-  User-Location-Plugins bestimmen oder auf die manuelle Reihenfolge
-  zurückfallen; bei gültigem Standort die aktuelle Luftlinienentfernung zum
-  Ziel anzeigen.
+- Das nächste Ziel aus offenen Planportalen und vorgemerkten Blocker-Portalen
+  dynamisch anhand des offiziellen IITC-User-Location-Plugins bestimmen oder
+  auf die manuelle Reihenfolge zurückfallen; bei gültigem Standort die
+  aktuelle Luftlinienentfernung und eine geschätzte Reststrecke anzeigen.
 - Die Portalliste optional einmalig als Luftlinien-Näherungsroute ab dem
   aktuellen IITC-Standort sortieren.
 - Waze-, Intel-, Google-Maps-, Apple-Maps- und Geo-Navigation sowie Teilen
@@ -58,10 +61,11 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 2. Den relevanten Kartenbereich laden und **Draw Tools scannen** auswählen.
 3. Offene Endpunkte prüfen; bei Bedarf zoomen, Portale laden und erneut
    scannen beziehungsweise **Namen laden** verwenden.
-4. Einsatzcheck und Blocker-Details kontrollieren und einzelne Kreuzungen mit
-   **zeigen** auf der Karte lokalisieren.
-5. Keys und erledigte Portale pflegen, die Route manuell oder mit
-   **Ab Standort sortieren** ordnen und zum jeweils nächsten Portal navigieren.
+4. Einsatzcheck und den kompakten Bereich **Blocker** kontrollieren; geeignete
+   Blocker-Endportale bei Bedarf für die Arbeitsroute vormerken.
+5. Automatisch hervorgehobene Planlinks, Blocklinks und Kreuzungspunkte auf der
+   Karte prüfen, Keys und erledigte Portale pflegen und zum jeweils nächsten
+   Plan- oder Blocker-Portal navigieren.
 6. Plan bei Bedarf als Text oder JSON exportieren.
 
 ## Installation

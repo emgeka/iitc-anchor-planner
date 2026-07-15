@@ -39,7 +39,7 @@ unterscheidbar.
 **Erwartung:** Das letzte Portal ist erreichbar; Waze und Teilen funktionieren;
 Dialog, Layer und Badges kollidieren nicht mit der mobilen Statusleiste.
 
-## 6. Blocker-Details und Kartenfokus
+## 6. Blocker-Arbeitsliste und Kartenhervorhebung
 
 **Aufbau:** Ein nicht vorhandener Planlink wird von mindestens einem aktuell
 geladenen Intel-Link echt gekreuzt. Die beteiligten Portale einmal ohne und
@@ -47,14 +47,18 @@ einmal mit geladenen Portaldetails prüfen.
 
 **Erwartung:**
 
-- Die Blocker-Details nennen Planlink und konkrete Blocklinks.
+- Der Blockerbereich nennt die Zahl eindeutiger Blocklinks und Endportale.
+- Endportale mit den meisten eindeutigen Blocklinks stehen zuerst; bei
+  Gleichstand greifen Planportal-Status, Standortentfernung und Portalname.
 - Ohne geladene Namen erscheinen Koordinaten und keine technischen GUIDs.
 - Nach Hineinzoomen und Laden der IITC-Kartendaten erscheinen verfügbare
   Portalnamen bereits erkannter Blocker automatisch, ohne erneuten Scan.
-- Geöffnete Blocker-Details bleiben bei dieser Aktualisierung geöffnet.
-- **zeigen** hebt Planlink, Blocklink und Kreuzungspunkt hervor und bewegt die
-  Karte dorthin.
-- Ein neuer Scan entfernt die temporäre Hervorhebung.
+- Der geöffnete Blockerbereich bleibt bei dieser Aktualisierung geöffnet.
+- Alle erkannten betroffenen Planlinks erscheinen pink gestrichelt, eindeutige
+  Blocklinks türkis und berechnete Kreuzungspunkte gelb, ohne dass zuvor ein
+  Portal oder eine Detailaktion ausgewählt werden muss.
+- Ein Blocklink, der mehrere Planlinks kreuzt, wird nur einmal gezeichnet; die
+  einzelnen Kreuzungspunkte bleiben sichtbar.
 
 ## 7. Text- und JSON-Export mit Blockern
 
@@ -81,21 +85,28 @@ variieren.
   jeweiligen Portalstatus.
 - Die Filter ändern nur die sichtbare Liste, nicht Plan oder Reihenfolge.
 
-## 9. Dynamisches nächstes Portal ab IITC-Standort
+## 9. Gemeinsame Arbeitsroute ab IITC-Standort
 
-**Aufbau:** Plan mit mindestens drei offenen Portalen und aktiviertem
-IITC-User-Location-Plugin. Standort beziehungsweise Kartenausschnitt so ändern,
-dass ein anderes Portal geografisch am nächsten liegt; danach das Zielportal
-als erledigt markieren.
+**Aufbau:** Plan mit mindestens drei offenen Portalen, mehreren Blocklinks und
+aktiviertem IITC-User-Location-Plugin. Mindestens ein zusätzliches
+Blocker-Endportal vormerken. Standort so ändern, dass nacheinander ein Plan-
+und ein Blocker-Portal geografisch am nächsten liegt; danach ein Planportal als
+erledigt markieren.
 
 **Erwartung:**
 
-- Das Panel zeigt **Nächstes Portal ab Standort** und das geografisch nächste
-  offene Portal einschließlich gerundeter Luftlinienentfernung.
+- Das Panel unterscheidet **Nächstes Planportal ab Standort** und **Nächstes
+  Blocker-Portal ab Standort** und zeigt die gerundete Luftlinienentfernung.
+- Offene Planportale und vorgemerkte Blocker-Portale erscheinen jeweils nur
+  einmal in der Arbeitsroute; ein bereits offenes Planportal benötigt keine
+  zusätzliche Vormerkung.
+- Zielanzahl und geschätzte Reststrecke reagieren unmittelbar auf Vormerkung,
+  Erledigt-Status und Standortänderung.
 - Eine neue IITC-Position aktualisiert Entfernung und gegebenenfalls das Ziel,
   ohne die nummerierte Liste umzuschreiben. Die Entfernung muss sich auch bei
   unverändertem Zielportal anpassen.
-- Ein erledigtes Portal wird sofort übersprungen.
+- Ein erledigtes Planportal wird sofort übersprungen, kann aber bei Bedarf als
+  Blocker-Ziel ausdrücklich erneut vorgemerkt werden.
 - Desktop und Mobil zeigen dasselbe fachliche Verhalten.
 
 ## 10. Standort-Fallback und Routensortierung
@@ -105,11 +116,13 @@ aktivieren und **Ab Standort sortieren** auswählen.
 
 **Erwartung:**
 
-- Ohne Standort gilt das erste offene Portal der manuellen Reihenfolge als
-  nächstes Ziel; die Sortieraktion weist verständlich auf den fehlenden
-  Standort hin und die Zielzeile zeigt keine Entfernung.
+- Ohne Standort gilt zunächst das erste offene Planportal der manuellen
+  Reihenfolge als nächstes Ziel; vorgemerkte zusätzliche Blocker-Portale folgen
+  danach. Die Sortieraktion weist verständlich auf den fehlenden Standort hin,
+  und Zielzeile sowie Reststrecke zeigen keine Entfernung.
 - Mit Standort wird die Liste einmalig als Luftlinien-Näherungsroute sortiert;
-  erledigte Portale stehen hinten.
+  diese gespeicherte Sortierung betrifft weiterhin nur die Planportalliste,
+  während die dynamische Arbeitsroute zusätzliche Blocker-Ziele einbezieht.
 - Manuelle Pfeiltasten bleiben anschließend wirksam.
 - Ein initialer oder ungültiger Standort `0/0` wird nicht verwendet.
 

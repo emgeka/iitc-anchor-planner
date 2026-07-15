@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.43
+# Bekannte Grenzen in 0.1.44
 
 ## Portalzuordnung und Namen
 
@@ -8,7 +8,7 @@
 - Eine Kandidatenliste und ein offener Endpunkt sind einer stillen falschen
   Zuordnung vorzuziehen.
 - Portalnamen sind erst verfügbar, nachdem IITC die Portale beziehungsweise
-  deren Details geladen hat. Bis dahin werden in Blocker-Details Koordinaten
+  deren Details geladen hat. Bis dahin werden im Blockerbereich Koordinaten
   statt technischer GUIDs angezeigt.
 - Nach dem Hineinzoomen werden neu verfügbare Namen bereits erkannter Blocker
   automatisch aktualisiert. Neu geladene Blocklinks selbst erfordern weiterhin
@@ -20,26 +20,32 @@
   aktuell in IITC geladenen `window.links` aus.
 - „Nicht bestätigt“ bedeutet daher nicht sicher „nicht vorhanden“; ebenso ist
   ein nicht gefundener Blocker keine vollständige Entwarnung.
-- Blocker-Details und Exporte dokumentieren diese begrenzte Datenabdeckung.
-- Der Kartenfokus verwendet einen geometrisch berechneten Kreuzungspunkt. Kann
-  dieser nicht bestimmt werden, bleibt die Karte unverändert und das Panel
-  meldet den Fehler.
+- Blockerbereich und Exporte dokumentieren diese begrenzte Datenabdeckung.
+- Automatisch hervorgehobene Blocklinks bleiben die Momentaufnahme des letzten
+  Scans. Nach dem Laden weiterer IITC-Links ist ein erneuter Scan erforderlich.
+- Jeder Blocklink besitzt zwei gleichwertige Endportale. Die Arbeitsliste kann
+  deshalb nur nach der Zahl betroffener Blocklinks priorisieren; welches Portal
+  praktisch zum Beseitigen eines Links geeignet ist, entscheidet der Nutzer.
 
 ## Standort und Route
 
-- Die dynamische Zielwahl funktioniert nur mit dem offiziellen
-  IITC-User-Location-Plugin und einem von diesem gelieferten gültigen Standort.
+- Die dynamische Zielwahl für Plan- und vorgemerkte Blocker-Portale
+  funktioniert nur mit dem offiziellen IITC-User-Location-Plugin und einem von
+  diesem gelieferten gültigen Standort.
 - Ohne Standort bleibt die gespeicherte manuelle Reihenfolge maßgeblich.
 - Der Anchor Planner erhält keine unabhängige Aussage zur GPS-Genauigkeit. Das
   geografisch nächste Portal kann bei ungenauer IITC-Position falsch sein.
-- Die angezeigte Entfernung ist eine gerundete Luftlinie vom zuletzt durch
-  IITC bestätigten Standort und keine Straßen-, Geh- oder Fahrstrecke.
+- Zielentfernung und geschätzte Reststrecke sind Luftlinien-Näherungen und keine
+  Straßen-, Geh- oder Fahrstrecken.
 - **Ab Standort sortieren** ist eine Luftlinien-Näherung und keine
   straßenbasierte Routenoptimierung. Spätere Standortänderungen sortieren die
   sichtbare Liste nicht automatisch neu, beeinflussen aber das dynamische
   nächste Portal.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
+- Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
+  zur Blocker-Arbeitsliste des aktuellen Scans gehören. Dadurch erzeugen alte
+  Vormerkungen keine unsichtbaren Routenziele.
 
 ## Diagnose und Zähler
 

@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.43
+# Anforderungen für Version 0.1.44
 
 ## Planerfassung und Portalauflösung
 
@@ -23,8 +23,10 @@
   erkennen; gemeinsame Endpunkte dürfen nicht als Kreuzung gelten.
 - Konkrete Blocklinks mit geladenen Portalnamen oder defensiv mit Koordinaten
   anzeigen. Technische GUIDs dürfen nicht als Portalnamen erscheinen.
-- Bereits erkannte Blocker-Details nach neu geladenen IITC-Kartendaten
+- Bereits erkannte Blocker-Daten nach neu geladenen IITC-Kartendaten
   automatisch mit verfügbaren Portalnamen aktualisieren.
+- Die Endportale erkannter Blocklinks nach der Zahl eindeutiger Blocklinks
+  priorisieren; beide Endpunkte bleiben gleichwertige mögliche Arbeitsziele.
 - Darauf hinweisen, dass die Blockerprüfung nur aktuell in IITC geladene Links
   umfasst.
 
@@ -34,12 +36,19 @@
   Routenreihenfolge je Planportal dauerhaft speichern.
 - Die Portalliste nach **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
   **Erledigt** filtern; Zähler müssen Portale und nicht Linkendpunkte zählen.
-- Das nächste offene Portal hervorheben und erledigte Portale überspringen.
+- Offene Planportale und ausdrücklich vorgemerkte Blocker-Endportale zu einer
+  gemeinsamen Arbeitsroute ohne doppelte Portalbesuche zusammenführen.
+- Offene Planportale automatisch berücksichtigen; erledigte Planportale dürfen
+  bei Bedarf erneut als Blocker-Ziel vorgemerkt werden.
+- Das nächste offene Arbeitsziel hervorheben und erledigte Planportale
+  überspringen.
 - Bei gültigem Standort des offiziellen IITC-User-Location-Plugins das
-  geografisch nächste offene Portal dynamisch bestimmen.
+  geografisch nächste offene Plan- oder Blocker-Portal dynamisch bestimmen.
 - Die Luftlinienentfernung vom gültigen IITC-Standort zum nächsten Portal
   anzeigen und auch dann aktualisieren, wenn dasselbe Portal nächstes Ziel
   bleibt.
+- Eine ungefähre verbleibende Luftlinienroute und die Zahl noch offener Ziele
+  ab dem gültigen IITC-Standort anzeigen.
 - Ohne gültigen IITC-Standort auf das erste offene Portal der gespeicherten
   Routenreihenfolge zurückfallen und keine Entfernung vortäuschen.
 - Eine optionale, einmalige Luftlinien-Näherungsroute ab dem aktuellen
@@ -50,8 +59,11 @@
 
 - Alle erkannten Planportale und blockierten Planlinks in einem gemeinsamen
   schaltbaren Layer darstellen.
-- Einen ausgewählten Planlink, Blocklink und berechneten Kreuzungspunkt
-  temporär hervorheben und die Karte dorthin bewegen.
+- Sämtliche beim letzten Scan erkannten betroffenen Planlinks, konkreten
+  Blocklinks und berechneten Kreuzungspunkte automatisch und eindeutig
+  unterscheidbar oberhalb der normalen IITC-Linkebene hervorheben.
+- Vorgemerkte zusätzliche Blocker-Portale und das jeweils nächste Arbeitsziel
+  auf der Karte markieren.
 - Waze-Navigation und weitere geeignete Kartenlinks bereitstellen; externe
   Navigation auf Mobilgeräten nutzbar halten.
 - Plan als lesbaren Text und als JSON exportieren.
@@ -64,15 +76,15 @@
 - Das letzte Listenelement muss mobil vollständig erreichbar bleiben.
 - Panel, Dialoge, Overlays und Statusmarker dürfen IITC-Bedienelemente und
   Bookmark-Marker nicht unbrauchbar überdecken.
-- Blocker-Details, Filter, Sortierung und Aktionen müssen per Maus und Touch
-  bedienbar sein.
+- Blocker-Arbeitsliste, Filter, Sortierung und Aktionen müssen per Maus und
+  Touch bedienbar sein.
 - Diagnosebegriffe und Fortschrittszähler müssen exakt ausdrücken, was gezählt
   beziehungsweise nur anhand geladener Daten bestätigt wurde.
 - Ein kompakter, aufklappbarer Einsatzcheck muss offene Endpunkte, blockierte
   Planlinks, fehlende Keys, fehlende Namen und nicht auswertbare vorhandene
   Links unterscheiden. „Bereit“ darf nur auf den geladenen Kartenstand bezogen
   sein.
-- Geöffnete Blocker-Details und der Einsatzcheck müssen bei einer
+- Der geöffnete Blockerbereich und der Einsatzcheck müssen bei einer
   Kartenaktualisierung geöffnet bleiben.
 
 ## Veröffentlichung und Updates

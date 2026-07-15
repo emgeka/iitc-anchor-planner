@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.43
+# Architekturübersicht 0.1.44
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -12,6 +12,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 
 - Scan-Toleranz und letzter Scanbericht,
 - eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
+- vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
 - Panelzustand und aktiver Listenfilter.
 
 ### Laufzeit-Zustand
@@ -21,7 +22,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - berechnete Portalstatistiken und Planlinks,
 - aktuell geladene vorhandene Links und Blocker,
 - ungelöste Endpunkte und Diagnosekandidaten,
-- Layer, HTML-Statusmarker und ausgewählten Blocker,
+- Layer, automatische Blocker-Geometrien und HTML-Statusmarker,
 - verzögerten Panel-Refresh nach IITC-Kartendatenänderungen,
 - zuletzt vom IITC-User-Location-Plugin gemeldeten Standort sowie das
   dynamische nächste Ziel.
@@ -50,8 +51,8 @@ keinem Export.
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
-| Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getNextPortal`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
-| Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `focusBlocker`, `showPortalActions` |
+| Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
+| Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
 
 ## Datenfluss eines Scans
@@ -77,31 +78,42 @@ keinem Export.
 wenn das offizielle IITC-Plugin mit `getUser()` verfügbar ist. Ungültige Werte
 und dessen initiale Position `0/0` werden ignoriert.
 
-`getNextPortal` ermittelt bei jedem relevanten Standort- oder Statuswechsel das
-nächste offene Portal nach Luftlinie. Diese dynamische Auswahl verändert die
-gespeicherte Listenreihenfolge nicht. Erst **Ab Standort sortieren** schreibt
-eine einmalig per Nearest-Neighbor-Heuristik berechnete Reihenfolge; erledigte
-Portale werden dabei hinten angehängt.
+`getBlockerWorklist` verdichtet beide Endpunkte der beim letzten Scan erkannten
+Blocklinks zu eindeutigen Portalzielen und sortiert sie primär nach der Zahl
+eindeutiger Blocklinks. Offene Planportale sind automatisch Arbeitsziele;
+weitere Blocker-Endportale werden nur nach ausdrücklicher Vormerkung ergänzt.
+`getRouteTasks` führt beide Mengen anhand der Portal-GUID ohne Duplikate
+zusammen.
+
+`getNextRouteTarget` ermittelt bei jedem relevanten Standort- oder
+Statuswechsel das nächste offene Plan- oder Blocker-Portal nach Luftlinie.
+Diese dynamische Auswahl verändert die gespeicherte Planportalreihenfolge
+nicht. Erst **Ab Standort sortieren** schreibt eine einmalig per
+Nearest-Neighbor-Heuristik berechnete Reihenfolge der Planportale; erledigte
+Planportale werden dabei hinten angehängt.
 
 `distanceToPortal` verwendet dieselbe gültige IITC-Position für die
-Luftlinienentfernung zum nächsten Ziel. `formatDistance` rundet unter einem
-Kilometer auf 10 Meter und darüber auf 0,1 Kilometer. Die gerundete Entfernung
-gehört zum Laufzeitschlüssel der Zielzeile, sodass sie sich auch bei
-unverändertem Zielportal aktualisiert. Ohne gültigen Standort wird keine
-Entfernung angezeigt.
+Luftlinienentfernung zum nächsten Ziel. `getRouteEstimate` berechnet ab diesem
+Standort eine Nearest-Neighbor-Näherung durch alle aktuellen Arbeitsziele.
+`formatDistance` rundet unter einem Kilometer auf 10 Meter und darüber auf 0,1
+Kilometer. Zielentfernung und Reststrecke gehören zum Laufzeitschlüssel der
+Zielzeile, sodass sie sich auch bei unverändertem Zielportal aktualisieren.
+Ohne gültigen Standort wird keine Entfernung angezeigt.
 
 ## Karten- und Blockerdarstellung
 
-Blockierte Planlinks werden rot gestrichelt gezeichnet. Bei **zeigen** speichert
-`focusBlocker` die Auswahl nur zur Laufzeit, hebt Planlink und Blocklink farblich
-hervor, markiert den berechneten Kreuzungspunkt und bewegt die Karte dorthin.
-Ein neuer Scan verwirft diese temporäre Auswahl.
+`renderOverlays` zeichnet alle beim letzten Scan erkannten betroffenen
+Planlinks pink gestrichelt, eindeutige Blocklinks türkis und berechnete
+Kreuzungspunkte gelb. Eine eigene nicht interaktive Leaflet-Ebene mit höherem
+Z-Index hält diese Geometrien oberhalb der normalen IITC-Links, aber unterhalb
+der Portalmarker. Vorgemerkte zusätzliche Blocker-Portale erhalten Kartenringe;
+das nächste Arbeitsziel wird stärker markiert.
 
 Nach `mapDataRefreshEnd` rendert `scheduleMapDataPanelRefresh` das Panel
 verzögert neu. Ein Kartenereignis-Fallback deckt IITC-Varianten ohne
 zuverlässigen Hook ab. Dadurch erscheinen neu verfügbare Namen bereits
 erkannter Blocker automatisch; die Blockergeometrie bleibt weiterhin die
-Momentaufnahme des letzten Scans. Geöffnete Blocker-Details und der
+Momentaufnahme des letzten Scans. Der geöffnete Blockerbereich und der
 Einsatzcheck werden beim Rendern beibehalten.
 
 `getReadiness` fasst offene Endpunkte, blockierte Planlinks und fehlende Keys
