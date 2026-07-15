@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.42
+# Architekturübersicht 0.1.43
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -50,7 +50,7 @@ keinem Export.
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
-| Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getNextPortal`, `sortRouteFromUserLocation` |
+| Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getNextPortal`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
 | Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `focusBlocker`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
 
@@ -82,6 +82,13 @@ nächste offene Portal nach Luftlinie. Diese dynamische Auswahl verändert die
 gespeicherte Listenreihenfolge nicht. Erst **Ab Standort sortieren** schreibt
 eine einmalig per Nearest-Neighbor-Heuristik berechnete Reihenfolge; erledigte
 Portale werden dabei hinten angehängt.
+
+`distanceToPortal` verwendet dieselbe gültige IITC-Position für die
+Luftlinienentfernung zum nächsten Ziel. `formatDistance` rundet unter einem
+Kilometer auf 10 Meter und darüber auf 0,1 Kilometer. Die gerundete Entfernung
+gehört zum Laufzeitschlüssel der Zielzeile, sodass sie sich auch bei
+unverändertem Zielportal aktualisiert. Ohne gültigen Standort wird keine
+Entfernung angezeigt.
 
 ## Karten- und Blockerdarstellung
 

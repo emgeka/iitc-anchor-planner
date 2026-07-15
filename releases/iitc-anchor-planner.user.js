@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.42
+// @version        0.1.43
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -23,13 +23,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260715110500';
+  plugin_info.dateTimeVersion = '20260715121015';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.42';
+  ap.VERSION = '0.1.43';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -1020,13 +1020,13 @@ function wrapper(plugin_info) {
     ap.renderPanel();
   };
 
-  ap.getNextPortal = function () {
+  ap.getNextPortal = function (location) {
     var open = ap.sortedStats(false).filter(function (stat) {
       return !ap.ensureAnchorState(stat.guid).done;
     });
     if (!open.length) return null;
 
-    var location = ap.getCurrentUserLocation();
+    if (!arguments.length) location = ap.getCurrentUserLocation();
     if (!location || !location.latlng) return open[0];
     var nearest = open[0];
     var nearestDistance = Infinity;
@@ -1043,10 +1043,30 @@ function wrapper(plugin_info) {
     return nearest;
   };
 
+  ap.distanceToPortal = function (location, portal) {
+    if (!location || !location.latlng || !portal) return null;
+    try {
+      var point = L.latLng(Number(portal.lat), Number(portal.lng));
+      var distance = location.latlng.distanceTo(point);
+      return isFinite(distance) && distance >= 0 ? distance : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  ap.formatDistance = function (distance) {
+    if (distance == null || !isFinite(Number(distance)) || Number(distance) < 0) return '';
+    distance = Number(distance);
+    if (distance < 1000) return (Math.round(distance / 10) * 10) + ' m';
+    return (distance / 1000).toFixed(1).replace('.', ',') + ' km';
+  };
+
   ap.updateNextTarget = function () {
-    var nextPortal = ap.getNextPortal();
-    var usesLocation = !!ap.getCurrentUserLocation();
-    var key = (usesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid : 'complete');
+    var location = ap.getCurrentUserLocation();
+    var nextPortal = ap.getNextPortal(location);
+    var usesLocation = !!location;
+    var distanceLabel = usesLocation && nextPortal ? ap.formatDistance(ap.distanceToPortal(location, nextPortal)) : '';
+    var key = (usesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid : 'complete') + ':' + distanceLabel;
     var changed = key !== ap.runtime.nextTargetKey;
     ap.runtime.nextTargetKey = key;
     if (!changed) return;
@@ -1056,7 +1076,7 @@ function wrapper(plugin_info) {
       if (nextPortal) {
         var nav = ap.navigationLinks(nextPortal);
         el.className = 'ap-next-target';
-        el.innerHTML = '<span><b>' + (usesLocation ? 'Nächstes Portal ab Standort:' : 'Nächstes Portal:') + '</b> ' + ap.escapeHtml(nextPortal.title) + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
+        el.innerHTML = '<span><b>' + (usesLocation ? 'Nächstes Portal ab Standort:' : 'Nächstes Portal:') + '</b> ' + ap.escapeHtml(nextPortal.title) + (distanceLabel ? ' <span class="ap-next-distance" title="Luftlinienentfernung vom IITC-Standort">· ' + ap.escapeHtml(distanceLabel) + ' Luftlinie</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
       } else {
         el.className = 'ap-next-target ap-next-complete';
         el.innerHTML = 'Alle Planportale erledigt.';
@@ -1969,12 +1989,14 @@ function wrapper(plugin_info) {
       html += '<div class="ap-blocker-hint">Geprüft wurden nur die aktuell in IITC geladenen vorhandenen Links.</div></details>';
     }
 
-    var nextPortal = ap.getNextPortal();
-    var nextUsesLocation = !!ap.getCurrentUserLocation();
-    ap.runtime.nextTargetKey = (nextUsesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid : 'complete');
+    var nextLocation = ap.getCurrentUserLocation();
+    var nextPortal = ap.getNextPortal(nextLocation);
+    var nextUsesLocation = !!nextLocation;
+    var nextDistanceLabel = nextUsesLocation && nextPortal ? ap.formatDistance(ap.distanceToPortal(nextLocation, nextPortal)) : '';
+    ap.runtime.nextTargetKey = (nextUsesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid : 'complete') + ':' + nextDistanceLabel;
     if (nextPortal) {
       var nextNav = ap.navigationLinks(nextPortal);
-      html += '<div id="ap-next-target" class="ap-next-target"><span><b>' + (nextUsesLocation ? 'Nächstes Portal ab Standort:' : 'Nächstes Portal:') + '</b> ' + ap.escapeHtml(nextPortal.title) + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nextNav.waze) + '">Waze</a></div>';
+      html += '<div id="ap-next-target" class="ap-next-target"><span><b>' + (nextUsesLocation ? 'Nächstes Portal ab Standort:' : 'Nächstes Portal:') + '</b> ' + ap.escapeHtml(nextPortal.title) + (nextDistanceLabel ? ' <span class="ap-next-distance" title="Luftlinienentfernung vom IITC-Standort">· ' + ap.escapeHtml(nextDistanceLabel) + ' Luftlinie</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nextNav.waze) + '">Waze</a></div>';
     } else if (stats.length) {
       html += '<div id="ap-next-target" class="ap-next-target ap-next-complete">Alle Planportale erledigt.</div>';
     }
@@ -2054,7 +2076,7 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-row{padding:6px 8px;border-bottom:1px solid #333;background:rgba(255,255,255,.02)}#iitc-anchor-planner .ap-row.ap-candidate{background:rgba(255,255,255,.055)}\
 #iitc-anchor-planner .ap-row-title{font-size:13px}.ap-address{color:#bbb;margin:2px 0}.ap-meta{margin:4px 0;color:#ddd}.ap-controls{margin:3px 0}.ap-controls a{color:#f0d16b;text-decoration:none;margin-right:5px}.ap-note{width:98%;box-sizing:border-box;margin-top:3px}\
 .ap-blocked{color:#ff3b30}.ap-status{display:inline-block;min-width:18px;text-align:center;font-weight:bold}.ap-badge-icon{background:transparent!important;border:none!important}.ap-svg-badge-icon{display:block!important;visibility:visible!important;opacity:1!important;background:transparent!important;border:0!important}.ap-badge{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:15px;border:2px solid #eee;background:rgba(0,0,0,.75);box-shadow:0 0 4px #000;color:#fff}\
-.ap-missing{color:#ff9f43}.ap-partial{color:#f5d76e}.ap-ready{color:#ff6ad5}.ap-existing{color:#bdbdbd}.ap-done{color:#eee}.ap-badge.ap-missing{border-color:#ff9f43}.ap-badge.ap-partial{border-color:#f5d76e}.ap-badge.ap-ready{border-color:#ff6ad5}.ap-badge.ap-existing{border-color:#bdbdbd}.ap-badge.ap-done{border-color:#eee}.ap-next-target{display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid #444;background:#1c2530;color:#fff}.ap-next-target span{flex:1}.ap-next-target a{padding:4px 7px;background:#333;color:#f0d16b;border:1px solid #777;border-radius:3px;text-decoration:none}.ap-next-complete{color:#ddd}.ap-route-number{display:inline-block;min-width:22px;color:#aaa}.ap-map-badge-next{box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.95),0 0 12px rgba(255,255,255,.9)!important}.ap-move-up,.ap-move-down{min-width:28px}\
+.ap-missing{color:#ff9f43}.ap-partial{color:#f5d76e}.ap-ready{color:#ff6ad5}.ap-existing{color:#bdbdbd}.ap-done{color:#eee}.ap-badge.ap-missing{border-color:#ff9f43}.ap-badge.ap-partial{border-color:#f5d76e}.ap-badge.ap-ready{border-color:#ff6ad5}.ap-badge.ap-existing{border-color:#bdbdbd}.ap-badge.ap-done{border-color:#eee}.ap-next-target{display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid #444;background:#1c2530;color:#fff}.ap-next-target span{flex:1}.ap-next-target .ap-next-distance{color:#9fd0ff;white-space:nowrap}.ap-next-target a{padding:4px 7px;background:#333;color:#f0d16b;border:1px solid #777;border-radius:3px;text-decoration:none}.ap-next-complete{color:#ddd}.ap-route-number{display:inline-block;min-width:22px;color:#aaa}.ap-map-badge-next{box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.95),0 0 12px rgba(255,255,255,.9)!important}.ap-move-up,.ap-move-down{min-width:28px}\
 .ap-action-label{margin-top:10px;font-weight:bold;color:#ddd}.ap-share-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}.ap-share-grid-single{grid-template-columns:1fr}.ap-share-grid a,.ap-share-grid button{display:block;padding:6px;background:#222;color:#f0d16b;border:1px solid #666;border-radius:4px;text-align:center;text-decoration:none}.ap-share-grid .ap-share-main{color:#fff;font-weight:bold;border-color:#aaa}\
 .ap-export-tabs{display:flex;gap:6px;margin-bottom:8px}.ap-export-tab{padding:6px 10px!important}.ap-export-tab-active{background:#555!important;color:#fff!important}.ap-export-text,.ap-export-json{width:100%;height:320px;box-sizing:border-box;font-family:monospace;font-size:12px;background:#111;color:#eee;border:1px solid #666}.ap-export-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.ap-export-actions button{padding:6px 10px;background:#222;color:#f0d16b;border:1px solid #666;border-radius:4px}\
 .ap-map-html-overlay{position:absolute!important;left:0!important;top:0!important;right:0!important;bottom:0!important;z-index:2500!important;pointer-events:none!important;overflow:visible!important}.ap-map-badge{position:absolute!important;transform:translate(-50%,-50%)!important;min-width:24px!important;height:24px!important;padding:0 3px!important;border-radius:13px!important;border:3px solid #ff9f43!important;background:rgba(0,0,0,.88)!important;color:#fff!important;font:bold 10px/24px Arial,sans-serif!important;text-align:center!important;white-space:nowrap!important;box-sizing:border-box!important;text-shadow:0 1px 2px #000!important;z-index:2501!important}.ap-map-badge-done{font-size:9px!important}.ap-map-badge-ready{font-size:14px!important}.ap-map-badge-partial{font-size:13px!important}\

@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.42
+# Anforderungen für Version 0.1.43
 
 ## Planerfassung und Portalauflösung
 
@@ -37,8 +37,11 @@
 - Das nächste offene Portal hervorheben und erledigte Portale überspringen.
 - Bei gültigem Standort des offiziellen IITC-User-Location-Plugins das
   geografisch nächste offene Portal dynamisch bestimmen.
+- Die Luftlinienentfernung vom gültigen IITC-Standort zum nächsten Portal
+  anzeigen und auch dann aktualisieren, wenn dasselbe Portal nächstes Ziel
+  bleibt.
 - Ohne gültigen IITC-Standort auf das erste offene Portal der gespeicherten
-  Routenreihenfolge zurückfallen.
+  Routenreihenfolge zurückfallen und keine Entfernung vortäuschen.
 - Eine optionale, einmalige Luftlinien-Näherungsroute ab dem aktuellen
   Standort anbieten; manuelle Verschiebung muss weiter möglich bleiben.
 - Standortdaten weder in `localStorage` speichern noch exportieren.
