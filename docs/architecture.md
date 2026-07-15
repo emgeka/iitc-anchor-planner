@@ -113,6 +113,14 @@ Der Katalogeintrag ergänzt die Laufzeit-Metadaten um die Abhängigkeit
 `draw-tools@breunigs`, die Empfehlung `bookmarks@ZasoGD` und die Anti-Features
 `scraper|export`. Diese Angaben verändern den Plugin-Code nicht.
 
+Die Einstufung `scraper` bezieht sich technisch auf `refreshMissingNames` und
+`requestPortalDetails`: Fehlende Namen der im Scan erkannten Planportale werden
+nacheinander über `window.portalDetail.request` beziehungsweise den defensiven
+IITC-Fallback `window.requestPortalDetail` angefragt. Die Abfragen bleiben auf
+den aktuellen Plan begrenzt und laufen nicht unabhängig im Hintergrund. Es
+werden keine externen Scraping-Dienste angesprochen. Die Einstufung `highLoad`
+ist daher für den aktuellen Ablauf nicht gesetzt.
+
 ## Technische Grenzen
 
 - Räumliche Nähe allein beweist keine Portalidentität.
