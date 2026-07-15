@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.41**
+- Aktuelle Version: **0.1.42**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.41>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.42>
 
 ## Funktionen
 
@@ -24,6 +24,10 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
   Portal berechnen.
 - Kreuzende, aktuell in IITC geladene Links als Blocker erkennen, mit
   Portalnamen oder Koordinaten auflisten und auf der Karte hervorheben.
+- Einen kompakten Einsatzcheck aus offenen Endpunkten, Blockern, fehlenden
+  Keys, fehlenden Namen und der begrenzten Linkabdeckung anzeigen.
+- Namen bereits erkannter Blocker nach neu geladenen IITC-Kartendaten
+  automatisch aktualisieren, ohne geöffnete Detailbereiche zu schließen.
 - Portale nach offen, blockiert, fehlenden Keys und erledigt filtern sowie
   Keys, Reihenfolge und Erledigt-Status verwalten.
 - Das nächste offene Portal dynamisch anhand des offiziellen IITC-
@@ -53,8 +57,8 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 2. Den relevanten Kartenbereich laden und **Draw Tools scannen** auswählen.
 3. Offene Endpunkte prüfen; bei Bedarf zoomen, Portale laden und erneut
    scannen beziehungsweise **Namen laden** verwenden.
-4. Blocker-Details kontrollieren und einzelne Kreuzungen mit **zeigen** auf der
-   Karte lokalisieren.
+4. Einsatzcheck und Blocker-Details kontrollieren und einzelne Kreuzungen mit
+   **zeigen** auf der Karte lokalisieren.
 5. Keys und erledigte Portale pflegen, die Route manuell oder mit
    **Ab Standort sortieren** ordnen und zum jeweils nächsten Portal navigieren.
 6. Plan bei Bedarf als Text oder JSON exportieren.

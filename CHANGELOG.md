@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.42
+
+- Kompakten, aufklappbaren Einsatzcheck für offene Endpunkte, Blocker,
+  fehlende Keys, fehlende Namen und begrenzte Linkabdeckung ergänzt.
+- Bereits erkannte Blocker-Details aktualisieren verfügbare Portalnamen nach
+  neu geladenen IITC-Kartendaten automatisch.
+- Geöffnete Blocker-Details und der Einsatzcheck bleiben bei einer
+  Panelaktualisierung geöffnet; Desktop und Mobil wurden praktisch geprüft.
+
 ## 0.1.41
 
 - Stabile Update- und Downloadadresse für die Aufnahme in den IITC Community

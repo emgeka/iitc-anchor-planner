@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.41
+# Anforderungen für Version 0.1.42
 
 ## Planerfassung und Portalauflösung
 
@@ -23,6 +23,8 @@
   erkennen; gemeinsame Endpunkte dürfen nicht als Kreuzung gelten.
 - Konkrete Blocklinks mit geladenen Portalnamen oder defensiv mit Koordinaten
   anzeigen. Technische GUIDs dürfen nicht als Portalnamen erscheinen.
+- Bereits erkannte Blocker-Details nach neu geladenen IITC-Kartendaten
+  automatisch mit verfügbaren Portalnamen aktualisieren.
 - Darauf hinweisen, dass die Blockerprüfung nur aktuell in IITC geladene Links
   umfasst.
 
@@ -63,6 +65,12 @@
   bedienbar sein.
 - Diagnosebegriffe und Fortschrittszähler müssen exakt ausdrücken, was gezählt
   beziehungsweise nur anhand geladener Daten bestätigt wurde.
+- Ein kompakter, aufklappbarer Einsatzcheck muss offene Endpunkte, blockierte
+  Planlinks, fehlende Keys, fehlende Namen und nicht auswertbare vorhandene
+  Links unterscheiden. „Bereit“ darf nur auf den geladenen Kartenstand bezogen
+  sein.
+- Geöffnete Blocker-Details und der Einsatzcheck müssen bei einer
+  Kartenaktualisierung geöffnet bleiben.
 
 ## Veröffentlichung und Updates
 
