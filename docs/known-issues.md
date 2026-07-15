@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.42
+# Bekannte Grenzen in 0.1.43
 
 ## Portalzuordnung und Namen
 
@@ -32,6 +32,8 @@
 - Ohne Standort bleibt die gespeicherte manuelle Reihenfolge maßgeblich.
 - Der Anchor Planner erhält keine unabhängige Aussage zur GPS-Genauigkeit. Das
   geografisch nächste Portal kann bei ungenauer IITC-Position falsch sein.
+- Die angezeigte Entfernung ist eine gerundete Luftlinie vom zuletzt durch
+  IITC bestätigten Standort und keine Straßen-, Geh- oder Fahrstrecke.
 - **Ab Standort sortieren** ist eine Luftlinien-Näherung und keine
   straßenbasierte Routenoptimierung. Spätere Standortänderungen sortieren die
   sichtbare Liste nicht automatisch neu, beeinflussen aber das dynamische

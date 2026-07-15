@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.43
+
+- Die Zielzeile zeigt bei gültigem IITC-Standort die gerundete
+  Luftlinienentfernung zum nächsten offenen Portal.
+- Die Entfernung aktualisiert sich bei Standortänderungen auch dann, wenn
+  dasselbe Portal nächstes Ziel bleibt; ohne Standort bleibt sie ausgeblendet.
+- Darstellung und Zielwechsel wurden in Desktop-IITC und IITC Mobile praktisch
+  geprüft.
+
 ## 0.1.42
 
 - Kompakten, aufklappbaren Einsatzcheck für offene Endpunkte, Blocker,

@@ -91,9 +91,10 @@ als erledigt markieren.
 **Erwartung:**
 
 - Das Panel zeigt **Nächstes Portal ab Standort** und das geografisch nächste
-  offene Portal.
-- Eine neue IITC-Position aktualisiert das Ziel, ohne die nummerierte Liste
-  umzuschreiben.
+  offene Portal einschließlich gerundeter Luftlinienentfernung.
+- Eine neue IITC-Position aktualisiert Entfernung und gegebenenfalls das Ziel,
+  ohne die nummerierte Liste umzuschreiben. Die Entfernung muss sich auch bei
+  unverändertem Zielportal anpassen.
 - Ein erledigtes Portal wird sofort übersprungen.
 - Desktop und Mobil zeigen dasselbe fachliche Verhalten.
 
@@ -106,7 +107,7 @@ aktivieren und **Ab Standort sortieren** auswählen.
 
 - Ohne Standort gilt das erste offene Portal der manuellen Reihenfolge als
   nächstes Ziel; die Sortieraktion weist verständlich auf den fehlenden
-  Standort hin.
+  Standort hin und die Zielzeile zeigt keine Entfernung.
 - Mit Standort wird die Liste einmalig als Luftlinien-Näherungsroute sortiert;
   erledigte Portale stehen hinten.
 - Manuelle Pfeiltasten bleiben anschließend wirksam.

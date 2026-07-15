@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.42**
+- Aktuelle Version: **0.1.43**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.42>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.43>
 
 ## Funktionen
 
@@ -32,7 +32,8 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
   Keys, Reihenfolge und Erledigt-Status verwalten.
 - Das nächste offene Portal dynamisch anhand des offiziellen IITC-
   User-Location-Plugins bestimmen oder auf die manuelle Reihenfolge
-  zurückfallen.
+  zurückfallen; bei gültigem Standort die aktuelle Luftlinienentfernung zum
+  Ziel anzeigen.
 - Die Portalliste optional einmalig als Luftlinien-Näherungsroute ab dem
   aktuellen IITC-Standort sortieren.
 - Waze-, Intel-, Google-Maps-, Apple-Maps- und Geo-Navigation sowie Teilen
