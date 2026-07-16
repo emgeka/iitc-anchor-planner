@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.44**
+- Aktuelle Version: **0.1.45**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.44>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.45>
 
 ## Funktionen
 
@@ -29,6 +29,9 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
   geeignete Endpunkte für die gemeinsame Arbeitsroute vormerken.
 - Einen kompakten Einsatzcheck aus offenen Endpunkten, Blockern, fehlenden
   Keys, fehlenden Namen und der begrenzten Linkabdeckung anzeigen.
+- Die häufig benötigten Angaben und Aktionen in einer kompakten Hauptansicht
+  bündeln; selten benötigte Scan-, Namens-, Export-, Sortier-, Lösch- und
+  Toleranzfunktionen unter **Mehr** zusammenfassen.
 - Namen bereits erkannter Blocker nach neu geladenen IITC-Kartendaten
   automatisch aktualisieren, ohne geöffnete Detailbereiche zu schließen.
 - Portale nach offen, blockiert, fehlenden Keys und erledigt filtern sowie
@@ -58,7 +61,7 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 ## Typischer Ablauf
 
 1. Linkplan mit Draw Tools oder Auto Draw erzeugen.
-2. Den relevanten Kartenbereich laden und **Draw Tools scannen** auswählen.
+2. Den relevanten Kartenbereich laden und **Scannen** auswählen.
 3. Offene Endpunkte prüfen; bei Bedarf zoomen, Portale laden und erneut
    scannen beziehungsweise **Namen laden** verwenden.
 4. Einsatzcheck und den kompakten Bereich **Blocker** kontrollieren; geeignete

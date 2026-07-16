@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.45
+
+- Hauptansicht auf Scan, Einsatzcheck, nächstes Ziel, Filter, Blocker und
+  eingeklappte Portalzeilen verdichtet; weitere Aktionen, Toleranz und
+  Scandetails unter **Mehr** gebündelt.
+- Portalzeilen zeigen Status, Namen und Keys bereits im kompakten Kopf und
+  behalten ihren geöffneten Zustand bei Panelaktualisierungen.
+- Entfernung, Reststrecke und offene Zielzahl in einer Zielzeile
+  zusammengeführt sowie Scan- und Einsatzcheckdetails gekürzt.
+- Redundante Blockerhinweise, Fortschrittsangaben und die Listenabschlusszeile
+  entfernt; Fehlermeldungen öffnen den Bereich **Mehr** automatisch.
+- Kompakte Darstellung schrittweise in Desktop-IITC und IITC Mobile praktisch
+  geprüft.
+
 ## 0.1.44
 
 - Kompakten Blockerbereich ergänzt, der Endportale nach der Zahl eindeutiger
