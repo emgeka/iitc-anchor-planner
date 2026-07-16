@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.44
+# Architekturübersicht 0.1.45
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -29,6 +29,11 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 
 Der Nutzerstandort gehört ausdrücklich nicht zu `ap.state` und erscheint in
 keinem Export.
+
+Der geöffnete Zustand von **Mehr**, Einsatzcheck, Blockerbereich und einzelnen
+Portalzeilen wird vor einem Panel-Render aus dem vorhandenen DOM gelesen und
+für den unmittelbar folgenden Render übernommen. Diese reinen
+Darstellungszustände werden nicht dauerhaft gespeichert.
 
 ## Externe Datenquellen
 
@@ -121,6 +126,14 @@ als nicht einsatzbereit zusammen. Fehlende Namen, nicht auswertbare vorhandene
 Links oder ein fehlender Plan führen zu einem Prüfhinweis. Ein positiver Status
 lautet bewusst **Bereit (geladener Stand)**, weil IITC nur geladene Links
 bereitstellt.
+
+`renderPanel` hält die Hauptansicht kompakt: **Scannen** und **Mehr** bilden die
+primären Aktionen; weitere Aktionen, Toleranz und Scandetails tragen die Klasse
+`ap-secondary`. Portalzeilen sind aufklappbare `details`-Elemente, deren
+Kopfzeile Status, Portalname und Keybestand enthält. Zielentfernung,
+Restschätzung und Zielzahl werden gemeinsam in der nächsten Zielzeile
+ausgegeben. Fehlermeldungen öffnen **Mehr** automatisch, damit sie sichtbar
+bleiben.
 
 ## Release- und Community-Datenfluss
 

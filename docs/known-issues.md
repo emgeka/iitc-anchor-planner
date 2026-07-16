@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.44
+# Bekannte Grenzen in 0.1.45
 
 ## Portalzuordnung und Namen
 
@@ -20,7 +20,8 @@
   aktuell in IITC geladenen `window.links` aus.
 - „Nicht bestätigt“ bedeutet daher nicht sicher „nicht vorhanden“; ebenso ist
   ein nicht gefundener Blocker keine vollständige Entwarnung.
-- Blockerbereich und Exporte dokumentieren diese begrenzte Datenabdeckung.
+- Der Einsatzcheck nennt die Zahl geladener vorhandener Links; Dokumentation
+  und Exporte erläutern die begrenzte Datenabdeckung.
 - Automatisch hervorgehobene Blocklinks bleiben die Momentaufnahme des letzten
   Scans. Nach dem Laden weiterer IITC-Links ist ein erneuter Scan erforderlich.
 - Jeder Blocklink besitzt zwei gleichwertige Endportale. Die Arbeitsliste kann

@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.44
+# Anforderungen für Version 0.1.45
 
 ## Planerfassung und Portalauflösung
 
@@ -27,8 +27,8 @@
   automatisch mit verfügbaren Portalnamen aktualisieren.
 - Die Endportale erkannter Blocklinks nach der Zahl eindeutiger Blocklinks
   priorisieren; beide Endpunkte bleiben gleichwertige mögliche Arbeitsziele.
-- Darauf hinweisen, dass die Blockerprüfung nur aktuell in IITC geladene Links
-  umfasst.
+- In Dokumentation und Export darauf hinweisen, dass die Blockerprüfung nur
+  aktuell in IITC geladene Links umfasst.
 
 ## Abarbeitung und Route
 
@@ -74,6 +74,14 @@
 
 - Desktop-IITC und IITC Mobile unterstützen.
 - Das letzte Listenelement muss mobil vollständig erreichbar bleiben.
+- Die Hauptansicht auf Scan, Einsatzcheck, nächstes Ziel, Filter, Blocker und
+  die eingeklappten Portalzeilen begrenzen; selten benötigte Aktionen,
+  Toleranz und Scandetails unter **Mehr** anzeigen.
+- Portalzeilen eingeklappt mit Status, Name und Keybestand darstellen und ihre
+  Detailansicht bei einem Panel-Refresh geöffnet halten.
+- Reststrecke und offene Zielzahl platzsparend in die Zeile des nächsten Ziels
+  integrieren; redundante Fortschritts-, Hinweis- und Listenabschlusszeilen
+  vermeiden.
 - Panel, Dialoge, Overlays und Statusmarker dürfen IITC-Bedienelemente und
   Bookmark-Marker nicht unbrauchbar überdecken.
 - Blocker-Arbeitsliste, Filter, Sortierung und Aktionen müssen per Maus und

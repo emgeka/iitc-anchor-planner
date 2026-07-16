@@ -36,8 +36,9 @@ unterscheidbar.
 
 **Aufbau:** Plan mit genügend Portalen für eine längere Liste in IITC Mobile.
 
-**Erwartung:** Das letzte Portal ist erreichbar; Waze und Teilen funktionieren;
-Dialog, Layer und Badges kollidieren nicht mit der mobilen Statusleiste.
+**Erwartung:** Das letzte Portal ist ohne zusätzliche Listenabschlusszeile
+erreichbar; Waze und Teilen funktionieren; Dialog, Layer und Badges kollidieren
+nicht mit der mobilen Statusleiste.
 
 ## 6. Blocker-Arbeitsliste und Kartenhervorhebung
 
@@ -139,12 +140,32 @@ geladene Blocker verwenden.
   bereit** und erscheinen mit korrekter Anzahl in der kompakten Kopfzeile.
 - Fehlende Namen oder nicht auswertbare vorhandene Links führen zu **Prüfen**.
 - Ohne erkannte Hindernisse erscheint **Bereit (geladener Stand)**.
-- Aufgeklappt nennt der Einsatzcheck nicht bestätigte Planlinks, geladene
-  vorhandene Links und die begrenzte IITC-Datenabdeckung.
+- Aufgeklappt nennt der Einsatzcheck in einer kompakten Zeile nicht bestätigte
+  Planlinks und geladene vorhandene Links; relevante Key-Portale und nicht
+  auswertbare Links werden nur bei Bedarf ergänzt.
 - Auf- und Zuklappen, Panelhöhe und Listenende bleiben auf Desktop und Mobil
   nutzbar.
 
-## 12. Release-Metadaten und Community-Datei
+## 12. Kompakte Hauptansicht
+
+**Aufbau:** Einen gescannten Plan mit mehreren Portalen und mindestens einem
+Blocker auf Desktop und Mobil öffnen. **Mehr**, Einsatzcheck, Blockerbereich
+und einzelne Portalzeilen nacheinander auf- und zuklappen; anschließend einen
+Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
+
+**Erwartung:**
+
+- Standardmäßig sind nur **Scannen**, **Mehr**, Einsatzcheck, nächstes Ziel,
+  Filter, Blocker und die eingeklappten Portalzeilen sichtbar.
+- **Mehr** zeigt Namens-, Export-, Sortier- und Löschaktionen, Toleranz sowie
+  die knappe Scan-Zusammenfassung; Fehlermeldungen öffnen diesen Bereich.
+- Die nächste Zielzeile enthält bei gültigem Standort Entfernung,
+  Restschätzung und offene Zielzahl ohne separate Routenzeile.
+- Portalzeilen zeigen eingeklappt Status, Namen und Keys; geöffnete
+  Portalzeilen sowie Einsatzcheck und Blocker bleiben beim Refresh geöffnet.
+- Redundante Erklärungen und eine Listenabschlusszeile erscheinen nicht.
+
+## 13. Release-Metadaten und Community-Datei
 
 **Aufbau:** Nach bestätigtem IITC-Praxistest eine neue Version freigeben und
 die versionierten sowie stabilen Dateien unter `releases/` erzeugen. Den
