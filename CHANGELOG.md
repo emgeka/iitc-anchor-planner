@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.1.46
+
+- Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
+  Text-Exporte vollständig auf semantische Übersetzungsschlüssel umgestellt.
+- Zehn gebündelte Sprachen ergänzt: Deutsch, Englisch, Spanisch, Französisch,
+  Italienisch, Japanisch, Polnisch, brasilianisches Portugiesisch, Russisch
+  und vereinfachtes Chinesisch.
+- Automatische Erkennung über Browser- beziehungsweise Seitensprache,
+  Englisch-Fallback und dauerhaft gespeicherte manuelle Auswahl unter
+  **Mehr → Sprache** ergänzt.
+- Sprachdateien unter `src/locales/` vom Userscript getrennt und einen Build
+  mit Prüfungen auf identische Schlüssel, Platzhalter, fehlende sowie
+  ungenutzte Übersetzungen ergänzt; zur Laufzeit werden keine Sprachdateien
+  aus dem Internet geladen.
+- Manuelle Sprachliste dynamisch aus den gebündelten Locales erzeugt, sodass
+  weitere vollständige Sprachdateien ohne sprachspezifische Laufzeitänderung
+  aufgenommen werden können.
+- JSON-Feldnamen und JSON-Struktur sprachneutral beibehalten sowie Erkennung,
+  Fallback, Speicherung, Pluralformen, Text-Export und JSON-Schema automatisiert
+  geprüft.
+- Sprachwahl und übersetzte Oberfläche praktisch auf Desktop-IITC und IITC
+  Mobile geprüft.
+
 ## 0.1.45
 
 - Hauptansicht auf Scan, Einsatzcheck, nächstes Ziel, Filter, Blocker und
