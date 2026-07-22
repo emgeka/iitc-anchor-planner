@@ -1,126 +1,131 @@
 # IITC Anchor Planner
 
-Anchor Planner ist ein IITC-Userscript zur Auswertung geplanter Links aus Draw
-Tools und Auto Draw. Es ordnet Linkendpunkte Portalen zu, berücksichtigt
-Bookmarks und aktuell geladene Intel-Links und erzeugt daraus eine
-abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
+[English](README.md) | [Deutsch](README.de.md)
 
-## Aktueller Stand
+Anchor Planner is an IITC userscript for evaluating planned links from Draw
+Tools and Auto Draw. It resolves link endpoints to portals, considers bookmarks
+and currently loaded Intel links, and turns the result into actionable portal,
+blocker, route, and key overviews.
 
-- Aktuelle Version: **0.1.46**
-- Arbeitsfassung: `src/iitc-anchor-planner.user.js`
-- Freigegebene Fassungen: `releases/`
-- Userscript-ID: `iitc-plugin-anchor-planner`
-- IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.46>
+## Current status
 
-## Funktionen
+- Current version: **0.1.46**
+- Development source: `src/iitc-anchor-planner.user.js`
+- Published builds: `releases/`
+- Userscript ID: `iitc-plugin-anchor-planner`
+- IITC plugin ID: `anchor-planner`
+- GitHub release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.46>
 
-- Draw-Tools-Linien einschließlich Auto-Draw-Plänen erfassen und doppelte
-  Segmente zusammenführen.
-- Planendpunkte anhand geladener IITC-Portale und Portal-Bookmarks auflösen;
-  unsichere Endpunkte mit Koordinaten und Kandidaten diagnostizieren.
-- Vorhandene Planlinks erkennen und den verbleibenden Schlüsselbedarf je
-  Portal berechnen.
-- Kreuzende, aktuell in IITC geladene Links als Blocker erkennen und zusammen
-  mit den betroffenen Planlinks und Kreuzungspunkten automatisch auf der Karte
-  hervorheben.
-- Blocker-Endportale nach der Zahl eindeutiger Blocklinks priorisieren und
-  geeignete Endpunkte für die gemeinsame Arbeitsroute vormerken.
-- Einen kompakten Einsatzcheck aus offenen Endpunkten, Blockern, fehlenden
-  Keys, fehlenden Namen und der begrenzten Linkabdeckung anzeigen.
-- Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
-  Text-Exporte wahlweise in Deutsch, Englisch, Spanisch, Französisch,
-  Italienisch, Japanisch, Polnisch, brasilianischem Portugiesisch, Russisch
-  und vereinfachtem Chinesisch anzeigen; die Sprache automatisch erkennen
-  oder unter **Mehr → Sprache** dauerhaft auswählen.
-- Die häufig benötigten Angaben und Aktionen in einer kompakten Hauptansicht
-  bündeln; selten benötigte Scan-, Namens-, Export-, Sortier-, Lösch- und
-  Toleranzfunktionen unter **Mehr** zusammenfassen.
-- Namen bereits erkannter Blocker nach neu geladenen IITC-Kartendaten
-  automatisch aktualisieren, ohne geöffnete Detailbereiche zu schließen.
-- Portale nach offen, blockiert, fehlenden Keys und erledigt filtern sowie
-  Keys, Reihenfolge und Erledigt-Status verwalten.
-- Das nächste Ziel aus offenen Planportalen und vorgemerkten Blocker-Portalen
-  dynamisch anhand des offiziellen IITC-User-Location-Plugins bestimmen oder
-  auf die manuelle Reihenfolge zurückfallen; bei gültigem Standort die
-  aktuelle Luftlinienentfernung und eine geschätzte Reststrecke anzeigen.
-- Die Portalliste optional einmalig als Luftlinien-Näherungsroute ab dem
-  aktuellen IITC-Standort sortieren.
-- Waze-, Intel-, Google-Maps-, Apple-Maps- und Geo-Navigation sowie Teilen
-  anbieten.
-- Plan und konkrete Blocker-Details als lesbaren Text oder JSON kopieren und
-  herunterladen.
+## Features
 
-## Voraussetzungen und Datenabdeckung
+- Reads Draw Tools lines, including Auto Draw plans, and merges duplicate
+  segments.
+- Resolves plan endpoints using loaded IITC portals and portal bookmarks;
+  uncertain endpoints are diagnosed with coordinates and candidates.
+- Detects existing planned links and calculates the remaining key demand per
+  portal.
+- Detects crossing links currently loaded in IITC as blockers and highlights
+  them together with affected planned links and intersection points on the map.
+- Prioritizes blocker endpoints by the number of unique blocking links and lets
+  you add suitable endpoints to the shared work route.
+- Provides a compact readiness check for unresolved endpoints, blockers,
+  missing keys, missing names, and limited link coverage.
+- Localizes the interface, status messages, diagnostics, dialogs, map hints,
+  and text exports in German, English, Spanish, French, Italian, Japanese,
+  Polish, Brazilian Portuguese, Russian, and Simplified Chinese. The language
+  is detected automatically or can be selected permanently under
+  **More → Language**.
+- Keeps frequently used information and actions in a compact main view and
+  groups less common scan, naming, export, sorting, deletion, and tolerance
+  functions under **More**.
+- Refreshes the names of already detected blocker portals when new IITC map
+  data becomes available without closing expanded details.
+- Filters portals by open, blocked, missing keys, and completed, and manages
+  keys, order, and completion state.
+- Dynamically selects the next target from open plan portals and selected
+  blocker portals using the official IITC User Location plugin, with manual
+  order as a fallback. With a valid location it also shows straight-line
+  distance and an estimated remaining route.
+- Optionally sorts the portal list once as an approximate straight-line route
+  from the current IITC location.
+- Offers Waze, Intel, Google Maps, Apple Maps, and geo navigation as well as
+  sharing.
+- Copies or downloads the plan and detailed blocker information as readable
+  text or JSON.
 
-- IITC mit aktiviertem Draw-Tools-Plugin ist für den Scan erforderlich.
-- Portal-Bookmarks verbessern die Auflösung, sind aber optional.
-- Standortabhängige Zielwahl verwendet ausschließlich das offizielle
-  IITC-User-Location-Plugin. Standortdaten werden weder dauerhaft gespeichert
-  noch exportiert.
-- Vorhandene Links und Blocker können nur anhand der aktuell in IITC geladenen
-  `window.links` erkannt werden. Ein nicht angezeigter Blocker ist daher keine
-  vollständige Entwarnung.
+## Requirements and data coverage
 
-## Typischer Ablauf
+- IITC with the Draw Tools plugin enabled is required for scanning.
+- Portal Bookmarks improve endpoint resolution but are optional.
+- Location-based target selection exclusively uses the official IITC User
+  Location plugin. Location data is neither stored permanently nor exported.
+- Existing links and blockers can only be detected from `window.links`
+  currently loaded in IITC. A blocker that is not shown is therefore not a
+  definitive all-clear.
 
-1. Linkplan mit Draw Tools oder Auto Draw erzeugen.
-2. Den relevanten Kartenbereich laden und **Scannen** auswählen.
-3. Offene Endpunkte prüfen; bei Bedarf zoomen, Portale laden und erneut
-   scannen beziehungsweise **Namen laden** verwenden.
-4. Einsatzcheck und den kompakten Bereich **Blocker** kontrollieren; geeignete
-   Blocker-Endportale bei Bedarf für die Arbeitsroute vormerken.
-5. Automatisch hervorgehobene Planlinks, Blocklinks und Kreuzungspunkte auf der
-   Karte prüfen, Keys und erledigte Portale pflegen und zum jeweils nächsten
-   Plan- oder Blocker-Portal navigieren.
-6. Plan bei Bedarf als Text oder JSON exportieren.
+## Typical workflow
+
+1. Create a link plan with Draw Tools or Auto Draw.
+2. Load the relevant map area and select **Scan**.
+3. Check unresolved endpoints. If necessary, zoom in, load the portals, and
+   scan again or use **Load names**.
+4. Review the readiness check and the compact **Blockers** section; add useful
+   blocker endpoints to the work route when needed.
+5. Check the automatically highlighted planned links, blocking links, and
+   intersection points on the map, maintain keys and completed portals, and
+   navigate to the next plan or blocker portal.
+6. Export the plan as text or JSON when needed.
 
 ## Installation
 
-Die freigegebene `.user.js`-Datei wird über einen Userscript-Manager oder die
-jeweilige IITC-Plugin-Installation eingebunden:
+Install the published `.user.js` file using a userscript manager or the
+corresponding IITC plugin installation method:
 
 <https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/releases/iitc-anchor-planner.user.js>
 
-Für Umgebungen, in denen der Download als `.user.js` problematisch ist, steht
-im Release eine inhaltlich identische `.txt`-Fassung bereit.
+An identical `.txt` build is included in the release for environments where
+downloading a `.user.js` file is problematic.
 
-Die stabile Installationsadresse zeigt immer auf die zuletzt freigegebene
-Version und ist als Quelle für den IITC Community Plugins-Katalog vorgesehen.
+The stable installation URL always points to the latest published version and
+is intended as the source for the IITC Community Plugins catalog.
 
-## Updates und Community Plugins
+## Updates and Community Plugins
 
-- Community-ID: `anchor-planner@emgeka`
-- Erforderliches Plugin: `draw-tools@breunigs`
-- Empfohlenes Plugin: `bookmarks@ZasoGD`
-- Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender
-  Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
+- Community ID: `anchor-planner@emgeka`
+- Required plugin: `draw-tools@breunigs`
+- Recommended plugin: `bookmarks@ZasoGD`
+- Declared anti-features: `scraper` for automatically loading missing portal
+  names and `export` for user-initiated plan exports
 
-`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs:
-Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen
-fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht
-nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden
-keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft
-gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Deshalb ist
-`highLoad` nicht deklariert.
+`scraper` follows the terminology used by the IITC Community Plugins catalog.
+Anchor Planner only requests missing names for portals recognized in the
+current plan through IITC's own portal detail functions. Requests run
+sequentially after a scan or explicitly through **Load names**. The plugin does
+not search external websites, permanently collect unrelated portal data, or
+perform continuous background requests. Therefore, `highLoad` is not declared.
 
-Die Metadaten `@updateURL` und `@downloadURL` verweisen auf die stabile
-Releasefassung. Entwicklungsänderungen unter `src/` erreichen installierte
-Plugins deshalb erst nach einem bestätigten und veröffentlichten Release.
+The `@updateURL` and `@downloadURL` metadata point to the stable release build.
+Development changes under `src/` do not reach installed plugins until they
+have been tested and published as a release.
 
-## Entwicklung
+## Support and contributions
 
-Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale
-Änderungen erfolgen zunächst nur in `src/`. Identische Releasefassungen als
-`.user.js` und `.txt` werden erst nach erfolgreichem Praxistest auf Desktop-IITC
-und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei
-auf denselben Inhalt aktualisiert.
+Bug reports, translation corrections, and focused feature suggestions are
+welcome in [GitHub Issues](https://github.com/emgeka/iitc-anchor-planner/issues).
+If you would like to support development financially, a GitHub Sponsors option
+is planned and will be linked here once it is publicly available.
 
-Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält
-dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name`
-den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und
-bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check`
-prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine
-Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende
-Fallbacksprache.
+## Development
+
+The rules in `AGENTS.md` apply to the entire project. Functional changes are
+first made only under `src/`. Identical `.user.js` and `.txt` release builds are
+created only after successful practical tests with desktop IITC and IITC
+Mobile. The stable files without a version number are then updated to the same
+content.
+
+Translations are maintained separately under `src/locales/*.json`. Every file
+contains the same semantic keys and placeholders and provides its native name
+under `language.name`. `node src/build-locales.mjs` validates all files and
+bundles them into the single userscript; `node src/build-locales.mjs --check`
+also verifies that the bundle is current. No language files are loaded from
+the internet at runtime. English is the required fallback language.

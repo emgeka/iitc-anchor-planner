@@ -2,6 +2,29 @@
 
 ## 0.1.46
 
+### English
+
+- Converted the interface, status messages, diagnostics, dialogs, map hints,
+  and text exports to semantic translation keys.
+- Added ten bundled languages: German, English, Spanish, French, Italian,
+  Japanese, Polish, Brazilian Portuguese, Russian, and Simplified Chinese.
+- Added automatic browser/page language detection, English fallback, and a
+  persistent manual selection under **More → Language**.
+- Separated editable locale files under `src/locales/` from the userscript and
+  added build-time checks for identical keys and placeholders as well as
+  missing and unused translations; no locale files are loaded from the
+  internet at runtime.
+- Built the manual language list dynamically from bundled locales so that
+  additional complete locale files require no language-specific runtime
+  changes.
+- Kept JSON field names and structure language-neutral and automatically
+  verified detection, fallback, persistence, plural forms, text export, and
+  the JSON schema.
+- Practically tested language selection and the localized interface with
+  desktop IITC and IITC Mobile.
+
+### Deutsch
+
 - Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
   Text-Exporte vollständig auf semantische Übersetzungsschlüssel umgestellt.
 - Zehn gebündelte Sprachen ergänzt: Deutsch, Englisch, Spanisch, Französisch,
