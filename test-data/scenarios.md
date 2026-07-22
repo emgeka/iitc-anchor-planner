@@ -188,3 +188,29 @@ Community-Eintrag mit der offiziellen IITC-CE-Generierung verarbeiten.
   ab.
 - Es werden keine Entwicklungsänderungen aus `src/` veröffentlicht, die nicht
   zuvor praktisch getestet und freigegeben wurden.
+
+## 14. Sprachen, Fallback und Exporte
+
+**Aufbau:** Die Arbeitsfassung nacheinander auf Deutsch, Englisch, Spanisch,
+Französisch, Italienisch, Japanisch, Polnisch, brasilianischem Portugiesisch,
+Russisch und vereinfachtem Chinesisch öffnen. Zusätzlich **Automatisch** mit
+einer unterstützten sowie einer nicht unterstützten Browser- oder
+Seitensprache prüfen und IITC nach einer manuellen Auswahl neu laden.
+
+**Erwartung:**
+
+- Alle gebündelten Sprachen erscheinen dynamisch unter **Mehr → Sprache** und
+  ändern Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
+  Text-Export ohne erneuten Scan.
+- Die manuelle Auswahl bleibt nach einem IITC-Neustart gespeichert;
+  **Automatisch** verwendet eine unterstützte Browser- beziehungsweise
+  Seitensprache und fällt andernfalls auf Englisch zurück.
+- Sprach- und Toleranzauswahl bleiben auf Desktop-IITC und IITC Mobile sichtbar,
+  kompakt, vollständig erreichbar und per Touch bedienbar.
+- Nichtlateinische Schriftzeichen werden lesbar dargestellt; lange Aktions-,
+  Filter- und Statusbegriffe überdecken keine Bedienelemente.
+- Singular und Plural enthalten die richtige Zahl, keine sichtbaren
+  Übersetzungsschlüssel und keine unverarbeiteten Platzhalter.
+- Der Text-Export folgt der gewählten Sprache. JSON-Feldnamen, JSON-Struktur
+  und fachliche Werte bleiben bei jedem Sprachwechsel unverändert; die
+  Sprachauswahl erscheint nicht als zusätzliches JSON-Feld.

@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.45
+# Architekturübersicht 0.1.46
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -13,7 +13,8 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - Scan-Toleranz und letzter Scanbericht,
 - eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
 - vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
-- Panelzustand und aktiver Listenfilter.
+- Panelzustand und aktiver Listenfilter,
+- automatische oder manuell gewählte Oberflächensprache.
 
 ### Laufzeit-Zustand
 
@@ -59,6 +60,31 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
 | Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
+| Sprache | `findAvailableLanguage`, `detectLanguage`, `getLanguage`, `languageOptionsHtml`, `t`, `tp` |
+
+## Sprach-Datenfluss
+
+Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
+Jede Sprache besitzt dieselben 151 semantischen Schlüssel; Platzhalter wie
+`{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
+`language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
+
+`src/build-locales.mjs` verwendet Englisch als verpflichtende Referenz und
+Fallbacksprache. Das Skript prüft Dateiformat, nicht leere Texte, identische
+Schlüssel, identische Platzhalter, fehlende Laufzeitreferenzen und ungenutzte
+Übersetzungen. Anschließend ersetzt es ausschließlich den markierten
+`ap.LOCALES`-Block im Userscript. Alle Sprachdaten werden damit vor der
+Freigabe eingebettet; zur Laufzeit gibt es keinen Netzwerkabruf.
+
+`detectLanguage` wertet die Browser-Sprachen und anschließend die Seitensprache
+aus. `findAvailableLanguage` normalisiert Groß-/Kleinschreibung, Unterstriche
+und regionale Codes. Eine gültige gespeicherte manuelle Auswahl hat Vorrang;
+sonst gilt die automatische Erkennung und zuletzt Englisch. `t` ersetzt
+benannte Platzhalter, `tp` wählt die kompakten Varianten `one` und `other`.
+
+Sprachabhängige Bezeichnungen werden nur für sichtbare Texte und Text-Exporte
+verwendet. Der JSON-Export behält seine bisherigen Feldnamen und seine Struktur;
+die gewählte Sprache wird nicht als zusätzliches Exportfeld ausgegeben.
 
 ## Datenfluss eines Scans
 
@@ -137,8 +163,10 @@ bleiben.
 
 ## Release- und Community-Datenfluss
 
-Die Entwicklungsfassung liegt ausschließlich unter
-`src/iitc-anchor-planner.user.js`. Nach einem bestätigten Praxistest wird
+Die Entwicklungsfassung liegt unter `src/iitc-anchor-planner.user.js`; ihre
+Sprachquellen liegen ergänzend unter `src/locales/` und werden vor jeder
+Freigabe mit `src/build-locales.mjs` geprüft und eingebettet. Nach einem
+bestätigten Praxistest wird
 derselbe Inhalt in vier Distributionsdateien übernommen:
 
 - `releases/iitc-anchor-planner-vX.Y.Z.user.js`,

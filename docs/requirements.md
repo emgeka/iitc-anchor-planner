@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.45
+# Anforderungen für Version 0.1.46
 
 ## Planerfassung und Portalauflösung
 
@@ -94,6 +94,28 @@
   sein.
 - Der geöffnete Blockerbereich und der Einsatzcheck müssen bei einer
   Kartenaktualisierung geöffnet bleiben.
+
+## Internationalisierung
+
+- Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
+  Text-Exporte müssen vollständig über semantische Übersetzungsschlüssel
+  ausgegeben werden.
+- Deutsch, Englisch, Spanisch, Französisch, Italienisch, Japanisch, Polnisch,
+  brasilianisches Portugiesisch, Russisch und vereinfachtes Chinesisch müssen
+  als gebündelte Sprachfassungen verfügbar sein.
+- Die automatische Auswahl muss Browser- und Seitensprache defensiv auswerten;
+  eine nicht verfügbare Sprache muss auf Englisch zurückfallen.
+- Die manuelle Auswahl unter **Mehr → Sprache** muss alle gebündelten Sprachen
+  dynamisch anbieten und dauerhaft gespeichert werden.
+- Sprachdateien müssen getrennt unter `src/locales/` gepflegt, vor dem Bündeln
+  auf identische Schlüssel und Platzhalter geprüft und ohne Laufzeitabruf aus
+  dem Internet in das einzelne Userscript eingebettet werden.
+- Weitere Sprachdateien müssen ohne sprachspezifische Änderung der Laufzeitlogik
+  automatisch erkannt und in die manuelle Auswahl aufgenommen werden.
+- JSON-Feldnamen und JSON-Struktur müssen unabhängig von der gewählten Sprache
+  unverändert und sprachneutral bleiben.
+- Sprach- und Toleranzauswahl müssen auf Desktop-IITC und IITC Mobile sichtbar,
+  kompakt und per Touch bedienbar bleiben.
 
 ## Veröffentlichung und Updates
 

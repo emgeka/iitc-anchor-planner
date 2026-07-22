@@ -7,12 +7,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.45**
+- Aktuelle Version: **0.1.46**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.45>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.46>
 
 ## Funktionen
 
@@ -29,6 +29,11 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
   geeignete Endpunkte für die gemeinsame Arbeitsroute vormerken.
 - Einen kompakten Einsatzcheck aus offenen Endpunkten, Blockern, fehlenden
   Keys, fehlenden Namen und der begrenzten Linkabdeckung anzeigen.
+- Oberfläche, Statusmeldungen, Diagnosen, Dialoge, Kartenhinweise und
+  Text-Exporte wahlweise in Deutsch, Englisch, Spanisch, Französisch,
+  Italienisch, Japanisch, Polnisch, brasilianischem Portugiesisch, Russisch
+  und vereinfachtem Chinesisch anzeigen; die Sprache automatisch erkennen
+  oder unter **Mehr → Sprache** dauerhaft auswählen.
 - Die häufig benötigten Angaben und Aktionen in einer kompakten Hauptansicht
   bündeln; selten benötigte Scan-, Namens-, Export-, Sortier-, Lösch- und
   Toleranzfunktionen unter **Mehr** zusammenfassen.
@@ -111,3 +116,11 @@ Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale
 `.user.js` und `.txt` werden erst nach erfolgreichem Praxistest auf Desktop-IITC
 und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei
 auf denselben Inhalt aktualisiert.
+
+Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält
+dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name`
+den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und
+bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check`
+prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine
+Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende
+Fallbacksprache.

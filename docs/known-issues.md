@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.45
+# Bekannte Grenzen in 0.1.46
 
 ## Portalzuordnung und Namen
 
@@ -70,6 +70,22 @@
   Desktop und Mobilgeräten geprüft werden.
 - Externe Navigation hängt davon ab, welche Karten-Apps und URL-Schemata das
   jeweilige Mobilgerät unterstützt.
+
+## Sprachen
+
+- Automatische Spracherkennung ist auf die gebündelten Sprachcodes begrenzt;
+  nicht unterstützte Browser- und Seitensprachen fallen auf Englisch zurück.
+- Regionale Sprachvarianten werden nur dann gezielt unterschieden, wenn eine
+  entsprechende Sprachdatei vorhanden ist. Aktuell ist Portugiesisch als
+  `pt-BR` und vereinfachtes Chinesisch als `zh-CN` enthalten.
+- Die kompakte Plurallogik unterscheidet `one` und `other`. Sprachen mit
+  weiteren grammatischen Pluralkategorien verwenden deshalb bewusst neutrale
+  oder allgemein verständliche Formulierungen.
+- Neue oder überarbeitete Übersetzungen sollten zusätzlich von
+  Muttersprachlern geprüft werden; die technischen Prüfungen erkennen
+  Schlüssel- und Platzhalterfehler, aber keine sprachlichen Bedeutungsfehler.
+- Lange Beschriftungen und nichtlateinische Schriften müssen bei Änderungen
+  weiterhin praktisch auf schmalen IITC-Mobile-Displays geprüft werden.
 
 ## Installation und Updates
 
