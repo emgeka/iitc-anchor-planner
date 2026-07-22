@@ -123,6 +123,14 @@ created only after successful practical tests with desktop IITC and IITC
 Mobile. The stable files without a version number are then updated to the same
 content.
 
+Before every handoff, commit, or publication, each change must be reconciled
+with the complete set of development-relevant files. This includes the source,
+locales, build process, both README languages, requirements, architecture,
+known limitations, test scenarios, changelog, and current release files where
+applicable. All files must be consciously checked and every affected file must
+be updated in the same change set; explicitly historical releases and
+changelog sections retain their original state.
+
 Translations are maintained separately under `src/locales/*.json`. Every file
 contains the same semantic keys and placeholders and provides its native name
 under `language.name`. `node src/build-locales.mjs` validates all files and

@@ -126,6 +126,15 @@ Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale
 und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei
 auf denselben Inhalt aktualisiert.
 
+Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderung
+mit dem vollständigen Satz der für die weitere Entwicklung maßgeblichen
+Dateien abgeglichen werden. Dazu gehören je nach Betroffenheit Quellcode,
+Locales, Build-Ablauf, beide README-Sprachen, Anforderungen, Architektur,
+bekannte Grenzen, Testszenarien, Changelog und aktuelle Release-Dateien. Alle
+Dateien müssen bewusst geprüft und jede betroffene Datei im selben
+Änderungssatz aktualisiert werden; ausdrücklich historische Releases und
+Changelog-Abschnitte behalten ihren ursprünglichen Stand.
+
 Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält
 dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name`
 den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und
