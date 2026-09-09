@@ -214,3 +214,24 @@ Seitensprache prüfen und IITC nach einer manuellen Auswahl neu laden.
 - Der Text-Export folgt der gewählten Sprache. JSON-Feldnamen, JSON-Struktur
   und fachliche Werte bleiben bei jedem Sprachwechsel unverändert; die
   Sprachauswahl erscheint nicht als zusätzliches JSON-Feld.
+
+## 15. Verschiebbares Panel auf Desktop und Mobil
+
+**Aufbau:** Das Panel auf Desktop-IITC mit der Maus und in IITC Mobile per
+Touch beziehungsweise Pointer an `.ap-head` verschieben. Dabei auch am
+Einklappbutton, im Panelinhalt und direkt auf der Karte interagieren. Das Panel
+jeweils über alle vier Viewportränder hinaus zu ziehen versuchen, IITC neu
+laden und anschließend Fenstergröße beziehungsweise Geräteorientierung ändern.
+
+**Erwartung:**
+
+- Nur der Kopf außerhalb des Einklappbuttons startet das Verschieben; Button,
+  Panelaktionen, Scrollen und Karteninteraktion verhalten sich weiterhin wie
+  zuvor.
+- Maus, Touch und Pointer bewegen das Panel flüssig, ohne Text zu markieren
+  oder während des Drags die Karte zu verschieben.
+- Das vollständige Panel bleibt mit einem kleinen Rand im sichtbaren Viewport.
+- Die Position bleibt nach einem IITC-Neustart erhalten.
+- Nach Fenstergrößen- und Orientierungswechseln wird eine nicht mehr passende
+  Position automatisch korrigiert; das letzte Portal bleibt auch mobil
+  erreichbar.

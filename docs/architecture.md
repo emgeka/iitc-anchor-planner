@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.46
+# Architekturübersicht 0.1.47
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -14,6 +14,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
 - vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
 - Panelzustand und aktiver Listenfilter,
+- verschobene Panelposition als Viewport-Koordinaten,
 - automatische oder manuell gewählte Oberflächensprache.
 
 ### Laufzeit-Zustand
@@ -58,7 +59,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
-| Karte und Panel | `renderOverlays`, `renderPanel`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
+| Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
 | Sprache | `findAvailableLanguage`, `detectLanguage`, `getLanguage`, `languageOptionsHtml`, `t`, `tp` |
 
@@ -160,6 +161,16 @@ Kopfzeile Status, Portalname und Keybestand enthält. Zielentfernung,
 Restschätzung und Zielzahl werden gemeinsam in der nächsten Zielzeile
 ausgegeben. Fehlermeldungen öffnen **Mehr** automatisch, damit sie sichtbar
 bleiben.
+
+`setupPanelDragging` registriert Pointer-Events oder, für ältere IITC-Mobile-
+WebViews, getrennte Maus- und Touch-Fallbacks. Ein Drag beginnt nur innerhalb
+von `.ap-head` und nicht auf dessen Einklappbutton; der restliche Panelinhalt
+erhält keine Drag-Handler. Während der Bewegung begrenzt `setPanelPosition` die
+fest positionierte Box mit einem kleinen Rand auf den sichtbaren Viewport. Die
+Koordinaten werden am Drag-Ende in `ap.state.panelPosition` gespeichert.
+`correctPanelPosition` wendet sie nach jedem Panel-Render sowie verzögert nach
+`resize` und `orientationchange` erneut an, sodass auch eine geänderte Panel-
+oder Viewportgröße das Fenster nicht unerreichbar macht.
 
 ## Release- und Community-Datenfluss
 

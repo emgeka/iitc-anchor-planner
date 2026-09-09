@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.46
+# Bekannte Grenzen in 0.1.47
 
 ## Portalzuordnung und Namen
 
@@ -63,6 +63,9 @@
 
 ## Desktop und Mobil
 
+- Die gespeicherte Panelposition bezieht sich auf Viewport-Koordinaten. Wird
+  der Viewport oder die Panelhöhe kleiner, verschiebt die automatische
+  Korrektur das Panel dauerhaft bis zum nächsten zulässigen Rand.
 - Nach Änderungen an Panel oder Exportdialog ist weiterhin zu prüfen, ob das
   letzte Portal erreichbar bleibt und IITC-Statusleisten nicht überdeckt
   werden.
