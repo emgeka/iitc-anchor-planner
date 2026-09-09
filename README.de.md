@@ -9,12 +9,12 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 
 ## Aktueller Stand
 
-- Aktuelle Version: **0.1.46**
+- Aktuelle Version: **0.1.47**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
 - IITC-Plugin-ID: `anchor-planner`
-- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.46>
+- GitHub-Release: <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.47>
 
 ## Funktionen
 
@@ -39,6 +39,9 @@ abarbeitbare Portal-, Blocker-, Routen- und Schlüsselübersicht.
 - Die häufig benötigten Angaben und Aktionen in einer kompakten Hauptansicht
   bündeln; selten benötigte Scan-, Namens-, Export-, Sortier-, Lösch- und
   Toleranzfunktionen unter **Mehr** zusammenfassen.
+- Das Panel per Maus, Touch oder Pointer am Kopf verschieben; die auf den
+  sichtbaren Viewport begrenzte Position über IITC-Sitzungen hinweg speichern
+  und nach Größen- oder Orientierungswechseln korrigieren.
 - Namen bereits erkannter Blocker nach neu geladenen IITC-Kartendaten
   automatisch aktualisieren, ohne geöffnete Detailbereiche zu schließen.
 - Portale nach offen, blockiert, fehlenden Keys und erledigt filtern sowie

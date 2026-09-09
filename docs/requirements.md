@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.46
+# Anforderungen für Version 0.1.47
 
 ## Planerfassung und Portalauflösung
 
@@ -73,6 +73,13 @@
 ## Bedienung
 
 - Desktop-IITC und IITC Mobile unterstützen.
+- Das Panel ausschließlich über `.ap-head` per Maus, Touch und Pointer
+  verschiebbar machen; Bedienelemente im Kopf bleiben unabhängig davon
+  anklickbar.
+- Die verschobene Panelposition dauerhaft speichern, vollständig im sichtbaren
+  Viewport halten und nach Größen- oder Orientierungswechseln korrigieren.
+- Interaktionen im übrigen Panel und auf der Karte außerhalb des Drag-Griffs
+  dürfen durch die Drag-Logik nicht verändert werden.
 - Das letzte Listenelement muss mobil vollständig erreichbar bleiben.
 - Die Hauptansicht auf Scan, Einsatzcheck, nächstes Ziel, Filter, Blocker und
   die eingeklappten Portalzeilen begrenzen; selten benötigte Aktionen,

@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.47
+
+### English
+
+- Made the Anchor Planner panel draggable by its header with Pointer Events
+  and mouse/touch fallbacks while keeping the collapse button and all content
+  outside the handle unchanged.
+- Constrained the complete panel to the visible viewport, persisted its
+  position, and added correction after panel renders, resizing, and display
+  orientation changes.
+- Added automated position, boundary, persistence, and handle-scope checks and
+  practically confirmed the draggable panel in IITC before the stable release.
+
+### Deutsch
+
+- Das Anchor-Planner-Panel über seinen Kopf mit Pointer Events sowie Maus- und
+  Touch-Fallbacks verschiebbar gemacht; Einklappbutton und Inhalte außerhalb
+  des Griffs bleiben unverändert bedienbar.
+- Das vollständige Panel auf den sichtbaren Viewport begrenzt, seine Position
+  dauerhaft gespeichert und nach Panel-Rendern, Größen- sowie
+  Orientierungswechseln automatisch korrigiert.
+- Automatisierte Prüfungen für Position, Begrenzung, Speicherung und Umfang des
+  Drag-Griffs ergänzt und das verschiebbare Panel vor dem stabilen Release
+  praktisch in IITC bestätigt.
+
 ## 0.1.46
 
 ### English
