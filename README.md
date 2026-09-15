@@ -10,11 +10,11 @@ Anchor Planner turns Draw Tools and Auto Draw link plans into an actionable IITC
 
 ![Anchor Planner v0.1.47 showing a quiet three-portal Draw Tools plan, six required keys, blocker status, and the next work target in IITC](docs/media/anchor-planner-hero.png)
 
-*A real three-portal Draw Tools plan in a quiet public map area near Potsdam. The movable panel stays fixed at the top right and turns the planned links into a practical checklist.*
+*See the whole plan at a glance: the portals involved, the keys still needed, and the next place to work.*
 
 ![Twelve-second Anchor Planner demo showing the Draw Tools plan, scan action, computed key demand, readiness check, and portal detail](docs/media/anchor-planner-demo.gif)
 
-*Five clear stages with a fixed map and panel: Draw Tools plan, scan, result, readiness check, and per-portal key detail.*
+*Turn a Draw Tools plan into a field-ready checklist in seconds — scan it, check readiness, and open any portal for its exact key requirement.*
 
 ## Install
 
