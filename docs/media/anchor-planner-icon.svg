@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Anchor Planner</title>
+  <desc id="desc">A cyan anchor over a purple triangular field plan with three portal nodes.</desc>
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="#07171e" stroke="#00d8ff" stroke-width="4"/>
+  <path d="M28 94 64 25l36 69Z" fill="#a855d633" stroke="#a855d6" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="64" cy="25" r="8" fill="#ffad32" stroke="#fff" stroke-width="3"/>
+  <circle cx="28" cy="94" r="8" fill="#ffad32" stroke="#fff" stroke-width="3"/>
+  <circle cx="100" cy="94" r="8" fill="#ffad32" stroke="#fff" stroke-width="3"/>
+  <circle cx="64" cy="43" r="8" fill="none" stroke="#00d8ff" stroke-width="6"/>
+  <path d="M64 51v42M48 62h32M40 78c2 15 12 23 24 23s22-8 24-23" fill="none" stroke="#00d8ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m34 80 7-8 7 8M80 80l7-8 7 8" fill="none" stroke="#00d8ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
