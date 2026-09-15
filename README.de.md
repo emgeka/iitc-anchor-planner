@@ -6,6 +6,16 @@
 
 Anchor Planner macht aus Draw-Tools- und Auto-Draw-Linkplänen einen direkt nutzbaren IITC-Arbeitsablauf: Planportale, benötigte Keys, vorhandene Links, Blocker, Arbeitsziele und Navigation — gebündelt in einem kompakten Panel für Desktop und Mobil.
 
+## In Aktion
+
+![Anchor Planner v0.1.47 mit einem ruhigen Drei-Portal-Plan, sechs benötigten Keys, Blockerstatus und dem nächsten Arbeitsziel in IITC](docs/media/anchor-planner-hero.png)
+
+*Ein echter Drei-Portal-Plan in einem ruhigen öffentlichen Kartenbereich bei Potsdam. Das verschiebbare Panel bleibt oben rechts stehen und macht aus den Planlinks eine praktische Checkliste.*
+
+![Zwölfsekündige Anchor-Planner-Demo mit Draw-Tools-Plan, Scan, berechnetem Keybedarf, Einsatzcheck und Portaldetail](docs/media/anchor-planner-demo.gif)
+
+*Fünf klare Schritte bei feststehender Karte und festem Panel: Draw-Tools-Plan, Scan, Ergebnis, Einsatzcheck und Keydetail je Portal.*
+
 ## Installation
 
 **Aktuelle stabile Version:**
