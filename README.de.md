@@ -24,9 +24,9 @@ Anchor Planner macht aus Draw-Tools- und Auto-Draw-Linkplänen einen direkt nutz
 
 Die `.user.js`-Datei wird über einen Userscript-Manager oder die jeweilige IITC-Plugin-Installation eingebunden. Falls `.user.js`-Downloads in der eigenen Umgebung unpraktisch sind, enthält das GitHub-Release zusätzlich eine inhaltlich identische `.txt`-Fassung.
 
-Aktuelle Veröffentlichung: **0.1.47**
+Aktuelle Veröffentlichung: **0.1.48**
 
-<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.47>
+<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.48>
 
 ## Warum Anchor Planner?
 
@@ -81,6 +81,7 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 - Erforderliches Plugin: `draw-tools@breunigs`
 - Empfohlenes Plugin: `bookmarks@ZasoGD`
 - Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
+- Katalog-Icon: wird über die Userscript-Metadaten aus `docs/media/anchor-planner-icon.svg` veröffentlicht
 
 `scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs: Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Deshalb ist `highLoad` nicht deklariert.
 
@@ -88,7 +89,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.47**
+- Aktuelle Version: **0.1.48**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`

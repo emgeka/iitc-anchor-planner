@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.47
+// @version        0.1.48
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -10,6 +10,8 @@
 // @downloadURL    https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/releases/iitc-anchor-planner.user.js
 // @homepageURL    https://github.com/emgeka/iitc-anchor-planner
 // @supportURL     https://github.com/emgeka/iitc-anchor-planner/issues
+// @icon           https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/docs/media/anchor-planner-icon.svg
+// @icon64         https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/docs/media/anchor-planner-icon.svg
 // @include        https://intel.ingress.com/*
 // @include        http://intel.ingress.com/*
 // @match          https://intel.ingress.com/*
@@ -23,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260909123224';
+  plugin_info.dateTimeVersion = '20260917094417';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.47';
+  ap.VERSION = '0.1.48';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;

@@ -176,6 +176,8 @@ Community-Eintrag mit der offiziellen IITC-CE-Generierung verarbeiten.
 - `@version` und `ap.VERSION` sind identisch.
 - `@updateURL` und `@downloadURL` zeigen auf
   `releases/iitc-anchor-planner.user.js` im öffentlichen Projekt-Repository.
+- `@icon` und `@icon64` zeigen auf
+  `docs/media/anchor-planner-icon.svg` im öffentlichen Projekt-Repository.
 - Arbeitsfassung, versionierte `.user.js`/`.txt` und stabile
   `.user.js`/`.txt` sind vor dem Commit bytegleich.
 - Die öffentliche stabile Datei enthält die freigegebene Version und besteht

@@ -24,9 +24,9 @@ Anchor Planner turns Draw Tools and Auto Draw link plans into an actionable IITC
 
 Install the `.user.js` file with your userscript manager or the corresponding IITC plugin installation method. If downloading `.user.js` files is inconvenient in your environment, the GitHub release also includes an identical `.txt` build.
 
-Current release: **0.1.47**
+Current release: **0.1.48**
 
-<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.47>
+<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.48>
 
 ## Why use Anchor Planner?
 
@@ -81,6 +81,7 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 - Required plugin: `draw-tools@breunigs`
 - Recommended plugin: `bookmarks@ZasoGD`
 - Declared anti-features: `scraper` for automatically loading missing portal names and `export` for user-initiated plan exports
+- Catalog icon: published through the userscript metadata from `docs/media/anchor-planner-icon.svg`
 
 `scraper` follows the terminology used by the IITC Community Plugins catalog. Anchor Planner only requests missing names for portals recognized in the current plan through IITC's own portal detail functions. Requests run sequentially after a scan or explicitly through **Load names**. The plugin does not search external websites, permanently collect unrelated portal data, or perform continuous background requests. Therefore, `highLoad` is not declared.
 
@@ -88,7 +89,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Current version: **0.1.47**
+- Current version: **0.1.48**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
 - Userscript ID: `iitc-plugin-anchor-planner`

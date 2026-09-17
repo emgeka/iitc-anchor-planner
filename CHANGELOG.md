@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.48
+
+### English
+
+- Added the dedicated Anchor Planner icon to the userscript metadata through
+  `@icon` and `@icon64` so the IITC Community Plugins catalog can obtain it
+  from the plugin repository without changing runtime behavior.
+
+### Deutsch
+
+- Das eigene Anchor-Planner-Icon über `@icon` und `@icon64` in die
+  Userscript-Metadaten aufgenommen, damit der IITC-Community-Plugins-Katalog
+  es ohne Änderung des Laufzeitverhaltens aus dem Plugin-Repository übernehmen
+  kann.
+
 ## 0.1.47
 
 ### English

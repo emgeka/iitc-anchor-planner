@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.47
+# Architekturübersicht 0.1.48
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -188,6 +188,11 @@ derselbe Inhalt in vier Distributionsdateien übernommen:
 Die versionierten Dateien dokumentieren eine konkrete Freigabe. Die stabilen
 Dateien ohne Versionsnummer bilden immer die zuletzt freigegebene Version und
 sind das Ziel von `@updateURL` und `@downloadURL`.
+
+Das unter `docs/media/anchor-planner-icon.svg` gepflegte Katalog-Icon wird über
+`@icon` und `@icon64` im Userscript-Metablock veröffentlicht. Dadurch liest der
+Community-Katalog die Icon-Angaben zusammen mit den übrigen Plugin-Metadaten
+direkt aus der stabilen Userscript-Datei.
 
 Der Community-Katalog liest die stabile Userscript-Datei über
 `metadata/emgeka/anchor-planner.yml`. Beim Katalogbau ersetzt IITC-CE die

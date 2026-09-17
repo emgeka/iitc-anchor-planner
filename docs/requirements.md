@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.47
+# Anforderungen für Version 0.1.48
 
 ## Planerfassung und Portalauflösung
 
@@ -130,6 +130,9 @@
 - `@updateURL` und `@downloadURL` müssen auf eine dauerhaft erreichbare,
   freigegebene Userscript-Datei zeigen und dürfen keine Entwicklungsfassung
   ausliefern.
+- `@icon` und `@icon64` müssen auf das im Projekt-Repository gepflegte
+  Anchor-Planner-Icon zeigen, damit der Community-Katalog es aus den
+  Userscript-Metadaten übernehmen kann.
 - Versionierte `.user.js`- und `.txt`-Releases sowie die stabilen Dateien ohne
   Versionsnummer müssen bei jeder Freigabe inhaltlich identisch sein.
 - Die stabile Datei darf erst nach bestätigtem IITC-Praxistest aktualisiert
