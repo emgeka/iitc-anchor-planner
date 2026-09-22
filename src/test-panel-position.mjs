@@ -97,6 +97,12 @@ function createClassList() {
 
 {
   const { ap } = createRuntime();
+  assert.equal(ap.statusText({ key: 'done' }), '✓', 'Completed portals need an unambiguous check mark.');
+  assert.equal(ap.statusText({ key: 'existing' }), '0K', 'The zero-key marker remains distinct from completion.');
+}
+
+{
+  const { ap } = createRuntime();
   const panel = {
     classList: createClassList(),
     style: {},

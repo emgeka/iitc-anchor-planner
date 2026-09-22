@@ -59,6 +59,9 @@
 
 - Alle erkannten Planportale und blockierten Planlinks in einem gemeinsamen
   schaltbaren Layer darstellen.
+- Kartenstatusmarker eindeutig unterscheidbar darstellen; erledigte Portale
+  verwenden ein Häkchen und dürfen nicht wie die Kennzeichnung `0K` für
+  Portale ohne weiteren Keybedarf aussehen.
 - Sämtliche beim letzten Scan erkannten betroffenen Planlinks, konkreten
   Blocklinks und berechneten Kreuzungspunkte automatisch und eindeutig
   unterscheidbar oberhalb der normalen IITC-Linkebene hervorheben.

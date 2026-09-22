@@ -12,6 +12,8 @@
   only when its changed size would leave it outside the visible viewport.
 - Stopped force-enabling the Anchor Planner layer during setup so IITC's saved
   layer visibility is respected across reloads.
+- Replaced the ambiguous completed-portal `OK` map badge with a larger check
+  mark so it cannot be mistaken for the existing-link `0K` status.
 
 ### Deutsch
 
@@ -26,6 +28,9 @@
 - Die erzwungene Aktivierung des Anchor-Planner-Layers beim Start entfernt,
   sodass IITCs gespeicherte Layer-Sichtbarkeit über Neuladevorgänge hinweg
   respektiert wird.
+- Das missverständliche Kartenbadge `OK` für erledigte Portale durch ein
+  größeres Häkchen ersetzt, damit es nicht wie der Status `0K` für vorhandene
+  Links aussieht.
 
 ## 0.1.48
 

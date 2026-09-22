@@ -163,6 +163,8 @@ Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
   Restschätzung und offene Zielzahl ohne separate Routenzeile.
 - Portalzeilen zeigen eingeklappt Status, Namen und Keys; geöffnete
   Portalzeilen sowie Einsatzcheck und Blocker bleiben beim Refresh geöffnet.
+- Der Kartenmarker eines erledigten Portals zeigt ein klar lesbares `✓` und
+  ist nicht mit dem Status `0K` für fehlenden weiteren Keybedarf zu verwechseln.
 - **Details anzeigen** öffnet für ein bereits geladenes Planportal die IITC-
   Detailansicht. Der Portalname selbst bleibt normaler Text; Karte, Mittelpunkt
   und Zoomstufe verändern sich nicht, und es wird keine zusätzliche

@@ -141,6 +141,8 @@ Kreuzungspunkte gelb. Eine eigene nicht interaktive Leaflet-Ebene mit höherem
 Z-Index hält diese Geometrien oberhalb der normalen IITC-Links, aber unterhalb
 der Portalmarker. Vorgemerkte zusätzliche Blocker-Portale erhalten Kartenringe;
 das nächste Arbeitsziel wird stärker markiert.
+Die HTML-Statusmarker kennzeichnen erledigte Portale mit `✓`; `0K` bleibt
+ausschließlich Portalen vorbehalten, für die kein weiterer Key benötigt wird.
 
 Nach `mapDataRefreshEnd` rendert `scheduleMapDataPanelRefresh` das Panel
 verzögert neu. Ein Kartenereignis-Fallback deckt IITC-Varianten ohne
