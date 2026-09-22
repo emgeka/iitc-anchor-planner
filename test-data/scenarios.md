@@ -258,3 +258,40 @@ laden und anschließend den Layer wieder einschalten und erneut laden.
 ausgeschaltet und das Panel bleibt verborgen. Nach dem manuellen Einschalten
 bleiben Layer und Panel auch nach dem zweiten Neuladen aktiv. Beim ersten Start
 ohne gespeicherten Zustand gilt weiterhin IITCs registrierter Standard.
+
+## 17. Finaler Blockercheck für nicht bestätigte Planlinks
+
+**Aufbau:** Einen längeren Plan bei weit herausgezoomter Karte scannen, sodass
+mindestens ein kurzer kreuzender Intel-Link im normalen Kartenstand nicht
+geladen ist. Mindestens einen anderen Planlink bereits im Intel-Netz bestehen
+lassen. Kartenmittelpunkt und Zoomstufe notieren und anschließend
+**Finalcheck** auswählen. Zusätzlich einen vollständig vorhandenen Plan sowie
+einen Plan testen, der mehr als zwölf Prüfansichten benötigt. Einen laufenden
+Check einmal pausieren, fortsetzen und ein zweites Mal nach dem Pausieren IITC
+neu laden, denselben Plan scannen und den Check fortsetzen. Danach den Plan
+ändern.
+
+**Erwartung:**
+
+- Der Einsatzcheck kennzeichnet den finalen Blockercheck vor seinem Lauf als
+  ausstehend; der normale Scan vermittelt keine vollständige Entwarnung.
+- Der Finalcheck bewegt die Karte schrittweise auf die erste IITC-Zoomstufe
+  ohne Linklängenfilter, erkennt den zuvor fehlenden kurzen Blocklink und
+  berechnet Blocker, vorhandene Planlinks und Keybedarf aus den über alle
+  Ansichten gesammelten Links neu.
+- Bereits erkannte vorhandene Planlinks erzeugen keine eigenen Prüfansichten.
+  Sind alle Planlinks bereits vorhanden, ist die Aktion deaktiviert und es
+  erfolgt keine Kartenbewegung.
+- Nach Abschluss entsprechen Kartenmittelpunkt und Zoomstufe wieder exakt dem
+  Ausgangsstand. Es erfolgen keine direkten Tile- oder Portalabfragen des
+  Plugins.
+- **Check pausieren** stellt die Ausgangsansicht wieder her. **Check
+  fortsetzen** beginnt bei der ersten noch offenen Ansicht und behält die
+  bereits gesammelten Links bei. Das gilt bei unverändertem Plan auch nach
+  einem IITC-Neuladen und erneutem normalen Scan; nach einer Planänderung wird
+  der veraltete Zwischenstand verworfen.
+- Benötigt der Plan mehr als zwölf Ansichten oder läuft eine Kartenladung in
+  ein Zeitlimit, wird der Lauf sichtbar als unvollständig bezeichnet und nicht
+  als Entwarnung gewertet.
+- Button, Fortschritt und Ergebnistext bleiben auf Desktop und IITC Mobile in
+  allen gebündelten Sprachen erreichbar und verständlich.

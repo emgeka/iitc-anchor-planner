@@ -48,6 +48,7 @@ Daraus kann das Plugin:
 - bereits vorhandene Planlinks erkennen;
 - den verbleibenden Schlüsselbedarf berechnen;
 - kreuzende Blocker-Links erkennen und hervorheben;
+- für noch nicht bestätigte Planlinks einen begrenzten optionalen **Finalcheck** auf einer IITC-Zoomstufe ohne Linklängenfilter durchführen und bereits als vorhanden erkannte Planlinks dabei überspringen;
 - sinnvolle Blocker-Endportale für die praktische Abarbeitung priorisieren;
 - einen kompakten Einsatzcheck für Blocker, fehlende Keys, fehlende Namen, offene Endpunkte und begrenzte Linkabdeckung anzeigen;
 - Portale nach offen, blockiert, fehlenden Keys und erledigt filtern;
@@ -64,7 +65,7 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 
 1. Linkplan mit Draw Tools oder Auto Draw erzeugen.
 2. Den relevanten Kartenbereich laden und **Scannen** auswählen.
-3. Einsatzcheck und offene Endpunkte prüfen.
+3. Einsatzcheck und offene Endpunkte prüfen; vor dem Einsatz für noch nicht bestätigte Planlinks den **Finalcheck** ausführen.
 4. Erkannte Blocker kontrollieren und bei Bedarf geeignete Blocker-Endportale für die Arbeitsroute vormerken.
 5. Keys und erledigte Portale pflegen, während Anchor Planner das nächste Ziel hervorhebt.
 6. Mit Waze oder einer anderen Karten-App navigieren und den Plan bei Bedarf exportieren.
@@ -74,7 +75,7 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 - IITC mit aktiviertem Draw-Tools-Plugin ist für den Scan erforderlich.
 - Portal-Bookmarks verbessern die Auflösung, sind aber optional.
 - Standortabhängige Zielwahl verwendet ausschließlich das offizielle IITC-User-Location-Plugin. Standortdaten werden weder dauerhaft gespeichert noch exportiert.
-- Vorhandene Links und Blocker können nur anhand der aktuell in IITC geladenen `window.links` erkannt werden. Ein nicht angezeigter Blocker ist daher keine vollständige Entwarnung.
+- Der normale Scan erkennt nur die aktuell in IITC geladenen `window.links`. Der **Finalcheck** fährt vorübergehend höchstens zwölf Ansichten entlang noch nicht bestätigter Planlinks auf der ersten IITC-Zoomstufe ohne Linklängenfilter ab, sammelt die geladenen Links und stellt danach die ursprüngliche Ansicht wieder her. Bereits erkannte Planlinks werden übersprungen. Der Fortschritt wird nach jeder Ansicht gespeichert; ein pausierter Check kann bei unverändertem Plan auch nach einem IITC-Neuladen fortgesetzt werden. Ein begrenzter oder abgebrochener Lauf bleibt ausdrücklich unvollständig und ist keine Entwarnung.
 
 ## Community Plugins und Updates
 
@@ -84,13 +85,13 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 - Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
 - Katalog-Icon: wird über die Userscript-Metadaten aus `docs/media/anchor-planner-icon.svg` veröffentlicht
 
-`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs: Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Deshalb ist `highLoad` nicht deklariert.
+`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs: Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Der ausdrücklich gestartete **Finalcheck** ist auf zwölf normale IITC-Kartenansichten begrenzt und führt keine eigenen Intel-Tile-Abfragen aus. Deshalb ist `highLoad` nicht deklariert.
 
 Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Version und ist als Quelle für den IITC Community Plugins-Katalog vorgesehen. Entwicklungsänderungen unter `src/` erreichen installierte Plugins erst nach Test und Veröffentlichung.
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.49**
+- Aktuelle Version: **0.1.50 (Entwicklung)**
 - Aktuelle stabile Veröffentlichung: **0.1.49**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

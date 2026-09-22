@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.49
+# Anforderungen für Version 0.1.50
 
 ## Planerfassung und Portalauflösung
 
@@ -29,6 +29,24 @@
   priorisieren; beide Endpunkte bleiben gleichwertige mögliche Arbeitsziele.
 - In Dokumentation und Export darauf hinweisen, dass die Blockerprüfung nur
   aktuell in IITC geladene Links umfasst.
+- Solange nicht bestätigte Planlinks vorhanden sind, einen ausstehenden
+  finalen Blockercheck anzeigen und den geladenen Stand nicht als vollständige
+  Entwarnung darstellen.
+- Einen ausdrücklich gestarteten, begrenzten Finalcheck ausschließlich für
+  noch nicht bestätigte Planlinks anbieten; bereits erkannte vorhandene
+  Planlinks dürfen keine Prüfansichten erzeugen.
+- Für den Finalcheck IITCs normale Kartenladung auf der ersten Zoomstufe ohne
+  Linklängenfilter verwenden, die dabei sichtbaren Links über alle
+  Prüfansichten sammeln und keine eigenen Intel-Tile- oder Portalabfragen
+  ausführen.
+- Den Finalcheck auf höchstens zwölf Ansichten begrenzen, die ursprüngliche
+  Kartenposition und Zoomstufe anschließend wiederherstellen und einen wegen
+  Begrenzung oder Zeitüberschreitung unvollständigen Lauf ausdrücklich als
+  unvollständig kennzeichnen.
+- Den Zwischenstand nach jeder abgeschlossenen Ansicht dauerhaft speichern.
+  Ein pausierter oder durch einen IITC-Neustart unterbrochener Check muss bei
+  unverändertem Plan an der nächsten noch offenen Ansicht fortsetzbar sein;
+  bei geändertem Plan ist der veraltete Zwischenstand zu verwerfen.
 
 ## Abarbeitung und Route
 

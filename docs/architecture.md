@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.49
+# Architekturübersicht 0.1.50
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -11,6 +11,8 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 `ap.state` wird unter `plugin-anchor-planner-v1` in `localStorage` gespeichert:
 
 - Scan-Toleranz und letzter Scanbericht,
+- fortsetzbarer Zwischenstand eines pausierten finalen Blockerchecks unter
+  `finalScanProgress`,
 - eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
 - vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
 - Panelzustand und aktiver Listenfilter,
@@ -27,6 +29,8 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - Layer, automatische Blocker-Geometrien und HTML-Statusmarker,
 - verzögerten Panel-Refresh nach IITC-Kartendatenänderungen,
 - verzögerte Positionskorrektur nach Größenänderungen des Panelinhalts,
+- aktiver Zustand, Linkakkumulator und Fortschritt eines ausdrücklich
+  gestarteten finalen Blockerchecks,
 - zuletzt vom IITC-User-Location-Plugin gemeldeten Standort sowie das
   dynamische nächste Ziel.
 
@@ -57,7 +61,8 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 | Bookmarks | `collectPortalBookmarks`, `mergePortalSources` |
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
-| Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
+| Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink`, `applyExistingLinkCoverage` |
+| Finaler Blockercheck | `getFinalScanZoom`, `buildFinalScanCheckpoints`, `startFinalScan`, `visitFinalScanCheckpoint`, `captureFinalScanLinks`, `finishFinalScan` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
 | Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `schedulePanelPositionCorrection`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
@@ -67,7 +72,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 153 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 167 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -101,9 +106,37 @@ die gewählte Sprache wird nicht als zusätzliches Exportfeld ausgegeben.
    mit vorhandenen Links geprüft.
 7. `scan` erzeugt Portalstatistiken, Schlüsselbedarf, Linkzustände,
    Blockerlisten und den Scanbericht.
-8. Panel, Kartenlayer, Einsatzcheck und Export verwenden denselben
+8. Solange nicht bestätigte Planlinks verbleiben, markiert der Einsatzcheck
+   den finalen Blockercheck als ausstehend.
+9. Panel, Kartenlayer, Einsatzcheck und Export verwenden denselben
    Laufzeitstand; fehlende Portalnamen werden anschließend asynchron
    nachgeladen.
+
+## Datenfluss des finalen Blockerchecks
+
+Der Finalcheck wird nur durch die Nutzeraktion **Finalcheck** gestartet und
+berücksichtigt ausschließlich Planlinks, die der normale Scan noch nicht als
+vorhanden erkannt hat. `getFinalScanZoom` liest defensiv IITCs
+`ZOOM_TO_LINK_LENGTH` und wählt die erste Zoomstufe ohne Linklängenfilter
+(gegenwärtig typischerweise Zoom 13). `buildFinalScanCheckpoints` verteilt
+Ansichten entlang dieser Planlinks, entfernt Überschneidungen und begrenzt den
+Lauf auf zwölf Ansichten.
+
+Jede Ansicht wird mit IITCs normalem `map.setView` geladen. Die Hooks
+`mapDataRefreshStart` und `mapDataRefreshEnd` takten den Lauf;
+`captureFinalScanLinks` akkumuliert die jeweils in `window.links` vorhandenen
+Links, weil IITC Links außerhalb der aktuellen Ansicht wieder entfernt. Es
+gibt keine direkten Tile- oder Portalabfragen. Nach dem letzten Schritt
+berechnet `applyExistingLinkCoverage` vorhandene Planlinks, Blocker und
+Schlüsselbedarf neu. `finishFinalScan` stellt Mittelpunkt und Zoomstufe der
+ursprünglichen Kartenansicht wieder her. Mehr als zwölf erforderliche Ansichten
+oder eine Zeitüberschreitung führen zu einem ausdrücklich unvollständigen
+Ergebnis. `persistFinalScanProgress` speichert nach jedem abgeschlossenen
+Schritt Prüfpunkte, nächsten Index und den deduplizierten Linkakkumulator. Eine
+Pause stellt die Ausgangsansicht sofort wieder her. `canResumeFinalScan`
+erlaubt die Fortsetzung auch nach einem IITC-Neuladen, sobald ein normaler Scan
+denselben Plan aus noch nicht bestätigten Link-IDs wiederhergestellt hat; bei
+abweichender Plansignatur wird der Zwischenstand verworfen.
 
 ## Standort- und Routenlogik
 
@@ -157,8 +190,8 @@ Links oder ein fehlender Plan führen zu einem Prüfhinweis. Ein positiver Statu
 lautet bewusst **Bereit (geladener Stand)**, weil IITC nur geladene Links
 bereitstellt.
 
-`renderPanel` hält die Hauptansicht kompakt: **Scannen** und **Mehr** bilden die
-primären Aktionen; weitere Aktionen, Toleranz und Scandetails tragen die Klasse
+`renderPanel` hält die Hauptansicht kompakt: **Scannen**, **Finalcheck** und
+**Mehr** bilden die primären Aktionen; weitere Aktionen, Toleranz und Scandetails tragen die Klasse
 `ap-secondary`. Portalzeilen sind aufklappbare `details`-Elemente, deren
 Kopfzeile Status, Portalname und Keybestand enthält. Zielentfernung,
 Restschätzung und Zielzahl werden gemeinsam in der nächsten Zielzeile

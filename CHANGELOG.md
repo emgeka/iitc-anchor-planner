@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.1.50 (development)
+
+### English
+
+- Added an explicit bounded **Final check** for still-unconfirmed plan links.
+  It uses IITC's normal map loading at the first zoom without a link-length
+  filter, accumulates links across at most twelve targeted views, and restores
+  the original map view afterwards without issuing direct tile or portal
+  requests.
+- Excluded already recognized existing plan links from final-scan checkpoints;
+  a fully existing plan needs no final scan and causes no map movement.
+- Added visible pending, progress, complete, and incomplete coverage states.
+  Capped or timed-out scans remain explicitly incomplete and never imply an
+  all-clear.
+- Persisted progress and accumulated links after every checked view. A paused
+  check can continue at its next open view for the unchanged plan, including
+  after reloading IITC; changed plans discard stale progress.
+
+### Deutsch
+
+- Einen ausdrücklichen begrenzten **Finalcheck** für noch nicht bestätigte
+  Planlinks ergänzt. Er verwendet IITCs normale Kartenladung auf der ersten
+  Zoomstufe ohne Linklängenfilter, sammelt Links über höchstens zwölf gezielte
+  Ansichten und stellt danach die ursprüngliche Kartenansicht wieder her, ohne
+  direkte Tile- oder Portalabfragen auszuführen.
+- Bereits erkannte vorhandene Planlinks von den Prüfansichten ausgeschlossen;
+  ein vollständig vorhandener Plan benötigt keinen Finalcheck und verursacht
+  keine Kartenbewegung.
+- Sichtbare Zustände für ausstehende, laufende, vollständige und unvollständige
+  Abdeckung ergänzt. Begrenzte oder zeitüberschrittene Läufe bleiben
+  ausdrücklich unvollständig und vermitteln keine Entwarnung.
+- Fortschritt und gesammelte Links nach jeder geprüften Ansicht dauerhaft
+  gespeichert. Ein pausierter Check kann bei unverändertem Plan auch nach
+  einem IITC-Neuladen an der nächsten offenen Ansicht fortgesetzt werden;
+  geänderte Pläne verwerfen den veralteten Zwischenstand.
+
 ## 0.1.49
 
 ### English

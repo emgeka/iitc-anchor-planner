@@ -48,6 +48,7 @@ From that data it can:
 - detect planned links that already exist;
 - calculate remaining key demand;
 - detect and highlight crossing blocker links;
+- run an optional bounded **Final check** for still-unconfirmed plan links at an IITC zoom that loads every link length, while skipping plan links already recognized as existing;
 - prioritize useful blocker endpoints for field work;
 - provide a compact readiness check for blockers, missing keys, missing names, unresolved endpoints, and limited link coverage;
 - filter portals by open, blocked, missing keys, and completed;
@@ -64,7 +65,7 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 
 1. Create a link plan with Draw Tools or Auto Draw.
 2. Load the relevant map area and select **Scan**.
-3. Check the readiness summary and unresolved endpoints.
+3. Check the readiness summary and unresolved endpoints; before field work, run **Final check** for any still-unconfirmed plan links.
 4. Review detected blockers and optionally add useful blocker endpoints to the work route.
 5. Maintain keys and completed portals while Anchor Planner highlights the next target.
 6. Navigate with Waze or another map app and export the plan when needed.
@@ -74,7 +75,7 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 - IITC with the Draw Tools plugin enabled is required for scanning.
 - Portal Bookmarks improve endpoint resolution but are optional.
 - Location-based target selection exclusively uses the official IITC User Location plugin. Location data is neither stored permanently nor exported.
-- Existing links and blockers can only be detected from `window.links` currently loaded in IITC. A blocker that is not shown is therefore not a definitive all-clear.
+- The normal scan only sees `window.links` currently loaded in IITC. **Final check** temporarily visits at most twelve views along still-unconfirmed plan links at the first IITC zoom without a link-length filter, accumulates the loaded links, and restores the original view. Existing recognized plan links are skipped. Progress is saved after every view, so a paused check can continue with the unchanged plan, including after reloading IITC. A capped or timed-out run remains explicitly incomplete and is not an all-clear.
 
 ## Community Plugins and updates
 
@@ -84,13 +85,13 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 - Declared anti-features: `scraper` for automatically loading missing portal names and `export` for user-initiated plan exports
 - Catalog icon: published through the userscript metadata from `docs/media/anchor-planner-icon.svg`
 
-`scraper` follows the terminology used by the IITC Community Plugins catalog. Anchor Planner only requests missing names for portals recognized in the current plan through IITC's own portal detail functions. Requests run sequentially after a scan or explicitly through **Load names**. The plugin does not search external websites, permanently collect unrelated portal data, or perform continuous background requests. Therefore, `highLoad` is not declared.
+`scraper` follows the terminology used by the IITC Community Plugins catalog. Anchor Planner only requests missing names for portals recognized in the current plan through IITC's own portal detail functions. Requests run sequentially after a scan or explicitly through **Load names**. The plugin does not search external websites, permanently collect unrelated portal data, or perform continuous background requests. The user-initiated **Final check** is capped at twelve ordinary IITC map views and does not issue its own Intel tile requests. Therefore, `highLoad` is not declared.
 
 The stable installation URL always points to the latest published release and is intended as the source for the IITC Community Plugins catalog. Development changes under `src/` do not reach installed plugins until they have been tested and published as a release.
 
 ## Project status
 
-- Current version: **0.1.49**
+- Current version: **0.1.50 (development)**
 - Latest stable release: **0.1.49**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

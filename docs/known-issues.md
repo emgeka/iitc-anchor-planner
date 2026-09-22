@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.49
+# Bekannte Grenzen in 0.1.50
 
 ## Portalzuordnung und Namen
 
@@ -28,6 +28,20 @@
   und Exporte erläutern die begrenzte Datenabdeckung.
 - Automatisch hervorgehobene Blocklinks bleiben die Momentaufnahme des letzten
   Scans. Nach dem Laden weiterer IITC-Links ist ein erneuter Scan erforderlich.
+- Der optionale **Finalcheck** verbessert diese Abdeckung für noch nicht
+  bestätigte Planlinks, indem er höchstens zwölf Ansichten auf einer
+  Zoomstufe ohne Linklängenfilter lädt. Bereits erkannte vorhandene Planlinks
+  werden bewusst nicht erneut geprüft.
+- Während des Finalchecks bewegt sich die Karte vorübergehend; Mittelpunkt und
+  Zoomstufe werden danach wiederhergestellt. Benötigt der Plan mehr als zwölf
+  Ansichten oder endet eine IITC-Ladung nicht rechtzeitig, bleibt der Lauf
+  ausdrücklich unvollständig.
+- Pausierte Zwischenstände sind nur für denselben unveränderten Satz noch nicht
+  bestätigter Planlinks fortsetzbar. Nach einer Planänderung wird der alte
+  Zwischenstand bewusst verworfen.
+- Auch ein vollständig durchgelaufener Finalcheck ist keine mathematische
+  Garantie gegen serverseitig fehlende, verzögerte oder anderweitig nicht von
+  IITC gelieferte Daten.
 - Jeder Blocklink besitzt zwei gleichwertige Endportale. Die Arbeitsliste kann
   deshalb nur nach der Zahl betroffener Blocklinks priorisieren; welches Portal
   praktisch zum Beseitigen eines Links geeignet ist, entscheidet der Nutzer.
@@ -119,4 +133,6 @@
 - Das Plugin durchsucht keine externen Webseiten und sammelt nicht dauerhaft
   unabhängig vom aktuellen Plan weiter.
 - `highLoad` ist nicht deklariert, weil keine kontinuierliche oder
-  massenhafte Intel-Abfragefunktion vorhanden ist.
+  massenhafte Intel-Abfragefunktion vorhanden ist. Der nur durch Nutzeraktion
+  gestartete Finalcheck ist auf zwölf normale IITC-Kartenansichten begrenzt
+  und stellt keine eigenen Intel-Tile-Anfragen.
