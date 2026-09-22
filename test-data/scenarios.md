@@ -171,6 +171,10 @@ Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
   und Zoomstufe verändern sich nicht, und es wird keine zusätzliche
   Portalabfrage ausgelöst. Bei nicht geladenem Portal erscheint eine
   lokalisierte Verfügbarkeitsmeldung.
+- Jedes Blocker-Endportal zeigt ebenfalls **Details anzeigen** und **Aktionen**
+  statt eines einzelnen Waze-Buttons. Die Detailaktion folgt denselben
+  Ladegrenzen wie bei Planportalen; **Aktionen** öffnet denselben Teilen- und
+  Navigationsdialog einschließlich Waze.
 - Nach jedem Auf- und Zuklappen von **Mehr**, Einsatzcheck, Blockerbereich und
   Portalzeilen bleibt das Panel unverändert stehen, solange es vollständig im
   Viewport liegt; andernfalls wird es nach kurzer Verzögerung gerade so weit

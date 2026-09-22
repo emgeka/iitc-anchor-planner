@@ -146,6 +146,17 @@ function createClassList() {
 
 {
   const { ap, context } = createRuntime();
+  let promptTitle = '';
+  let promptText = '';
+  context.window.prompt = function (title, text) { promptTitle = title; promptText = text; };
+  ap.showPortalActions({ guid: 'blockerA', title: 'Blocker Alpha', lat: 50.1, lng: 8.6 });
+  assert.equal(promptTitle, 'Share portal:');
+  assert.match(promptText, /Blocker Alpha/);
+  assert.match(promptText, /waze\.com/);
+}
+
+{
+  const { ap, context } = createRuntime();
   const layerGroup = { _map: null, addTo() { throw new Error('setupLayer must not force-enable a disabled layer'); } };
   context.L = { LayerGroup: function () { return layerGroup; } };
   context.window.map = {

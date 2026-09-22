@@ -55,7 +55,9 @@ From that data it can:
 - maintain keys, completion state, notes, and route order;
 - dynamically select the next work target using the official IITC User Location plugin;
 - estimate straight-line distance and remaining route;
-- offer Waze, Intel, Google Maps, Apple Maps, and geo navigation;
+- offer the same **Show details** and **Actions** controls for plan portals and
+  blocker endpoints, with Waze, Intel, Google Maps, Apple Maps, and geo
+  navigation in the shared actions dialog;
 - open IITC's portal detail view for an already loaded plan portal without moving or zooming the map;
 - copy or download the plan and detailed blocker information as text or JSON.
 

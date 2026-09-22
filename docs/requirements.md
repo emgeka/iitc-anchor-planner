@@ -88,6 +88,10 @@
 - Für bereits in IITC geladene Planportale eine ausdrückliche, lokalisierte
   Detailaktion anbieten. Sie darf weder zusätzliche Portaldetails anfordern
   noch die Karte zentrieren, verschieben oder zoomen.
+- Erkannte Blocker-Endportale müssen dieselben lokalisierten Aktionen
+  **Details anzeigen** und **Aktionen** wie Planportale anbieten. Ein einzelner
+  abweichender Waze-Direktbutton darf dort nicht erscheinen; Waze und weitere
+  Navigationsziele bleiben im gemeinsamen Aktionsdialog verfügbar.
 - Die in IITC gespeicherte Sichtbarkeit des Anchor-Planner-Layers beim
   Neuladen respektieren und den Layer nicht eigenständig aktivieren.
 - Waze-Navigation und weitere geeignete Kartenlinks bereitstellen; externe

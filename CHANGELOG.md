@@ -19,6 +19,10 @@
   after reloading IITC; changed plans discard stale progress.
 - Replaced the ambiguous zero-key map badge `0K` with `K0` so it cannot be
   mistaken for “OK”.
+- Replaced the standalone Waze button on blocker endpoint rows with the same
+  localized **Show details** and **Actions** controls used by plan portals;
+  the shared actions dialog still provides Waze and the other navigation
+  targets.
 
 ### Deutsch
 
@@ -39,6 +43,10 @@
   geänderte Pläne verwerfen den veralteten Zwischenstand.
 - Das missverständliche Null-Key-Kartenbadge `0K` durch `K0` ersetzt, damit es
   nicht wie „OK“ aussieht.
+- Den einzelnen Waze-Button an Blocker-Endportalen durch dieselben
+  lokalisierten Aktionen **Details anzeigen** und **Aktionen** wie bei
+  Planportalen ersetzt; Waze und weitere Navigationsziele bleiben im
+  gemeinsamen Aktionsdialog verfügbar.
 
 ## 0.1.49
 

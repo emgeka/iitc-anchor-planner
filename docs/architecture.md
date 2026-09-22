@@ -151,6 +151,12 @@ weitere Blocker-Endportale werden nur nach ausdrücklicher Vormerkung ergänzt.
 `getRouteTasks` führt beide Mengen anhand der Portal-GUID ohne Duplikate
 zusammen.
 
+Blocker-Endportale verwenden im Panel dieselben Aktionen wie Planportale.
+`showPortalDetails` bleibt auf bereits geladene IITC-Portalobjekte beschränkt;
+`showPortalActions` akzeptiert zusätzlich die aus der Blocker-Arbeitsliste
+stammenden Titel und Koordinaten, sodass der gemeinsame Teilen- und
+Navigationsdialog ohne Planportalstatistik funktioniert.
+
 `getNextRouteTarget` ermittelt bei jedem relevanten Standort- oder
 Statuswechsel das nächste offene Plan- oder Blocker-Portal nach Luftlinie.
 Diese dynamische Auswahl verändert die gespeicherte Planportalreihenfolge

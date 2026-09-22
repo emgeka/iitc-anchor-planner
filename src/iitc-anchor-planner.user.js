@@ -25,7 +25,7 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260922105710';
+  plugin_info.dateTimeVersion = '20260922110352';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
@@ -4097,8 +4097,9 @@ function wrapper(plugin_info) {
     }
   };
 
-  ap.showPortalActions = function (guid) {
-    var stat = ap.runtime.stats[guid];
+  ap.showPortalActions = function (portal) {
+    var guid = typeof portal === 'string' ? portal : portal && portal.guid;
+    var stat = guid && ap.runtime.stats[guid] || (portal && typeof portal === 'object' ? portal : null);
     if (!stat) return;
     var nav = ap.navigationLinks(stat);
     var html = '';
@@ -4572,7 +4573,6 @@ function wrapper(plugin_info) {
       html += '<details class="ap-blocker-section"' + (blockerSectionOpen ? ' open' : '') + '><summary>' + ap.escapeHtml(ap.t('blocker.title')) + ' (' + ap.escapeHtml(ap.tp('blocker.blockLink', blockingLinkCount)) + (blockerWorklist.length ? ' · ' + ap.escapeHtml(ap.tp('blocker.endPortal', blockerWorklist.length)) : '') + (selectedBlockerPortals ? ' · ' + ap.escapeHtml(ap.t('blocker.selected', { count: selectedBlockerPortals })) : '') + ')</summary>';
       if (blockerWorklist.length) {
         blockerWorklist.forEach(function (candidate) {
-          var blockerNav = ap.navigationLinks(candidate);
           var blockerDistance = ap.formatDistance(candidate.distance);
           html += '<div class="ap-blocker-work-row" data-guid="' + ap.escapeHtml(candidate.guid) + '" data-lat="' + ap.escapeHtml(candidate.lat) + '" data-lng="' + ap.escapeHtml(candidate.lng) + '">';
           html += '<div class="ap-blocker-work-main">';
@@ -4580,7 +4580,7 @@ function wrapper(plugin_info) {
           else html += '<label class="ap-blocker-work-select"><input type="checkbox" class="ap-blocker-route-check" data-guid="' + ap.escapeHtml(candidate.guid) + '"' + (candidate.selected ? ' checked' : '') + '> <b>' + ap.escapeHtml(candidate.title) + '</b></label>';
           html += '</div>';
           html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.tp('blocker.endpointOf', candidate.blockerCount)) + (candidate.isOpenPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.openPlanPortal')) : (candidate.isPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.donePlanPortal')) : '')) + '<span class="ap-blocker-work-distance">' + (blockerDistance ? ' · ' + ap.escapeHtml(blockerDistance) + ' ' + ap.escapeHtml(ap.t('route.aerial')) : '') + '</span></div>';
-          html += '<a class="ap-blocker-work-nav" target="_blank" rel="noopener" href="' + ap.escapeHtml(blockerNav.waze) + '">Waze</a></div>';
+          html += '<div class="ap-blocker-work-actions"><button class="ap-blocker-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-blocker-actions">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div></div>';
         });
       }
       html += '<div class="ap-blocker-hint">' + ap.escapeHtml(ap.t('blocker.mapLegend')) + '</div>';
@@ -4649,6 +4649,17 @@ function wrapper(plugin_info) {
         ap.renderPanel();
       };
     });
+    Array.prototype.forEach.call(panel.querySelectorAll('.ap-blocker-work-row'), function (row) {
+      var guid = row.getAttribute('data-guid');
+      var candidate = null;
+      for (var i = 0; i < blockerWorklist.length; i++) {
+        if (blockerWorklist[i].guid === guid) { candidate = blockerWorklist[i]; break; }
+      }
+      var detailsButton = row.querySelector('.ap-blocker-show-details');
+      var actionsButton = row.querySelector('.ap-blocker-actions');
+      if (detailsButton) detailsButton.onclick = function () { ap.showPortalDetails(guid); };
+      if (actionsButton && candidate) actionsButton.onclick = function () { ap.showPortalActions(candidate); };
+    });
     Array.prototype.forEach.call(panel.querySelectorAll('.ap-row'), function (row) {
       var guid = row.getAttribute('data-guid');
       var local = ap.ensureAnchorState(guid);
@@ -4684,7 +4695,7 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-readiness{padding:5px 8px;border-bottom:1px solid #333}#iitc-anchor-planner .ap-readiness summary{cursor:pointer;overflow-wrap:anywhere}#iitc-anchor-planner .ap-readiness-ready summary{color:#8ee68e}#iitc-anchor-planner .ap-readiness-check summary{color:#f5d76e}#iitc-anchor-planner .ap-readiness-blocked summary{color:#ff8b80}#iitc-anchor-planner .ap-readiness-detail{margin-top:5px;color:#ddd;font-size:11px;line-height:1.35}\
 #iitc-anchor-planner .ap-actions,.ap-settings,.ap-message,.ap-mini{padding:5px 8px;border-bottom:1px solid #333}.ap-message{color:#ccc}.ap-unresolved-item{margin-top:4px;border-top:1px solid #554;padding-top:3px}.ap-mini{color:#ddd}.ap-unresolved{margin-top:4px;color:#f5d76e;font-size:11px;line-height:1.3}\
 #iitc-anchor-planner .ap-blocker-section{padding:5px 8px;border-bottom:1px solid #443;color:#ddd}#iitc-anchor-planner .ap-blocker-section>summary{cursor:pointer;color:#f5d76e;font-weight:bold}#iitc-anchor-planner .ap-blocker-hint{margin-top:5px;color:#aaa;font-size:11px}\
-#iitc-anchor-planner .ap-blocker-work-row{position:relative;margin-top:4px;padding:5px 50px 5px 0;border-top:1px solid #443;overflow-wrap:anywhere}#iitc-anchor-planner .ap-blocker-work-main{color:#fff}#iitc-anchor-planner .ap-blocker-work-main input{vertical-align:middle}#iitc-anchor-planner .ap-blocker-work-select{display:inline-block;cursor:pointer;padding:2px 0}#iitc-anchor-planner .ap-blocker-work-plan{color:#8ee68e;font-weight:bold}#iitc-anchor-planner .ap-blocker-work-meta{margin-top:2px;color:#ccc;font-size:11px}#iitc-anchor-planner .ap-blocker-work-distance{color:#9fd0ff}#iitc-anchor-planner .ap-blocker-work-nav{position:absolute;right:0;top:5px;padding:3px 6px;background:#333;color:#f0d16b;border:1px solid #777;border-radius:3px;text-decoration:none}\
+#iitc-anchor-planner .ap-blocker-work-row{margin-top:4px;padding:5px 0;border-top:1px solid #443;overflow-wrap:anywhere}#iitc-anchor-planner .ap-blocker-work-main{color:#fff}#iitc-anchor-planner .ap-blocker-work-main input{vertical-align:middle}#iitc-anchor-planner .ap-blocker-work-select{display:inline-block;cursor:pointer;padding:2px 0}#iitc-anchor-planner .ap-blocker-work-plan{color:#8ee68e;font-weight:bold}#iitc-anchor-planner .ap-blocker-work-meta{margin-top:2px;color:#ccc;font-size:11px}#iitc-anchor-planner .ap-blocker-work-distance{color:#9fd0ff}#iitc-anchor-planner .ap-blocker-work-actions{margin-top:3px}\
 #iitc-anchor-planner .ap-list{overflow:visible}\
 #iitc-anchor-planner .ap-row{padding:5px 8px;border-bottom:1px solid #333;background:rgba(255,255,255,.02)}#iitc-anchor-planner .ap-row.ap-candidate{background:rgba(255,255,255,.055)}\
 #iitc-anchor-planner .ap-row-title{display:flex;align-items:center;gap:3px;cursor:pointer;font-size:13px}.ap-row-title b{flex:1;min-width:0;overflow-wrap:anywhere}.ap-row-keys{flex:none;color:#9fd0ff;font-size:11px;white-space:nowrap}.ap-address{color:#bbb;margin:4px 0 2px}.ap-meta{margin:4px 0;color:#ddd}.ap-controls{margin:3px 0}.ap-controls a{color:#f0d16b;text-decoration:none;margin-right:5px}.ap-note{width:98%;box-sizing:border-box;margin-top:3px}\

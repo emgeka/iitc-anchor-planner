@@ -55,7 +55,9 @@ Daraus kann das Plugin:
 - Keys, Erledigt-Status, Notizen und Routenreihenfolge verwalten;
 - anhand des offiziellen IITC-User-Location-Plugins dynamisch das nächste Arbeitsziel bestimmen;
 - Luftlinienentfernung und geschätzte Reststrecke anzeigen;
-- Waze-, Intel-, Google-Maps-, Apple-Maps- und Geo-Navigation anbieten;
+- für Planportale und Blocker-Endpunkte dieselben Aktionen **Details anzeigen**
+  und **Aktionen** anbieten; Waze-, Intel-, Google-Maps-, Apple-Maps- und
+  Geo-Navigation bleiben im gemeinsamen Aktionsdialog verfügbar;
 - für bereits geladene Planportale die IITC-Portal-Detailansicht öffnen, ohne die Karte zu verschieben oder zu zoomen;
 - Plan und konkrete Blocker-Details als Text oder JSON kopieren und herunterladen.
 
