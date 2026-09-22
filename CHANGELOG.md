@@ -14,6 +14,8 @@
   layer visibility is respected across reloads.
 - Replaced the ambiguous completed-portal `OK` map badge with a larger check
   mark so it cannot be mistaken for the existing-link `0K` status.
+- Practically verified portal details, panel correction, and disabled/enabled
+  layer persistence in IITC before publishing the stable release.
 
 ### Deutsch
 
@@ -31,6 +33,9 @@
 - Das missverständliche Kartenbadge `OK` für erledigte Portale durch ein
   größeres Häkchen ersetzt, damit es nicht wie der Status `0K` für vorhandene
   Links aussieht.
+- Portalansicht, Panelkorrektur sowie die Persistenz des deaktivierten und
+  aktivierten Layers vor der stabilen Veröffentlichung praktisch in IITC
+  bestätigt.
 
 ## 0.1.48
 
