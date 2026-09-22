@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.48
+// @version        0.1.49
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260917094417';
+  plugin_info.dateTimeVersion = '20260922094250';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.48';
+  ap.VERSION = '0.1.49';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -102,6 +102,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Portalnamen automatisch nachgeladen.",
       "message.namesLoaded": "Portalnamen nachgeladen.",
       "message.namesUnavailable": "Falls noch Namen fehlen, sind die Details nicht verfügbar.",
+      "message.portalDetailsUnavailable": "Für dieses Portal sind in IITC keine Portaldetails verfügbar.",
       "message.copied": "In die Zwischenablage kopiert.",
       "share.section": "Teilen",
       "share.copyText": "Text kopieren",
@@ -176,6 +177,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "In der Reihenfolge nach unten",
       "row.done": "erledigt",
       "row.actions": "Aktionen",
+      "row.showDetails": "Details anzeigen",
       "row.emptyFilter": "Keine Planportale für diesen Filter.",
       "overlay.keysNeeded": "Keys benötigt {owned}/{required}",
       "text.plan": "Plan: {links}, {portals}",
@@ -255,6 +257,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Portal names loaded automatically.",
       "message.namesLoaded": "Portal names loaded.",
       "message.namesUnavailable": "If names are still missing, their details are unavailable.",
+      "message.portalDetailsUnavailable": "IITC portal details are unavailable for this portal.",
       "message.copied": "Copied to the clipboard.",
       "share.section": "Share",
       "share.copyText": "Copy text",
@@ -329,6 +332,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Move down in the order",
       "row.done": "completed",
       "row.actions": "Actions",
+      "row.showDetails": "Show details",
       "row.emptyFilter": "No plan portals match this filter.",
       "overlay.keysNeeded": "Keys needed {owned}/{required}",
       "text.plan": "Plan: {links}, {portals}",
@@ -408,6 +412,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Nombres cargados automáticamente.",
       "message.namesLoaded": "Nombres cargados.",
       "message.namesUnavailable": "Si aún faltan nombres, sus detalles no están disponibles.",
+      "message.portalDetailsUnavailable": "Los detalles del portal no están disponibles en IITC.",
       "message.copied": "Copiado al portapapeles.",
       "share.section": "Compartir",
       "share.copyText": "Copiar texto",
@@ -482,6 +487,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Bajar en el orden",
       "row.done": "hecho",
       "row.actions": "Acciones",
+      "row.showDetails": "Mostrar detalles",
       "row.emptyFilter": "No hay portales para este filtro.",
       "overlay.keysNeeded": "Llaves {owned}/{required}",
       "text.plan": "Plan: {links}, {portals}",
@@ -561,6 +567,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Noms chargés automatiquement.",
       "message.namesLoaded": "Noms chargés.",
       "message.namesUnavailable": "Si des noms manquent encore, leurs détails sont indisponibles.",
+      "message.portalDetailsUnavailable": "Les détails de ce portail sont indisponibles dans IITC.",
       "message.copied": "Copié dans le presse-papiers.",
       "share.section": "Partager",
       "share.copyText": "Copier le texte",
@@ -635,6 +642,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Descendre dans l’ordre",
       "row.done": "terminé",
       "row.actions": "Actions",
+      "row.showDetails": "Afficher les détails",
       "row.emptyFilter": "Aucun portail pour ce filtre.",
       "overlay.keysNeeded": "Clés requises {owned}/{required}",
       "text.plan": "Plan : {links}, {portals}",
@@ -714,6 +722,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Nomi caricati automaticamente.",
       "message.namesLoaded": "Nomi caricati.",
       "message.namesUnavailable": "Se mancano ancora nomi, i dettagli non sono disponibili.",
+      "message.portalDetailsUnavailable": "I dettagli di questo portale non sono disponibili in IITC.",
       "message.copied": "Copiato negli appunti.",
       "share.section": "Condividi",
       "share.copyText": "Copia testo",
@@ -788,6 +797,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Sposta in basso",
       "row.done": "completato",
       "row.actions": "Azioni",
+      "row.showDetails": "Mostra dettagli",
       "row.emptyFilter": "Nessun portale per questo filtro.",
       "overlay.keysNeeded": "Chiavi {owned}/{required}",
       "text.plan": "Piano: {links}, {portals}",
@@ -867,6 +877,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "名前を自動読込しました。",
       "message.namesLoaded": "名前を読込しました。",
       "message.namesUnavailable": "まだ名前がない場合、詳細は取得できません。",
+      "message.portalDetailsUnavailable": "このポータルの詳細は IITC で利用できません。",
       "message.copied": "クリップボードにコピーしました。",
       "share.section": "共有",
       "share.copyText": "テキストをコピー",
@@ -941,6 +952,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "順番を下へ",
       "row.done": "完了",
       "row.actions": "操作",
+      "row.showDetails": "詳細を表示",
       "row.emptyFilter": "該当する計画ポータルはありません。",
       "overlay.keysNeeded": "必要キー {owned}/{required}",
       "text.plan": "計画: {links}、{portals}",
@@ -1020,6 +1032,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Nazwy wczytano automatycznie.",
       "message.namesLoaded": "Nazwy wczytane.",
       "message.namesUnavailable": "Jeśli nadal brakuje nazw, ich szczegóły są niedostępne.",
+      "message.portalDetailsUnavailable": "Szczegóły tego portalu są niedostępne w IITC.",
       "message.copied": "Skopiowano do schowka.",
       "share.section": "Udostępnij",
       "share.copyText": "Kopiuj tekst",
@@ -1094,6 +1107,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Przesuń niżej",
       "row.done": "ukończono",
       "row.actions": "Akcje",
+      "row.showDetails": "Pokaż szczegóły",
       "row.emptyFilter": "Brak portali dla tego filtra.",
       "overlay.keysNeeded": "Klucze {owned}/{required}",
       "text.plan": "Plan: {links}, {portals}",
@@ -1173,6 +1187,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Nomes carregados automaticamente.",
       "message.namesLoaded": "Nomes carregados.",
       "message.namesUnavailable": "Se ainda faltarem nomes, os detalhes estão indisponíveis.",
+      "message.portalDetailsUnavailable": "Os detalhes deste portal não estão disponíveis no IITC.",
       "message.copied": "Copiado para a área de transferência.",
       "share.section": "Compartilhar",
       "share.copyText": "Copiar texto",
@@ -1247,6 +1262,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Mover para baixo",
       "row.done": "concluído",
       "row.actions": "Ações",
+      "row.showDetails": "Mostrar detalhes",
       "row.emptyFilter": "Nenhum portal para este filtro.",
       "overlay.keysNeeded": "Chaves {owned}/{required}",
       "text.plan": "Plano: {links}, {portals}",
@@ -1326,6 +1342,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "Названия загружены автоматически.",
       "message.namesLoaded": "Названия загружены.",
       "message.namesUnavailable": "Если названий всё ещё нет, данные недоступны.",
+      "message.portalDetailsUnavailable": "Данные этого портала недоступны в IITC.",
       "message.copied": "Скопировано в буфер обмена.",
       "share.section": "Поделиться",
       "share.copyText": "Копировать текст",
@@ -1400,6 +1417,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "Переместить ниже",
       "row.done": "готово",
       "row.actions": "Действия",
+      "row.showDetails": "Показать подробности",
       "row.emptyFilter": "Нет порталов для этого фильтра.",
       "overlay.keysNeeded": "Ключи {owned}/{required}",
       "text.plan": "План: {links}, {portals}",
@@ -1479,6 +1497,7 @@ function wrapper(plugin_info) {
       "message.namesLoadedAuto": "名称已自动加载。",
       "message.namesLoaded": "名称已加载。",
       "message.namesUnavailable": "若仍缺名称，则详情不可用。",
+      "message.portalDetailsUnavailable": "此传送门的详情在 IITC 中不可用。",
       "message.copied": "已复制到剪贴板。",
       "share.section": "分享",
       "share.copyText": "复制文本",
@@ -1553,6 +1572,7 @@ function wrapper(plugin_info) {
       "row.moveDown": "下移",
       "row.done": "完成",
       "row.actions": "操作",
+      "row.showDetails": "显示详情",
       "row.emptyFilter": "此筛选条件下无计划 Portal。",
       "overlay.keysNeeded": "所需钥匙 {owned}/{required}",
       "text.plan": "计划：{links}，{portals}",
@@ -1606,7 +1626,8 @@ function wrapper(plugin_info) {
     htmlOverlay: null,
     mapDataPanelRefreshTimer: null,
     panelDrag: null,
-    panelResizeTimer: null
+    panelResizeTimer: null,
+    panelContentResizeTimer: null
   };
 
   ap.escapeHtml = function (value) {
@@ -1822,6 +1843,14 @@ function wrapper(plugin_info) {
   ap.correctPanelPosition = function (persist) {
     if (!ap.state.panelPosition) return;
     ap.setPanelPosition(ap.state.panelPosition.left, ap.state.panelPosition.top, persist);
+  };
+
+  ap.schedulePanelPositionCorrection = function (delay) {
+    if (ap.runtime.panelContentResizeTimer) clearTimeout(ap.runtime.panelContentResizeTimer);
+    ap.runtime.panelContentResizeTimer = setTimeout(function () {
+      ap.runtime.panelContentResizeTimer = null;
+      ap.correctPanelPosition(true);
+    }, delay == null ? 100 : delay);
   };
 
   ap.startPanelDrag = function (clientX, clientY, pointerId) {
@@ -3544,6 +3573,45 @@ function wrapper(plugin_info) {
     return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '') || (window.isSmartphone && window.isSmartphone());
   };
 
+  ap.showPortalDetails = function (guid) {
+    var marker = window.portals && window.portals[guid];
+    var details = null;
+    try {
+      if (marker && typeof marker.getDetails === 'function') details = marker.getDetails();
+    } catch (e) {}
+
+    var display = window.IITC && window.IITC.portal && window.IITC.portal.display;
+    var renderToSidebar = display && typeof display.renderToSidebar === 'function'
+      ? function () { display.renderToSidebar(marker); }
+      : (typeof window.renderPortalToSideBar === 'function' ? function () { window.renderPortalToSideBar(marker); } : null);
+    var selectPortal = display && typeof display.select === 'function'
+      ? function () { display.select(guid, 'anchorPlanner'); }
+      : (typeof window.selectPortal === 'function' ? function () { window.selectPortal(guid, 'anchorPlanner'); } : null);
+
+    if (!marker || !details || !renderToSidebar) {
+      ap.setMessage(ap.t('message.portalDetailsUnavailable'));
+      return false;
+    }
+
+    try {
+      if (selectPortal) selectPortal();
+      renderToSidebar();
+      if (ap.isMobile() && typeof window.show === 'function') {
+        window.show('info');
+      } else {
+        var scrollWrapper = document.getElementById('scrollwrapper');
+        var sidebarToggle = document.getElementById('sidebartoggle');
+        var sidebarVisible = !scrollWrapper || scrollWrapper.offsetWidth > 0 || scrollWrapper.offsetHeight > 0 ||
+          (typeof scrollWrapper.getClientRects === 'function' && scrollWrapper.getClientRects().length > 0);
+        if (!sidebarVisible && sidebarToggle && typeof sidebarToggle.click === 'function') sidebarToggle.click();
+      }
+      return true;
+    } catch (e2) {
+      ap.setMessage(ap.t('message.portalDetailsUnavailable'));
+      return false;
+    }
+  };
+
   ap.showPortalActions = function (guid) {
     var stat = ap.runtime.stats[guid];
     if (!stat) return;
@@ -4031,7 +4099,7 @@ function wrapper(plugin_info) {
       html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: local.ownedKeys || 0, required: stat.requiredKeys })) + '</span></summary>';
       if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
       html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + ap.escapeHtml(local.ownedKeys || 0) + '"> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
-      html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
+      html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
       html += '<input class="ap-note" type="hidden" value="' + ap.escapeHtml(local.note || '') + '">';
       html += '</details>';
     });
@@ -4048,6 +4116,7 @@ function wrapper(plugin_info) {
       var show = !panel.classList.contains('ap-show-more');
       panel.classList.toggle('ap-show-more', show);
       this.setAttribute('aria-expanded', show ? 'true' : 'false');
+      ap.schedulePanelPositionCorrection();
     };
     document.getElementById('ap-loadnames').onclick = ap.refreshMissingNames;
     document.getElementById('ap-export').onclick = ap.showExport;
@@ -4093,7 +4162,11 @@ function wrapper(plugin_info) {
       row.querySelector('.ap-note').onchange = function () { local.note = this.value; ap.save(); };
       row.querySelector('.ap-move-up').onclick = function () { ap.movePortal(guid, -1); };
       row.querySelector('.ap-move-down').onclick = function () { ap.movePortal(guid, 1); };
+      row.querySelector('.ap-show-details').onclick = function () { ap.showPortalDetails(guid); };
       row.querySelector('.ap-share').onclick = function () { ap.showPortalActions(guid); };
+    });
+    Array.prototype.forEach.call(panel.querySelectorAll('.ap-readiness, .ap-blocker-section, .ap-row'), function (details) {
+      details.addEventListener('toggle', function () { ap.schedulePanelPositionCorrection(); });
     });
 
     // v0.1.23: keine eigene Endpunkt-Zuordnung per UI; Draw-Tools-Rohdaten werden nur diagnostiziert.
@@ -4143,11 +4216,8 @@ function wrapper(plugin_info) {
     }
     ap.runtime.layerGroup = new L.LayerGroup();
     if (typeof window.addLayerGroup === 'function') window.addLayerGroup('Anchor Planner', ap.runtime.layerGroup, true);
-    if (window.map && typeof window.map.hasLayer === 'function' && !window.map.hasLayer(ap.runtime.layerGroup)) {
-      try { ap.runtime.layerGroup.addTo(window.map); } catch (e) {}
-    } else if (window.map && typeof window.map.hasLayer !== 'function') {
-      try { ap.runtime.layerGroup.addTo(window.map); } catch (e) {}
-    }
+    if (window.map && typeof window.map.hasLayer === 'function') ap.runtime.enabled = window.map.hasLayer(ap.runtime.layerGroup);
+    else ap.runtime.enabled = !!ap.runtime.layerGroup._map;
 
     if (window.map && typeof window.map.on === 'function') {
       window.map.on('overlayadd', function (e) {

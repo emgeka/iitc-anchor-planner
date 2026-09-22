@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.48
+# Architekturübersicht 0.1.49
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -26,6 +26,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - ungelöste Endpunkte und Diagnosekandidaten,
 - Layer, automatische Blocker-Geometrien und HTML-Statusmarker,
 - verzögerten Panel-Refresh nach IITC-Kartendatenänderungen,
+- verzögerte Positionskorrektur nach Größenänderungen des Panelinhalts,
 - zuletzt vom IITC-User-Location-Plugin gemeldeten Standort sowie das
   dynamische nächste Ziel.
 
@@ -52,21 +53,21 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 
 | Bereich | Zentrale Funktionen |
 | --- | --- |
-| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `requestPortalDetails`, `refreshMissingNames` |
+| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `requestPortalDetails`, `refreshMissingNames`, `showPortalDetails` |
 | Bookmarks | `collectPortalBookmarks`, `mergePortalSources` |
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
-| Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
+| Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `schedulePanelPositionCorrection`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
 | Sprache | `findAvailableLanguage`, `detectLanguage`, `getLanguage`, `languageOptionsHtml`, `t`, `tp` |
 
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 151 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 153 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -162,6 +163,13 @@ Restschätzung und Zielzahl werden gemeinsam in der nächsten Zielzeile
 ausgegeben. Fehlermeldungen öffnen **Mehr** automatisch, damit sie sichtbar
 bleiben.
 
+Die Portalzeile bietet **Details anzeigen** als eigene Aktion. `showPortalDetails`
+verwendet ausschließlich einen vorhandenen Marker aus `window.portals` und
+dessen bereits geladene Details. Es wählt das Portal über die verfügbare
+moderne oder kompatible IITC-Anzeige-API aus und rendert es direkt in die
+Portalansicht. Die anfordernde IITC-Funktion `renderDetails` sowie Kartenmethoden
+wie `setView`, `panTo` oder `fitBounds` werden dabei nicht aufgerufen.
+
 `setupPanelDragging` registriert Pointer-Events oder, für ältere IITC-Mobile-
 WebViews, getrennte Maus- und Touch-Fallbacks. Ein Drag beginnt nur innerhalb
 von `.ap-head` und nicht auf dessen Einklappbutton; der restliche Panelinhalt
@@ -171,6 +179,15 @@ Koordinaten werden am Drag-Ende in `ap.state.panelPosition` gespeichert.
 `correctPanelPosition` wendet sie nach jedem Panel-Render sowie verzögert nach
 `resize` und `orientationchange` erneut an, sodass auch eine geänderte Panel-
 oder Viewportgröße das Fenster nicht unerreichbar macht.
+`schedulePanelPositionCorrection` führt dieselbe Prüfung verzögert nach dem
+Auf- und Zuklappen von **Mehr**, Einsatzcheck, Blockerbereich und Portalzeilen
+aus. Befindet sich das Panel weiterhin vollständig im Viewport, bleiben seine
+Koordinaten unverändert.
+
+`setupLayer` registriert die Kartenebene mit dem bisherigen Standardwert,
+überlässt das tatsächliche Hinzufügen aber IITCs persistierendem LayerChooser.
+Anschließend wird `ap.runtime.enabled` aus dem wirklichen Kartenstatus gelesen;
+eine zuvor deaktivierte Ebene wird beim Neuladen nicht wieder eingeschaltet.
 
 ## Release- und Community-Datenfluss
 

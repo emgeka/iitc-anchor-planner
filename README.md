@@ -55,9 +55,10 @@ From that data it can:
 - dynamically select the next work target using the official IITC User Location plugin;
 - estimate straight-line distance and remaining route;
 - offer Waze, Intel, Google Maps, Apple Maps, and geo navigation;
+- open IITC's portal detail view for an already loaded plan portal without moving or zooming the map;
 - copy or download the plan and detailed blocker information as text or JSON.
 
-The panel can be moved by its header with mouse, touch, or pointer input. Its viewport-constrained position is restored across IITC sessions and corrected after resizing or rotating the display.
+The panel can be moved by its header with mouse, touch, or pointer input. Its viewport-constrained position is restored across IITC sessions and corrected after resizing, rotating the display, or expanding and collapsing panel sections. The Anchor Planner layer keeps the visibility selected in IITC across reloads.
 
 ## Typical workflow
 
@@ -89,7 +90,8 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Current version: **0.1.48**
+- Development version: **0.1.49**
+- Latest stable release: **0.1.48**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
 - Userscript ID: `iitc-plugin-anchor-planner`

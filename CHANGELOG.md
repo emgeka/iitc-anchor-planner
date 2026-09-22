@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.49
+
+### English
+
+- Added an explicit localized **Show details** action for plan portals that
+  renders already loaded IITC portal details without requesting data or moving,
+  centering, or zooming the map; portal names remain plain text.
+- Added delayed viewport correction after expanding or collapsing portal rows,
+  the blocker section, readiness check, and **More**, moving the draggable panel
+  only when its changed size would leave it outside the visible viewport.
+- Stopped force-enabling the Anchor Planner layer during setup so IITC's saved
+  layer visibility is respected across reloads.
+
+### Deutsch
+
+- Eine ausdrückliche lokalisierte Aktion **Details anzeigen** für Planportale
+  ergänzt, die bereits geladene IITC-Portaldetails ohne Datenabfrage und ohne
+  Zentrieren, Verschieben oder Zoomen der Karte darstellt; Portalnamen bleiben
+  normaler Text.
+- Eine verzögerte Viewport-Korrektur nach dem Auf- und Zuklappen von
+  Portalzeilen, Blockerbereich, Einsatzcheck und **Mehr** ergänzt; das
+  verschiebbare Panel wird nur dann bewegt, wenn seine geänderte Größe es aus
+  dem sichtbaren Viewport ragen lässt.
+- Die erzwungene Aktivierung des Anchor-Planner-Layers beim Start entfernt,
+  sodass IITCs gespeicherte Layer-Sichtbarkeit über Neuladevorgänge hinweg
+  respektiert wird.
+
 ## 0.1.48
 
 ### English

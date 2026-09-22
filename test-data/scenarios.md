@@ -163,6 +163,15 @@ Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
   Restschätzung und offene Zielzahl ohne separate Routenzeile.
 - Portalzeilen zeigen eingeklappt Status, Namen und Keys; geöffnete
   Portalzeilen sowie Einsatzcheck und Blocker bleiben beim Refresh geöffnet.
+- **Details anzeigen** öffnet für ein bereits geladenes Planportal die IITC-
+  Detailansicht. Der Portalname selbst bleibt normaler Text; Karte, Mittelpunkt
+  und Zoomstufe verändern sich nicht, und es wird keine zusätzliche
+  Portalabfrage ausgelöst. Bei nicht geladenem Portal erscheint eine
+  lokalisierte Verfügbarkeitsmeldung.
+- Nach jedem Auf- und Zuklappen von **Mehr**, Einsatzcheck, Blockerbereich und
+  Portalzeilen bleibt das Panel unverändert stehen, solange es vollständig im
+  Viewport liegt; andernfalls wird es nach kurzer Verzögerung gerade so weit
+  in den sichtbaren Bereich zurückgeschoben wie nötig.
 - Redundante Erklärungen und eine Listenabschlusszeile erscheinen nicht.
 
 ## 13. Release-Metadaten und Community-Datei
@@ -237,3 +246,13 @@ laden und anschließend Fenstergröße beziehungsweise Geräteorientierung ände
 - Nach Fenstergrößen- und Orientierungswechseln wird eine nicht mehr passende
   Position automatisch korrigiert; das letzte Portal bleibt auch mobil
   erreichbar.
+
+## 16. Gespeicherte Layer-Sichtbarkeit
+
+**Aufbau:** Den Anchor-Planner-Layer im IITC-LayerChooser ausschalten, IITC neu
+laden und anschließend den Layer wieder einschalten und erneut laden.
+
+**Erwartung:** Der ausgeschaltete Layer bleibt nach dem ersten Neuladen
+ausgeschaltet und das Panel bleibt verborgen. Nach dem manuellen Einschalten
+bleiben Layer und Panel auch nach dem zweiten Neuladen aktiv. Beim ersten Start
+ohne gespeicherten Zustand gilt weiterhin IITCs registrierter Standard.

@@ -55,9 +55,10 @@ Daraus kann das Plugin:
 - anhand des offiziellen IITC-User-Location-Plugins dynamisch das nächste Arbeitsziel bestimmen;
 - Luftlinienentfernung und geschätzte Reststrecke anzeigen;
 - Waze-, Intel-, Google-Maps-, Apple-Maps- und Geo-Navigation anbieten;
+- für bereits geladene Planportale die IITC-Portal-Detailansicht öffnen, ohne die Karte zu verschieben oder zu zoomen;
 - Plan und konkrete Blocker-Details als Text oder JSON kopieren und herunterladen.
 
-Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf den sichtbaren Viewport begrenzte Position wird über IITC-Sitzungen hinweg gespeichert und nach Größen- oder Orientierungswechseln korrigiert.
+Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf den sichtbaren Viewport begrenzte Position wird über IITC-Sitzungen hinweg gespeichert und nach Größen-, Orientierungs- sowie Auf- und Zuklappänderungen korrigiert. Der Anchor-Planner-Layer behält die in IITC gewählte Sichtbarkeit über Neuladevorgänge hinweg bei.
 
 ## Typischer Ablauf
 
@@ -89,7 +90,8 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.48**
+- Entwicklungsstand: **0.1.49**
+- Aktuelle stabile Veröffentlichung: **0.1.48**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.48
+# Bekannte Grenzen in 0.1.49
 
 ## Portalzuordnung und Namen
 
@@ -13,6 +13,10 @@
 - Nach dem Hineinzoomen werden neu verfügbare Namen bereits erkannter Blocker
   automatisch aktualisiert. Neu geladene Blocklinks selbst erfordern weiterhin
   einen erneuten Scan.
+- **Details anzeigen** arbeitet bewusst nur mit bereits geladenen IITC-
+  Portalmarkern und deren vorhandenen Details. Für ausschließlich aus Bookmarks
+  bekannte oder nicht mehr geladene Planportale bleibt die IITC-Detailansicht
+  daher unverändert und das Panel meldet die fehlende Verfügbarkeit.
 
 ## Abdeckung vorhandener Links und Blocker
 

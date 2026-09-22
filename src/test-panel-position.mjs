@@ -16,16 +16,21 @@ function createRuntime(savedState = null) {
   if (savedState) stored.set('plugin-anchor-planner-v1', JSON.stringify(savedState));
   const context = {
     console,
-    document: { documentElement: { lang: '', clientWidth: 800, clientHeight: 600 } },
+    clearTimeout,
+    setTimeout,
+    document: {
+      documentElement: { lang: '', clientWidth: 800, clientHeight: 600 },
+      getElementById() { return null; }
+    },
     localStorage: {
       getItem(key) { return stored.has(key) ? stored.get(key) : null; },
       setItem(key, value) { stored.set(key, String(value)); }
     },
-    navigator: { languages: [], language: '' },
+    navigator: { languages: [], language: '', userAgent: '' },
     window: { bootPlugins: [], portals: {}, innerWidth: 800, innerHeight: 600 }
   };
   vm.runInNewContext(`${wrapperSource}\nwrapper({});`, context, { filename: userscriptPath });
-  return { ap: context.window.plugin.anchorPlanner, stored };
+  return { ap: context.window.plugin.anchorPlanner, context, stored };
 }
 
 function createClassList() {
@@ -90,4 +95,66 @@ function createClassList() {
   assert.equal(ap.isPanelDragHandle(content), false, 'Panel content must not become a map-drag blocker.');
 }
 
-console.log('Panel position checks passed: migration, viewport clamping, pointer isolation, persistence, drag-handle scope');
+{
+  const { ap } = createRuntime();
+  const panel = {
+    classList: createClassList(),
+    style: {},
+    getBoundingClientRect() { return { left: 435, top: 295, width: 360, height: 500 }; }
+  };
+  ap.runtime.panel = panel;
+  ap.state.panelPosition = { left: 435, top: 295 };
+  ap.schedulePanelPositionCorrection(0);
+  await new Promise((resolve) => setTimeout(resolve, 10));
+  assert.equal(panel.style.top, '95px', 'Expanded panel content must be moved back into the viewport after layout settles.');
+}
+
+{
+  const { ap, context } = createRuntime();
+  let selected = null;
+  let rendered = null;
+  let mapMoves = 0;
+  let requests = 0;
+  const marker = { getDetails() { return { title: 'Alpha' }; } };
+  context.window.portals.portalA = marker;
+  context.window.map = {
+    setView() { mapMoves++; },
+    panTo() { mapMoves++; },
+    fitBounds() { mapMoves++; }
+  };
+  context.window.portalDetail = { request() { requests++; } };
+  context.window.IITC = {
+    portal: {
+      display: {
+        select(guid) { selected = guid; },
+        renderToSidebar(portal) { rendered = portal; }
+      }
+    }
+  };
+  assert.equal(ap.showPortalDetails('portalA'), true);
+  assert.equal(selected, 'portalA');
+  assert.equal(rendered, marker);
+  assert.equal(mapMoves, 0, 'Showing loaded details must not move or zoom the map.');
+  assert.equal(requests, 0, 'Showing details must not request portal data.');
+}
+
+{
+  const { ap, context } = createRuntime();
+  const layerGroup = { _map: null, addTo() { throw new Error('setupLayer must not force-enable a disabled layer'); } };
+  context.L = { LayerGroup: function () { return layerGroup; } };
+  context.window.map = {
+    createPane() { return { style: {} }; },
+    getPane() { return null; },
+    hasLayer() { return false; },
+    on() {}
+  };
+  context.window.addLayerGroup = function (name, layer, defaultDisplay) {
+    assert.equal(name, 'Anchor Planner');
+    assert.equal(layer, layerGroup);
+    assert.equal(defaultDisplay, true);
+  };
+  ap.setupLayer();
+  assert.equal(ap.runtime.enabled, false, 'The stored disabled layer state must remain disabled during setup.');
+}
+
+console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, persisted layer state');

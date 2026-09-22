@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.48
+# Anforderungen für Version 0.1.49
 
 ## Planerfassung und Portalauflösung
 
@@ -64,6 +64,11 @@
   unterscheidbar oberhalb der normalen IITC-Linkebene hervorheben.
 - Vorgemerkte zusätzliche Blocker-Portale und das jeweils nächste Arbeitsziel
   auf der Karte markieren.
+- Für bereits in IITC geladene Planportale eine ausdrückliche, lokalisierte
+  Detailaktion anbieten. Sie darf weder zusätzliche Portaldetails anfordern
+  noch die Karte zentrieren, verschieben oder zoomen.
+- Die in IITC gespeicherte Sichtbarkeit des Anchor-Planner-Layers beim
+  Neuladen respektieren und den Layer nicht eigenständig aktivieren.
 - Waze-Navigation und weitere geeignete Kartenlinks bereitstellen; externe
   Navigation auf Mobilgeräten nutzbar halten.
 - Plan als lesbaren Text und als JSON exportieren.
@@ -101,6 +106,9 @@
   sein.
 - Der geöffnete Blockerbereich und der Einsatzcheck müssen bei einer
   Kartenaktualisierung geöffnet bleiben.
+- Nach Auf- oder Zuklappen von **Mehr**, Einsatzcheck, Blockerbereich und
+  Portalzeilen die Panelposition verzögert gegen den sichtbaren Viewport
+  prüfen und nur bei Bedarf korrigieren.
 
 ## Internationalisierung
 
