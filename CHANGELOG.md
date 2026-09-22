@@ -17,6 +17,8 @@
 - Persisted progress and accumulated links after every checked view. A paused
   check can continue at its next open view for the unchanged plan, including
   after reloading IITC; changed plans discard stale progress.
+- Replaced the ambiguous zero-key map badge `0K` with `K0` so it cannot be
+  mistaken for “OK”.
 
 ### Deutsch
 
@@ -35,6 +37,8 @@
   gespeichert. Ein pausierter Check kann bei unverändertem Plan auch nach
   einem IITC-Neuladen an der nächsten offenen Ansicht fortgesetzt werden;
   geänderte Pläne verwerfen den veralteten Zwischenstand.
+- Das missverständliche Null-Key-Kartenbadge `0K` durch `K0` ersetzt, damit es
+  nicht wie „OK“ aussieht.
 
 ## 0.1.49
 

@@ -25,7 +25,7 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260922104823';
+  plugin_info.dateTimeVersion = '20260922105710';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
@@ -3892,7 +3892,7 @@ function wrapper(plugin_info) {
     if (!status) return '!';
     if (status.key === 'done') return '✓';
     if (status.key === 'blocked') return 'X';
-    if (status.key === 'existing') return '0K';
+    if (status.key === 'existing') return 'K0';
     if (status.key === 'ready') return 'A';
     if (status.key === 'partial') return '½';
     return 'KEY';
