@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.50 (development)
+## 0.1.50
 
 ### English
 
@@ -23,6 +23,8 @@
   localized **Show details** and **Actions** controls used by plan portals;
   the shared actions dialog still provides Waze and the other navigation
   targets.
+- Published after the complete final-check workflow was practically verified
+  in IITC and confirmed to behave as intended.
 
 ### Deutsch
 
@@ -47,6 +49,8 @@
   lokalisierten Aktionen **Details anzeigen** und **Aktionen** wie bei
   Planportalen ersetzt; Waze und weitere Navigationsziele bleiben im
   gemeinsamen Aktionsdialog verfügbar.
+- Nach vollständiger praktischer Prüfung des Finalcheck-Ablaufs in IITC und
+  Bestätigung des gewünschten Verhaltens veröffentlicht.
 
 ## 0.1.49
 
