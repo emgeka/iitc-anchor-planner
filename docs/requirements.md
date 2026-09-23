@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.52
+# Anforderungen für Version 0.1.53
 
 ## Planerfassung und Portalauflösung
 
@@ -45,6 +45,12 @@
   Linklängenfilter verwenden, die dabei sichtbaren Links über alle
   Prüfansichten sammeln und keine eigenen Intel-Tile- oder Portalabfragen
   ausführen.
+- Eine Prüfansicht nach IITCs Ladeende erst nach einer kurzen Ruhephase
+  abschließen und diese bei verspäteten Link-Layer-Ereignissen neu beginnen,
+  damit neu geladene Links bereits im ersten Finalcheck erfasst werden.
+- Nach der abschließenden Blocker-Neuberechnung fehlende Namen neu erkannter
+  Blocker-Endportale automatisch über denselben Namensablauf wie nach einem
+  normalen Scan laden.
 - Den Finalcheck auf höchstens zwölf Ansichten begrenzen, die ursprüngliche
   Kartenposition und Zoomstufe anschließend wiederherstellen und einen wegen
   Begrenzung oder Zeitüberschreitung unvollständigen Lauf ausdrücklich als

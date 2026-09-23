@@ -78,7 +78,7 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 - IITC mit aktiviertem Draw-Tools-Plugin ist für den Scan erforderlich.
 - Portal-Bookmarks verbessern die Auflösung, sind aber optional.
 - Standortabhängige Zielwahl verwendet ausschließlich das offizielle IITC-User-Location-Plugin. Standortdaten werden weder dauerhaft gespeichert noch exportiert.
-- Der normale Scan erkennt nur die aktuell in IITC geladenen `window.links`. Der **Finalcheck** fährt vorübergehend höchstens zwölf Ansichten entlang noch nicht bestätigter Planlinks auf der ersten IITC-Zoomstufe ohne Linklängenfilter ab, sammelt die geladenen Links und stellt danach die ursprüngliche Ansicht wieder her. Bereits erkannte Planlinks werden übersprungen. Der Fortschritt wird nach jeder Ansicht gespeichert; ein pausierter Check kann bei unverändertem Plan auch nach einem IITC-Neuladen fortgesetzt werden. Ein begrenzter oder abgebrochener Lauf bleibt ausdrücklich unvollständig und ist keine Entwarnung.
+- Der normale Scan erkennt nur die aktuell in IITC geladenen `window.links`. Der **Finalcheck** fährt vorübergehend höchstens zwölf Ansichten entlang noch nicht bestätigter Planlinks auf der ersten IITC-Zoomstufe ohne Linklängenfilter ab, wartet kurz auf verspätete Link-Layer-Aktualisierungen, sammelt die geladenen Links und stellt danach die ursprüngliche Ansicht wieder her. Bereits erkannte Planlinks werden übersprungen. Neu erkannte Blocker-Endportale gehen in das automatische Nachladen der Namen ein. Der Fortschritt wird nach jeder Ansicht gespeichert; ein pausierter Check kann bei unverändertem Plan auch nach einem IITC-Neuladen fortgesetzt werden. Ein begrenzter oder abgebrochener Lauf bleibt ausdrücklich unvollständig und ist keine Entwarnung.
 
 ## Community Plugins und Updates
 
@@ -94,7 +94,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.52 (Entwicklung)**
+- Aktuelle Version: **0.1.53 (Entwicklung)**
 - Aktuelle stabile Veröffentlichung: **0.1.50**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

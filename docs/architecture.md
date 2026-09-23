@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.52
+# Architekturübersicht 0.1.53
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -62,7 +62,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink`, `applyExistingLinkCoverage` |
-| Finaler Blockercheck | `getFinalScanZoom`, `buildFinalScanCheckpoints`, `startFinalScan`, `visitFinalScanCheckpoint`, `captureFinalScanLinks`, `finishFinalScan` |
+| Finaler Blockercheck | `getFinalScanZoom`, `buildFinalScanCheckpoints`, `startFinalScan`, `visitFinalScanCheckpoint`, `scheduleFinalScanStepCompletion`, `onFinalScanLinkAdded`, `captureFinalScanLinks`, `finishFinalScan` |
 | Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
 | Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `schedulePanelPositionCorrection`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
@@ -123,20 +123,24 @@ Ansichten entlang dieser Planlinks, entfernt Überschneidungen und begrenzt den
 Lauf auf zwölf Ansichten.
 
 Jede Ansicht wird mit IITCs normalem `map.setView` geladen. Die Hooks
-`mapDataRefreshStart` und `mapDataRefreshEnd` takten den Lauf;
-`captureFinalScanLinks` akkumuliert die jeweils in `window.links` vorhandenen
-Links, weil IITC Links außerhalb der aktuellen Ansicht wieder entfernt. Es
-gibt keine direkten Tile- oder Portalabfragen. Nach dem letzten Schritt
-berechnet `applyExistingLinkCoverage` vorhandene Planlinks, Blocker und
-Schlüsselbedarf neu. `finishFinalScan` stellt Mittelpunkt und Zoomstufe der
-ursprünglichen Kartenansicht wieder her. Mehr als zwölf erforderliche Ansichten
-oder eine Zeitüberschreitung führen zu einem ausdrücklich unvollständigen
-Ergebnis. `persistFinalScanProgress` speichert nach jedem abgeschlossenen
-Schritt Prüfpunkte, nächsten Index und den deduplizierten Linkakkumulator. Eine
-Pause stellt die Ausgangsansicht sofort wieder her. `canResumeFinalScan`
-erlaubt die Fortsetzung auch nach einem IITC-Neuladen, sobald ein normaler Scan
-denselben Plan aus noch nicht bestätigten Link-IDs wiederhergestellt hat; bei
-abweichender Plansignatur wird der Zwischenstand verworfen.
+`mapDataRefreshStart` und `mapDataRefreshEnd` takten den Lauf. Nach dem
+Ladeende wartet `scheduleFinalScanStepCompletion` eine Sekunde; jedes
+verspätete `linkAdded`-Ereignis startet diese Ruhephase erneut.
+`captureFinalScanLinks` akkumuliert danach die jeweils in `window.links`
+vorhandenen Links, weil IITC Links außerhalb der aktuellen Ansicht wieder
+entfernt. Es gibt keine direkten Tile- oder Portalabfragen. Nach dem letzten
+Schritt berechnet `applyExistingLinkCoverage` vorhandene Planlinks, Blocker und
+Schlüsselbedarf neu und stößt für neu erkannte Blocker-Endportale
+`queueMissingNameRefresh` an. `finishFinalScan` stellt Mittelpunkt und
+Zoomstufe der ursprünglichen Kartenansicht wieder her. Mehr als zwölf
+erforderliche Ansichten oder eine Zeitüberschreitung führen zu einem
+ausdrücklich unvollständigen Ergebnis. `persistFinalScanProgress` speichert
+nach jedem abgeschlossenen Schritt Prüfpunkte, nächsten Index und den
+deduplizierten Linkakkumulator. Eine Pause stellt die Ausgangsansicht sofort
+wieder her. `canResumeFinalScan` erlaubt die Fortsetzung auch nach einem
+IITC-Neuladen, sobald ein normaler Scan denselben Plan aus noch nicht
+bestätigten Link-IDs wiederhergestellt hat; bei abweichender Plansignatur wird
+der Zwischenstand verworfen.
 
 ## Standort- und Routenlogik
 

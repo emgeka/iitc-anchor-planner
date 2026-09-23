@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.52
+# Bekannte Grenzen in 0.1.53
 
 ## Portalzuordnung und Namen
 
@@ -41,6 +41,9 @@
   Zoomstufe werden danach wiederhergestellt. Benötigt der Plan mehr als zwölf
   Ansichten oder endet eine IITC-Ladung nicht rechtzeitig, bleibt der Lauf
   ausdrücklich unvollständig.
+- Nach jedem gemeldeten Ladeende wartet der Finalcheck kurz auf verspätete
+  IITC-Link-Layer-Ereignisse. Serverseitig noch später oder gar nicht gelieferte
+  Links bleiben dennoch außerhalb der Erkennungsmöglichkeiten des Plugins.
 - Pausierte Zwischenstände sind nur für denselben unveränderten Satz noch nicht
   bestätigter Planlinks fortsetzbar. Nach einer Planänderung wird der alte
   Zwischenstand bewusst verworfen.

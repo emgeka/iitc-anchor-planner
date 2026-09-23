@@ -287,9 +287,13 @@ neu laden, denselben Plan scannen und den Check fortsetzen. Danach den Plan
 - Der Einsatzcheck kennzeichnet den finalen Blockercheck vor seinem Lauf als
   ausstehend; der normale Scan vermittelt keine vollständige Entwarnung.
 - Der Finalcheck bewegt die Karte schrittweise auf die erste IITC-Zoomstufe
-  ohne Linklängenfilter, erkennt den zuvor fehlenden kurzen Blocklink und
-  berechnet Blocker, vorhandene Planlinks und Keybedarf aus den über alle
-  Ansichten gesammelten Links neu.
+  ohne Linklängenfilter, wartet nach IITCs Ladeende auf verspätete
+  Link-Layer-Ereignisse, erkennt den zuvor fehlenden kurzen Blocklink bereits
+  beim ersten Durchlauf und berechnet Blocker, vorhandene Planlinks und
+  Keybedarf aus den über alle Ansichten gesammelten Links neu.
+- Fehlende Namen der dabei neu erkannten Blocker-Endportale werden anschließend
+  automatisch geladen und erscheinen ohne Klick auf **Namen laden** in
+  Blockerliste, Aktionen, Karte und Export.
 - Bereits erkannte vorhandene Planlinks erzeugen keine eigenen Prüfansichten.
   Sind alle Planlinks bereits vorhanden, ist die Aktion deaktiviert und es
   erfolgt keine Kartenbewegung.

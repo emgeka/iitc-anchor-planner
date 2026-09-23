@@ -130,6 +130,9 @@ function createRuntime(savedState = null) {
   ap.renderPanel = () => {};
   ap.renderOverlays = () => {};
   ap.setMessage = () => {};
+  ap.FINAL_SCAN_SETTLE_MS = 10;
+  let automaticNameRefreshes = 0;
+  ap.queueMissingNameRefresh = () => { automaticNameRefreshes++; return true; };
   assert.equal(ap.startFinalScan(), true);
   assert.equal(ap.pauseFinalScan(), true);
   assert.equal(ap.runtime.finalScan, null);
@@ -143,18 +146,20 @@ function createRuntime(savedState = null) {
   reloaded.ap.runtime.links = [{ id: 'changed-plan', existing: false }];
   assert.equal(reloaded.ap.canResumeFinalScan(), false, 'Changed plans must not resume stale progress.');
   assert.equal(ap.startFinalScan(), true, 'A saved check for the unchanged plan must resume.');
+  ap.onFinalScanMapDataRefreshStart();
+  ap.onFinalScanMapDataRefreshEnd();
   context.window.links.blocker = {
     options: { data: { oGuid: 'cccccccccccccccccccccccccccccccc', dGuid: 'dddddddddddddddddddddddddddddddd' } },
     getLatLngs: () => [{ lat: 0, lng: 1 }, { lat: 1, lng: 0 }]
   };
-  ap.onFinalScanMapDataRefreshStart();
-  ap.onFinalScanMapDataRefreshEnd();
+  ap.onFinalScanLinkAdded();
   await new Promise((resolve) => setTimeout(resolve, 100));
   assert.equal(ap.runtime.finalScan, null);
   assert.equal(ap.runtime.links[0].blocked, true);
   assert.equal(ap.state.lastScan.finalScanComplete, true);
   assert.equal(ap.state.finalScanProgress, null, 'Completed final-scan progress must be removed.');
   assert.deepEqual(mapViews.at(-1), { center: originalCenter, zoom: 8 }, 'The original map view must be restored after the final scan.');
+  assert.equal(automaticNameRefreshes, 1, 'New blocker endpoints must trigger automatic name loading after final-scan recomputation.');
 }
 
-console.log('Final blocker scan checks passed: zoom selection, unconfirmed-only coverage, pause/reload resume, stale-plan rejection, deduplication, blocker recomputation, existing-link no-op');
+console.log('Final blocker scan checks passed: zoom selection, unconfirmed-only coverage, pause/reload resume, stale-plan rejection, late-link settling, blocker recomputation, automatic blocker-name loading, existing-link no-op');

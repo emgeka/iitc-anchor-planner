@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.53 (development)
+
+### English
+
+- Added a quiet settling period after each final-check map refresh and restart
+  it for late IITC link-layer events, preventing the first run from advancing
+  before newly loaded blocker links are available.
+- Started automatic missing-name loading again after final-check blocker
+  recomputation so newly recognized blocker endpoints do not require a manual
+  **Load names** action.
+
+### Deutsch
+
+- Nach jeder Kartenladung des Finalchecks eine kurze Ruhephase ergänzt und bei
+  verspäteten IITC-Linkereignissen neu gestartet, damit der erste Durchlauf
+  nicht vor den neu geladenen Blocklinks zur nächsten Ansicht wechselt.
+- Das automatische Nachladen fehlender Namen nach der Blocker-Neuberechnung
+  des Finalchecks erneut gestartet, sodass neu erkannte Blocker-Endportale
+  keinen manuellen Klick auf **Namen laden** benötigen.
+
 ## 0.1.52 (development)
 
 ### English
