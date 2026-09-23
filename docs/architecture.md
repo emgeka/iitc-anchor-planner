@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.50
+# Architekturübersicht 0.1.51
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -57,7 +57,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 
 | Bereich | Zentrale Funktionen |
 | --- | --- |
-| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `requestPortalDetails`, `refreshMissingNames`, `showPortalDetails` |
+| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `collectMissingPortalNameGuids`, `updatePortalTitle`, `requestPortalDetails`, `refreshMissingNames`, `showPortalDetails` |
 | Bookmarks | `collectPortalBookmarks`, `mergePortalSources` |
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
@@ -264,12 +264,15 @@ Der Katalogeintrag ergänzt die Laufzeit-Metadaten um die Abhängigkeit
 `scraper|export`. Diese Angaben verändern den Plugin-Code nicht.
 
 Die Einstufung `scraper` bezieht sich technisch auf `refreshMissingNames` und
-`requestPortalDetails`: Fehlende Namen der im Scan erkannten Planportale werden
-nacheinander über `window.portalDetail.request` beziehungsweise den defensiven
-IITC-Fallback `window.requestPortalDetail` angefragt. Die Abfragen bleiben auf
-den aktuellen Plan begrenzt und laufen nicht unabhängig im Hintergrund. Es
-werden keine externen Scraping-Dienste angesprochen. Die Einstufung `highLoad`
-ist daher für den aktuellen Ablauf nicht gesetzt.
+`requestPortalDetails`: `collectMissingPortalNameGuids` bildet eine eindeutige
+Liste fehlender Namen aus Planportalen und Endportalen erkannter Blocklinks.
+Diese werden nacheinander über `window.portalDetail.request` beziehungsweise
+den defensiven IITC-Fallback `window.requestPortalDetail` angefragt.
+`updatePortalTitle` übernimmt einen gefundenen Namen in die Planstatistik und
+alle Vorkommen des Blocker-Endportals. Die Abfragen bleiben auf den aktuellen
+Plan und seine erkannten Blocker begrenzt und laufen nicht unabhängig im
+Hintergrund. Es werden keine externen Scraping-Dienste angesprochen. Die
+Einstufung `highLoad` ist daher für den aktuellen Ablauf nicht gesetzt.
 
 ## Technische Grenzen
 

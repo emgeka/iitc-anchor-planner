@@ -52,6 +52,10 @@ einmal mit geladenen Portaldetails prüfen.
 - Endportale mit den meisten eindeutigen Blocklinks stehen zuerst; bei
   Gleichstand greifen Planportal-Status, Standortentfernung und Portalname.
 - Ohne geladene Namen erscheinen Koordinaten und keine technischen GUIDs.
+- **Namen laden** fragt fehlende Namen aller eindeutigen Plan- und
+  Blocker-Endportale jeweils nur einmal ab. Ein erfolgreich geladener
+  Blockername erscheint an sämtlichen betroffenen Blocklinks sowie in
+  Arbeitsliste, Aktionen und Export.
 - Nach Hineinzoomen und Laden der IITC-Kartendaten erscheinen verfügbare
   Portalnamen bereits erkannter Blocker automatisch, ohne erneuten Scan.
 - Der geöffnete Blockerbereich bleibt bei dieser Aktualisierung geöffnet.

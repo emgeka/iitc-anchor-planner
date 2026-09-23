@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.51 (development)
+
+### English
+
+- Extended **Load names** to include unique endpoint portals of recognized
+  blocker links in addition to plan portals.
+- Propagated every loaded blocker-portal name to all matching blocker
+  occurrences so the worklist, actions, map presentation, and exports use the
+  same resolved name without duplicate detail requests.
+
+### Deutsch
+
+- **Namen laden** um die eindeutigen Endportale erkannter Blocklinks erweitert;
+  neben Planportalen werden nun auch deren fehlende Namen nachgeladen.
+- Jeden geladenen Blocker-Portalnamen in alle passenden Blocker-Vorkommen
+  übernommen, damit Arbeitsliste, Aktionen, Kartendarstellung und Exporte ohne
+  doppelte Detailanfragen denselben aufgelösten Namen verwenden.
+
 ## 0.1.50
 
 ### English

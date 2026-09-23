@@ -44,7 +44,8 @@ Anchor Planner liest Draw-Tools-Geometrien — einschließlich Auto-Draw-Plänen
 
 Daraus kann das Plugin:
 
-- Planendpunkte Portalen zuordnen und offene Endpunkte diagnostizieren;
+- Planendpunkte Portalen zuordnen, offene Endpunkte diagnostizieren und
+  fehlende Namen für Planportale sowie erkannte Blocker-Endportale laden;
 - bereits vorhandene Planlinks erkennen;
 - den verbleibenden Schlüsselbedarf berechnen;
 - kreuzende Blocker-Links erkennen und hervorheben;
@@ -87,13 +88,13 @@ Das Panel kann per Maus, Touch oder Pointer am Kopf verschoben werden. Die auf d
 - Deklarierte Anti-Features: `scraper` für das automatische Nachladen fehlender Portalnamen und `export` für den vom Nutzer ausgelösten Planexport
 - Katalog-Icon: wird über die Userscript-Metadaten aus `docs/media/anchor-planner-icon.svg` veröffentlicht
 
-`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs: Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen fehlende Namen der im aktuellen Plan erkannten Portale ab. Das geschieht nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Der ausdrücklich gestartete **Finalcheck** ist auf zwölf normale IITC-Kartenansichten begrenzt und führt keine eigenen Intel-Tile-Abfragen aus. Deshalb ist `highLoad` nicht deklariert.
+`scraper` folgt hier der Terminologie des IITC Community Plugins-Katalogs: Anchor Planner fragt ausschließlich über IITCs eigene Portal-Detailfunktionen fehlende Namen von Planportalen und erkannten Blocker-Endportalen ab. Das geschieht nacheinander nach einem Scan oder ausdrücklich über **Namen laden**. Es werden keine externen Webseiten durchsucht, keine planfremden Daten dauerhaft gesammelt und keine fortlaufenden Hintergrundabfragen ausgeführt. Der ausdrücklich gestartete **Finalcheck** ist auf zwölf normale IITC-Kartenansichten begrenzt und führt keine eigenen Intel-Tile-Abfragen aus. Deshalb ist `highLoad` nicht deklariert.
 
 Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Version und ist als Quelle für den IITC Community Plugins-Katalog vorgesehen. Entwicklungsänderungen unter `src/` erreichen installierte Plugins erst nach Test und Veröffentlichung.
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.50**
+- Aktuelle Version: **0.1.51 (Entwicklung)**
 - Aktuelle stabile Veröffentlichung: **0.1.50**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

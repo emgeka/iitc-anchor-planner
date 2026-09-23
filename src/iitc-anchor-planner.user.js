@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.50
+// @version        0.1.51
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260922110610';
+  plugin_info.dateTimeVersion = '20260923101005';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.50';
+  ap.VERSION = '0.1.51';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4162,10 +4162,74 @@ function wrapper(plugin_info) {
     finish(null);
   };
 
-  ap.refreshMissingNames = function (auto) {
-    var missing = Object.keys(ap.runtime.stats).filter(function (guid) {
-      return ap.runtime.stats[guid] && ap.isMissingPortalTitle(ap.runtime.stats[guid].title);
+  ap.updatePortalTitle = function (guid, title) {
+    title = ap.cleanTitle(title);
+    if (!guid || ap.isMissingPortalTitle(title)) return false;
+    var changed = false;
+    var persistentProgressChanged = false;
+    if (ap.runtime.stats[guid] && ap.runtime.stats[guid].title !== title) {
+      ap.runtime.stats[guid].title = title;
+      changed = true;
+    }
+    function updateLinkTitles(links, persistent) {
+      (links || []).forEach(function (link) {
+        if (link.a === guid && link.titleA !== title) {
+          link.titleA = title;
+          changed = true;
+          if (persistent) persistentProgressChanged = true;
+        }
+        if (link.b === guid && link.titleB !== title) {
+          link.titleB = title;
+          changed = true;
+          if (persistent) persistentProgressChanged = true;
+        }
+      });
+    }
+    (ap.runtime.links || []).forEach(function (plannedLink) {
+      updateLinkTitles(plannedLink && plannedLink.blockers);
     });
+    updateLinkTitles(ap.runtime.existingLinks);
+    if (ap.runtime.finalScan && ap.runtime.finalScan.accumulator) updateLinkTitles(ap.runtime.finalScan.accumulator.list);
+    var progressLinks = ap.state.finalScanProgress && ap.state.finalScanProgress.links;
+    updateLinkTitles(progressLinks, true);
+    if (persistentProgressChanged) ap.save();
+    return changed;
+  };
+
+  ap.collectMissingPortalNameGuids = function () {
+    var missing = {};
+
+    function consider(guid, fallbackTitle) {
+      if (!guid) return;
+      var marker = window.portals && window.portals[guid];
+      var loadedTitle = ap.getPortalTitleFromMarker(guid, marker);
+      if (!ap.isMissingPortalTitle(loadedTitle)) {
+        ap.updatePortalTitle(guid, loadedTitle);
+        delete missing[guid];
+        return;
+      }
+      if (!ap.isMissingPortalTitle(fallbackTitle)) {
+        ap.updatePortalTitle(guid, fallbackTitle);
+        delete missing[guid];
+        return;
+      }
+      missing[guid] = true;
+    }
+
+    Object.keys(ap.runtime.stats || {}).forEach(function (guid) {
+      consider(guid, ap.runtime.stats[guid] && ap.runtime.stats[guid].title);
+    });
+    (ap.runtime.links || []).forEach(function (plannedLink) {
+      (plannedLink && plannedLink.blockers || []).forEach(function (blocker) {
+        consider(blocker.a, blocker.titleA);
+        consider(blocker.b, blocker.titleB);
+      });
+    });
+    return Object.keys(missing);
+  };
+
+  ap.refreshMissingNames = function (auto) {
+    var missing = ap.collectMissingPortalNameGuids();
     if (!missing.length) {
       ap.setMessage(ap.t('message.namesNoneMissing'));
       return;
@@ -4186,7 +4250,7 @@ function wrapper(plugin_info) {
         var marker = window.portals && window.portals[guid];
         var title = ap.getPortalTitleFromMarker(guid, marker);
         if (ap.isMissingPortalTitle(title)) title = ap.extractTitleFromObject(data, 0) || title;
-        if (ap.runtime.stats[guid] && title && !ap.isMissingPortalTitle(title)) ap.runtime.stats[guid].title = title;
+        ap.updatePortalTitle(guid, title);
         ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: idx, total: missing.length }));
         setTimeout(next, 900);
       });

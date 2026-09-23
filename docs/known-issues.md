@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.50
+# Bekannte Grenzen in 0.1.51
 
 ## Portalzuordnung und Namen
 
@@ -13,6 +13,9 @@
 - Nach dem Hineinzoomen werden neu verfügbare Namen bereits erkannter Blocker
   automatisch aktualisiert. Neu geladene Blocklinks selbst erfordern weiterhin
   einen erneuten Scan.
+- **Namen laden** fragt fehlende Namen von Planportalen und bereits erkannten
+  Blocker-Endportalen nacheinander über IITC ab. Liefert IITC für ein Portal
+  keine Details, bleibt dort weiterhin die Koordinaten-Ersatzanzeige bestehen.
 - **Details anzeigen** arbeitet bewusst nur mit bereits geladenen IITC-
   Portalmarkern und deren vorhandenen Details. Für ausschließlich aus Bookmarks
   bekannte oder nicht mehr geladene Planportale bleibt die IITC-Detailansicht
@@ -128,8 +131,10 @@
   zusätzliche Detailanfragen zu Portalen, die der Nutzer nicht einzeln
   angeklickt hat.
 - Anchor Planner verwendet diese Anfragen nur für fehlende Namen erkannter
-  Planportale. Sie werden nach einem Scan automatisch oder über **Namen laden**
-  nacheinander über IITCs Portal-Detailfunktionen ausgeführt.
+  Planportale und Blocker-Endportale. Fehlende Planportalnamen werden nach
+  einem Scan automatisch nachgeladen; **Namen laden** verarbeitet Plan- und
+  Blocker-Endportale gemeinsam und nacheinander über IITCs
+  Portal-Detailfunktionen.
 - Das Plugin durchsucht keine externen Webseiten und sammelt nicht dauerhaft
   unabhängig vom aktuellen Plan weiter.
 - `highLoad` ist nicht deklariert, weil keine kontinuierliche oder

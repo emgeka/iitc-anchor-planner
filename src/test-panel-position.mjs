@@ -157,6 +157,43 @@ function createClassList() {
 
 {
   const { ap, context } = createRuntime();
+  context.window.portals.blockerA = { options: { data: { title: 'Loaded Blocker A' } } };
+  ap.runtime.stats = { planA: { guid: 'planA', title: 'Named Plan' } };
+  ap.runtime.links = [{
+    blockers: [
+      { a: 'blockerA', b: 'blockerB', titleA: '', titleB: '' },
+      { a: 'blockerB', b: 'blockerC', titleA: '', titleB: 'Known Blocker C' }
+    ]
+  }];
+  ap.runtime.existingLinks = [{ a: 'blockerB', b: 'blockerC', titleA: '', titleB: 'Known Blocker C' }];
+  ap.state.finalScanProgress = { links: [{ a: 'blockerB', b: 'blockerC', titleA: '', titleB: 'Known Blocker C' }] };
+  assert.deepEqual(Array.from(ap.collectMissingPortalNameGuids()).sort(), ['blockerB']);
+  assert.equal(ap.runtime.links[0].blockers[0].titleA, 'Loaded Blocker A');
+  assert.equal(ap.updatePortalTitle('blockerB', 'Loaded Blocker B'), true);
+  assert.equal(ap.runtime.links[0].blockers[0].titleB, 'Loaded Blocker B');
+  assert.equal(ap.runtime.links[0].blockers[1].titleA, 'Loaded Blocker B');
+  assert.equal(ap.runtime.existingLinks[0].titleA, 'Loaded Blocker B');
+  assert.equal(ap.state.finalScanProgress.links[0].titleA, 'Loaded Blocker B');
+
+  ap.runtime.links[0].blockers.push({ a: 'blockerD', b: 'blockerA', titleA: '', titleB: 'Loaded Blocker A' });
+  ap.runtime.links[0].blockers.push({ a: 'blockerD', b: 'blockerC', titleA: '', titleB: 'Known Blocker C' });
+  const requested = [];
+  ap.requestPortalDetails = function (guid, callback) {
+    requested.push(guid);
+    callback({ title: 'Loaded Blocker D' });
+  };
+  ap.setMessage = () => {};
+  ap.renderOverlays = () => {};
+  ap.renderPanel = () => {};
+  context.setTimeout = function (callback) { callback(); return 1; };
+  ap.refreshMissingNames(false);
+  assert.deepEqual(requested, ['blockerD'], 'A repeated blocker endpoint must trigger only one detail request.');
+  assert.equal(ap.runtime.links[0].blockers[2].titleA, 'Loaded Blocker D');
+  assert.equal(ap.runtime.links[0].blockers[3].titleA, 'Loaded Blocker D');
+}
+
+{
+  const { ap, context } = createRuntime();
   const layerGroup = { _map: null, addTo() { throw new Error('setupLayer must not force-enable a disabled layer'); } };
   context.L = { LayerGroup: function () { return layerGroup; } };
   context.window.map = {
@@ -174,4 +211,4 @@ function createClassList() {
   assert.equal(ap.runtime.enabled, false, 'The stored disabled layer state must remain disabled during setup.');
 }
 
-console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, persisted layer state');
+console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, blocker-name loading and deduplication, persisted layer state');
