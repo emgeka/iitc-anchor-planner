@@ -52,7 +52,9 @@ From that data it can:
 - run an optional bounded **Final check** for still-unconfirmed plan links at an IITC zoom that loads every link length, while skipping plan links already recognized as existing;
 - prioritize useful blocker endpoints for field work;
 - provide a compact readiness check for blockers, missing keys, missing names, unresolved endpoints, and limited link coverage;
-- filter portals by open, blocked, missing keys, and completed;
+- filter portals by open, blocked, missing keys, and completed; every new scan
+  returns to **All** so a previous filter cannot hide the fresh result, and
+  **Open** excludes portals whose planned links already exist completely;
 - maintain keys, completion state, notes, and route order;
 - dynamically select the next work target using the official IITC User Location plugin;
 - estimate straight-line distance and remaining route;
@@ -94,7 +96,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Current version: **0.1.53**
+- Current version: **0.1.54 (development)**
 - Latest stable release: **0.1.53**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

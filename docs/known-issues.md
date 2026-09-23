@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.53
+# Bekannte Grenzen in 0.1.54
 
 ## Portalzuordnung und Namen
 
@@ -84,6 +84,13 @@
 - Die Filterzähler **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
   **Erledigt** beziehen sich auf Planportale. Ein Planlink besitzt zwei
   Endportale und kann daher bei beiden Portalen zum Status beitragen.
+- Eine manuelle Filterauswahl bleibt bis zum nächsten Scan erhalten. Jeder
+  neue Scan zeigt anschließend wieder **Alle**, damit ein älterer oder mobil
+  versehentlich aktivierter Filter die neue Portalliste nicht verdeckt.
+- **Offen** bezeichnet Planportale mit mindestens einem noch nicht vorhandenen
+  Planlink. Nicht erledigte Portale, deren Planlinks bereits vollständig
+  bestehen, erscheinen daher nur unter **Alle** und nicht als automatisches
+  Arbeitsziel.
 - **Bereit (geladener Stand)** ist keine vollständige Entwarnung für außerhalb
   des aktuellen IITC-Kartenstands liegende vorhandene Links oder Blocker.
 

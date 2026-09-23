@@ -52,7 +52,10 @@ Daraus kann das Plugin:
 - für noch nicht bestätigte Planlinks einen begrenzten optionalen **Finalcheck** auf einer IITC-Zoomstufe ohne Linklängenfilter durchführen und bereits als vorhanden erkannte Planlinks dabei überspringen;
 - sinnvolle Blocker-Endportale für die praktische Abarbeitung priorisieren;
 - einen kompakten Einsatzcheck für Blocker, fehlende Keys, fehlende Namen, offene Endpunkte und begrenzte Linkabdeckung anzeigen;
-- Portale nach offen, blockiert, fehlenden Keys und erledigt filtern;
+- Portale nach offen, blockiert, fehlenden Keys und erledigt filtern; jeder neue
+  Scan kehrt zu **Alle** zurück, damit ein vorheriger Filter das frische
+  Ergebnis nicht versteckt, und **Offen** schließt Portale aus, deren Planlinks
+  bereits vollständig vorhanden sind;
 - Keys, Erledigt-Status, Notizen und Routenreihenfolge verwalten;
 - anhand des offiziellen IITC-User-Location-Plugins dynamisch das nächste Arbeitsziel bestimmen;
 - Luftlinienentfernung und geschätzte Reststrecke anzeigen;
@@ -94,7 +97,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.53**
+- Aktuelle Version: **0.1.54 (Entwicklung)**
 - Aktuelle stabile Veröffentlichung: **0.1.53**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

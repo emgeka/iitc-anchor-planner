@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.53
+# Architekturübersicht 0.1.54
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -63,7 +63,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
 | Linkanalyse | `collectExistingLinkIds`, `properSegmentsIntersect`, `findBlockersForPlannedLink`, `applyExistingLinkCoverage` |
 | Finaler Blockercheck | `getFinalScanZoom`, `buildFinalScanCheckpoints`, `startFinalScan`, `visitFinalScanCheckpoint`, `scheduleFinalScanStepCompletion`, `onFinalScanLinkAdded`, `captureFinalScanLinks`, `finishFinalScan` |
-| Planberechnung | `scan`, `getStatus`, `filterCounts`, `getReadiness`, `sortedStats` |
+| Planberechnung | `scan`, `getStatus`, `isOpenPlanPortal`, `resetListFilterAfterScan`, `filterCounts`, `getReadiness`, `sortedStats` |
 | Route und Standort | `rememberUserLocation`, `getCurrentUserLocation`, `getBlockerWorklist`, `getRouteTasks`, `getNextRouteTarget`, `getRouteEstimate`, `distanceToPortal`, `formatDistance`, `sortRouteFromUserLocation` |
 | Karte und Panel | `renderOverlays`, `renderPanel`, `setupPanelDragging`, `correctPanelPosition`, `schedulePanelPositionCorrection`, `scheduleMapDataPanelRefresh`, `showPortalActions` |
 | Export | `buildBlockerExport`, `exportData`, `buildPlanText`, `showExport` |
@@ -150,8 +150,10 @@ und dessen initiale Position `0/0` werden ignoriert.
 
 `getBlockerWorklist` verdichtet beide Endpunkte der beim letzten Scan erkannten
 Blocklinks zu eindeutigen Portalzielen und sortiert sie primär nach der Zahl
-eindeutiger Blocklinks. Offene Planportale sind automatisch Arbeitsziele;
-weitere Blocker-Endportale werden nur nach ausdrücklicher Vormerkung ergänzt.
+eindeutiger Blocklinks. `isOpenPlanPortal` verlangt neben dem nicht erledigten
+Zustand mindestens einen noch nicht vorhandenen Planlink; nur diese offenen
+Planportale sind automatisch Arbeitsziele. Weitere Blocker-Endportale werden
+nur nach ausdrücklicher Vormerkung ergänzt.
 `getRouteTasks` führt beide Mengen anhand der Portal-GUID ohne Duplikate
 zusammen.
 

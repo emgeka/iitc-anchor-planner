@@ -103,6 +103,27 @@ function createClassList() {
 
 {
   const { ap } = createRuntime();
+  ap.state.listFilter = 'blocked';
+  assert.equal(ap.resetListFilterAfterScan(), true, 'A new scan must not remain hidden behind a stale mobile filter.');
+  assert.equal(ap.state.listFilter, 'all');
+  assert.equal(ap.resetListFilterAfterScan(), false, 'An already complete list view needs no state change.');
+}
+
+{
+  const { ap } = createRuntime();
+  const existingOnly = { guid: 'existingOnly', title: 'Existing only', openLinks: 0, requiredKeys: 0 };
+  const unconfirmed = { guid: 'unconfirmed', title: 'Unconfirmed', openLinks: 1, requiredKeys: 1 };
+  ap.runtime.stats = { existingOnly, unconfirmed };
+  ap.runtime.links = [];
+  ap.state.listFilter = 'open';
+  assert.equal(ap.matchesListFilter(existingOnly), false, 'A portal whose planned links already exist must not remain in the Open filter.');
+  assert.equal(ap.matchesListFilter(unconfirmed), true);
+  assert.equal(ap.filterCounts([existingOnly, unconfirmed]).open, 1);
+  assert.deepEqual(Array.from(ap.getRouteTasks(null), (portal) => portal.guid), ['unconfirmed'], 'Existing-only portals must not remain automatic work targets.');
+}
+
+{
+  const { ap } = createRuntime();
   const panel = {
     classList: createClassList(),
     style: {},
@@ -219,4 +240,4 @@ function createClassList() {
   assert.equal(ap.runtime.enabled, false, 'The stored disabled layer state must remain disabled during setup.');
 }
 
-console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, automatic blocker-name loading and deduplication, persisted layer state');
+console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, post-scan filter reset, existing-link-aware open portals, loaded portal details without map movement, automatic blocker-name loading and deduplication, persisted layer state');

@@ -83,14 +83,22 @@ scannen und Text- sowie JSON-Export erzeugen.
 
 **Aufbau:** Ein einzelner offener und blockierter Planlink zwischen zwei
 Planportalen; anschließend ein Portal als erledigt markieren und Key-Bestände
-variieren.
+variieren. Vor einem erneuten Scan auf Desktop und Mobil jeweils einen anderen
+Filter aktivieren.
 
 **Erwartung:**
 
 - **Alle** zählt zwei Planportale, obwohl nur ein Planlink existiert.
 - **Offen**, **Blockiert**, **Keys fehlen** und **Erledigt** reagieren auf den
   jeweiligen Portalstatus.
+- Portale, deren Planlinks bereits vollständig vorhanden sind, bleiben unter
+  **Alle** sichtbar, zählen aber nicht als **Offen**. Sobald mindestens ein
+  Planlink noch nicht vorhanden ist, zählt das nicht erledigte Portal wieder
+  als offen.
 - Die Filter ändern nur die sichtbare Liste, nicht Plan oder Reihenfolge.
+- Nach jedem neuen Scan ist **Alle** aktiv und sämtliche erkannten Planportale
+  werden aufgelistet; kein vorheriger Filter erzeugt eine irreführend leere
+  mobile Ergebnisliste.
 
 ## 9. Gemeinsame Arbeitsroute ab IITC-Standort
 
@@ -107,6 +115,9 @@ erledigt markieren.
 - Offene Planportale und vorgemerkte Blocker-Portale erscheinen jeweils nur
   einmal in der Arbeitsroute; ein bereits offenes Planportal benötigt keine
   zusätzliche Vormerkung.
+- Nicht erledigte Planportale mit ausschließlich bereits vorhandenen
+  Planlinks erscheinen nicht als automatische Arbeitsziele. Sind sie Endportal
+  eines Blocklinks, können sie weiterhin ausdrücklich vorgemerkt werden.
 - Zielanzahl und geschätzte Reststrecke reagieren unmittelbar auf Vormerkung,
   Erledigt-Status und Standortänderung.
 - Eine neue IITC-Position aktualisiert Entfernung und gegebenenfalls das Ziel,

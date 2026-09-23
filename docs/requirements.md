@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.53
+# Anforderungen für Version 0.1.54
 
 ## Planerfassung und Portalauflösung
 
@@ -66,6 +66,14 @@
   Routenreihenfolge je Planportal dauerhaft speichern.
 - Die Portalliste nach **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
   **Erledigt** filtern; Zähler müssen Portale und nicht Linkendpunkte zählen.
+- Nach jedem neuen Scan den Listenfilter auf **Alle** zurücksetzen, damit ein
+  gespeicherter oder unbeabsichtigt gewählter Filter die frisch erkannten
+  Planportale insbesondere mobil nicht vollständig verbirgt.
+- Unter **Offen** und in der automatischen Arbeitsroute nur nicht erledigte
+  Planportale mit mindestens einem noch nicht vorhandenen Planlink führen.
+  Portale mit ausschließlich bereits vorhandenen Planlinks bleiben unter
+  **Alle** sichtbar und können bei Bedarf als Blocker-Endportal vorgemerkt
+  werden.
 - Offene Planportale und ausdrücklich vorgemerkte Blocker-Endportale zu einer
   gemeinsamen Arbeitsroute ohne doppelte Portalbesuche zusammenführen.
 - Offene Planportale automatisch berücksichtigen; erledigte Planportale dürfen

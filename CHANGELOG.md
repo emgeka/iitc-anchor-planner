@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.54 (development)
+
+### English
+
+- Reset the portal-list filter to **All** after every new scan so a persisted
+  or accidental filter selection cannot hide freshly recognized plan portals,
+  particularly in the mobile layout.
+- Made **Open** and the automatic work route exclude portals whose planned
+  links already exist completely; such portals remain visible under **All**.
+
+### Deutsch
+
+- Den Portallistenfilter nach jedem neuen Scan auf **Alle** zurückgesetzt,
+  damit eine gespeicherte oder versehentliche Filterauswahl frisch erkannte
+  Planportale insbesondere in der mobilen Ansicht nicht versteckt.
+- **Offen** und die automatische Arbeitsroute um Portale bereinigt, deren
+  Planlinks bereits vollständig vorhanden sind; unter **Alle** bleiben diese
+  Portale sichtbar.
+
 ## 0.1.53
 
 ### English
