@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.53 (development)
+## 0.1.53
 
 ### English
 
@@ -10,6 +10,17 @@
 - Started automatic missing-name loading again after final-check blocker
   recomputation so newly recognized blocker endpoints do not require a manual
   **Load names** action.
+- Unified automatic missing-name loading after a scan so recognized blocker
+  endpoints are handled together with plan portals.
+- Kept **Load names** as an explicit retry for portal details that IITC could
+  not provide during the automatic pass.
+- Extended **Load names** to include unique endpoint portals of recognized
+  blocker links in addition to plan portals.
+- Propagated every loaded blocker-portal name to all matching blocker
+  occurrences so the worklist, actions, map presentation, and exports use the
+  same resolved name without duplicate detail requests.
+- Published after practical IITC verification and confirmation of the final
+  behavior.
 
 ### Deutsch
 
@@ -19,41 +30,18 @@
 - Das automatische Nachladen fehlender Namen nach der Blocker-Neuberechnung
   des Finalchecks erneut gestartet, sodass neu erkannte Blocker-Endportale
   keinen manuellen Klick auf **Namen laden** benötigen.
-
-## 0.1.52 (development)
-
-### English
-
-- Unified automatic missing-name loading after a scan so recognized blocker
-  endpoints are handled together with plan portals.
-- Kept **Load names** as an explicit retry for portal details that IITC could
-  not provide during the automatic pass.
-
-### Deutsch
-
 - Das automatische Nachladen fehlender Namen nach einem Scan vereinheitlicht,
   sodass erkannte Blocker-Endportale gemeinsam mit Planportalen verarbeitet
   werden.
 - **Namen laden** als ausdrückliche Wiederholungsmöglichkeit für Portaldetails
   beibehalten, die IITC beim automatischen Durchlauf nicht liefern konnte.
-
-## 0.1.51 (development)
-
-### English
-
-- Extended **Load names** to include unique endpoint portals of recognized
-  blocker links in addition to plan portals.
-- Propagated every loaded blocker-portal name to all matching blocker
-  occurrences so the worklist, actions, map presentation, and exports use the
-  same resolved name without duplicate detail requests.
-
-### Deutsch
-
 - **Namen laden** um die eindeutigen Endportale erkannter Blocklinks erweitert;
   neben Planportalen werden nun auch deren fehlende Namen nachgeladen.
 - Jeden geladenen Blocker-Portalnamen in alle passenden Blocker-Vorkommen
   übernommen, damit Arbeitsliste, Aktionen, Kartendarstellung und Exporte ohne
   doppelte Detailanfragen denselben aufgelösten Namen verwenden.
+- Nach praktischer Prüfung in IITC und Bestätigung des abschließenden
+  Verhaltens veröffentlicht.
 
 ## 0.1.50
 
