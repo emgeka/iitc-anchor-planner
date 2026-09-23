@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.54 (development)
+## 0.1.54
 
 ### English
 
@@ -9,6 +9,8 @@
   particularly in the mobile layout.
 - Made **Open** and the automatic work route exclude portals whose planned
   links already exist completely; such portals remain visible under **All**.
+- Practically verified the changed scan and filter behavior in IITC before
+  publication.
 
 ### Deutsch
 
@@ -18,6 +20,8 @@
 - **Offen** und die automatische Arbeitsroute um Portale bereinigt, deren
   Planlinks bereits vollständig vorhanden sind; unter **Alle** bleiben diese
   Portale sichtbar.
+- Das geänderte Scan- und Filterverhalten vor der Veröffentlichung praktisch
+  in IITC verifiziert.
 
 ## 0.1.53
 

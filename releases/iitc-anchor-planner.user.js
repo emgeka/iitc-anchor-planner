@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.53
+// @version        0.1.54
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260923105820';
+  plugin_info.dateTimeVersion = '20260923124024';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.53';
+  ap.VERSION = '0.1.54';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -3355,7 +3355,7 @@ function wrapper(plugin_info) {
 
   ap.getNextPortal = function (location) {
     var open = ap.sortedStats(false).filter(function (stat) {
-      return !ap.ensureAnchorState(stat.guid).done;
+      return ap.isOpenPlanPortal(stat);
     });
     if (!open.length) return null;
 
@@ -3408,7 +3408,7 @@ function wrapper(plugin_info) {
           lng: Number(latlng.lng),
           blockerIds: {},
           isPlanPortal: !!(ap.runtime.stats && ap.runtime.stats[guid]),
-          isOpenPlanPortal: !!(ap.runtime.stats && ap.runtime.stats[guid] && !ap.ensureAnchorState(guid).done),
+          isOpenPlanPortal: ap.isOpenPlanPortal(ap.runtime.stats && ap.runtime.stats[guid]),
           selected: false,
           distance: null
         };
@@ -3448,7 +3448,7 @@ function wrapper(plugin_info) {
     var tasks = [];
     var included = {};
     ap.sortedStats(false).forEach(function (stat) {
-      if (ap.ensureAnchorState(stat.guid).done || included[stat.guid]) return;
+      if (!ap.isOpenPlanPortal(stat) || included[stat.guid]) return;
       var task = Object.assign({}, stat, { routeTargetType: 'plan' });
       tasks.push(task);
       included[stat.guid] = true;
@@ -3711,6 +3711,7 @@ function wrapper(plugin_info) {
       ap.state.finalScanProgress = null;
     }
     ap.normalizeRouteOrder();
+    ap.resetListFilterAfterScan();
     ap.state.lastScan = {
       at: new Date().toISOString(),
       drawLayers: layers.length,
@@ -3759,10 +3760,20 @@ function wrapper(plugin_info) {
     var filter = ap.state.listFilter || 'all';
     var local = ap.ensureAnchorState(stat.guid);
     if (filter === 'all') return true;
-    if (filter === 'open') return !local.done;
+    if (filter === 'open') return ap.isOpenPlanPortal(stat);
     if (filter === 'done') return !!local.done;
     if (filter === 'blocked') return !local.done && (stat.blockedLinks || 0) > 0;
     if (filter === 'keys') return !local.done && (stat.requiredKeys || 0) > (local.ownedKeys || 0);
+    return true;
+  };
+
+  ap.isOpenPlanPortal = function (stat) {
+    return !!(stat && !ap.ensureAnchorState(stat.guid).done && (Number(stat.openLinks) || 0) > 0);
+  };
+
+  ap.resetListFilterAfterScan = function () {
+    if ((ap.state.listFilter || 'all') === 'all') return false;
+    ap.state.listFilter = 'all';
     return true;
   };
 
@@ -3771,7 +3782,7 @@ function wrapper(plugin_info) {
     stats.forEach(function (stat) {
       var local = ap.ensureAnchorState(stat.guid);
       if (local.done) counts.done++;
-      else counts.open++;
+      else if (ap.isOpenPlanPortal(stat)) counts.open++;
       if (!local.done && (stat.blockedLinks || 0) > 0) counts.blocked++;
       if (!local.done && (stat.requiredKeys || 0) > (local.ownedKeys || 0)) counts.keys++;
     });

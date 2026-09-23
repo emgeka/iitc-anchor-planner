@@ -24,9 +24,9 @@ Anchor Planner macht aus Draw-Tools- und Auto-Draw-Linkplänen einen direkt nutz
 
 Die `.user.js`-Datei wird über einen Userscript-Manager oder die jeweilige IITC-Plugin-Installation eingebunden. Falls `.user.js`-Downloads in der eigenen Umgebung unpraktisch sind, enthält das GitHub-Release zusätzlich eine inhaltlich identische `.txt`-Fassung.
 
-Aktuelle Veröffentlichung: **0.1.53**
+Aktuelle Veröffentlichung: **0.1.54**
 
-<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.53>
+<https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.54>
 
 ## Warum Anchor Planner?
 
@@ -97,8 +97,8 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.54 (Entwicklung)**
-- Aktuelle stabile Veröffentlichung: **0.1.53**
+- Aktuelle Version: **0.1.54**
+- Aktuelle stabile Veröffentlichung: **0.1.54**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
 - Userscript-ID: `iitc-plugin-anchor-planner`
