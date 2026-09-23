@@ -80,7 +80,7 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 - IITC with the Draw Tools plugin enabled is required for scanning.
 - Portal Bookmarks improve endpoint resolution but are optional.
 - Location-based target selection exclusively uses the official IITC User Location plugin. Location data is neither stored permanently nor exported.
-- The normal scan only sees `window.links` currently loaded in IITC. **Final check** temporarily visits at most twelve views along still-unconfirmed plan links at the first IITC zoom without a link-length filter, waits briefly for late link-layer updates, accumulates the loaded links, and restores the original view. Existing recognized plan links are skipped. Newly recognized blocker endpoints enter the automatic name-loading pass. Progress is saved after every view, so a paused check can continue with the unchanged plan, including after reloading IITC. A capped or timed-out run remains explicitly incomplete and is not an all-clear.
+- The normal scan only sees `window.links` currently loaded in IITC. **Final check** temporarily visits at most twelve views along still-unconfirmed plan links at the first IITC zoom without a link-length filter, waits briefly for late link-layer updates, accumulates the loaded links, and restores the original view. Existing recognized plan links are skipped. Newly recognized blocker endpoints enter the automatic name-loading pass. Progress is saved after every view, so a paused check can continue with the unchanged plan, including after reloading IITC. A capped or timed-out run is shown as **incomplete**, not as a check that was never started, and is not an all-clear.
 
 ## Community Plugins and updates
 
@@ -96,7 +96,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Current version: **0.1.54**
+- Current version: **0.1.55 (development)**
 - Latest stable release: **0.1.54**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

@@ -318,6 +318,7 @@ neu laden, denselben Plan scannen und den Check fortsetzen. Danach den Plan
   der veraltete Zwischenstand verworfen.
 - Benötigt der Plan mehr als zwölf Ansichten oder läuft eine Kartenladung in
   ein Zeitlimit, wird der Lauf sichtbar als unvollständig bezeichnet und nicht
-  als Entwarnung gewertet.
+  als Entwarnung gewertet. Der Einsatzcheck darf ihn danach nicht wieder als
+  bloß ausstehenden, noch nie ausgeführten Finalcheck anzeigen.
 - Button, Fortschritt und Ergebnistext bleiben auf Desktop und IITC Mobile in
   allen gebündelten Sprachen erreichbar und verständlich.

@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.55 (development)
+
+### English
+
+- Distinguished a final blocker check that already ran but ended incomplete
+  from one that is still pending, so capped or timed-out checks no longer look
+  as though they were never started.
+
+### Deutsch
+
+- Einen bereits ausgeführten, aber unvollständig beendeten finalen
+  Blockercheck von einem noch ausstehenden Check unterschieden, damit begrenzte
+  oder abgebrochene Läufe nicht mehr wie nie gestartete Checks erscheinen.
+
 ## 0.1.54
 
 ### English

@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.54
+# Anforderungen für Version 0.1.55
 
 ## Planerfassung und Portalauflösung
 
@@ -54,7 +54,8 @@
 - Den Finalcheck auf höchstens zwölf Ansichten begrenzen, die ursprüngliche
   Kartenposition und Zoomstufe anschließend wiederherstellen und einen wegen
   Begrenzung oder Zeitüberschreitung unvollständigen Lauf ausdrücklich als
-  unvollständig kennzeichnen.
+  unvollständig kennzeichnen. Ein bereits ausgeführter unvollständiger Lauf
+  darf anschließend nicht wieder als lediglich ausstehend erscheinen.
 - Den Zwischenstand nach jeder abgeschlossenen Ansicht dauerhaft speichern.
   Ein pausierter oder durch einen IITC-Neustart unterbrochener Check muss bei
   unverändertem Plan an der nächsten noch offenen Ansicht fortsetzbar sein;

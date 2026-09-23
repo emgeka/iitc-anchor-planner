@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.54
+# Bekannte Grenzen in 0.1.55
 
 ## Portalzuordnung und Namen
 
@@ -40,7 +40,8 @@
 - Während des Finalchecks bewegt sich die Karte vorübergehend; Mittelpunkt und
   Zoomstufe werden danach wiederhergestellt. Benötigt der Plan mehr als zwölf
   Ansichten oder endet eine IITC-Ladung nicht rechtzeitig, bleibt der Lauf
-  ausdrücklich unvollständig.
+  ausdrücklich unvollständig und wird entsprechend angezeigt; er ist nicht mit
+  einem noch nie gestarteten, ausstehenden Check gleichgesetzt.
 - Nach jedem gemeldeten Ladeende wartet der Finalcheck kurz auf verspätete
   IITC-Link-Layer-Ereignisse. Serverseitig noch später oder gar nicht gelieferte
   Links bleiben dennoch außerhalb der Erkennungsmöglichkeiten des Plugins.

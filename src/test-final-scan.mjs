@@ -93,6 +93,27 @@ function createRuntime(savedState = null) {
 
 {
   const { ap } = createRuntime();
+  ap.state.lastScan = {
+    plannedLinks: 1,
+    unconfirmedLinks: 1,
+    finalScanComplete: false,
+    finalScanAt: '2026-09-23T12:00:00.000Z',
+    finalScanViews: 12,
+    finalScanTotalViews: 14
+  };
+  const readiness = ap.getReadiness([{
+    guid: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    title: 'A',
+    linkCount: 1,
+    openLinks: 1,
+    requiredKeys: 0
+  }]);
+  assert.equal(readiness.summary.includes('final blocker check incomplete'), true, 'An attempted but capped final scan must be shown as incomplete.');
+  assert.equal(readiness.summary.includes('final blocker check pending'), false, 'An attempted final scan must not revert to pending.');
+}
+
+{
+  const { ap } = createRuntime();
   ap.runtime.links = [{ id: 'a--b', existing: true }];
   let message = '';
   ap.setMessage = (value) => { message = value; };
@@ -162,4 +183,4 @@ function createRuntime(savedState = null) {
   assert.equal(automaticNameRefreshes, 1, 'New blocker endpoints must trigger automatic name loading after final-scan recomputation.');
 }
 
-console.log('Final blocker scan checks passed: zoom selection, unconfirmed-only coverage, pause/reload resume, stale-plan rejection, late-link settling, blocker recomputation, automatic blocker-name loading, existing-link no-op');
+console.log('Final blocker scan checks passed: zoom selection, unconfirmed-only coverage, incomplete-status distinction, pause/reload resume, stale-plan rejection, late-link settling, blocker recomputation, automatic blocker-name loading, existing-link no-op');

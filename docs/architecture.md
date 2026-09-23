@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.54
+# Architekturübersicht 0.1.55
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -134,7 +134,9 @@ Schlüsselbedarf neu und stößt für neu erkannte Blocker-Endportale
 `queueMissingNameRefresh` an. `finishFinalScan` stellt Mittelpunkt und
 Zoomstufe der ursprünglichen Kartenansicht wieder her. Mehr als zwölf
 erforderliche Ansichten oder eine Zeitüberschreitung führen zu einem
-ausdrücklich unvollständigen Ergebnis. `persistFinalScanProgress` speichert
+ausdrücklich unvollständigen Ergebnis. `finalScanAt` unterscheidet diesen
+bereits ausgeführten, aber unvollständigen Lauf im Einsatzcheck von einem noch
+nie gestarteten und damit ausstehenden Check. `persistFinalScanProgress` speichert
 nach jedem abgeschlossenen Schritt Prüfpunkte, nächsten Index und den
 deduplizierten Linkakkumulator. Eine Pause stellt die Ausgangsansicht sofort
 wieder her. `canResumeFinalScan` erlaubt die Fortsetzung auch nach einem
