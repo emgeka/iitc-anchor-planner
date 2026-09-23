@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.51
+# Architekturübersicht 0.1.52
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -57,7 +57,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 
 | Bereich | Zentrale Funktionen |
 | --- | --- |
-| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `collectMissingPortalNameGuids`, `updatePortalTitle`, `requestPortalDetails`, `refreshMissingNames`, `showPortalDetails` |
+| Portal- und Namensdaten | `getLoadedPortals`, `getPortalTitleFromMarker`, `collectMissingPortalNameGuids`, `updatePortalTitle`, `queueMissingNameRefresh`, `requestPortalDetails`, `refreshMissingNames`, `showPortalDetails` |
 | Bookmarks | `collectPortalBookmarks`, `mergePortalSources` |
 | Draw Tools | `collectDrawToolLayers`, `collectDrawToolPointLayers`, `extractSegments` |
 | Endpunktdiagnose | `findNearestPortalInfo`, `portalCandidatesForEndpoint`, `drawToolPointCandidatesForEndpoint` |
@@ -269,10 +269,13 @@ Liste fehlender Namen aus Planportalen und Endportalen erkannter Blocklinks.
 Diese werden nacheinander über `window.portalDetail.request` beziehungsweise
 den defensiven IITC-Fallback `window.requestPortalDetail` angefragt.
 `updatePortalTitle` übernimmt einen gefundenen Namen in die Planstatistik und
-alle Vorkommen des Blocker-Endportals. Die Abfragen bleiben auf den aktuellen
-Plan und seine erkannten Blocker begrenzt und laufen nicht unabhängig im
-Hintergrund. Es werden keine externen Scraping-Dienste angesprochen. Die
-Einstufung `highLoad` ist daher für den aktuellen Ablauf nicht gesetzt.
+alle Vorkommen des Blocker-Endportals. `queueMissingNameRefresh` startet diesen
+Ablauf nach jedem Scan automatisch, wenn in einer der beiden Portalgruppen ein
+Name fehlt; **Namen laden** stößt denselben Ablauf als manuelle Wiederholung an.
+Die Abfragen bleiben auf den aktuellen Plan und seine erkannten Blocker
+begrenzt und laufen nicht unabhängig im Hintergrund. Es werden keine externen
+Scraping-Dienste angesprochen. Die Einstufung `highLoad` ist daher für den
+aktuellen Ablauf nicht gesetzt.
 
 ## Technische Grenzen
 

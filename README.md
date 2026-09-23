@@ -88,13 +88,13 @@ The panel can be moved by its header with mouse, touch, or pointer input. Its vi
 - Declared anti-features: `scraper` for automatically loading missing portal names and `export` for user-initiated plan exports
 - Catalog icon: published through the userscript metadata from `docs/media/anchor-planner-icon.svg`
 
-`scraper` follows the terminology used by the IITC Community Plugins catalog. Anchor Planner only requests missing names for plan portals and recognized blocker endpoints through IITC's own portal detail functions. Requests run sequentially after a scan or explicitly through **Load names**. The plugin does not search external websites, permanently collect unrelated portal data, or perform continuous background requests. The user-initiated **Final check** is capped at twelve ordinary IITC map views and does not issue its own Intel tile requests. Therefore, `highLoad` is not declared.
+`scraper` follows the terminology used by the IITC Community Plugins catalog. Anchor Planner only requests missing names for plan portals and recognized blocker endpoints through IITC's own portal detail functions. Requests run sequentially and automatically after a scan; **Load names** remains available as an explicit retry if IITC could not provide details during that pass. The plugin does not search external websites, permanently collect unrelated portal data, or perform continuous background requests. The user-initiated **Final check** is capped at twelve ordinary IITC map views and does not issue its own Intel tile requests. Therefore, `highLoad` is not declared.
 
 The stable installation URL always points to the latest published release and is intended as the source for the IITC Community Plugins catalog. Development changes under `src/` do not reach installed plugins until they have been tested and published as a release.
 
 ## Project status
 
-- Current version: **0.1.51 (development)**
+- Current version: **0.1.52 (development)**
 - Latest stable release: **0.1.50**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

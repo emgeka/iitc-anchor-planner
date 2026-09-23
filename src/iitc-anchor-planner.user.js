@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.51
+// @version        0.1.52
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20260923101005';
+  plugin_info.dateTimeVersion = '20260923102401';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.51';
+  ap.VERSION = '0.1.52';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -3702,14 +3702,9 @@ function wrapper(plugin_info) {
       unresolvedSample: unresolved.slice(0, 6)
     };
     ap.save();
+    ap.queueMissingNameRefresh();
     ap.renderOverlays();
     ap.renderPanel();
-
-    // If the scan only found placeholder names, use the same proven logic as the "Namen laden" button automatically.
-    // This is intentionally delayed so the scan UI renders first and does not block the map.
-    if (Object.keys(stats).some(function (guid) { return stats[guid] && ap.isMissingPortalTitle(stats[guid].title); })) {
-      setTimeout(function () { ap.refreshMissingNames(true); }, 250);
-    }
   };
 
   ap.getStatus = function (guid, stat) {
@@ -4226,6 +4221,13 @@ function wrapper(plugin_info) {
       });
     });
     return Object.keys(missing);
+  };
+
+  ap.queueMissingNameRefresh = function () {
+    if (!ap.collectMissingPortalNameGuids().length) return false;
+    // Let the scan UI render before the same sequential loader used by the manual retry starts.
+    setTimeout(function () { ap.refreshMissingNames(true); }, 250);
+    return true;
   };
 
   ap.refreshMissingNames = function (auto) {

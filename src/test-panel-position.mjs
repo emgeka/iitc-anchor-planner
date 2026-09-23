@@ -177,6 +177,13 @@ function createClassList() {
 
   ap.runtime.links[0].blockers.push({ a: 'blockerD', b: 'blockerA', titleA: '', titleB: 'Loaded Blocker A' });
   ap.runtime.links[0].blockers.push({ a: 'blockerD', b: 'blockerC', titleA: '', titleB: 'Known Blocker C' });
+  const automaticCalls = [];
+  const refreshMissingNames = ap.refreshMissingNames;
+  ap.refreshMissingNames = function (auto) { automaticCalls.push(auto); };
+  context.setTimeout = function (callback) { callback(); return 1; };
+  assert.equal(ap.queueMissingNameRefresh(), true, 'A missing blocker name must start the automatic loader even when every plan portal is named.');
+  assert.deepEqual(automaticCalls, [true]);
+
   const requested = [];
   ap.requestPortalDetails = function (guid, callback) {
     requested.push(guid);
@@ -185,11 +192,12 @@ function createClassList() {
   ap.setMessage = () => {};
   ap.renderOverlays = () => {};
   ap.renderPanel = () => {};
-  context.setTimeout = function (callback) { callback(); return 1; };
+  ap.refreshMissingNames = refreshMissingNames;
   ap.refreshMissingNames(false);
   assert.deepEqual(requested, ['blockerD'], 'A repeated blocker endpoint must trigger only one detail request.');
   assert.equal(ap.runtime.links[0].blockers[2].titleA, 'Loaded Blocker D');
   assert.equal(ap.runtime.links[0].blockers[3].titleA, 'Loaded Blocker D');
+  assert.equal(ap.queueMissingNameRefresh(), false, 'No automatic loader should start after every portal name has been resolved.');
 }
 
 {
@@ -211,4 +219,4 @@ function createClassList() {
   assert.equal(ap.runtime.enabled, false, 'The stored disabled layer state must remain disabled during setup.');
 }
 
-console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, blocker-name loading and deduplication, persisted layer state');
+console.log('Runtime UI checks passed: panel positioning, delayed expansion correction, loaded portal details without map movement, automatic blocker-name loading and deduplication, persisted layer state');

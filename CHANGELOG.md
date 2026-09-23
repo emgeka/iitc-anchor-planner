@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.52 (development)
+
+### English
+
+- Unified automatic missing-name loading after a scan so recognized blocker
+  endpoints are handled together with plan portals.
+- Kept **Load names** as an explicit retry for portal details that IITC could
+  not provide during the automatic pass.
+
+### Deutsch
+
+- Das automatische Nachladen fehlender Namen nach einem Scan vereinheitlicht,
+  sodass erkannte Blocker-Endportale gemeinsam mit Planportalen verarbeitet
+  werden.
+- **Namen laden** als ausdrückliche Wiederholungsmöglichkeit für Portaldetails
+  beibehalten, die IITC beim automatischen Durchlauf nicht liefern konnte.
+
 ## 0.1.51 (development)
 
 ### English

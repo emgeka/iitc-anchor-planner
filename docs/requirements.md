@@ -1,4 +1,4 @@
-# Anforderungen für Version 0.1.51
+# Anforderungen für Version 0.1.52
 
 ## Planerfassung und Portalauflösung
 
@@ -25,10 +25,12 @@
   anzeigen. Technische GUIDs dürfen nicht als Portalnamen erscheinen.
 - Bereits erkannte Blocker-Daten nach neu geladenen IITC-Kartendaten
   automatisch mit verfügbaren Portalnamen aktualisieren.
-- **Namen laden** muss fehlende Namen eindeutiger Planportale und erkannter
-  Blocker-Endportale gemeinsam und ohne doppelte Detailanfragen nachladen. Ein
-  geladener Name ist in allen Vorkommen desselben Blocker-Endportals sowie in
-  Arbeitsliste, Aktionen, Karte und Export zu übernehmen.
+- Fehlende Namen eindeutiger Planportale und erkannter Blocker-Endportale nach
+  einem Scan gemeinsam, automatisch und ohne doppelte Detailanfragen
+  nachladen. **Namen laden** muss denselben Ablauf als manuelle Wiederholung
+  anbieten. Ein geladener Name ist in allen Vorkommen desselben
+  Blocker-Endportals sowie in Arbeitsliste, Aktionen, Karte und Export zu
+  übernehmen.
 - Die Endportale erkannter Blocklinks nach der Zahl eindeutiger Blocklinks
   priorisieren; beide Endpunkte bleiben gleichwertige mögliche Arbeitsziele.
 - In Dokumentation und Export darauf hinweisen, dass die Blockerprüfung nur
