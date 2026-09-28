@@ -1,18 +1,22 @@
 # Changelog
 
-## 0.1.55 (development)
+## 0.1.55
 
 ### English
 
 - Distinguished a final blocker check that already ran but ended incomplete
   from one that is still pending, so capped or timed-out checks no longer look
   as though they were never started.
+- Practically verified the incomplete final-check status in IITC before
+  publication.
 
 ### Deutsch
 
 - Einen bereits ausgeführten, aber unvollständig beendeten finalen
   Blockercheck von einem noch ausstehenden Check unterschieden, damit begrenzte
   oder abgebrochene Läufe nicht mehr wie nie gestartete Checks erscheinen.
+- Die Statusanzeige unvollständiger Finalchecks vor der Veröffentlichung
+  praktisch in IITC verifiziert.
 
 ## 0.1.54
 
