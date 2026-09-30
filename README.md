@@ -107,7 +107,7 @@ The stable installation URL always points to the latest published release and is
 
 Bug reports, translation corrections, and focused feature suggestions are welcome in [GitHub Issues](https://github.com/emgeka/iitc-anchor-planner/issues).
 
-If you would like to support development financially, a GitHub Sponsors option is planned and will be linked here once it is publicly available.
+If you would like to support development financially, you can [sponsor emgeka on GitHub](https://github.com/sponsors/emgeka).
 
 ## Development
 

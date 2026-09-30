@@ -108,7 +108,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 Fehlerberichte, Übersetzungskorrekturen und konkrete Funktionsvorschläge sind in den [GitHub Issues](https://github.com/emgeka/iitc-anchor-planner/issues) willkommen.
 
-Eine finanzielle Unterstützung über GitHub Sponsors ist geplant und wird hier verlinkt, sobald das Sponsorenprofil öffentlich verfügbar ist.
+Wenn du die Entwicklung finanziell unterstützen möchtest, kannst du [emgeka über GitHub Sponsors unterstützen](https://github.com/sponsors/emgeka).
 
 ## Entwicklung
 

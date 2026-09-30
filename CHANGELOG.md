@@ -1,5 +1,15 @@
 # Changelog
 
+## Repository sponsorship (2026-09-30)
+
+### English
+
+- Enabled GitHub Sponsors for emgeka through `.github/FUNDING.yml` and linked the public Sponsors profile in both README languages. Plugin version and runtime are unchanged.
+
+### Deutsch
+
+- GitHub Sponsors für emgeka über `.github/FUNDING.yml` aktiviert und das öffentliche Sponsors-Profil in beiden README-Sprachen verlinkt. Pluginversion und Laufzeitverhalten bleiben unverändert.
+
 ## 0.1.55
 
 ### English
