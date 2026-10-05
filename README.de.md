@@ -28,11 +28,11 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.1.56-beta.3
+### Beta-Test: 0.1.56-beta.4
 
 Das separate [Beta-Userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
 unterstützt **Details anzeigen** auf aktuellen und älteren IITC-Versionen.
-Ältere Versionen können bei diesem ausdrücklichen Klick Details nachladen,
+IITC kann bei diesem ausdrücklichen Klick fehlende oder veraltete Details nachladen,
 ohne die Karte zu bewegen. Fehlende Portaldetails ersetzen die vorherige
 Seitenleistenanzeige durch eine Meldung.
 
@@ -130,7 +130,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.1.56-beta.3**
+- Entwicklungsversion: **0.1.56-beta.4**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

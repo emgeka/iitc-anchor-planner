@@ -173,7 +173,7 @@ function createClassList() {
   context.document.getElementById = id => id === 'portaldetails' ? sidebar : null;
   context.window.portals.portalA = { options: { guid: 'portalA', data: { title: 'Alpha' } } };
   context.window.selectPortal = guid => { selected = guid; };
-  context.window.renderPortalDetails = guid => { rendered = guid; };
+  context.window.renderPortalDetails = guid => { selected = guid; rendered = guid; };
   assert.equal(ap.showPortalDetails('portalA'), true, 'Legacy markers have no getDetails method.');
   assert.equal(selected, 'portalA');
   assert.equal(rendered, 'portalA', 'Legacy renderer must receive the GUID, not the marker.');
@@ -181,6 +181,28 @@ function createClassList() {
   assert.equal(sidebar.textContent, ap.t('message.portalDetailsUnavailable'), 'Unavailable details must not leave an unrelated previous portal on display.');
   context.window.portals.wrong = { options: { guid: 'portalA' } };
   assert.equal(ap.showPortalDetails('wrong'), false, 'Do not display a marker with a different identity.');
+}
+
+{
+  const { ap, context } = createRuntime();
+  const marker = { options: { guid: 'portalA' }, getDetails() { return { title: null }; } };
+  ap.runtime.stats.portalA = { guid: 'portalA', title: 'Named in Tasks' };
+  context.window.portals.portalA = marker;
+  let requested = null;
+  let selected = null;
+  let directRenders = 0;
+  context.window.IITC = { portal: { display: {
+    select() { throw new Error('The standard renderer owns selection.'); },
+    renderToSidebar() { directRenders++; },
+    renderDetails(guid, forceSelect) { assert.equal(forceSelect, true); selected = guid; requested = guid; }
+  } } };
+  assert.equal(ap.showPortalDetails('portalA'), true);
+  assert.equal(selected, 'portalA');
+  assert.equal(requested, 'portalA', 'A named task with title-less summary must use the normal IITC loading pipeline.');
+  assert.equal(directRenders, 0, 'Direct sidebar rendering would show null instead of loading missing details.');
+  delete context.window.IITC.portal.display.renderDetails;
+  ap.setMessage = () => {};
+  assert.equal(ap.showPortalDetails('portalA'), false, 'Without a loader, do not render title-less details as null.');
 }
 
 {

@@ -211,9 +211,11 @@ Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
   verwechseln; `K0` darf seinerseits nicht wie „OK“ aussehen.
 - **Details anzeigen** öffnet für ein bereits geladenes Planportal die IITC-
   Detailansicht. Der Portalname selbst bleibt normaler Text; Karte, Mittelpunkt
-  und Zoomstufe verändern sich nicht, und auf modernen Versionen wird keine zusätzliche
-  Portalabfrage ausgelöst. Ältere IITC-Versionen ohne Marker-Detail-API öffnen
-  dasselbe Portal anhand seiner GUID und dürfen beim Klick über IITC nachladen.
+  und Zoomstufe verändern sich nicht. Moderne und ältere IITC-Versionen öffnen
+  dasselbe Portal anhand seiner GUID über den normalen Auswahl-/Ladeablauf.
+  Insbesondere bei vorhandenem Aufgabenname und leerem IITC-Detailtitel muss
+  IITC fehlende Details nachladen und nach Antwort das richtige Portal zeigen.
+  Kein direktes Rendern eines unvollständigen Datensatzes als „null“.
   Bei nicht geladenem Portal ersetzt eine Meldung die vorherige
   Portalansicht. Im Panel erscheint zusätzlich eine
   lokalisierte Verfügbarkeitsmeldung.

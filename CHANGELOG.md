@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.56-beta.4 — development, practical IITC test pending
+
+### English
+
+- Fixed named tasks opening title-less portal summaries as `null`: prefer
+  IITC’s normal GUID-based selection/loading pipeline on current and older
+  versions so missing or stale details can load. Direct rendering is only a
+  compatibility fallback for data with a valid detail title. Added regression
+  coverage for a named task whose IITC summary still has a null title.
+
+### Deutsch
+
+- Benannte Aufgaben öffneten unvollständige Portaldaten als `null`. Jetzt
+  aktuellen und älteren IITC-Versionen die exakte GUID über den normalen
+  Auswahl-/Ladeablauf übergeben, damit fehlende oder veraltete Details laden.
+  Direkte Darstellung bleibt nur als Kompatibilitätsfallback mit gültigem
+  Detailtitel erhalten. Regressionstest für benannte Aufgabe mit leerem
+  IITC-Detailtitel ergänzt.
+
 ## 0.1.56-beta.3 — development, practical IITC test pending
 
 ### English

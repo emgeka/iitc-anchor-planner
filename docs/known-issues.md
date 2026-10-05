@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.56-beta.3
+# Bekannte Grenzen in 0.1.56-beta.4
 
 ## Portalzuordnung und Namen
 
@@ -19,8 +19,9 @@
   Portal weiterhin keine Details, bleibt dort die Koordinaten-Ersatzanzeige
   bestehen.
 - **Details anzeigen** arbeitet bewusst nur mit bereits geladenen IITC-
-  Portalmarkern. Moderne IITC-Versionen verwenden deren vorhandene Details;
-  ältere Versionen dürfen beim ausdrücklichen Klick über IITC nachladen.
+  Portalmarkern. IITC darf beim ausdrücklichen Klick fehlende oder veraltete
+  Details nachladen; ein Aufgabenname bedeutet nicht, dass IITCs
+  Detaildatensatz bereits vollständig geladen ist.
   Für ausschließlich aus Bookmarks bekannte oder nicht mehr geladene Planportale
   zeigt die IITC-Detailansicht stattdessen eine Verfügbarkeitsmeldung und das Panel meldet
   die fehlende Verfügbarkeit. Es wird kein nahegelegenes Ersatzportal gewählt.
@@ -85,7 +86,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.1.56-beta.3 stehen noch aus.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.1.56-beta.4 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
