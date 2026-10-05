@@ -195,5 +195,11 @@
   "tasks.completed": "Tâches terminées / signalées",
   "tasks.ownedKeys": "Clés disponibles",
   "tasks.directionSuggested": "Suggestion : {direction}",
-  "tasks.acceptDirection": "Accepter la suggestion"
+  "tasks.acceptDirection": "Accepter la suggestion",
+  "tasks.columnPortal": "Portail",
+  "tasks.columnKeys": "Clés",
+  "tasks.columnLinks": "Liens",
+  "tasks.columnBlockers": "Bloqueurs",
+  "tasks.expandDetails": "Afficher les détails des tâches",
+  "tasks.routeHelp": "Notes de parcours"
 }

@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.1
+// @version        0.2.0-beta.2
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005095514';
+  plugin_info.dateTimeVersion = '20261005101000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.1';
+  ap.VERSION = '0.2.0-beta.2';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -243,7 +243,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Erledigte / gemeldete Aufgaben",
       "tasks.ownedKeys": "Vorhandene Keys",
       "tasks.directionSuggested": "Vorschlag: {direction}",
-      "tasks.acceptDirection": "Vorschlag übernehmen"
+      "tasks.acceptDirection": "Vorschlag übernehmen",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "Keys",
+      "tasks.columnLinks": "Links",
+      "tasks.columnBlockers": "Blocker",
+      "tasks.expandDetails": "Aufgabendetails anzeigen",
+      "tasks.routeHelp": "Routenhinweise"
     },
     "en": {
       "language.label": "Language",
@@ -442,7 +448,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Completed / reported tasks",
       "tasks.ownedKeys": "Owned keys",
       "tasks.directionSuggested": "Suggested: {direction}",
-      "tasks.acceptDirection": "Accept suggestion"
+      "tasks.acceptDirection": "Accept suggestion",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "Keys",
+      "tasks.columnLinks": "Links",
+      "tasks.columnBlockers": "Blockers",
+      "tasks.expandDetails": "Show task details",
+      "tasks.routeHelp": "Route notes"
     },
     "es": {
       "language.label": "Idioma",
@@ -641,7 +653,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Tareas completadas / notificadas",
       "tasks.ownedKeys": "Llaves disponibles",
       "tasks.directionSuggested": "Sugerencia: {direction}",
-      "tasks.acceptDirection": "Aceptar sugerencia"
+      "tasks.acceptDirection": "Aceptar sugerencia",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "Llaves",
+      "tasks.columnLinks": "Enlaces",
+      "tasks.columnBlockers": "Bloqueos",
+      "tasks.expandDetails": "Mostrar detalles de tareas",
+      "tasks.routeHelp": "Notas de ruta"
     },
     "fr": {
       "language.label": "Langue",
@@ -840,7 +858,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Tâches terminées / signalées",
       "tasks.ownedKeys": "Clés disponibles",
       "tasks.directionSuggested": "Suggestion : {direction}",
-      "tasks.acceptDirection": "Accepter la suggestion"
+      "tasks.acceptDirection": "Accepter la suggestion",
+      "tasks.columnPortal": "Portail",
+      "tasks.columnKeys": "Clés",
+      "tasks.columnLinks": "Liens",
+      "tasks.columnBlockers": "Bloqueurs",
+      "tasks.expandDetails": "Afficher les détails des tâches",
+      "tasks.routeHelp": "Notes de parcours"
     },
     "it": {
       "language.label": "Lingua",
@@ -1039,7 +1063,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Attività completate / segnalate",
       "tasks.ownedKeys": "Chiavi disponibili",
       "tasks.directionSuggested": "Suggerimento: {direction}",
-      "tasks.acceptDirection": "Accetta suggerimento"
+      "tasks.acceptDirection": "Accetta suggerimento",
+      "tasks.columnPortal": "Portale",
+      "tasks.columnKeys": "Chiavi",
+      "tasks.columnLinks": "Link",
+      "tasks.columnBlockers": "Blocchi",
+      "tasks.expandDetails": "Mostra dettagli attività",
+      "tasks.routeHelp": "Note sul percorso"
     },
     "ja": {
       "language.label": "言語",
@@ -1238,7 +1268,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "完了・報告済みの作業",
       "tasks.ownedKeys": "所持キー",
       "tasks.directionSuggested": "提案: {direction}",
-      "tasks.acceptDirection": "提案を採用"
+      "tasks.acceptDirection": "提案を採用",
+      "tasks.columnPortal": "ポータル",
+      "tasks.columnKeys": "キー",
+      "tasks.columnLinks": "リンク",
+      "tasks.columnBlockers": "障害",
+      "tasks.expandDetails": "タスク詳細を表示",
+      "tasks.routeHelp": "ルートの注意事項"
     },
     "pl": {
       "language.label": "Język",
@@ -1437,7 +1473,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Zadania wykonane / zgłoszone",
       "tasks.ownedKeys": "Posiadane klucze",
       "tasks.directionSuggested": "Propozycja: {direction}",
-      "tasks.acceptDirection": "Przyjmij propozycję"
+      "tasks.acceptDirection": "Przyjmij propozycję",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "Klucze",
+      "tasks.columnLinks": "Linki",
+      "tasks.columnBlockers": "Blokady",
+      "tasks.expandDetails": "Pokaż szczegóły zadań",
+      "tasks.routeHelp": "Uwagi o trasie"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -1636,7 +1678,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Tarefas concluídas / informadas",
       "tasks.ownedKeys": "Chaves disponíveis",
       "tasks.directionSuggested": "Sugestão: {direction}",
-      "tasks.acceptDirection": "Aceitar sugestão"
+      "tasks.acceptDirection": "Aceitar sugestão",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "Chaves",
+      "tasks.columnLinks": "Links",
+      "tasks.columnBlockers": "Bloqueios",
+      "tasks.expandDetails": "Mostrar detalhes das tarefas",
+      "tasks.routeHelp": "Notas da rota"
     },
     "ru": {
       "language.label": "Язык",
@@ -1835,7 +1883,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "Выполненные / отмеченные задачи",
       "tasks.ownedKeys": "Имеющиеся ключи",
       "tasks.directionSuggested": "Предложение: {direction}",
-      "tasks.acceptDirection": "Принять предложение"
+      "tasks.acceptDirection": "Принять предложение",
+      "tasks.columnPortal": "Портал",
+      "tasks.columnKeys": "Ключи",
+      "tasks.columnLinks": "Линки",
+      "tasks.columnBlockers": "Блоки",
+      "tasks.expandDetails": "Показать детали задач",
+      "tasks.routeHelp": "Примечания к маршруту"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2034,7 +2088,13 @@ function wrapper(plugin_info) {
       "tasks.completed": "已完成 / 已报告任务",
       "tasks.ownedKeys": "已有钥匙",
       "tasks.directionSuggested": "建议：{direction}",
-      "tasks.acceptDirection": "接受建议"
+      "tasks.acceptDirection": "接受建议",
+      "tasks.columnPortal": "Portal",
+      "tasks.columnKeys": "钥匙",
+      "tasks.columnLinks": "连线",
+      "tasks.columnBlockers": "阻挡",
+      "tasks.expandDetails": "显示任务详情",
+      "tasks.routeHelp": "路线说明"
     }
   };
   // AP_LOCALES_END
@@ -3255,23 +3315,35 @@ function wrapper(plugin_info) {
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
     var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button></div>';
-    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div>';
+    html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
+    if (plan.stops.length) {
+      html += '<table class="ap-task-table" aria-label="' + ap.escapeHtml(ap.t('tasks.title')) + '"><colgroup><col class="ap-task-col-number"><col><col class="ap-task-col-keys"><col class="ap-task-col-count"><col class="ap-task-col-blockers"></colgroup><thead><tr><th scope="col">#</th>';
+      ['tasks.columnPortal', 'tasks.columnKeys', 'tasks.columnLinks', 'tasks.columnBlockers'].forEach(function (key) { html += '<th scope="col">' + ap.escapeHtml(ap.t(key)) + '</th>'; });
+      html += '</tr></thead>';
+    }
     plan.stops.forEach(function (stop, index) {
       var portal = stop.portal;
       var stopId = stop.planVisit ? 'plan:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
-      html += '<details class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"' + (index === 0 ? ' open' : '') + '><summary><span class="ap-task-number">' + (index + 1) + '</span><span><b>' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + '</b><span class="ap-task-muted ap-task-summary">' + ap.escapeHtml(ap.t(stop.blockers.length ? 'tasks.removeBlocker' : 'tasks.planVisit')) + (stop.planVisit && stop.blockers.length ? ' · ' + ap.escapeHtml(ap.t('tasks.planVisit')) : '') + '</span></span></summary>';
+      var local = ap.ensureAnchorState(portal.guid);
+      var title = ap.displayPortalTitle(portal.title);
+      var keyLabel = ap.t('row.keys', { owned: local.ownedKeys || 0, required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
+      html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
+      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.escapeHtml(title) + '</button></th>';
+      html += '<td class="ap-task-numeric' + (stop.planVisit && Number(local.ownedKeys) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (local.ownedKeys || 0) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
+      html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
+      html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       if (stop.planVisit) {
-        var local = ap.ensureAnchorState(portal.guid);
         html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: local.ownedKeys || 0, required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
         html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (local.ownedKeys || 0) + '"></label>';
         stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
         html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
-      html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div></details>';
+      html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div></div></td></tr></tbody>';
     });
+    if (plan.stops.length) html += '</table>';
     if (plan.unscheduled.length || plan.unassigned.length) {
       html += '<div class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</div>';
       plan.unscheduled.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
@@ -3292,8 +3364,18 @@ function wrapper(plugin_info) {
     return html;
   };
 
+  ap.setTaskStopExpanded = function (button, expanded) {
+    var row = button.closest('tbody').querySelector('.ap-task-detail-row');
+    row.hidden = !expanded;
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    button.querySelector('.ap-task-chevron').textContent = expanded ? '▾' : '▸';
+  };
+
   ap.wireTaskList = function (element) {
     var plan = ap.getWorkPlan();
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-task-expand'), function (button) {
+      button.onclick = function () { ap.setTaskStopExpanded(this, this.getAttribute('aria-expanded') !== 'true'); };
+    });
     element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
     element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
     element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
@@ -3328,9 +3410,13 @@ function wrapper(plugin_info) {
     if (!element || !ap.runtime.taskListOpen) return;
     var scroll = element.scrollTop, expanded = {};
     Array.prototype.forEach.call(element.querySelectorAll('details[data-stop]'), function (row) { expanded[row.getAttribute('data-stop')] = row.open; });
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-task-expand'), function (button) { expanded[button.getAttribute('data-stop')] = button.getAttribute('aria-expanded') === 'true'; });
     element.innerHTML = ap.taskListHtml();
     Array.prototype.forEach.call(element.querySelectorAll('details[data-stop]'), function (row) {
       if (Object.prototype.hasOwnProperty.call(expanded, row.getAttribute('data-stop'))) row.open = expanded[row.getAttribute('data-stop')];
+    });
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-task-expand'), function (button) {
+      if (Object.prototype.hasOwnProperty.call(expanded, button.getAttribute('data-stop'))) ap.setTaskStopExpanded(button, expanded[button.getAttribute('data-stop')]);
     });
     ap.wireTaskList(element);
     element.scrollTop = scroll;
@@ -5479,23 +5565,42 @@ function wrapper(plugin_info) {
     $('<style>').prop('type', 'text/css').html(`
 #ap-task-list{max-height:calc(100dvh - 180px);overflow:auto;color:#eee;font:13px/1.45 Arial,sans-serif;padding:4px;box-sizing:border-box;overflow-wrap:anywhere}
 #ap-task-list .ap-task-toolbar{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:6px;background:#101923;padding:8px 0;z-index:1}
+#ap-task-list .ap-task-toolbar button{overflow-wrap:normal;padding:5px 6px}
 #ap-task-list button{min-height:34px;border:1px solid #60758a;border-radius:5px;background:#24364a;color:#eef5ff;padding:5px 9px;cursor:pointer}
-#ap-task-list .ap-task-stop{border:1px solid #415164;border-radius:8px;background:#15202c;margin:12px 0;padding:10px}
-#ap-task-list .ap-task-next{border-color:#6fcef4;box-shadow:inset 3px 0 #6fcef4}
+#ap-task-list .ap-task-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;margin-top:8px}
+#ap-task-list .ap-task-col-number{width:42px}
+#ap-task-list .ap-task-col-keys{width:72px}
+#ap-task-list .ap-task-col-count{width:48px}
+#ap-task-list .ap-task-col-blockers{width:62px}
+#ap-task-list .ap-task-table th,#ap-task-list .ap-task-table td{padding:4px;border-bottom:1px solid #344658;vertical-align:middle}
+#ap-task-list .ap-task-table thead th{background:#24364a;color:#c6eaff;font-weight:normal;text-align:center}
+#ap-task-list .ap-task-table thead th:nth-child(2){text-align:left}
+#ap-task-list .ap-task-overview{background:#15202c}
+#ap-task-list .ap-task-next .ap-task-overview{background:#203c4b;box-shadow:inset 3px 0 #6fcef4}
+#ap-task-list .ap-task-numeric{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+#ap-task-list .ap-task-key-missing{color:#ff9893;font-weight:bold}
+#ap-task-list .ap-task-blocker-count{color:#ffc078;font-weight:bold}
+#ap-task-list button.ap-task-expand{border:0;background:none;padding:0;width:100%;font-size:12px;color:#c6eaff}
+#ap-task-list .ap-task-chevron{display:block;font-size:10px;line-height:10px}
+#ap-task-list button.ap-task-portal-name{border:0;background:none;padding:2px;text-align:left;font:inherit;font-weight:bold;width:100%;overflow-wrap:anywhere}
+#ap-task-list button.ap-task-portal-name:hover{text-decoration:underline}
+#ap-task-list .ap-task-detail-row[hidden]{display:none}
+#ap-task-list .ap-task-detail-row>td{padding:0}
+#ap-task-list .ap-task-detail-content{padding:6px 10px 10px;background:#101923;border-left:3px solid #415164}
 #ap-task-list summary{cursor:pointer;display:flex;gap:10px;align-items:center;min-height:32px}
 #ap-task-list .ap-task-number{display:grid;place-items:center;flex:none;width:28px;height:28px;background:#2e4359;border-radius:50%;color:#c6eaff}
 #ap-task-list .ap-task-summary{display:block;font-size:12px}
 #ap-task-list .ap-task-muted{color:#b1c1d2;font-size:12px;margin:5px 0}
-#ap-task-list .ap-task-link,#ap-task-list .ap-task-blocker{border-top:1px solid #344658;margin-top:9px;padding-top:9px}
+#ap-task-list .ap-task-link,#ap-task-list .ap-task-blocker{border-top:1px solid #344658;margin-top:5px;padding-top:5px}
 #ap-task-list .ap-task-blocker b,#ap-task-list .ap-task-warning{color:#ffc078}
 #ap-task-list .ap-task-status{display:inline-block;font-size:11px;color:#a3ddff;background:#233c4e;border-radius:4px;padding:2px 6px;margin-bottom:4px}
-#ap-task-list label{display:block;margin-top:8px}
+#ap-task-list label{display:block;margin-top:5px}
 #ap-task-list select{max-width:100%;width:100%;min-height:34px;background:#0e1720;color:#eee;border:1px solid #617489;border-radius:4px}
 #ap-task-list input[type=number]{width:65px;min-height:30px;background:#0e1720;color:#eee;border:1px solid #617489}
 #ap-task-list input[type=checkbox]{width:18px;height:18px;vertical-align:middle;margin-right:6px}
-#ap-task-list .ap-task-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+#ap-task-list .ap-task-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 #ap-task-list .ap-task-history{border-top:1px solid #526375;padding-top:10px;margin-top:15px}
-@media(max-width:600px){#ap-task-list{max-height:calc(100dvh - 150px);font-size:12px}#ap-task-list .ap-task-toolbar button{flex:1}}
+@media(max-width:600px){#ap-task-list{max-height:calc(100dvh - 150px);font-size:12px}#ap-task-list .ap-task-toolbar button{flex:1}#ap-task-list .ap-task-col-number{width:34px}#ap-task-list .ap-task-col-keys{width:54px}#ap-task-list .ap-task-col-count{width:38px}#ap-task-list .ap-task-col-blockers{width:52px}#ap-task-list .ap-task-table th,#ap-task-list .ap-task-table td{padding:3px}}
 `).appendTo('head');
     $('<style>').prop('type', 'text/css').html('\
 #iitc-anchor-planner{position:fixed;right:10px;bottom:28px;z-index:3000;width:360px;max-width:calc(100vw - 10px);max-height:70vh;overflow:auto;box-sizing:border-box;background:rgba(8,12,18,.94);color:#eee;border:1px solid #777;border-radius:6px;font:12px/1.35 Arial,sans-serif;box-shadow:0 2px 12px rgba(0,0,0,.6);-webkit-overflow-scrolling:touch}\

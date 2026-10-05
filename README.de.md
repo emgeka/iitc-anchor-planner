@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.1
+### Beta-Test: 0.2.0-beta.2
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -39,7 +39,10 @@ IITC kann bei diesem ausdrücklichen Klick fehlende oder veraltete Details nachl
 ohne die Karte zu bewegen. Fehlende Portaldetails ersetzen die vorherige
 Seitenleistenanzeige durch eine Meldung.
 
-Die Beta ergänzt **Aufgaben**, ausdrückliche Wurfrichtungen je Planlink und gerichteten
+Die Beta zeigt **Aufgaben** kompakt als Tabelle mit Position, Portal, Keys,
+Links und Blockern. Zeilen aufklappen für Richtung, Abbauziel, Erledigung und
+Navigation. Portalnamen öffnen IITC-Details; fehlende Keys und der nächste
+Stopp werden hervorgehoben. Die Beta ergänzt ausdrückliche Wurfrichtungen je Planlink und gerichteten
 Keybedarf. Blocker-Abbau wird vor den abhängigen Linkaufträgen eingeordnet;
 Endportal und Position werden mit möglichst wenig zusätzlicher Luftlinie
 gewählt. Gemeinsame Blocker erscheinen einmal; Arbeiten an demselben Portal
@@ -133,7 +136,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.1**
+- Entwicklungsversion: **0.2.0-beta.2**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

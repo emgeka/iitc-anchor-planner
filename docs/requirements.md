@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.1
+# Anforderungen für Entwicklungsstand 0.2.0-beta.2
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -144,9 +144,10 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 
 ## Bedienung
 
-- Eine zusätzliche Aufgabenansicht mit aufklappbaren, nummerierten Stopps,
-  Blocklinkdetails, freigegebenen Planlinks, Wurfrichtungswahl, Keyeingabe,
-  manueller Erledigung und vorhandenen Details-/Navigationsaktionen anbieten.
+- Eine kompakte Aufgabentabelle mit Position, Portal, Keys, Links und Blockern
+  sowie aufklappbaren, nummerierten Stopps anbieten. In den Details
+  Blocklinkdetails, freigegebene Planlinks, Wurfrichtungswahl, Keyeingabe,
+  manuelle Erledigung und vorhandene Details-/Navigationsaktionen anbieten.
   Scrollposition und aufgeklappte Stopps bei Aktualisierungen erhalten.
 - Nicht bestätigte Aufgaben als geplant, blockiert oder manuell gemeldet
   kennzeichnen; keine vollständige Baufolgenprüfung vortäuschen.

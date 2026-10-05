@@ -195,5 +195,11 @@
   "tasks.completed": "完了・報告済みの作業",
   "tasks.ownedKeys": "所持キー",
   "tasks.directionSuggested": "提案: {direction}",
-  "tasks.acceptDirection": "提案を採用"
+  "tasks.acceptDirection": "提案を採用",
+  "tasks.columnPortal": "ポータル",
+  "tasks.columnKeys": "キー",
+  "tasks.columnLinks": "リンク",
+  "tasks.columnBlockers": "障害",
+  "tasks.expandDetails": "タスク詳細を表示",
+  "tasks.routeHelp": "ルートの注意事項"
 }

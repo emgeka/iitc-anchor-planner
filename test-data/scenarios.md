@@ -402,3 +402,16 @@ Beispieldaten ersetzt nicht den noch ausstehenden IITC-Praxistest.
   übernehmen** speichert die Richtung und berechnet den Keybedarf am Ziel.
 - Eine andere Richtung wählen, neu laden und neu routen: Die bestätigte
   Auswahl bleibt bestehen. Vorhandene Links erhalten keinen Vorschlag.
+
+### Kompakte Aufgabentabelle
+
+- Übersicht mit Position, Portal, Keys (vorhanden/benötigt), Links und Blockern.
+  Abbau- und notwendige Wiederbesuche stehen weiterhin in derselben Reihenfolge.
+- Positionsbutton per Maus, Touch und Tastatur bedienen: Detailzeile sowie
+  `aria-expanded` wechseln gemeinsam. Erster Stopp ist anfangs geöffnet.
+- Richtung, Keybestand und Abbau ändern: Übersicht aktualisiert sich,
+  Aufklappzustand bleibt am selben Stopp und Scrollposition erhalten.
+- Bei 360 px und langen Namen bleiben alle Spalten und Bedienelemente erreichbar.
+  Keymangel, offene Schätzung (`~`) und Blocker sind unterscheidbar.
+- Portalname öffnet die richtigen IITC-Details. Historie und nicht eingeplante
+  Aufgaben bleiben verfügbar, einschließlich Rücknahme manueller Erledigung.

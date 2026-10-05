@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.1
+# Architekturübersicht 0.2.0-beta.2
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -224,7 +224,15 @@ Endportalbesuch bleibt die Richtung offen. Draw-Tools-Zeichenreihenfolge und
 vorhandene Intel-Links erzeugen keine Vorschläge.
 
 `taskListHtml`, `wireTaskList`, `showTaskList` und `refreshTaskList` verwenden
-einen IITC-Dialog mit eigener scrollbarer, schmal nutzbarer Kartenliste.
+einen IITC-Dialog mit einer scrollbaren Tabelle. Pro Stopp enthält ein
+`tbody` die Übersicht mit Position, Portal, Keybestand/-bedarf, zugeordneten
+Linkaufträgen und benötigten Blockern sowie eine aufklappbare Detailzeile.
+`setTaskStopExpanded` synchronisiert `hidden`, `aria-expanded` und Pfeil;
+`refreshTaskList` bewahrt den Zustand anhand stabiler Stopp-IDs auch beim
+Umsortieren. Portalnamen öffnen dieselbe GUID-basierte IITC-Detailaktion.
+Das erste Arbeitsziel ist anfangs aufgeklappt. Fehlende Keys sind rot, Blocker
+orange und das nächste Ziel blau markiert. Schmale Ansichten behalten die
+Tabellenspalten mit umbrechenden Namen; Routenhinweise sind aufklappbar.
 Richtung, Keybestand, Endportalwahl und manuelle Erledigung werden aus derselben
 Datenbasis geändert; aufgeklappte Stopps und Scrollposition bleiben bei
 Aktualisierungen erhalten. Sichtbare Texte sind vollständig gebündelt übersetzt.

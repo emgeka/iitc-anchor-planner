@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0-beta.2 — compact tasks, practical test pending
+
+### English
+
+- Replaced task cards with a compact table of position, portal, owned/needed
+  keys, assigned links and blockers, inspired by Fan Fields 3’s row/detail
+  layout. Kept direction, removal target, completion and navigation in
+  expandable detail rows. Portal names open the existing IITC detail action.
+- Highlighted next stop, missing keys and blockers; kept open rows and scroll
+  position across updates. Route notes collapse; long names wrap on mobile.
+  Routing, direction suggestions and manual/Intel separation stay unchanged.
+
+### Deutsch
+
+- Aufgabenkarten durch kompakte Tabelle aus Position, Portal, vorhandenen/
+  benötigten Keys, zugeordneten Links und Blockern ersetzt, nach dem
+  Zeilen-/Detailprinzip von Fan Fields 3. Richtung, Abbauziel, Erledigung und
+  Navigation bleiben in aufklappbaren Detailzeilen. Portalnamen öffnen IITC.
+- Nächsten Stopp, Keymangel und Blocker hervorgehoben; offene Zeilen und
+  Scrollposition bei Updates erhalten. Routenhinweise sind einklappbar, lange
+  Namen brechen mobil um. Routing und manuelle/Intel-Zustände unverändert.
+
 ## 0.2.0-beta.1 — feature release, practical test in progress
 
 ### English

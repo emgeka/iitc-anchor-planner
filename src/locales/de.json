@@ -195,5 +195,11 @@
   "tasks.completed": "Erledigte / gemeldete Aufgaben",
   "tasks.ownedKeys": "Vorhandene Keys",
   "tasks.directionSuggested": "Vorschlag: {direction}",
-  "tasks.acceptDirection": "Vorschlag übernehmen"
+  "tasks.acceptDirection": "Vorschlag übernehmen",
+  "tasks.columnPortal": "Portal",
+  "tasks.columnKeys": "Keys",
+  "tasks.columnLinks": "Links",
+  "tasks.columnBlockers": "Blocker",
+  "tasks.expandDetails": "Aufgabendetails anzeigen",
+  "tasks.routeHelp": "Routenhinweise"
 }
