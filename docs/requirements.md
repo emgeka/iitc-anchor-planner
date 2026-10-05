@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.1.56-beta.2
+# Anforderungen für Entwicklungsstand 0.1.56-beta.3
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -119,8 +119,11 @@ bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
 - Vorgemerkte zusätzliche Blocker-Portale und das jeweils nächste Arbeitsziel
   auf der Karte markieren.
 - Für bereits in IITC geladene Planportale eine ausdrückliche, lokalisierte
-  Detailaktion anbieten. Sie darf weder zusätzliche Portaldetails anfordern
-  noch die Karte zentrieren, verschieben oder zoomen.
+  Detailaktion anbieten, die anhand der exakten GUID aktuelle und ältere
+  IITC-Anzeige-APIs unterstützt. Moderne Versionen verwenden geladene Details;
+  ältere Versionen dürfen beim ausdrücklichen Klick über IITC nachladen.
+  Die Karte weder zentrieren, verschieben noch zoomen. Fehlende Details
+  ersetzen die vorherige fremde Portalansicht durch eine Meldung.
 - Erkannte Blocker-Endportale müssen dieselben lokalisierten Aktionen
   **Details anzeigen** und **Aktionen** wie Planportale anbieten. Ein einzelner
   abweichender Waze-Direktbutton darf dort nicht erscheinen; Waze und weitere

@@ -28,10 +28,14 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.1.56-beta.2
+### Beta testing: 0.1.56-beta.3
 
 The separate [beta userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
-adds a **Tasks** view, explicit per-link direction and directed key demand.
+supports **Show details** on both current and older IITC versions. Older IITC may
+request details for this explicit click without moving the map. Unavailable
+portal details replace the previous sidebar content with a message.
+
+The beta adds a **Tasks** view, explicit per-link direction and directed key demand.
 Blocker removal stops are inserted before dependent link tasks, choosing an
 endpoint and insertion position with a small additional straight-line distance.
 Shared blockers occur once; work at the same portal is bundled where possible.
@@ -120,7 +124,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.1.56-beta.2**
+- Development version: **0.1.56-beta.3**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

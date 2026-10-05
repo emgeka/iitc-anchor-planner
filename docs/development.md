@@ -54,7 +54,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.1.56-beta.2` under `beta-builds/`, with integrated tasks, explicit link
+`0.1.56-beta.3` under `beta-builds/`, with integrated tasks, explicit link
 directions and preselected direction suggestions.
 
 Do not advertise `beta/src/iitc-anchor-planner.user.js` as a beta installation:
@@ -140,7 +140,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.1.56-beta.2` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.1.56-beta.3` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen und vorausgewählten Richtungsvorschlägen.
 
 `beta/src/iitc-anchor-planner.user.js` nicht als Beta-Installation bewerben:

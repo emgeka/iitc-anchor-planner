@@ -167,6 +167,24 @@ function createClassList() {
 
 {
   const { ap, context } = createRuntime();
+  let selected = null;
+  let rendered = null;
+  const sidebar = { textContent: 'Previous portal' };
+  context.document.getElementById = id => id === 'portaldetails' ? sidebar : null;
+  context.window.portals.portalA = { options: { guid: 'portalA', data: { title: 'Alpha' } } };
+  context.window.selectPortal = guid => { selected = guid; };
+  context.window.renderPortalDetails = guid => { rendered = guid; };
+  assert.equal(ap.showPortalDetails('portalA'), true, 'Legacy markers have no getDetails method.');
+  assert.equal(selected, 'portalA');
+  assert.equal(rendered, 'portalA', 'Legacy renderer must receive the GUID, not the marker.');
+  assert.equal(ap.showPortalDetails('missingPortal'), false);
+  assert.equal(sidebar.textContent, ap.t('message.portalDetailsUnavailable'), 'Unavailable details must not leave an unrelated previous portal on display.');
+  context.window.portals.wrong = { options: { guid: 'portalA' } };
+  assert.equal(ap.showPortalDetails('wrong'), false, 'Do not display a marker with a different identity.');
+}
+
+{
+  const { ap, context } = createRuntime();
   let promptTitle = '';
   let promptText = '';
   context.window.prompt = function (title, text) { promptTitle = title; promptText = text; };
