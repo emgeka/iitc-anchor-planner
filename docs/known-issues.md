@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.55
+# Bekannte Grenzen in 0.1.56-beta.1
 
 ## Portalzuordnung und Namen
 
@@ -57,7 +57,7 @@
 
 ## Standort und Route
 
-- Die dynamische Zielwahl für Plan- und vorgemerkte Blocker-Portale
+- Die standortbezogene Routenplanung für Plan- und Blocker-Portale
   funktioniert nur mit dem offiziellen IITC-User-Location-Plugin und einem von
   diesem gelieferten gültigen Standort.
 - Ohne Standort bleibt die gespeicherte manuelle Reihenfolge maßgeblich.
@@ -67,8 +67,22 @@
   Straßen-, Geh- oder Fahrstrecken.
 - **Ab Standort sortieren** ist eine Luftlinien-Näherung und keine
   straßenbasierte Routenoptimierung. Spätere Standortänderungen sortieren die
-  sichtbare Liste nicht automatisch neu, beeinflussen aber das dynamische
-  nächste Portal.
+  gespeicherte Liste nicht automatisch neu. Der Aufgabenmodus verwendet
+  entweder diese Reihenfolge oder einen eigenen Standortvorschlag mit
+  100-m-Neuberechnungsschwelle; es gibt keine automatische Ankunftserkennung.
+- Blocker-Einfügung ist eine gierige Luftlinienheuristik und garantiert keinen
+  kürzesten Weg. Sie prüft geometrische Blocker-Abhängigkeiten, aber keine
+  Eroberung, Erreichbarkeit über Straßen, Linklimits oder das Linken unter
+  bereits gebauten Feldern. Offene Wurfrichtungen benötigen weiterhin eine
+  Entscheidung; Keybedarf an ihren beiden Endportalen bleibt eine Schätzung.
+- Manuelle Abbau-Meldungen sind keine Intel-Bestätigung. Ein weiterhin im
+  Scan beobachteter Blocklink bleibt im Einsatzcheck blockierend; nach einem
+  neuen Scan/Finalcheck kann sich der beobachtete Stand ändern. Bloße
+  Abwesenheit im geladenen Ausschnitt wird nicht als bestätigter Abbau gewertet.
+- Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
+  fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
+  Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.1.56-beta.1 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
@@ -126,11 +140,11 @@
 
 ## Installation und Updates
 
-- `beta` ist zunächst ein Entwicklungsbranch ohne installierbare eigene
-  Distribution. `src/` enthält weiterhin Stable-Update-Adressen und darf nicht
-  als automatischer Beta-Updatekanal beworben werden. Vor einem Beta-Build sind
-  Kanaltrennung und gegebenenfalls Zustandsmigrationen nach
-  `development.md` einzuführen.
+- `beta-builds/` bietet einen eigenen Beta-Updatekanal; `src/` enthält weiterhin
+  Stable-Update-Adressen und darf nicht als Beta-Installation beworben werden.
+  Beta und Stable teilen Namespace und gespeicherten Zustand. Vor Rückkehr zu
+  Stable den Plan exportieren; Stable berücksichtigt die neuen Richtungen und
+  Blocker-Aufgabeneinstellungen nicht. Beide Varianten nicht parallel betreiben.
 - CI überprüft technische Branch-Regeln, ersetzt jedoch keine bestätigten
   IITC-Praxistests und ist ohne separat konfigurierte GitHub-Branch-Schutzregel
   keine serverseitige Merge-Sperre.

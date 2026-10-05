@@ -28,6 +28,28 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
+### Beta testing: 0.1.56-beta.1
+
+The separate [beta userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
+adds a **Tasks** view, explicit per-link direction and directed key demand.
+Blocker removal stops are inserted before dependent link tasks, choosing an
+endpoint and insertion position with a small additional straight-line distance.
+Shared blockers occur once; work at the same portal is bundled where possible.
+
+**Tasks → Route from here** uses IITC User Location; **Saved order** preserves
+your portal order while inserting required blocker stops. Small GPS changes
+keep the proposed order; movements over 100 m or changed tasks can rebuild it.
+Manual blocker reports remain separate from Intel observations. The route is
+a suggestion; capture, outgoing-link limits and building under fields are not
+yet validated. Walk Sim is not included in this beta.
+
+Install only one Anchor Planner variant per IITC instance. The beta shares the
+existing saved keys, portal completion and settings; new directions initially
+remain open. Before returning to stable, export the plan: stable ignores the
+new directions and blocker task settings and uses its former key calculation.
+The beta updates only from its own URL; stable remains 0.1.55. Practical
+desktop-IITC and IITC-Mobile verification is still pending.
+
 ## Why use Anchor Planner?
 
 - **Stop counting keys by hand.** Existing planned links are detected and the remaining key demand is calculated per portal.
@@ -96,7 +118,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Current version: **0.1.55**
+- Development version: **0.1.56-beta.1**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -116,10 +138,12 @@ IITC testing. Larger changes use `feature/<topic>` branches and pull requests
 into `beta`. Release preparation uses `release/<version>` from the tested
 `beta`, followed by a pull request into `main` and synchronization back to
 `beta`. See [branches, checks, and release workflow](docs/development.md).
-There is no separately installable beta build yet; the stable installation
-and update URLs are unchanged. `feature/link-direction` is prepared for the
-planned link-direction work. Repository checks run automatically on the
-development branches and pull requests.
+The beta build is generated with `node src/build-beta.mjs` and checked with
+`node src/build-beta.mjs --check`; stable installation and update URLs are
+unchanged. `feature/task-list` introduces the integrated work plan and the
+direction controls it needs. `feature/link-direction` remains the original
+starting branch and should be synchronized from `beta` before future work.
+Repository checks run automatically on development branches and pull requests.
 
 The rules in `AGENTS.md` apply to the entire project. Functional changes are first made only under `src/`. Identical `.user.js` and `.txt` release builds are created only after successful practical tests with desktop IITC and IITC Mobile. The stable files without a version number are then updated to the same content.
 

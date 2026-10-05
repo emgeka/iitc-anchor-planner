@@ -53,23 +53,28 @@ runtime test. Future maintenance should normally use a pull request.
 Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
-stable source; there is no separately installable beta distribution yet.
+stable source at branch creation. The first test build is now
+`0.1.56-beta.1` under `beta-builds/`, introducing the integrated tasks and
+explicit link directions on `feature/task-list`.
 
 Do not advertise `beta/src/iitc-anchor-planner.user.js` as a beta installation:
-the source currently contains stable update URLs. Before publishing the first
-test build, implement a separate beta build under `beta-builds/`, beta download
-and update URLs on the `beta` branch, an explicit beta version and UI label,
-and checks of its metadata. Beta builds must never overwrite `releases/` or
+the source contains stable update URLs. `node src/build-beta.mjs` creates the
+separate beta build under `beta-builds/` with beta download and update URLs on
+the `beta` branch, an explicit beta version shown in the UI and a Beta userscript
+name. `node src/build-beta.mjs --check` verifies its content and metadata.
+Beta builds must never overwrite `releases/` or
 become the stable Community-catalog source. Do not install both variants in
 one IITC instance: they share the plugin namespace and persisted state. Future
 state changes require migration and a documented return-to-stable path.
+This beta adds optional fields without deleting old data; stable ignores the
+directions and blocker task settings. Export the plan before switching back.
 
 ### Automated checks
 
 `.github/workflows/checks.yml` checks pushes to `main`, `beta`, `feature/**`,
 `release/**`, `hotfix/**` and `maintenance/**`, and pull requests targeting `main` or `beta`.
 It runs syntax, locale-bundle, localization, panel and final-check tests, metadata
-and branch-policy checks, and whitespace checks. CI does not publish anything
+and branch-policy checks, beta-build consistency, work-plan tests and whitespace checks. CI does not publish anything
 and does not replace practical IITC testing. Branch rules are documented and
 checked by CI; server-side branch protection is a separate repository setting.
 
@@ -134,25 +139,29 @@ sollen normalerweise über einen Pull Request erfolgen.
 Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
-`feature/link-direction` dieselbe stabile Quelle; eine gesondert installierbare
-Beta-Distribution existiert noch nicht.
+`feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der erste
+Testbuild ist jetzt `0.1.56-beta.1` unter `beta-builds/`; `feature/task-list`
+führt die gemeinsamen Aufgaben und ausdrücklichen Wurfrichtungen ein.
 
 `beta/src/iitc-anchor-planner.user.js` nicht als Beta-Installation bewerben:
-Die Quelle enthält derzeit stabile Update-Adressen. Vor dem ersten Testbuild
-sind ein eigener Beta-Build unter `beta-builds/`, Beta-Download- und
-Update-Adressen auf `beta`, eine erkennbare Beta-Version und Oberflächenanzeige
-sowie Metadatenprüfungen einzuführen. Beta-Builds dürfen weder `releases/`
+Die Quelle enthält stabile Update-Adressen. `node src/build-beta.mjs` erzeugt
+den eigenen Build unter `beta-builds/` mit Beta-Download- und Update-Adressen
+auf `beta`, sichtbarer Beta-Version und Beta-Userscript-Namen.
+`node src/build-beta.mjs --check` prüft Inhalt und Metadaten.
+Beta-Builds dürfen weder `releases/`
 überschreiben noch zur Quelle des stabilen Community-Katalogs werden. Beide
 Varianten nicht gemeinsam in einer IITC-Instanz installieren: Plugin-Namespace
 und gespeicherter Zustand werden geteilt. Zukünftige Zustandsänderungen benötigen
-Migrationen und einen dokumentierten Rückweg zu Stable.
+Migrationen und einen dokumentierten Rückweg zu Stable. Diese Beta ergänzt
+optionale Felder ohne Löschen vorhandener Daten; Stable ignoriert Richtungen
+und Blocker-Aufgabeneinstellungen. Vor dem Rückwechsel den Plan exportieren.
 
 ### Automatische Prüfungen
 
 `.github/workflows/checks.yml` prüft Pushes auf `main`, `beta`, `feature/**`,
 `release/**`, `hotfix/**` und `maintenance/**` sowie Pull Requests nach `main` oder `beta`.
 Geprüft werden Syntax, Locale-Bundle, Sprachverhalten, Panel und Finalcheck,
-Metadaten, Branch-Regeln und Whitespace. CI veröffentlicht nichts und ersetzt
+Metadaten, Branch-Regeln, Beta-Build-Konsistenz, Arbeitsplan und Whitespace. CI veröffentlicht nichts und ersetzt
 keinen IITC-Praxistest. Die Branch-Regeln werden dokumentiert und durch CI
 geprüft; serverseitiger Branch-Schutz ist eine separate Repository-Einstellung.
 

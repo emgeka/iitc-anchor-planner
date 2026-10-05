@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.1.56-beta.1 — development, practical IITC test pending
+
+### English
+
+- Added an integrated Tasks dialog with numbered portal visits, shared blocker
+  removal tasks, affected planned links, key editing, direction controls and
+  existing portal actions. Manual completion stays distinct from Intel data.
+- Inserted each required blocker before its first dependent link task, choosing
+  a removal endpoint and stop position with low extra straight-line distance.
+  Bundled work at existing visits while retaining necessary later revisits.
+- Added explicit per-link direction and destination-only key demand; unknown
+  directions retain the former estimate. Added language-neutral `plannedLinks`
+  to JSON exports. Reused existing persisted keys and portal completion.
+- Unified the tasks, next target, map highlighting and remaining-route estimate.
+  Kept proposals stable for movements up to 100 m and respected saved order.
+- Added ten-language task text, work-plan regression tests and a separate beta
+  build/update channel. Stable 0.1.55 files remain unchanged. Walk Sim and
+  capture/link-limit/under-field validation are not part of this beta.
+
+### Deutsch
+
+- Gemeinsame Aufgabenansicht mit nummerierten Portalbesuchen, eindeutigen
+  Blocker-Abbauaufgaben, betroffenen Planlinks, Keyeingabe, Richtungswahl und
+  vorhandenen Portalaktionen ergänzt. Manuelle Erledigung bleibt von Intel-Daten
+  getrennt.
+- Jeden benötigten Blocker vor dem ersten abhängigen Linkauftrag mit geringem
+  zusätzlichem Luftlinienweg eingeordnet. Arbeiten an vorhandenen Besuchen
+  gebündelt und notwendige spätere Wiederbesuche beibehalten.
+- Ausdrückliche Wurfrichtung und Keybedarf nur am Ziel eingeführt; offene
+  Richtungen behalten die bisherige Schätzung. Sprachneutrale `plannedLinks`
+  im JSON-Export ergänzt. Bestehende Keys und Portal-Erledigung weiterverwendet.
+- Aufgaben, nächstes Ziel, Kartenhervorhebung und Reststrecke vereinheitlicht;
+  Vorschläge bei Bewegungen bis 100 m stabil gehalten und gespeicherte
+  Reihenfolge respektiert.
+- Aufgabentexte in zehn Sprachen, Regressionstests und eigenen Beta-Build mit
+  getrenntem Updatekanal ergänzt. Stable 0.1.55 bleibt unverändert. Walk Sim
+  sowie Eroberungs-, Linklimit- und Unter-Feld-Prüfung sind noch nicht enthalten.
+
 ## Branch workflow (2026-10-05)
 
 ### English

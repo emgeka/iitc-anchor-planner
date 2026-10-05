@@ -27,9 +27,11 @@ jobs:
       - name: Locale bundle and existing behavior
         run: |
           node src/build-locales.mjs --check
+          node src/build-beta.mjs --check
           node src/test-localization.mjs
           node src/test-panel-position.mjs
           node src/test-final-scan.mjs
+          node src/test-work-plan.mjs
       - name: Metadata and branch policy
         env:
           POLICY_BRANCH: ${{ github.base_ref || github.ref_name }}

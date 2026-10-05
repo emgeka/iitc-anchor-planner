@@ -1,13 +1,13 @@
 // ==UserScript==
 // @id             iitc-plugin-anchor-planner
-// @name           IITC plugin: Anchor Planner
+// @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
 // @version        0.1.56-beta.1
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
-// @updateURL      https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/releases/iitc-anchor-planner.user.js
-// @downloadURL    https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/releases/iitc-anchor-planner.user.js
+// @updateURL      https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js
+// @downloadURL    https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js
 // @homepageURL    https://github.com/emgeka/iitc-anchor-planner
 // @supportURL     https://github.com/emgeka/iitc-anchor-planner/issues
 // @icon           https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/main/docs/media/anchor-planner-icon.svg
