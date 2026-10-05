@@ -3334,6 +3334,7 @@ function wrapper(plugin_info) {
       html += '<td class="ap-task-numeric' + (stop.planVisit && Number(local.ownedKeys) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (local.ownedKeys || 0) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
+      if (stop.planVisit) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.planVisit')) + '</div>';
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       if (stop.planVisit) {
         html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: local.ownedKeys || 0, required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
