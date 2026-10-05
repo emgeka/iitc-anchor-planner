@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.0-beta.1 — feature release, practical test in progress
+
+### English
+
+- Renumbered the tasks, link-direction and integrated routing feature release
+  from `0.1.56-beta.4` to `0.2.0-beta.1`, targeting stable `0.2.0`. Runtime
+  behavior and saved data remain unchanged; stable remains `0.1.55`.
+- Reserved minor versions for new functional areas and substantial reworks,
+  patch versions for fixes and small adjustments, and beta counters for test
+  iterations. Historical beta entries keep their original versions.
+- The user confirmed portal details and refresh behavior in practical IITC
+  testing; complete feature and mobile verification remains pending.
+
+### Deutsch
+
+- Aufgaben, Wurfrichtung und gemeinsame Routenplanung von `0.1.56-beta.4`
+  auf `0.2.0-beta.1` umnummeriert; Zielrelease ist `0.2.0`. Verhalten und
+  gespeicherte Daten unverändert, Stable bleibt `0.1.55`.
+- Minor-Versionen für neue Funktionsbereiche und grundlegende Überarbeitungen,
+  Patch-Versionen für Korrekturen und kleine Anpassungen sowie Beta-Zähler für
+  Testiterationen festgelegt. Historische Beta-Einträge bleiben erhalten.
+- Nutzer hat Portaldetails und Refresh-Verhalten in IITC bestätigt; vollständige
+  Feature- und Mobile-Prüfung steht noch aus.
+
 ## 0.1.56-beta.4 — development, practical IITC test pending
 
 ### English

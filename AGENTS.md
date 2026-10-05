@@ -68,6 +68,11 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
 
 ## Versionierung und Releases
 
+- Neue Funktionsbereiche und grundlegende Überarbeitungen erhalten eine neue
+  Minor-Version (zum Beispiel `0.1.x` → `0.2.0`). Patch-Versionen sind für
+  Fehlerkorrekturen und kleinere Anpassungen vorgesehen. Beta-Iterationen
+  verwenden `X.Y.0-beta.N`; der aktuelle Featurestand zielt auf `0.2.0`.
+
 - Vor jedem Commit projektweit prüfen, dass alle nicht-historischen Dateien
   den aktuellsten vorgesehenen Versionsstand abbilden. Dazu gehören mindestens
   Arbeitsfassung, `README.md`, `README.de.md`, aktuelle Docs-Angaben, Changelog

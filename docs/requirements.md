@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.1.56-beta.4
+# Anforderungen für Entwicklungsstand 0.2.0-beta.1
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.

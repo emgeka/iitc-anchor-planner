@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.56-beta.4
+# Architekturübersicht 0.2.0-beta.1
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 

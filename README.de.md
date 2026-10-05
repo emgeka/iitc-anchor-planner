@@ -28,7 +28,10 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.1.56-beta.4
+### Beta-Test: 0.2.0-beta.1
+
+Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
+Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
 
 Das separate [Beta-Userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
 unterstützt **Details anzeigen** auf aktuellen und älteren IITC-Versionen.
@@ -130,7 +133,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.1.56-beta.4**
+- Entwicklungsversion: **0.2.0-beta.1**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
