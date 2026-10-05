@@ -111,6 +111,16 @@ If you would like to support development financially, you can [sponsor emgeka on
 
 ## Development
 
+`main` holds the stable version; `beta` integrates development for practical
+IITC testing. Larger changes use `feature/<topic>` branches and pull requests
+into `beta`. Release preparation uses `release/<version>` from the tested
+`beta`, followed by a pull request into `main` and synchronization back to
+`beta`. See [branches, checks, and release workflow](docs/development.md).
+There is no separately installable beta build yet; the stable installation
+and update URLs are unchanged. `feature/link-direction` is prepared for the
+planned link-direction work. Repository checks run automatically on the
+development branches and pull requests.
+
 The rules in `AGENTS.md` apply to the entire project. Functional changes are first made only under `src/`. Identical `.user.js` and `.txt` release builds are created only after successful practical tests with desktop IITC and IITC Mobile. The stable files without a version number are then updated to the same content.
 
 Before every handoff, commit, or publication, each change must be reconciled with the complete set of development-relevant files. This includes the source, locales, build process, both README languages, requirements, architecture, known limitations, test scenarios, changelog, and current release files where applicable. All files must be consciously checked and every affected file must be updated in the same change set; explicitly historical releases and changelog sections retain their original state.

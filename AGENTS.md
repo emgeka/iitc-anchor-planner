@@ -44,6 +44,27 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
    vorgenommenen Änderungen abgleichen und betroffene Dateien bei Bedarf im
    selben Änderungssatz aktualisieren.
 
+## Branches und Integration
+
+- `main` enthält den freigegebenen stabilen Stand und bleibt Standardbranch.
+- `beta` enthält die integrierte Entwicklung und dient den IITC-Praxistests.
+- Größere Änderungen auf `feature/<thema>` vom aktuellen `beta` entwickeln
+  und per Pull Request nach `beta` übernehmen. Kleine Entwicklungsänderungen
+  dürfen direkt auf `beta` entstehen; keine Entwicklungscommits auf `main`.
+- Dringende stabile Korrekturen auf `hotfix/<thema>` und reine Repository-
+  oder Dokumentationspflege auf `maintenance/<thema>` von `main` abzweigen.
+- Nach bestätigtem Praxistest einen `release/<version>`-Branch von `beta`
+  für die Release-Dateien vorbereiten und per Pull Request nach `main`
+  übernehmen. Danach `main` nach `beta` zurückführen; die Merge-Historie erhalten.
+- `releases/` bleibt auf `beta` und Feature-Branches unverändert.
+  Installierbare Beta-Builds benötigen einen getrennten Build, eigene
+  Update-Adressen und eine sichtbare Beta-Kennzeichnung; derzeit existiert
+  noch keine Beta-Distribution. Die Quelle unter `src/` ist kein Beta-Kanal.
+- Vor Arbeitsbeginn Remote-Stand und aktiven Branch prüfen. Bei jedem Commit
+  die Branch-Prüfung aus `src/check-branch-policy.mjs` ausführen.
+- Der vollständige Ablauf steht in `docs/development.md`. Die einmalige
+  Einrichtung und reine Prozesspflege benötigen keinen Versionssprung.
+
 ## Versionierung und Releases
 
 - Vor jedem Commit projektweit prüfen, dass alle nicht-historischen Dateien
@@ -51,9 +72,11 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
   Arbeitsfassung, `README.md`, `README.de.md`, aktuelle Docs-Angaben, Changelog
   sowie bei einer Freigabe die versionierten und stabilen
   Distributionsdateien.
-- Solange Versionsstand, Dokumentation oder Distributionsdateien voneinander
-  abweichen, darf kein Commit erstellt werden. Ein noch nicht vollständig
-  dokumentierter Entwicklungsstand bleibt uncommitted unter `src/`.
+- Quellen und Entwicklungsdokumentation müssen vor jedem Commit konsistent
+  sein. Auf `beta` und Feature-Branches dürfen dokumentierte Entwicklungsstände
+  von den eingefrorenen stabilen Dateien unter `releases/` abweichen. Vor der
+  Übernahme eines Release-Kandidaten nach `main` müssen Quellen und aktuelle
+  Distributionsdateien denselben freigegebenen Stand abbilden.
 - Ausgenommen sind nur ausdrücklich historische Changelog-Abschnitte und
   versionierte Alt-Releases; diese müssen ihren jeweiligen damaligen
   Versionsstand unverändert behalten.

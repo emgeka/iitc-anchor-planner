@@ -1,5 +1,27 @@
 # Manuelle Testszenarien
 
+## Repository-Branches und Freigabe
+
+**Aufbau:** `main`, `beta` und einen Feature-Branch mit aktualisiertem
+`origin/main` prüfen; bei einem Release-Kandidaten den Zielbranch `main` prüfen.
+
+**Erwartung:**
+
+- `main` bleibt Standardbranch, `beta` integriert Feature-Arbeit; stabile
+  Installation und Pluginversion bleiben bei der Einrichtung unverändert.
+- `node src/check-branch-policy.mjs --branch main` bestätigt Versions- und
+  Metadatenkonsistenz sowie Bytegleichheit aller aktuellen Distributionen.
+- `node src/check-branch-policy.mjs --branch beta --stable-ref origin/main`
+  erlaubt dokumentierte Entwicklungsquellen, lehnt aber Änderungen unter
+  `releases/` ab. Dasselbe gilt für Feature-Branches.
+- Release-Kandidaten auf `release/<version>` dürfen nach bestätigtem Praxistest
+  Distributionen vorbereiten und müssen die Stable-Prüfung bestehen.
+- Die GitHub-Prüfungen laufen auf den dokumentierten Branches und Pull
+  Requests, veröffentlichen aber keine Builds. Ein Beta-Build ist mit dieser
+  Einrichtung noch nicht verfügbar.
+- Bei unverändertem Laufzeitcode erfordert die reine Branch- und
+  Prozesseinrichtung keinen zusätzlichen IITC-Praxistest.
+
 ## 1. Gegnerisches oder nicht linkfähiges Planportal
 
 **Aufbau:** Ein Endportal ist gegnerisch oder nur teilweise ausgebaut.

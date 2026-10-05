@@ -1,0 +1,46 @@
+name: Repository checks
+
+on:
+  push:
+    branches: [main, beta, 'feature/**', 'release/**', 'hotfix/**', 'maintenance/**']
+  pull_request:
+    branches: [main, beta]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Syntax
+        run: |
+          node --check src/iitc-anchor-planner.user.js
+          for file in src/*.mjs; do node --check "$file"; done
+      - name: Locale bundle and existing behavior
+        run: |
+          node src/build-locales.mjs --check
+          node src/test-localization.mjs
+          node src/test-panel-position.mjs
+          node src/test-final-scan.mjs
+      - name: Metadata and branch policy
+        env:
+          POLICY_BRANCH: ${{ github.base_ref || github.ref_name }}
+        run: node src/check-branch-policy.mjs --branch "$POLICY_BRANCH" --stable-ref origin/main
+      - name: Whitespace
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -n "$BASE_SHA" ] && [ "$BASE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            git diff --check "$BASE_SHA" HEAD
+          else
+            git show --format= --check HEAD
+          fi

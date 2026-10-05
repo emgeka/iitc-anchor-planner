@@ -126,6 +126,14 @@
 
 ## Installation und Updates
 
+- `beta` ist zunächst ein Entwicklungsbranch ohne installierbare eigene
+  Distribution. `src/` enthält weiterhin Stable-Update-Adressen und darf nicht
+  als automatischer Beta-Updatekanal beworben werden. Vor einem Beta-Build sind
+  Kanaltrennung und gegebenenfalls Zustandsmigrationen nach
+  `development.md` einzuführen.
+- CI überprüft technische Branch-Regeln, ersetzt jedoch keine bestätigten
+  IITC-Praxistests und ist ohne separat konfigurierte GitHub-Branch-Schutzregel
+  keine serverseitige Merge-Sperre.
 - Die stabile Updateadresse folgt dem `main`-Branch des Projekt-Repositorys.
   Sie darf deshalb nur durch einen vollständigen, getesteten Release aktualisiert
   werden.

@@ -1,5 +1,25 @@
 # Changelog
 
+## Branch workflow (2026-10-05)
+
+### English
+
+- Established `main` for stable releases, `beta` for integrated development,
+  and `feature/link-direction` for the planned direction work. Documented
+  feature, release, hotfix and maintenance pull-request flows.
+- Added automated repository checks and distribution isolation by branch.
+  Plugin version, runtime and published stable files remain unchanged; a
+  separately installable beta build is not yet published.
+
+### Deutsch
+
+- `main` für stabile Releases, `beta` für integrierte Entwicklung und
+  `feature/link-direction` für die geplante Wurfrichtung eingerichtet. Abläufe
+  für Feature-, Release-, Hotfix- und Pflege-Pull-Requests dokumentiert.
+- Automatische Repository-Prüfungen und Trennung der Distribution nach Branch
+  ergänzt. Pluginversion, Laufzeit und veröffentlichte stabile Dateien bleiben
+  unverändert; ein gesondert installierbarer Beta-Build ist noch nicht verfügbar.
+
 ## Repository sponsorship (2026-09-30)
 
 ### English

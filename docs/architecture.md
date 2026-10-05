@@ -241,6 +241,21 @@ eine zuvor deaktivierte Ebene wird beim Neuladen nicht wieder eingeschaltet.
 
 ## Release- und Community-Datenfluss
 
+`main` bildet den stabilen Stand ab. `feature/<thema>` zweigt von `beta` ab;
+`beta` integriert Entwicklungsänderungen für den Praxistest. Erst nach dessen
+Bestätigung werden Release-Dateien auf `release/<version>` von `beta`
+vorbereitet und per Pull Request nach `main` übernommen. Danach wird `main`
+nach `beta` zurückgeführt. `docs/development.md` beschreibt auch Hotfixes,
+Repository-Pflege und die Voraussetzungen eines künftigen Beta-Builds.
+
+`.github/workflows/checks.yml` führt vorhandene Syntax-, Locale-, Panel- und
+Finalcheck-Prüfungen sowie `src/check-branch-policy.mjs` aus. Die Branch-Prüfung
+vergleicht Entwicklungsdistributionen mit `origin/main` und verlangt auf
+`main` beziehungsweise Release-Kandidaten bytegleiche aktuelle Quellen und
+Distributionsdateien. Bei Pull Requests wird der Zielbranch geprüft. Der
+Workflow erzeugt oder veröffentlicht keine Dateien. Der neue Ablauf verändert
+weder Plugin-Laufzeit noch Speicherformat; zunächst gibt es keinen Beta-Build.
+
 Die Entwicklungsfassung liegt unter `src/iitc-anchor-planner.user.js`; ihre
 Sprachquellen liegen ergänzend unter `src/locales/` und werden vor jeder
 Freigabe mit `src/build-locales.mjs` geprüft und eingebettet. Nach einem

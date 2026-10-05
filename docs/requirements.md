@@ -180,6 +180,17 @@
 
 ## Veröffentlichung und Updates
 
+- `main` bleibt der stabile Standardbranch; `beta` integriert getestete
+  Entwicklungsänderungen aus Feature-Branches. Stabile Releases werden nach
+  bestätigtem IITC-Praxistest über `release/<version>` und einen Pull Request
+  nach `main` vorbereitet; anschließend `main` nach `beta` zurückführen.
+- Automatische Branch-Prüfungen müssen Entwicklungsänderungen unter
+  `releases/` erkennen und auf `main` beziehungsweise Release-Kandidaten
+  Versions-, Metadaten- und Bytegleichheit prüfen. Der vollständige Ablauf
+  steht in `docs/development.md`.
+- Ein zukünftiger installierbarer Beta-Kanal benötigt eigene Build-Dateien,
+  Update-Adressen und sichtbare Beta-Kennzeichnung. Das Anlegen des Branches
+  allein erzeugt keine Beta-Distribution.
 - `@version` und `ap.VERSION` müssen denselben Versionsstand tragen.
 - `@updateURL` und `@downloadURL` müssen auf eine dauerhaft erreichbare,
   freigegebene Userscript-Datei zeigen und dürfen keine Entwicklungsfassung

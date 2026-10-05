@@ -112,6 +112,17 @@ Wenn du die Entwicklung finanziell unterstützen möchtest, kannst du [emgeka ü
 
 ## Entwicklung
 
+`main` enthält die stabile Version; `beta` integriert die Entwicklung für
+IITC-Praxistests. Größere Änderungen entstehen auf `feature/<thema>` und
+gelangen per Pull Request nach `beta`. Die Release-Vorbereitung erfolgt auf
+`release/<version>` vom getesteten `beta`, danach per Pull Request nach `main`
+und mit Rückführung nach `beta`. Siehe
+[Branches, Prüfungen und Veröffentlichungsablauf](docs/development.md).
+Eine gesondert installierbare Beta-Fassung existiert noch nicht; die stabilen
+Installations- und Update-Adressen bleiben unverändert. Für die geplante
+Wurfrichtung ist `feature/link-direction` vorbereitet. Repository-Prüfungen
+laufen automatisch auf Entwicklungsbranches und Pull Requests.
+
 Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale Änderungen erfolgen zunächst nur in `src/`. Identische Releasefassungen als `.user.js` und `.txt` werden erst nach erfolgreichem Praxistest auf Desktop-IITC und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei auf denselben Inhalt aktualisiert.
 
 Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderung mit dem vollständigen Satz der für die weitere Entwicklung maßgeblichen Dateien abgeglichen werden. Dazu gehören je nach Betroffenheit Quellcode, Locales, Build-Ablauf, beide README-Sprachen, Anforderungen, Architektur, bekannte Grenzen, Testszenarien, Changelog und aktuelle Release-Dateien. Alle Dateien müssen bewusst geprüft und jede betroffene Datei im selben Änderungssatz aktualisiert werden; ausdrücklich historische Releases und Changelog-Abschnitte behalten ihren ursprünglichen Stand.
