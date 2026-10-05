@@ -195,5 +195,11 @@
   "tasks.completed": "已完成 / 已报告任务",
   "tasks.ownedKeys": "已有钥匙",
   "tasks.directionSuggested": "建议：{direction}",
-  "tasks.acceptDirection": "接受建议"
+  "tasks.acceptDirection": "接受建议",
+  "tasks.columnPortal": "Portal",
+  "tasks.columnKeys": "钥匙",
+  "tasks.columnLinks": "连线",
+  "tasks.columnBlockers": "阻挡",
+  "tasks.expandDetails": "显示任务详情",
+  "tasks.routeHelp": "路线说明"
 }

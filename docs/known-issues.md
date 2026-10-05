@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.1
+# Bekannte Grenzen in 0.2.0-beta.2
 
 ## Portalzuordnung und Namen
 
@@ -86,12 +86,17 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.1 stehen noch aus.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.2 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
   zur Blocker-Arbeitsliste des aktuellen Scans gehören. Dadurch erzeugen alte
   Vormerkungen keine unsichtbaren Routenziele.
+
+- Die kompakte Aufgabentabelle zeigt zugeordnete Linkaufträge und benötigte
+  Blocker je Besuch, keine garantierte ausführbare Baufolge. `~` am Keybedarf
+  kennzeichnet weiterhin offene Wurfrichtungen. Einzelheiten und manuelle
+  Erledigung sind über den Pfeil an der Positionsnummer erreichbar.
 
 ## Diagnose und Zähler
 

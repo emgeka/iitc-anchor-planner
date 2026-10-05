@@ -195,5 +195,11 @@
   "tasks.completed": "Completed / reported tasks",
   "tasks.ownedKeys": "Owned keys",
   "tasks.directionSuggested": "Suggested: {direction}",
-  "tasks.acceptDirection": "Accept suggestion"
+  "tasks.acceptDirection": "Accept suggestion",
+  "tasks.columnPortal": "Portal",
+  "tasks.columnKeys": "Keys",
+  "tasks.columnLinks": "Links",
+  "tasks.columnBlockers": "Blockers",
+  "tasks.expandDetails": "Show task details",
+  "tasks.routeHelp": "Route notes"
 }

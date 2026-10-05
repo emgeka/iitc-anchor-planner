@@ -18,11 +18,12 @@ function runtime(saved = null) {
     localStorage: { getItem(key) { return storage.get(key) || null; }, setItem(key, value) { storage.set(key, value); } } };
   vm.runInNewContext(wrapper + '\nwrapper({});', context);
   const ap = context.window.plugin.anchorPlanner;
+  const refreshTaskList = ap.refreshTaskList;
   ap.state.language = 'en';
   ap.renderOverlays = () => {};
   ap.renderPanel = () => {};
   ap.refreshTaskList = () => {};
-  return { ap, context, storage };
+  return { ap, context, storage, refreshTaskList };
 }
 function portal(ap, guid, x, y = 0) {
   ap.runtime.stats[guid] = { guid, title: guid, lat: y, lng: x, linkCount: 1, openLinks: 1, requiredKeys: 1 };
@@ -191,4 +192,25 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
   assert.equal(ap.getWorkPlan().stops[0].planVisit, false);
   assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'An early blocker visit must not become the suggested throwing visit.');
 }
-console.log('Work-plan checks passed: directed keys, shared blockers, insertion deadlines, bundled work, repeat visits, manual/Intel separation, migration, GPS stability, missing data, direction suggestions and localized UI.');
+{
+  const { ap, context, refreshTaskList } = runtime();
+  function button(id, open) {
+    const row = { hidden: !open }, icon = { textContent: '' };
+    return { row, attrs: { 'data-stop': id, 'aria-expanded': String(open) },
+      getAttribute(name) { return this.attrs[name]; }, setAttribute(name, value) { this.attrs[name] = value; },
+      closest() { return { querySelector() { return row; } }; }, querySelector() { return icon; } };
+  }
+  const original = [button('plan:A', false), button('plan:B', true)];
+  const reordered = [button('plan:B', false), button('plan:A', true)];
+  let buttons = original;
+  const element = { scrollTop: 87, querySelectorAll(selector) { return selector === '.ap-task-expand' ? buttons : []; },
+    set innerHTML(value) { buttons = reordered; this.scrollTop = 0; } };
+  context.document.getElementById = () => element;
+  ap.runtime.taskListOpen = true; ap.taskListHtml = () => ''; ap.wireTaskList = () => {};
+  refreshTaskList();
+  assert.equal(reordered[0].getAttribute('aria-expanded'), 'true', 'Expanded state follows stop identity after rerouting.');
+  assert.equal(reordered[0].row.hidden, false);
+  assert.equal(reordered[1].row.hidden, true, 'A manually collapsed row stays collapsed.');
+  assert.equal(element.scrollTop, 87);
+}
+console.log('Work-plan checks passed: directed keys, shared blockers, insertion deadlines, bundled work, repeat visits, manual/Intel separation, migration, GPS stability, missing data, direction suggestions, compact table refresh and localized UI.');
