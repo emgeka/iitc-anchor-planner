@@ -193,5 +193,7 @@
   "tasks.portalDone": "Praca przy portalu wykonana ręcznie",
   "tasks.unresolved": "Nie można zaplanować wszystkich zadań: sprawdź współrzędne, kierunki i ukończone portale źródłowe.",
   "tasks.completed": "Zadania wykonane / zgłoszone",
-  "tasks.ownedKeys": "Posiadane klucze"
+  "tasks.ownedKeys": "Posiadane klucze",
+  "tasks.directionSuggested": "Propozycja: {direction}",
+  "tasks.acceptDirection": "Przyjmij propozycję"
 }

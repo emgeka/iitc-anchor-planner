@@ -53,9 +53,9 @@ runtime test. Future maintenance should normally use a pull request.
 Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
-stable source at branch creation. The first test build is now
-`0.1.56-beta.1` under `beta-builds/`, introducing the integrated tasks and
-explicit link directions on `feature/task-list`.
+stable source at branch creation. The current test build is
+`0.1.56-beta.2` under `beta-builds/`, with integrated tasks, explicit link
+directions and preselected direction suggestions.
 
 Do not advertise `beta/src/iitc-anchor-planner.user.js` as a beta installation:
 the source contains stable update URLs. `node src/build-beta.mjs` creates the
@@ -139,9 +139,9 @@ sollen normalerweise über einen Pull Request erfolgen.
 Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
-`feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der erste
-Testbuild ist jetzt `0.1.56-beta.1` unter `beta-builds/`; `feature/task-list`
-führt die gemeinsamen Aufgaben und ausdrücklichen Wurfrichtungen ein.
+`feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
+Testbuild ist `0.1.56-beta.2` unter `beta-builds/` mit gemeinsamen Aufgaben,
+ausdrücklichen Wurfrichtungen und vorausgewählten Richtungsvorschlägen.
 
 `beta/src/iitc-anchor-planner.user.js` nicht als Beta-Installation bewerben:
 Die Quelle enthält stabile Update-Adressen. `node src/build-beta.mjs` erzeugt

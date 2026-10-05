@@ -387,3 +387,13 @@ Wurfauftrag benötigen. **Aufgaben** auf Desktop und IITC Mobile öffnen.
 Automatisch abgedeckt durch `src/test-work-plan.mjs`, bestehende UI-/Locale-/
 Finalcheck-Tests und `src/build-beta.mjs --check`. Die Browser-Vorschau mit
 Beispieldaten ersetzt nicht den noch ausstehenden IITC-Praxistest.
+
+### Vorausgewählte Wurfrichtung
+
+- Bei offener Richtung ist der Vorschlag vom zuerst besuchten Planendportal
+  zum anderen Endportal vorausgewählt und als Vorschlag erkennbar. Reine
+  Blockerbesuche zählen nicht. Ohne Endportalbesuch bleibt die Richtung offen.
+- Vor Übernahme bleiben Schätzung und Export unverändert. **Vorschlag
+  übernehmen** speichert die Richtung und berechnet den Keybedarf am Ziel.
+- Eine andere Richtung wählen, neu laden und neu routen: Die bestätigte
+  Auswahl bleibt bestehen. Vorhandene Links erhalten keinen Vorschlag.

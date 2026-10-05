@@ -157,4 +157,38 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
     assert.ok(!ap.taskListHtml().includes('{count}'));
   }
 }
-console.log('Work-plan checks passed: directed keys, shared blockers, insertion deadlines, bundled work, repeat visits, manual/Intel separation, migration, GPS stability, missing data and localized UI.');
+{
+  const { ap } = runtime(); portal(ap, 'A', 0); portal(ap, 'B', 1);
+  const ab = link(ap, 'B', 'A');
+  ap.recalculateDirectedKeys();
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'Suggestion follows plan visit order, not drawing order.');
+  assert.match(ap.taskLinkHtml(ab, 0), /value="A" selected>Suggested: A → B/);
+  assert.equal(ap.getLinkDirection(ab), null, 'A preselection does not silently confirm a direction.');
+  assert.equal(ap.runtime.stats.A.uncertainKeys, 1);
+  assert.equal(ap.exportData().plannedLinks[0].from, null);
+  ap.state.anchors.B.routeOrder = -1; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'B');
+  const accept = { getAttribute(name) { return name === 'data-link' ? '0' : 'B'; } };
+  ap.wireTaskList({ querySelector() { return {}; }, querySelectorAll(selector) { return selector === '.ap-task-accept-direction' ? [accept] : []; } });
+  accept.onclick();
+  assert.equal(ap.getLinkDirection(ab).from, 'B', 'Accept button saves the displayed proposal.');
+  ap.setLinkDirection(ab.id, 'A');
+  assert.match(ap.taskLinkHtml(ab, 0), /value="A" selected>A → B/);
+  assert.ok(!ap.taskLinkHtml(ab, 0).includes('ap-task-accept-direction'));
+  assert.equal(ap.runtime.stats.A.requiredKeys, 0);
+  assert.equal(ap.runtime.stats.B.requiredKeys, 1);
+  ap.setLinkDirection(ab.id, '');
+  ap.state.anchors.A.done = true; ap.state.anchors.B.done = true; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab), null);
+  assert.match(ap.taskLinkHtml(ab, 0), /value="" selected>Direction open/);
+  ab.existing = true;
+  assert.equal(ap.getSuggestedLinkDirection(ab), null);
+}
+{
+  const { ap } = runtime(); portal(ap, 'A', 1); portal(ap, 'B', 3);
+  const ab = link(ap, 'A', 'B', [blocker('earlyB', 'B', 3, 'X', 20)]);
+  ap.setBlockerTask('earlyB', 'B', false);
+  assert.equal(ap.getWorkPlan().stops[0].planVisit, false);
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'An early blocker visit must not become the suggested throwing visit.');
+}
+console.log('Work-plan checks passed: directed keys, shared blockers, insertion deadlines, bundled work, repeat visits, manual/Intel separation, migration, GPS stability, missing data, direction suggestions and localized UI.');

@@ -193,5 +193,7 @@
   "tasks.portalDone": "Travail du portail terminé manuellement",
   "tasks.unresolved": "Impossible de planifier toutes les tâches : vérifier coordonnées, sens et portails de départ terminés.",
   "tasks.completed": "Tâches terminées / signalées",
-  "tasks.ownedKeys": "Clés disponibles"
+  "tasks.ownedKeys": "Clés disponibles",
+  "tasks.directionSuggested": "Suggestion : {direction}",
+  "tasks.acceptDirection": "Accepter la suggestion"
 }

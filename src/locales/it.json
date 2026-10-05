@@ -193,5 +193,7 @@
   "tasks.portalDone": "Lavoro del portale completato manualmente",
   "tasks.unresolved": "Non tutte le attività sono pianificabili: verificare coordinate, direzioni e portali di partenza completati.",
   "tasks.completed": "Attività completate / segnalate",
-  "tasks.ownedKeys": "Chiavi disponibili"
+  "tasks.ownedKeys": "Chiavi disponibili",
+  "tasks.directionSuggested": "Suggerimento: {direction}",
+  "tasks.acceptDirection": "Accetta suggerimento"
 }

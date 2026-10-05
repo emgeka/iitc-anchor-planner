@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.56-beta.1
+# Architekturübersicht 0.1.56-beta.2
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -215,6 +215,13 @@ nur am Ziel, offene ungerichtete Links weiterhin an beiden Endportalen als
 Schätzung und vorhandene Links gar nicht. Der Status vorhandener Links wird
 über `openLinks` statt über Keybedarf null bestimmt, damit reine Wurfportale
 nicht als bereits gebaut erscheinen.
+
+`getSuggestedLinkDirection` nutzt ausschließlich Planbesuche der stabilisierten
+Arbeitsroute; frühe reine Blockerbesuche zählen nicht. Der Vorschlag ist im
+Auswahlfeld vorausgewählt und gekennzeichnet, wird aber erst per Übernahme
+oder Richtungsänderung unter `linkDirections` gespeichert. Ohne offenen
+Endportalbesuch bleibt die Richtung offen. Draw-Tools-Zeichenreihenfolge und
+vorhandene Intel-Links erzeugen keine Vorschläge.
 
 `taskListHtml`, `wireTaskList`, `showTaskList` und `refreshTaskList` verwenden
 einen IITC-Dialog mit eigener scrollbarer, schmal nutzbarer Kartenliste.
