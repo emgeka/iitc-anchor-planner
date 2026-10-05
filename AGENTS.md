@@ -161,3 +161,9 @@ Bei reinen Dokumentations- oder Prozessänderungen ohne Auswirkung auf den
 Laufzeitcode ist kein erneuter IITC-Praxistest erforderlich; dies bei der
 Übergabe ausdrücklich begründen. Der verpflichtende Abgleich des gesamten
 maßgeblichen Projektsatzes gilt trotzdem.
+
+## Keyimport-Prüfungen
+- Keybestand ausschließlich über IITC Keys beziehen; keine lokale Ersatzverwaltung
+  oder automatische Migration einführen. Unbekannten Bestand nicht als null behandeln.
+- Bei Bestands-/Importänderungen zusätzlich node src/test-key-import.mjs ausführen.
+- Der 0.2.0-Entwurf braucht einen echten Screenshot-/Video-Praxistest vor Stable.

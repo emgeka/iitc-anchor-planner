@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.2
+# Architekturübersicht 0.2.0-beta.3
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -15,7 +15,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - Scan-Toleranz und letzter Scanbericht,
 - fortsetzbarer Zwischenstand eines pausierten finalen Blockerchecks unter
   `finalScanProgress`,
-- eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
+- Erledigt-Status, Notizen und Reihenfolge je Portal; Keybestände gehören ausschließlich dem IITC-Plugin Keys,
 - vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
 - ausdrückliche Wurfrichtungen als Start-GUID unter `linkDirections`,
 - planbezogene Endportalwahl und manuelle Blocker-Meldungen unter
@@ -43,8 +43,8 @@ Der Nutzerstandort gehört ausdrücklich nicht zu `ap.state` und erscheint in
 keinem Export.
 
 `workPlan` hält die gemeinsame Stoppreihenfolge und ihren ursprünglichen
-Standort nur zur Laufzeit. `load` ergänzt neue Felder, ohne vorhandene Keys,
-Notizen oder Erledigt-Markierungen zu entfernen. Stable ignoriert diese
+Standort nur zur Laufzeit. `load` ergänzt neue Felder, ohne lokale Keybestände zu übernehmen; erhalten bleiben
+Notizen und Erledigt-Markierungen. Stable ignoriert diese
 zusätzlichen Felder; beim Rückwechsel gelten wieder dessen Keyberechnung und
 Routenlogik. Eine parallele Installation beider Varianten ist nicht vorgesehen.
 
@@ -382,3 +382,20 @@ aktuellen Ablauf nicht gesetzt.
   begrenzt.
 - Die Standortgenauigkeit wird durch IITC beziehungsweise das Endgerät
   bestimmt und vom Anchor Planner nicht eigenständig verifiziert.
+
+## Keys-Adapter und OCR
+getKeysPlugin/getOwnedKeys/setOwnedKeys lesen window.plugin.keys.keys und schreiben
+über addKey mit der Differenz zum aktuellen Bestand. Fehlendes Plugin liefert null.
+OwnedKeys bleibt ein JSON-Exportfeld (null bei unbekanntem Bestand), wird aber nicht
+mehr in Anchor-Planner-Zustand gespeichert. Legacy-Felder werden ignoriert/entfernt.
+pluginKeysUpdateKey/pluginKeysRefreshAll aktualisieren debounced Panel, Overlays und Aufgaben.
+Der Adapter prüft das Plugin bei jedem Zugriff, unabhängig von der Boot-Reihenfolge.
+
+showKeyImport startet scanKeyFiles mit einem Worker und temporären Blob-URLs.
+Tesseract.js 5.1.1 wird erst beim Auslesen von jsDelivr geladen. Bilder werden auf
+maximal 1080 Pixel Breite skaliert; Videos werden sekündlich gesampelt. parseKeyText
+ordnet normalisierte eindeutige Namen und explizite xN/×N-Mengen zu. mergeKeyObservations
+lässt Konflikte und nicht erkannte Portale offen. applyKeyImport validiert ausgewählte
+Ganzzahlen und die GUID-/Namenssignatur des Plans vor dem Schreiben. OCR-Ergebnisse,
+Dateien und Prüftabelle werden nicht gespeichert. Decoderfehler und Abbruch räumen
+Blob-URLs und Worker auf; eine laufende OCR-Operation wird vor dem Abbruch beendet.

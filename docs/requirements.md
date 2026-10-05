@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.2
+# Anforderungen für Entwicklungsstand 0.2.0-beta.3
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -67,7 +67,7 @@ bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
 
 ## Abarbeitung und Route
 
-- Keys, Erledigt-Status, Notizen und eine manuell veränderbare
+- Keybestand aus dem IITC-Plugin Keys, Erledigt-Status, Notizen und eine manuell veränderbare
   Routenreihenfolge je Planportal dauerhaft speichern.
 - Die Portalliste nach **Alle**, **Offen**, **Blockiert**, **Keys fehlen** und
   **Erledigt** filtern; Zähler müssen Portale und nicht Linkendpunkte zählen.
@@ -235,3 +235,13 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
   Empfehlung ausweisen.
 - Automatisches Nachladen von Portalnamen und der Planexport müssen im
   Community-Katalog transparent als `scraper` und `export` deklariert sein.
+
+## Keybestand und Medienimport
+- Ausschließlich IITC Keys als Bestandsquelle; keine lokale Ersatzverwaltung und keine Migration.
+- Ohne Keys unbekannten Bestand anzeigen, nicht null oder fälschlichen Keymangel.
+- Screenshot-/Videoerkennung lokal und nur nach Benutzeraktion starten. Vor jeder
+  Übernahme eine editierbare Prüftabelle mit selektiver Bestätigung anzeigen.
+- Nicht erkannte und mehrdeutige Namen nicht automatisch zuordnen; widersprüchliche
+  Mengen nicht vorauswählen. Kein automatisches Nullsetzen ungesehener Portale.
+- Änderungen ausschließlich über Keys.addKey vornehmen; aktuellen Bestand beim
+  Schreiben neu lesen. Bei geändertem Plan neue Erkennung verlangen.

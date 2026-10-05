@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.2
+# Bekannte Grenzen in 0.2.0-beta.3
 
 ## Portalzuordnung und Namen
 
@@ -86,7 +86,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.2 stehen noch aus.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.3 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
@@ -184,3 +184,15 @@
   massenhafte Intel-Abfragefunktion vorhanden ist. Der nur durch Nutzeraktion
   gestartete Finalcheck ist auf zwölf normale IITC-Kartenansichten begrenzt
   und stellt keine eigenen Intel-Tile-Anfragen.
+
+## Keyimport-Entwurf
+- OCR-/Video-Praxistest mit echten Ingress-Dateien auf Desktop und Mobile steht aus.
+- Erkennung derzeit Englisch/Deutsch, exakte Namen oder eindeutige sichtbare Kürzung;
+  OCR-Tippfehler werden bewusst nicht unscharf zugeordnet. Unbekannte Planportale fehlen
+  in der Prüftabelle. Neue Importtexte außerhalb Deutsch/Englisch verwenden Englisch.
+- Höchstens 10 Dateien, 150 MB je Datei, 2 Minuten je Video; Browser-Codecs variieren.
+  Ein Bild pro Sekunde kann schnell überscrollte Einträge verpassen. Ein Worker reduziert
+  Speicherbedarf, kann auf Mobilgeräten aber langsam sein. Erstdownload benötigt Internet.
+- Abbrechen wartet auf einen laufenden OCR-Schritt; Ergebnisse werden danach verworfen.
+- Teilweise erfolgreiche Keys-Schreibvorgänge werden als solche gemeldet; es gibt keinen
+  automatischen Rollback. Nicht ausgewählte und nicht erkannte Bestände bleiben erhalten.
