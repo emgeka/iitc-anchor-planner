@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.56-beta.2
+// @version        0.1.56-beta.3
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005092020';
+  plugin_info.dateTimeVersion = '20261005092600';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.56-beta.2';
+  ap.VERSION = '0.1.56-beta.3';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4758,16 +4758,28 @@ function wrapper(plugin_info) {
     } catch (e) {}
 
     var display = window.IITC && window.IITC.portal && window.IITC.portal.display;
-    var renderToSidebar = display && typeof display.renderToSidebar === 'function'
+    var renderToSidebar = details && display && typeof display.renderToSidebar === 'function'
       ? function () { display.renderToSidebar(marker); }
-      : (typeof window.renderPortalToSideBar === 'function' ? function () { window.renderPortalToSideBar(marker); } : null);
+      : (details && typeof window.renderPortalToSideBar === 'function' ? function () { window.renderPortalToSideBar(marker); } : null);
+    // Older IITC has no marker.getDetails/renderToSidebar API. Its standard
+    // detail renderer takes the GUID and may load details for this explicit click.
+    if (!renderToSidebar && marker) {
+      if (display && typeof display.renderDetails === 'function') renderToSidebar = function () { display.renderDetails(guid); };
+      else if (typeof window.renderPortalDetails === 'function') renderToSidebar = function () { window.renderPortalDetails(guid); };
+    }
     var selectPortal = display && typeof display.select === 'function'
       ? function () { display.select(guid, 'anchorPlanner'); }
       : (typeof window.selectPortal === 'function' ? function () { window.selectPortal(guid, 'anchorPlanner'); } : null);
 
-    if (!marker || !details || !renderToSidebar) {
-      ap.setMessage(ap.t('message.portalDetailsUnavailable'));
+    function unavailable() {
+      var message = ap.t('message.portalDetailsUnavailable');
+      var sidebar = document.getElementById('portaldetails');
+      if (sidebar) sidebar.textContent = message;
+      ap.setMessage(message);
       return false;
+    }
+    if (!marker || (marker.options && marker.options.guid && marker.options.guid !== guid) || !renderToSidebar) {
+      return unavailable();
     }
 
     try {
@@ -4784,8 +4796,7 @@ function wrapper(plugin_info) {
       }
       return true;
     } catch (e2) {
-      ap.setMessage(ap.t('message.portalDetailsUnavailable'));
-      return false;
+      return unavailable();
     }
   };
 

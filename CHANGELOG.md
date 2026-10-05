@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.56-beta.3 — development, practical IITC test pending
+
+### English
+
+- Fixed **Show details** on older IITC versions without the modern marker and
+  sidebar APIs by using the exact GUID with the legacy detail renderer. This
+  explicit click may load details through IITC without moving the map.
+- Replaced unrelated previous sidebar content with an availability message
+  when the requested portal cannot be displayed. Added compatibility tests.
+
+### Deutsch
+
+- **Details anzeigen** für ältere IITC-Versionen ohne moderne Marker- und
+  Seitenleisten-APIs korrigiert: die ältere Detailfunktion erhält die exakte
+  GUID. Dieser ausdrückliche Klick darf über IITC Details nachladen, ohne
+  die Karte zu bewegen.
+- Bei nicht anzeigbarem Portal die alte fremde Seitenleistenanzeige durch eine
+  Verfügbarkeitsmeldung ersetzt und Kompatibilitätstests ergänzt.
+
 ## 0.1.56-beta.2 — development, practical IITC test pending
 
 ### English

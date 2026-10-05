@@ -211,8 +211,11 @@ Panel-Refresh durch Kartenbewegung oder Namensaktualisierung auslösen.
   verwechseln; `K0` darf seinerseits nicht wie „OK“ aussehen.
 - **Details anzeigen** öffnet für ein bereits geladenes Planportal die IITC-
   Detailansicht. Der Portalname selbst bleibt normaler Text; Karte, Mittelpunkt
-  und Zoomstufe verändern sich nicht, und es wird keine zusätzliche
-  Portalabfrage ausgelöst. Bei nicht geladenem Portal erscheint eine
+  und Zoomstufe verändern sich nicht, und auf modernen Versionen wird keine zusätzliche
+  Portalabfrage ausgelöst. Ältere IITC-Versionen ohne Marker-Detail-API öffnen
+  dasselbe Portal anhand seiner GUID und dürfen beim Klick über IITC nachladen.
+  Bei nicht geladenem Portal ersetzt eine Meldung die vorherige
+  Portalansicht. Im Panel erscheint zusätzlich eine
   lokalisierte Verfügbarkeitsmeldung.
 - Jedes Blocker-Endportal zeigt ebenfalls **Details anzeigen** und **Aktionen**
   statt eines einzelnen Waze-Buttons. Die Detailaktion folgt denselben

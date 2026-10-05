@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.56-beta.2
+# Architekturübersicht 0.1.56-beta.3
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -267,11 +267,14 @@ ausgegeben. Fehlermeldungen öffnen **Mehr** automatisch, damit sie sichtbar
 bleiben.
 
 Die Portalzeile bietet **Details anzeigen** als eigene Aktion. `showPortalDetails`
-verwendet ausschließlich einen vorhandenen Marker aus `window.portals` und
-dessen bereits geladene Details. Es wählt das Portal über die verfügbare
-moderne oder kompatible IITC-Anzeige-API aus und rendert es direkt in die
-Portalansicht. Die anfordernde IITC-Funktion `renderDetails` sowie Kartenmethoden
-wie `setView`, `panTo` oder `fitBounds` werden dabei nicht aufgerufen.
+verwendet die exakte GUID und einen vorhandenen Marker aus `window.portals`.
+Moderne IITC-Versionen rendern dessen geladene Details direkt. Ältere Versionen
+ohne `getDetails`/`renderToSidebar` nutzen `renderPortalDetails(guid)`; dieser
+ausdrückliche Klick darf über IITC Details nachladen. Eine abweichende
+Marker-GUID wird abgelehnt. Fehlende Marker oder Anzeige-APIs sowie Fehler
+ersetzen den Inhalt von `portaldetails` durch die lokalisierte Meldung, damit
+kein anderes Portal stehen bleibt. Kartenmethoden wie `setView`, `panTo` oder
+`fitBounds` werden nicht aufgerufen.
 
 `setupPanelDragging` registriert Pointer-Events oder, für ältere IITC-Mobile-
 WebViews, getrennte Maus- und Touch-Fallbacks. Ein Drag beginnt nur innerhalb
