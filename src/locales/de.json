@@ -193,5 +193,7 @@
   "tasks.portalDone": "Portalarbeit manuell erledigt",
   "tasks.unresolved": "Nicht alle Aufgaben einplanbar: Koordinaten, Richtungen und erledigte Wurfportale prüfen.",
   "tasks.completed": "Erledigte / gemeldete Aufgaben",
-  "tasks.ownedKeys": "Vorhandene Keys"
+  "tasks.ownedKeys": "Vorhandene Keys",
+  "tasks.directionSuggested": "Vorschlag: {direction}",
+  "tasks.acceptDirection": "Vorschlag übernehmen"
 }

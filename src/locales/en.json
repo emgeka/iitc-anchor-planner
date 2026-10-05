@@ -193,5 +193,7 @@
   "tasks.portalDone": "Portal work manually completed",
   "tasks.unresolved": "Cannot schedule all tasks: check coordinates, directions and completed source portals.",
   "tasks.completed": "Completed / reported tasks",
-  "tasks.ownedKeys": "Owned keys"
+  "tasks.ownedKeys": "Owned keys",
+  "tasks.directionSuggested": "Suggested: {direction}",
+  "tasks.acceptDirection": "Accept suggestion"
 }

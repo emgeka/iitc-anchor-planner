@@ -193,5 +193,7 @@
   "tasks.portalDone": "Portal 工作已手动完成",
   "tasks.unresolved": "无法安排所有任务：请检查坐标、方向和已完成的发链 Portal。",
   "tasks.completed": "已完成 / 已报告任务",
-  "tasks.ownedKeys": "已有钥匙"
+  "tasks.ownedKeys": "已有钥匙",
+  "tasks.directionSuggested": "建议：{direction}",
+  "tasks.acceptDirection": "接受建议"
 }

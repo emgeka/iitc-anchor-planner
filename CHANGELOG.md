@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.56-beta.2 — development, practical IITC test pending
+
+### English
+
+- Preselect a labeled link-direction suggestion based on the first planned
+  endpoint visit. Accept it with one click or choose the opposite direction.
+  Confirmed directions persist; unconfirmed suggestions leave key estimates
+  and exports unchanged. Pure blocker visits do not determine the suggestion.
+
+### Deutsch
+
+- Gekennzeichneten Wurfrichtungsvorschlag anhand des ersten Planendportalbesuchs
+  vorausgewählt. Mit einem Klick übernehmen oder Gegenrichtung wählen.
+  Bestätigte Richtungen bleiben bestehen; unbestätigte Vorschläge verändern
+  weder Keyschätzung noch Export. Reine Blockerbesuche bestimmen ihn nicht.
+
 ## 0.1.56-beta.1 — development, practical IITC test pending
 
 ### English

@@ -193,5 +193,7 @@
   "tasks.portalDone": "Работа на портале выполнена вручную",
   "tasks.unresolved": "Не все задачи можно запланировать: проверьте координаты, направления и завершённые порталы отправления.",
   "tasks.completed": "Выполненные / отмеченные задачи",
-  "tasks.ownedKeys": "Имеющиеся ключи"
+  "tasks.ownedKeys": "Имеющиеся ключи",
+  "tasks.directionSuggested": "Предложение: {direction}",
+  "tasks.acceptDirection": "Принять предложение"
 }

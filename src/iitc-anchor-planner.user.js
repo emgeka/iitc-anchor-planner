@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.1.56-beta.1
+// @version        0.1.56-beta.2
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005090147';
+  plugin_info.dateTimeVersion = '20261005092020';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.56-beta.1';
+  ap.VERSION = '0.1.56-beta.2';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -241,7 +241,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Portalarbeit manuell erledigt",
       "tasks.unresolved": "Nicht alle Aufgaben einplanbar: Koordinaten, Richtungen und erledigte Wurfportale prüfen.",
       "tasks.completed": "Erledigte / gemeldete Aufgaben",
-      "tasks.ownedKeys": "Vorhandene Keys"
+      "tasks.ownedKeys": "Vorhandene Keys",
+      "tasks.directionSuggested": "Vorschlag: {direction}",
+      "tasks.acceptDirection": "Vorschlag übernehmen"
     },
     "en": {
       "language.label": "Language",
@@ -438,7 +440,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Portal work manually completed",
       "tasks.unresolved": "Cannot schedule all tasks: check coordinates, directions and completed source portals.",
       "tasks.completed": "Completed / reported tasks",
-      "tasks.ownedKeys": "Owned keys"
+      "tasks.ownedKeys": "Owned keys",
+      "tasks.directionSuggested": "Suggested: {direction}",
+      "tasks.acceptDirection": "Accept suggestion"
     },
     "es": {
       "language.label": "Idioma",
@@ -635,7 +639,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Trabajo del portal completado manualmente",
       "tasks.unresolved": "No se pueden ordenar todas las tareas: comprobar coordenadas, direcciones y portales de origen completados.",
       "tasks.completed": "Tareas completadas / notificadas",
-      "tasks.ownedKeys": "Llaves disponibles"
+      "tasks.ownedKeys": "Llaves disponibles",
+      "tasks.directionSuggested": "Sugerencia: {direction}",
+      "tasks.acceptDirection": "Aceptar sugerencia"
     },
     "fr": {
       "language.label": "Langue",
@@ -832,7 +838,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Travail du portail terminé manuellement",
       "tasks.unresolved": "Impossible de planifier toutes les tâches : vérifier coordonnées, sens et portails de départ terminés.",
       "tasks.completed": "Tâches terminées / signalées",
-      "tasks.ownedKeys": "Clés disponibles"
+      "tasks.ownedKeys": "Clés disponibles",
+      "tasks.directionSuggested": "Suggestion : {direction}",
+      "tasks.acceptDirection": "Accepter la suggestion"
     },
     "it": {
       "language.label": "Lingua",
@@ -1029,7 +1037,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Lavoro del portale completato manualmente",
       "tasks.unresolved": "Non tutte le attività sono pianificabili: verificare coordinate, direzioni e portali di partenza completati.",
       "tasks.completed": "Attività completate / segnalate",
-      "tasks.ownedKeys": "Chiavi disponibili"
+      "tasks.ownedKeys": "Chiavi disponibili",
+      "tasks.directionSuggested": "Suggerimento: {direction}",
+      "tasks.acceptDirection": "Accetta suggerimento"
     },
     "ja": {
       "language.label": "言語",
@@ -1226,7 +1236,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "ポータル作業の手動完了",
       "tasks.unresolved": "すべての作業を配置できません。座標、方向、完了済みのリンク元を確認してください。",
       "tasks.completed": "完了・報告済みの作業",
-      "tasks.ownedKeys": "所持キー"
+      "tasks.ownedKeys": "所持キー",
+      "tasks.directionSuggested": "提案: {direction}",
+      "tasks.acceptDirection": "提案を採用"
     },
     "pl": {
       "language.label": "Język",
@@ -1423,7 +1435,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Praca przy portalu wykonana ręcznie",
       "tasks.unresolved": "Nie można zaplanować wszystkich zadań: sprawdź współrzędne, kierunki i ukończone portale źródłowe.",
       "tasks.completed": "Zadania wykonane / zgłoszone",
-      "tasks.ownedKeys": "Posiadane klucze"
+      "tasks.ownedKeys": "Posiadane klucze",
+      "tasks.directionSuggested": "Propozycja: {direction}",
+      "tasks.acceptDirection": "Przyjmij propozycję"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -1620,7 +1634,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Trabalho no portal concluído manualmente",
       "tasks.unresolved": "Nem todas as tarefas podem ser planejadas: verifique coordenadas, direções e portais de origem concluídos.",
       "tasks.completed": "Tarefas concluídas / informadas",
-      "tasks.ownedKeys": "Chaves disponíveis"
+      "tasks.ownedKeys": "Chaves disponíveis",
+      "tasks.directionSuggested": "Sugestão: {direction}",
+      "tasks.acceptDirection": "Aceitar sugestão"
     },
     "ru": {
       "language.label": "Язык",
@@ -1817,7 +1833,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Работа на портале выполнена вручную",
       "tasks.unresolved": "Не все задачи можно запланировать: проверьте координаты, направления и завершённые порталы отправления.",
       "tasks.completed": "Выполненные / отмеченные задачи",
-      "tasks.ownedKeys": "Имеющиеся ключи"
+      "tasks.ownedKeys": "Имеющиеся ключи",
+      "tasks.directionSuggested": "Предложение: {direction}",
+      "tasks.acceptDirection": "Принять предложение"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2014,7 +2032,9 @@ function wrapper(plugin_info) {
       "tasks.portalDone": "Portal 工作已手动完成",
       "tasks.unresolved": "无法安排所有任务：请检查坐标、方向和已完成的发链 Portal。",
       "tasks.completed": "已完成 / 已报告任务",
-      "tasks.ownedKeys": "已有钥匙"
+      "tasks.ownedKeys": "已有钥匙",
+      "tasks.directionSuggested": "建议：{direction}",
+      "tasks.acceptDirection": "接受建议"
     }
   };
   // AP_LOCALES_END
@@ -3182,8 +3202,19 @@ function wrapper(plugin_info) {
     ap.refreshTaskList();
   };
 
+  ap.getSuggestedLinkDirection = function (link) {
+    if (link.existing) return null;
+    var stop = ap.getWorkPlan().stops.filter(function (item) {
+      return item.planVisit && (item.portal.guid === link.a || item.portal.guid === link.b);
+    })[0];
+    if (!stop) return null;
+    var from = stop.portal.guid;
+    return { from: from, to: from === link.a ? link.b : link.a };
+  };
+
   ap.taskLinkHtml = function (link, index) {
     var direction = ap.getLinkDirection(link);
+    var suggestion = !direction && ap.getSuggestedLinkDirection(link);
     var titleA = ap.displayPortalTitle(link.titleA), titleB = ap.displayPortalTitle(link.titleB);
     var blockers = ap.getWorkBlockers().filter(function (item) {
       return item.links.some(function (candidate) { return candidate.id === link.id; });
@@ -3195,9 +3226,12 @@ function wrapper(plugin_info) {
       html += '<label>' + ap.escapeHtml(ap.t('tasks.direction')) + ' <select class="ap-task-direction" aria-label="' + ap.escapeHtml(ap.t('tasks.direction')) + '" data-link="' + index + '">';
       ['', link.a, link.b].forEach(function (from) {
         var label = !from ? ap.t('tasks.directionOpen') : (from === link.a ? titleA + ' → ' + titleB : titleB + ' → ' + titleA);
-        html += '<option value="' + ap.escapeHtml(from) + '"' + ((!direction && !from) || (direction && direction.from === from) ? ' selected' : '') + '>' + ap.escapeHtml(label) + '</option>';
+        if (suggestion && suggestion.from === from) label = ap.t('tasks.directionSuggested', { direction: label });
+        var selected = direction ? direction.from : (suggestion ? suggestion.from : '');
+        html += '<option value="' + ap.escapeHtml(from) + '"' + (selected === from ? ' selected' : '') + '>' + ap.escapeHtml(label) + '</option>';
       });
       html += '</select></label>';
+      if (suggestion) html += ' <button class="ap-task-accept-direction" data-link="' + index + '" data-from="' + ap.escapeHtml(suggestion.from) + '">' + ap.escapeHtml(ap.t('tasks.acceptDirection')) + '</button>';
     }
     return html + '</div>';
   };
@@ -3265,6 +3299,9 @@ function wrapper(plugin_info) {
     element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-direction'), function (select) {
       select.onchange = function () { var link = ap.runtime.links[Number(this.getAttribute('data-link'))]; if (link) ap.setLinkDirection(link.id, this.value); };
+    });
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-task-accept-direction'), function (button) {
+      button.onclick = function () { var link = ap.runtime.links[Number(this.getAttribute('data-link'))]; if (link) ap.setLinkDirection(link.id, this.getAttribute('data-from')); };
     });
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-target'), function (select) {
       select.onchange = function () { var item = plan.blockers[Number(this.getAttribute('data-blocker'))]; if (item) ap.setBlockerTask(item.id, this.value, null); };

@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.1.56-beta.1
+### Beta-Test: 0.1.56-beta.2
 
 Das separate [Beta-Userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
 ergänzt **Aufgaben**, ausdrückliche Wurfrichtungen je Planlink und gerichteten
@@ -47,7 +47,10 @@ Walk Sim ist in dieser Beta noch nicht enthalten.
 
 Nur eine Anchor-Planner-Variante je IITC-Instanz installieren. Die Beta verwendet
 vorhandene Keys, Portal-Erledigung und Einstellungen weiter; neue Richtungen
-beginnen offen. Vor der Rückkehr zu Stable den Plan exportieren: Stable ignoriert
+beginnen unbestätigt. Im Auswahlfeld ist ein gekennzeichneter Vorschlag vom
+zuerst besuchten Planendportal zum anderen Endportal vorausgewählt.
+**Vorschlag übernehmen** bestätigt ihn; bis dahin bleibt der Keybedarf an
+beiden Endportalen eine Schätzung. Vor der Rückkehr zu Stable den Plan exportieren: Stable ignoriert
 die neuen Richtungen und Blocker-Aufgabeneinstellungen und verwendet seine
 bisherige Keyberechnung. Die Beta aktualisiert sich nur aus ihrer eigenen
 Adresse; Stable bleibt 0.1.55. Praxistests auf Desktop-IITC und IITC Mobile stehen
@@ -122,7 +125,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.1.56-beta.1**
+- Entwicklungsversion: **0.1.56-beta.2**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

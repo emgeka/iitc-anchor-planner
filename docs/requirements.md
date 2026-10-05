@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.1.56-beta.1
+# Anforderungen für Entwicklungsstand 0.1.56-beta.2
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -132,6 +132,11 @@ bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
 - Plan als lesbaren Text und als JSON exportieren.
 - Text- und JSON-Export um konkrete Blocker je betroffenem Planlink ergänzen
   und die begrenzte IITC-Datenabdeckung kenntlich machen.
+
+Für offene Richtungen im Auswahlfeld einen gekennzeichneten Vorschlag vom
+zuerst besuchten Planportal zum anderen Endportal vorauswählen. Erst
+**Vorschlag übernehmen** oder eine Richtungsänderung speichert die Auswahl;
+bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 
 ## Bedienung
 

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.1.56-beta.1
+# Bekannte Grenzen in 0.1.56-beta.2
 
 ## Portalzuordnung und Namen
 
@@ -74,6 +74,7 @@
   kürzesten Weg. Sie prüft geometrische Blocker-Abhängigkeiten, aber keine
   Eroberung, Erreichbarkeit über Straßen, Linklimits oder das Linken unter
   bereits gebauten Feldern. Offene Wurfrichtungen benötigen weiterhin eine
+  Bestätigung des vorausgewählten Vorschlags oder eine eigene
   Entscheidung; Keybedarf an ihren beiden Endportalen bleibt eine Schätzung.
 - Manuelle Abbau-Meldungen sind keine Intel-Bestätigung. Ein weiterhin im
   Scan beobachteter Blocklink bleibt im Einsatzcheck blockierend; nach einem
@@ -82,7 +83,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.1.56-beta.1 stehen noch aus.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.1.56-beta.2 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin

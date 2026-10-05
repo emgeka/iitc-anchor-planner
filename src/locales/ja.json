@@ -193,5 +193,7 @@
   "tasks.portalDone": "ポータル作業の手動完了",
   "tasks.unresolved": "すべての作業を配置できません。座標、方向、完了済みのリンク元を確認してください。",
   "tasks.completed": "完了・報告済みの作業",
-  "tasks.ownedKeys": "所持キー"
+  "tasks.ownedKeys": "所持キー",
+  "tasks.directionSuggested": "提案: {direction}",
+  "tasks.acceptDirection": "提案を採用"
 }
