@@ -1,4 +1,4 @@
-# Architekturübersicht 0.1.56-beta.3
+# Architekturübersicht 0.1.56-beta.4
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -268,9 +268,13 @@ bleiben.
 
 Die Portalzeile bietet **Details anzeigen** als eigene Aktion. `showPortalDetails`
 verwendet die exakte GUID und einen vorhandenen Marker aus `window.portals`.
-Moderne IITC-Versionen rendern dessen geladene Details direkt. Ältere Versionen
-ohne `getDetails`/`renderToSidebar` nutzen `renderPortalDetails(guid)`; dieser
-ausdrückliche Klick darf über IITC Details nachladen. Eine abweichende
+Moderne IITC-Versionen nutzen `display.renderDetails(guid, true)`, ältere
+Versionen `renderPortalDetails(guid)`. Dieser normale IITC-Ablauf wählt das
+Portal aus und lädt fehlende oder veraltete Details nach; ein vorhandener
+Aufgabenname beweist keine vollständigen IITC-Details. Die direkte
+Seitenleistenfunktion umgeht das Nachladen und bleibt nur als Fallback für
+Versionen ohne normale Detailfunktion verfügbar, wenn ein gültiger
+Detailtitel vorhanden ist. Eine abweichende
 Marker-GUID wird abgelehnt. Fehlende Marker oder Anzeige-APIs sowie Fehler
 ersetzen den Inhalt von `portaldetails` durch die lokalisierte Meldung, damit
 kein anderes Portal stehen bleibt. Kartenmethoden wie `setView`, `panTo` oder

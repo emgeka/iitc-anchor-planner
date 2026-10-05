@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.1.56-beta.3
+// @version        0.1.56-beta.4
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005092600';
+  plugin_info.dateTimeVersion = '20261005094408';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.1.56-beta.3';
+  ap.VERSION = '0.1.56-beta.4';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4758,14 +4758,20 @@ function wrapper(plugin_info) {
     } catch (e) {}
 
     var display = window.IITC && window.IITC.portal && window.IITC.portal.display;
-    var renderToSidebar = details && display && typeof display.renderToSidebar === 'function'
-      ? function () { display.renderToSidebar(marker); }
-      : (details && typeof window.renderPortalToSideBar === 'function' ? function () { window.renderPortalToSideBar(marker); } : null);
-    // Older IITC has no marker.getDetails/renderToSidebar API. Its standard
-    // detail renderer takes the GUID and may load details for this explicit click.
-    if (!renderToSidebar && marker) {
-      if (display && typeof display.renderDetails === 'function') renderToSidebar = function () { display.renderDetails(guid); };
-      else if (typeof window.renderPortalDetails === 'function') renderToSidebar = function () { window.renderPortalDetails(guid); };
+    // Use IITC's normal selection/loading pipeline. A named plan portal can
+    // still have only a title-less map summary; rendering it directly shows null
+    // and bypasses the request that would populate its actual portal details.
+    var handlesSelection = true;
+    var renderToSidebar = display && typeof display.renderDetails === 'function'
+      ? function () { display.renderDetails(guid, true); }
+      : (typeof window.renderPortalDetails === 'function' ? function () { window.renderPortalDetails(guid); } : null);
+    if (!renderToSidebar) {
+      handlesSelection = false;
+      // A minimal compatibility renderer cannot load missing details itself.
+      if (details && !ap.isMissingPortalTitle(ap.cleanTitle(details.title))) {
+        if (display && typeof display.renderToSidebar === 'function') renderToSidebar = function () { display.renderToSidebar(marker); };
+        else if (typeof window.renderPortalToSideBar === 'function') renderToSidebar = function () { window.renderPortalToSideBar(marker); };
+      }
     }
     var selectPortal = display && typeof display.select === 'function'
       ? function () { display.select(guid, 'anchorPlanner'); }
@@ -4783,7 +4789,7 @@ function wrapper(plugin_info) {
     }
 
     try {
-      if (selectPortal) selectPortal();
+      if (!handlesSelection && selectPortal) selectPortal();
       renderToSidebar();
       if (ap.isMobile() && typeof window.show === 'function') {
         window.show('info');
