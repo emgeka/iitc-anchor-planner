@@ -17,8 +17,8 @@
 - Release-Kandidaten auf `release/<version>` dürfen nach bestätigtem Praxistest
   Distributionen vorbereiten und müssen die Stable-Prüfung bestehen.
 - Die GitHub-Prüfungen laufen auf den dokumentierten Branches und Pull
-  Requests, veröffentlichen aber keine Builds. Ein Beta-Build ist mit dieser
-  Einrichtung noch nicht verfügbar.
+  Requests, veröffentlichen aber keine Builds. `node src/build-beta.mjs --check`
+  bestätigt den getrennten, konsistenten Beta-Build unter `beta-builds/`.
 - Bei unverändertem Laufzeitcode erfordert die reine Branch- und
   Prozesseinrichtung keinen zusätzlichen IITC-Praxistest.
 
@@ -134,17 +134,20 @@ erledigt markieren.
 
 - Das Panel unterscheidet **Nächstes Planportal ab Standort** und **Nächstes
   Blocker-Portal ab Standort** und zeigt die gerundete Luftlinienentfernung.
-- Offene Planportale und vorgemerkte Blocker-Portale erscheinen jeweils nur
-  einmal in der Arbeitsroute; ein bereits offenes Planportal benötigt keine
-  zusätzliche Vormerkung.
+- Blocker werden automatisch vor den abhängigen Linkaufträgen eingeordnet und
+  nach Möglichkeit mit vorhandenen Portalbesuchen gebündelt. Ein gemeinsamer
+  Blocklink erzeugt eine Abbauaufgabe; nötige frühe Abbau- und spätere
+  Planbesuche desselben Portals bleiben getrennt.
 - Nicht erledigte Planportale mit ausschließlich bereits vorhandenen
   Planlinks erscheinen nicht als automatische Arbeitsziele. Sind sie Endportal
   eines Blocklinks, können sie weiterhin ausdrücklich vorgemerkt werden.
 - Zielanzahl und geschätzte Reststrecke reagieren unmittelbar auf Vormerkung,
   Erledigt-Status und Standortänderung.
-- Eine neue IITC-Position aktualisiert Entfernung und gegebenenfalls das Ziel,
-  ohne die nummerierte Liste umzuschreiben. Die Entfernung muss sich auch bei
-  unverändertem Zielportal anpassen.
+- Kleine Standortbewegungen bis 100 m aktualisieren Entfernung und Reststrecke,
+  ohne die vorgeschlagene Reihenfolge zu ändern. Größere Bewegungen im
+  Standortmodus können den Vorschlag neu berechnen. Gespeicherte Portalnummern
+  werden dabei nicht umgeschrieben; Aufgaben, nächstes Ziel und Reststrecke
+  verwenden denselben Vorschlag.
 - Ein erledigtes Planportal wird sofort übersprungen, kann aber bei Bedarf als
   Blocker-Ziel ausdrücklich erneut vorgemerkt werden.
 - Desktop und Mobil zeigen dasselbe fachliche Verhalten.
@@ -156,13 +159,14 @@ aktivieren und **Ab Standort sortieren** auswählen.
 
 **Erwartung:**
 
-- Ohne Standort gilt zunächst das erste offene Planportal der manuellen
-  Reihenfolge als nächstes Ziel; vorgemerkte zusätzliche Blocker-Portale folgen
-  danach. Die Sortieraktion weist verständlich auf den fehlenden Standort hin,
-  und Zielzeile sowie Reststrecke zeigen keine Entfernung.
+- Ohne Standort gilt die gespeicherte Planportalreihenfolge mit benötigten
+  Abbau-Stopps vor den abhängigen Linkaufträgen. Die bisherige Sortieraktion
+  weist verständlich auf den fehlenden Standort hin; Entfernungen bleiben leer.
 - Mit Standort wird die Liste einmalig als Luftlinien-Näherungsroute sortiert;
   diese gespeicherte Sortierung betrifft weiterhin nur die Planportalliste,
-  während die dynamische Arbeitsroute zusätzliche Blocker-Ziele einbezieht.
+  während die Aufgabenroute zusätzliche Blocker-Ziele einbezieht. Sortier- und
+  Pfeilaktionen aktivieren den manuellen Modus; **Route ab hier** verwendet
+  wieder den Standortmodus, ohne gespeicherte Portalnummern zu überschreiben.
 - Manuelle Pfeiltasten bleiben anschließend wirksam.
 - Ein initialer oder ungültiger Standort `0/0` wird nicht verwendet.
 
@@ -344,3 +348,42 @@ neu laden, denselben Plan scannen und den Check fortsetzen. Danach den Plan
   bloß ausstehenden, noch nie ausgeführten Finalcheck anzeigen.
 - Button, Fortschritt und Ergebnistext bleiben auf Desktop und IITC Mobile in
   allen gebündelten Sprachen erreichbar und verständlich.
+
+## 18. Integrierte Aufgaben, Wurfrichtung und organischer Blocker-Abbau
+
+**Aufbau:** Einen Plan mit mindestens drei Portalen, zwei Richtungen und einem
+Blocklink verwenden, der mehrere Planlinks kreuzt. Beide Endportale des
+Blocklinks müssen bekannt sein. Einen zweiten Blocker erst für einen späteren
+Wurfauftrag benötigen. **Aufgaben** auf Desktop und IITC Mobile öffnen.
+
+**Erwartung:**
+
+- Die Richtung beginnt bei alten Plänen offen. Wählen von A → B benötigt Keys
+  nur an B; Umkehren verschiebt den Bedarf nach A. Vorhandene Links benötigen
+  keine weiteren Keys. Reine Wurfportale erscheinen nicht als schon gebaut.
+- Ein gemeinsamer Blocker erscheint nur einmal und nennt alle betroffenen
+  Planlinks. Beide Abbau-Endportale und **Automatisch** stehen zur Wahl.
+- Die automatische Wahl minimiert den zusätzlichen Luftlinienweg vor der
+  ersten Abhängigkeit; ein später benötigter Blocker kann erst auf dem Weg zu
+  seinem Wurfportal erscheinen. Manuelle Endportalwahl hat Vorrang.
+- Liegt das Abbauportal an einem passenden früheren Besuch, werden Aufgaben
+  dort gebündelt. Muss ein Portal früher zum Abbau besucht werden, bleiben
+  seine späteren Link-/Vorbereitungsaufgaben bestehen.
+- Manuelles Abhaken verschiebt die Aufgabe in die gemeldeten Aufgaben und zeigt
+  ausstehende Intel-Bestätigung; es verändert keine Intel-Daten und erklärt den
+  Einsatzcheck nicht für blockerfrei. Rücknehmen der Meldung plant den Abbau
+  erneut ein. Ein Wechsel der gesamten Plangeometrie verwirft diese Meldung.
+- Fehlende Abbaukoordinaten und erledigte Wurfportale mit noch offenen Links
+  bleiben als nicht eingeplante Aufgaben sichtbar. Keine falschen 0/0-Ziele.
+- Keyeingabe, Richtungswahl, Details und Navigation funktionieren. Die
+  Detailaktion bewegt die Karte weiterhin nicht. Scrollposition und offene
+  Stopps bleiben bei Updates erhalten; alle Controls sind schmal erreichbar.
+- JSON enthält sprachneutrale `plannedLinks` mit `from` und `to`, aber keinen
+  Nutzerstandort. Offene Richtungen verwenden null.
+- Beta-Name, sichtbare Version und beide Update-Adressen bleiben im Beta-Kanal;
+  Stable 0.1.55 und dessen Dateien bleiben unverändert. Vor Rückwechsel den
+  Plan exportieren; nicht beide Varianten gleichzeitig installieren.
+
+Automatisch abgedeckt durch `src/test-work-plan.mjs`, bestehende UI-/Locale-/
+Finalcheck-Tests und `src/build-beta.mjs --check`. Die Browser-Vorschau mit
+Beispieldaten ersetzt nicht den noch ausstehenden IITC-Praxistest.

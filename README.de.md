@@ -28,6 +28,31 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
+### Beta-Test: 0.1.56-beta.1
+
+Das separate [Beta-Userscript](https://raw.githubusercontent.com/emgeka/iitc-anchor-planner/beta/beta-builds/iitc-anchor-planner-beta.user.js)
+ergänzt **Aufgaben**, ausdrückliche Wurfrichtungen je Planlink und gerichteten
+Keybedarf. Blocker-Abbau wird vor den abhängigen Linkaufträgen eingeordnet;
+Endportal und Position werden mit möglichst wenig zusätzlicher Luftlinie
+gewählt. Gemeinsame Blocker erscheinen einmal; Arbeiten an demselben Portal
+werden nach Möglichkeit gebündelt.
+
+**Aufgaben → Route ab hier** verwendet IITC User Location; **Gespeicherte
+Reihenfolge** bewahrt die Portalreihenfolge und fügt nötige Abbau-Stopps ein.
+Kleine GPS-Änderungen behalten den Vorschlag bei; Bewegungen über 100 m oder
+geänderte Aufgaben können ihn neu berechnen. Manuelle Blocker-Meldungen bleiben
+von Intel-Beobachtungen getrennt. Die Route ist ein Vorschlag; Eroberung,
+ausgehende Linklimits und Bauen unter Feldern werden noch nicht validiert.
+Walk Sim ist in dieser Beta noch nicht enthalten.
+
+Nur eine Anchor-Planner-Variante je IITC-Instanz installieren. Die Beta verwendet
+vorhandene Keys, Portal-Erledigung und Einstellungen weiter; neue Richtungen
+beginnen offen. Vor der Rückkehr zu Stable den Plan exportieren: Stable ignoriert
+die neuen Richtungen und Blocker-Aufgabeneinstellungen und verwendet seine
+bisherige Keyberechnung. Die Beta aktualisiert sich nur aus ihrer eigenen
+Adresse; Stable bleibt 0.1.55. Praxistests auf Desktop-IITC und IITC Mobile stehen
+noch aus.
+
 ## Warum Anchor Planner?
 
 - **Keine Keys mehr von Hand zählen.** Bereits vorhandene Planlinks werden erkannt und der verbleibende Schlüsselbedarf je Portal berechnet.
@@ -97,7 +122,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Aktuelle Version: **0.1.55**
+- Entwicklungsversion: **0.1.56-beta.1**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -118,10 +143,13 @@ gelangen per Pull Request nach `beta`. Die Release-Vorbereitung erfolgt auf
 `release/<version>` vom getesteten `beta`, danach per Pull Request nach `main`
 und mit Rückführung nach `beta`. Siehe
 [Branches, Prüfungen und Veröffentlichungsablauf](docs/development.md).
-Eine gesondert installierbare Beta-Fassung existiert noch nicht; die stabilen
-Installations- und Update-Adressen bleiben unverändert. Für die geplante
-Wurfrichtung ist `feature/link-direction` vorbereitet. Repository-Prüfungen
-laufen automatisch auf Entwicklungsbranches und Pull Requests.
+Der Beta-Build wird mit `node src/build-beta.mjs` erzeugt und mit
+`node src/build-beta.mjs --check` geprüft; stabile Installations- und
+Update-Adressen bleiben unverändert. `feature/task-list` führt den gemeinsamen
+Arbeitsplan einschließlich der dafür nötigen Richtungswahl ein.
+`feature/link-direction` bleibt der ursprüngliche Ausgangsbranch und muss vor
+weiterer Arbeit mit `beta` synchronisiert werden. Repository-Prüfungen laufen
+automatisch auf Entwicklungsbranches und Pull Requests.
 
 Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale Änderungen erfolgen zunächst nur in `src/`. Identische Releasefassungen als `.user.js` und `.txt` werden erst nach erfolgreichem Praxistest auf Desktop-IITC und IITC Mobile erzeugt. Die stabilen Dateien ohne Versionsnummer werden dabei auf denselben Inhalt aktualisiert.
 

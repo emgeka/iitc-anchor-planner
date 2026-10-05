@@ -1,4 +1,7 @@
-# Anforderungen für Version 0.1.55
+# Anforderungen für Entwicklungsstand 0.1.56-beta.1
+
+Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
+bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
 
 ## Planerfassung und Portalauflösung
 
@@ -15,8 +18,9 @@
 ## Link-, Blocker- und Schlüsselauswertung
 
 - Planportale und ihren Link- und Schlüsselbedarf ermitteln.
-- Vorhandene Planlinks erkennen und den Schlüsselbedarf an beiden Endportalen
-  entsprechend reduzieren.
+- Vorhandene Planlinks erkennen und ihren weiteren Schlüsselbedarf auf null
+  reduzieren. Offene Wurfrichtungen zählen als gekennzeichnete Schätzung an
+  beiden Endportalen; bei ausdrücklicher Richtung benötigt nur das Ziel Keys.
 - Nicht bestätigte Planlinks, vorhandene Planlinks und blockierte Planlinks
   begrifflich und rechnerisch unterscheiden.
 - Echte Kreuzungen mit aktuell geladenen vorhandenen Links als Blocker
@@ -75,21 +79,29 @@
   Portale mit ausschließlich bereits vorhandenen Planlinks bleiben unter
   **Alle** sichtbar und können bei Bedarf als Blocker-Endportal vorgemerkt
   werden.
-- Offene Planportale und ausdrücklich vorgemerkte Blocker-Endportale zu einer
-  gemeinsamen Arbeitsroute ohne doppelte Portalbesuche zusammenführen.
+- Offene Planportale und erforderliche Blocker-Abbauaufgaben zu einer
+  gemeinsamen Arbeitsroute zusammenführen. Gemeinsame Blocker nur einmal
+  einplanen; getrennte frühe Abbau- und spätere Planbesuche nicht verschlucken.
 - Offene Planportale automatisch berücksichtigen; erledigte Planportale dürfen
   bei Bedarf erneut als Blocker-Ziel vorgemerkt werden.
 - Das nächste offene Arbeitsziel hervorheben und erledigte Planportale
   überspringen.
-- Bei gültigem Standort des offiziellen IITC-User-Location-Plugins das
-  geografisch nächste offene Plan- oder Blocker-Portal dynamisch bestimmen.
+- Bei gültigem IITC-Standort eine gemeinsame Luftlinienroute vorschlagen und
+  Blocker vor dem ersten abhängigen Wurfauftrag mit geringem Umweg einordnen.
+  Automatische Endportalwahl durch eine ausdrückliche Wahl überschreibbar machen.
+  Vorschlagsreihenfolge bei Bewegungen bis 100 m stabil halten; gespeicherte
+  manuelle Portalreihenfolge respektieren. Ohne Standort diese Reihenfolge nutzen.
+- Aufgabenliste, nächstes Ziel, Kartenhervorhebung und Reststrecke müssen
+  dieselbe Reihenfolge verwenden. Manuelle Erledigung darf keine Intel-Blocker
+  oder vorhandenen Planlinks umdeuten. Fehlende Koordinaten und erledigte
+  Wurfportale mit noch offenen Links als nicht eingeplante Aufgaben zeigen.
 - Die Luftlinienentfernung vom gültigen IITC-Standort zum nächsten Portal
   anzeigen und auch dann aktualisieren, wenn dasselbe Portal nächstes Ziel
   bleibt.
 - Eine ungefähre verbleibende Luftlinienroute und die Zahl noch offener Ziele
   ab dem gültigen IITC-Standort anzeigen.
-- Ohne gültigen IITC-Standort auf das erste offene Portal der gespeicherten
-  Routenreihenfolge zurückfallen und keine Entfernung vortäuschen.
+- Ohne gültigen Standort keine Entfernung vortäuschen; benötigte Abbau-Stopps
+  dürfen vor dem ersten offenen Planportal eingefügt werden.
 - Eine optionale, einmalige Luftlinien-Näherungsroute ab dem aktuellen
   Standort anbieten; manuelle Verschiebung muss weiter möglich bleiben.
 - Standortdaten weder in `localStorage` speichern noch exportieren.
@@ -123,6 +135,12 @@
 
 ## Bedienung
 
+- Eine zusätzliche Aufgabenansicht mit aufklappbaren, nummerierten Stopps,
+  Blocklinkdetails, freigegebenen Planlinks, Wurfrichtungswahl, Keyeingabe,
+  manueller Erledigung und vorhandenen Details-/Navigationsaktionen anbieten.
+  Scrollposition und aufgeklappte Stopps bei Aktualisierungen erhalten.
+- Nicht bestätigte Aufgaben als geplant, blockiert oder manuell gemeldet
+  kennzeichnen; keine vollständige Baufolgenprüfung vortäuschen.
 - Desktop-IITC und IITC Mobile unterstützen.
 - Das Panel ausschließlich über `.ap-head` per Maus, Touch und Pointer
   verschiebbar machen; Bedienelemente im Kopf bleiben unabhängig davon
@@ -188,9 +206,10 @@
   `releases/` erkennen und auf `main` beziehungsweise Release-Kandidaten
   Versions-, Metadaten- und Bytegleichheit prüfen. Der vollständige Ablauf
   steht in `docs/development.md`.
-- Ein zukünftiger installierbarer Beta-Kanal benötigt eigene Build-Dateien,
-  Update-Adressen und sichtbare Beta-Kennzeichnung. Das Anlegen des Branches
-  allein erzeugt keine Beta-Distribution.
+- Beta-Builds mit `src/build-beta.mjs` aus expliziten Beta-Versionen erzeugen;
+  eigene Dateien unter `beta-builds/`, Beta-Update-Adressen und sichtbare
+  Beta-Version verwenden. Byte-/Metadatenkonsistenz in CI prüfen. Stabile
+  `releases/` unverändert lassen.
 - `@version` und `ap.VERSION` müssen denselben Versionsstand tragen.
 - `@updateURL` und `@downloadURL` müssen auf eine dauerhaft erreichbare,
   freigegebene Userscript-Datei zeigen und dürfen keine Entwicklungsfassung

@@ -58,8 +58,9 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
   übernehmen. Danach `main` nach `beta` zurückführen; die Merge-Historie erhalten.
 - `releases/` bleibt auf `beta` und Feature-Branches unverändert.
   Installierbare Beta-Builds benötigen einen getrennten Build, eigene
-  Update-Adressen und eine sichtbare Beta-Kennzeichnung; derzeit existiert
-  noch keine Beta-Distribution. Die Quelle unter `src/` ist kein Beta-Kanal.
+  Update-Adressen und eine sichtbare Beta-Kennzeichnung. `src/build-beta.mjs`
+  erzeugt und prüft die Testdateien unter `beta-builds/`. Die Quelle unter
+  `src/` ist kein Beta-Updatekanal; Beta-Dateien ersetzen keinen Stable-Release.
 - Vor Arbeitsbeginn Remote-Stand und aktiven Branch prüfen. Bei jedem Commit
   die Branch-Prüfung aus `src/check-branch-policy.mjs` ausführen.
 - Der vollständige Ablauf steht in `docs/development.md`. Die einmalige
@@ -115,6 +116,16 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
 - `Draw-Tools-Punkte` bezeichnet nur separate Punkt-/Markerobjekte, nicht die
   Endpunkte korrekt gelesener Liniensegmente.
 - Cache-, Scan- und Löschfunktionen begrifflich und funktional trennen.
+- Wurfrichtungen ausschließlich ausdrücklich pro Planlink festlegen; offene
+  Richtungen als unsicheren Keybedarf an beiden Endportalen kennzeichnen.
+- Blocker-Abbau vor den abhängigen Linkaufträgen mit möglichst geringer
+  zusätzlicher Luftlinienstrecke einordnen. Frühe Abbau-Besuche dürfen spätere
+  Portal-/Linkaufgaben nicht als erledigt behandeln.
+- Manuelle Erledigt-Meldungen und beobachtete Intel-Daten getrennt halten;
+  fehlende Daten nie als bestätigten Abbau darstellen. Eine Aufgabenroute
+  bestätigt keine Eroberung, Linklimits oder Ausführbarkeit unter Feldern.
+- Nach Aufgabenänderungen `node src/test-work-plan.mjs` und
+  `node src/build-beta.mjs --check` zusätzlich ausführen.
 
 ## Internationalisierung
 

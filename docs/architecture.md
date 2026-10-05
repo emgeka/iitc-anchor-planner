@@ -1,4 +1,6 @@
-# Architekturübersicht 0.1.55
+# Architekturübersicht 0.1.56-beta.1
+
+Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
 Das Plugin ist ein einzelnes IITC-Userscript. Es verwendet den Namespace
 `window.plugin.anchorPlanner`, intern abgekürzt als `ap`, und integriert sich
@@ -15,6 +17,9 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
   `finalScanProgress`,
 - eingetragene Keys, Erledigt-Status, Notizen und Reihenfolge je Portal,
 - vorgemerkte Blocker-Endportale für die gemeinsame Arbeitsroute,
+- ausdrückliche Wurfrichtungen als Start-GUID unter `linkDirections`,
+- planbezogene Endportalwahl und manuelle Blocker-Meldungen unter
+  `blockerTasks` sowie Routenvorliebe `workRouteMode`,
 - Panelzustand und aktiver Listenfilter,
 - verschobene Panelposition als Viewport-Koordinaten,
 - automatische oder manuell gewählte Oberflächensprache.
@@ -36,6 +41,12 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 
 Der Nutzerstandort gehört ausdrücklich nicht zu `ap.state` und erscheint in
 keinem Export.
+
+`workPlan` hält die gemeinsame Stoppreihenfolge und ihren ursprünglichen
+Standort nur zur Laufzeit. `load` ergänzt neue Felder, ohne vorhandene Keys,
+Notizen oder Erledigt-Markierungen zu entfernen. Stable ignoriert diese
+zusätzlichen Felder; beim Rückwechsel gelten wieder dessen Keyberechnung und
+Routenlogik. Eine parallele Installation beider Varianten ist nicht vorgesehen.
 
 Der geöffnete Zustand von **Mehr**, Einsatzcheck, Blockerbereich und einzelnen
 Portalzeilen wird vor einem Panel-Render aus dem vorhandenen DOM gelesen und
@@ -72,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 167 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 195 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -154,10 +165,25 @@ und dessen initiale Position `0/0` werden ignoriert.
 Blocklinks zu eindeutigen Portalzielen und sortiert sie primär nach der Zahl
 eindeutiger Blocklinks. `isOpenPlanPortal` verlangt neben dem nicht erledigten
 Zustand mindestens einen noch nicht vorhandenen Planlink; nur diese offenen
-Planportale sind automatisch Arbeitsziele. Weitere Blocker-Endportale werden
-nur nach ausdrücklicher Vormerkung ergänzt.
-`getRouteTasks` führt beide Mengen anhand der Portal-GUID ohne Duplikate
-zusammen.
+Planportale sind automatisch Arbeitsziele. `getWorkBlockers` verdichtet
+Blocklinks anhand ihrer GUID beziehungsweise normalisierten Endpunkte und
+behält ihre abhängigen Planlinks bei.
+
+`buildWorkPlan` erzeugt eine Nearest-Neighbor-Reihenfolge der Planportale ab
+Standort beziehungsweise deren gespeicherte Reihenfolge im manuellen Modus.
+Für jeden Blocker gilt der früheste Besuch seines betroffenen Wurfportals als
+Einfügegrenze; bei offener Richtung konservativ der erste Endportalbesuch.
+Vor dieser Grenze werden beide Endportale und alle Einfügepositionen anhand
+zusätzlicher Luftlinienstrecke bewertet. Explizite Endportalwahl hat Vorrang;
+eine einzelne bestehende Vormerkung wird ebenfalls berücksichtigt. Passende
+vorhandene Stopps erhalten zusätzliche Abbauaufgaben. Ein separater früher
+Abbaubesuch darf einen späteren Planportalbesuch nicht ersetzen.
+
+Manuelle Erledigt-Meldungen überspringen den Abbauschritt, bleiben aber als
+ungeprüfte Meldung sichtbar; `link.blocked`, Intel-Links und Einsatzcheck werden
+dadurch nicht geändert. Meldungen und Endportalwahl gelten nur für dieselbe
+gesamte Plangeometrie. Fehlende Abbaukoordinaten und erledigte Wurfportale mit
+offenen Links erzeugen sichtbare nicht eingeplante Aufgaben.
 
 Blocker-Endportale verwenden im Panel dieselben Aktionen wie Planportale.
 `showPortalDetails` bleibt auf bereits geladene IITC-Portalobjekte beschränkt;
@@ -165,20 +191,40 @@ Blocker-Endportale verwenden im Panel dieselben Aktionen wie Planportale.
 stammenden Titel und Koordinaten, sodass der gemeinsame Teilen- und
 Navigationsdialog ohne Planportalstatistik funktioniert.
 
-`getNextRouteTarget` ermittelt bei jedem relevanten Standort- oder
-Statuswechsel das nächste offene Plan- oder Blocker-Portal nach Luftlinie.
-Diese dynamische Auswahl verändert die gespeicherte Planportalreihenfolge
-nicht. Erst **Ab Standort sortieren** schreibt eine einmalig per
-Nearest-Neighbor-Heuristik berechnete Reihenfolge der Planportale; erledigte
-Planportale werden dabei hinten angehängt.
+`getWorkPlan` hält den Vorschlag bei Standortbewegungen bis 100 m stabil.
+Aufgaben-/Statusänderungen und größere Bewegungen im Standortmodus berechnen
+ihn neu; manuelle Reihenfolge bleibt maßgeblich. `getRouteTasks` liest die
+Stopps dieses Modells, `getNextRouteTarget` verwendet dessen ersten Stopp.
+Die gespeicherte Planportalreihenfolge wird nur über die bisherigen
+Sortier-/Pfeilaktionen geändert; diese aktivieren den manuellen Modus.
 
 `distanceToPortal` verwendet dieselbe gültige IITC-Position für die
 Luftlinienentfernung zum nächsten Ziel. `getRouteEstimate` berechnet ab diesem
-Standort eine Nearest-Neighbor-Näherung durch alle aktuellen Arbeitsziele.
+Standort die Strecke entlang derselben Stoppreihenfolge einschließlich
+gegebenenfalls notwendiger wiederholter Besuche.
 `formatDistance` rundet unter einem Kilometer auf 10 Meter und darüber auf 0,1
 Kilometer. Zielentfernung und Reststrecke gehören zum Laufzeitschlüssel der
 Zielzeile, sodass sie sich auch bei unverändertem Zielportal aktualisieren.
 Ohne gültigen Standort wird keine Entfernung angezeigt.
+
+## Wurfrichtung und Aufgabenansicht
+
+`getLinkDirection` akzeptiert nur eine ausdrücklich gespeicherte Start-GUID
+der beiden Endportale. `recalculateDirectedKeys` zählt offene gerichtete Links
+nur am Ziel, offene ungerichtete Links weiterhin an beiden Endportalen als
+Schätzung und vorhandene Links gar nicht. Der Status vorhandener Links wird
+über `openLinks` statt über Keybedarf null bestimmt, damit reine Wurfportale
+nicht als bereits gebaut erscheinen.
+
+`taskListHtml`, `wireTaskList`, `showTaskList` und `refreshTaskList` verwenden
+einen IITC-Dialog mit eigener scrollbarer, schmal nutzbarer Kartenliste.
+Richtung, Keybestand, Endportalwahl und manuelle Erledigung werden aus derselben
+Datenbasis geändert; aufgeklappte Stopps und Scrollposition bleiben bei
+Aktualisierungen erhalten. Sichtbare Texte sind vollständig gebündelt übersetzt.
+JSON exportiert die neue sprachneutrale Liste `plannedLinks` mit `from`/`to`
+(bei offener Richtung null); der Standort wird weiterhin nicht exportiert.
+Die Vorschläge prüfen weder Eroberung noch ausgehende Linklimits oder Linken
+unter Feldern. Walk Sim ist noch nicht implementiert.
 
 ## Karten- und Blockerdarstellung
 
@@ -246,15 +292,19 @@ eine zuvor deaktivierte Ebene wird beim Neuladen nicht wieder eingeschaltet.
 Bestätigung werden Release-Dateien auf `release/<version>` von `beta`
 vorbereitet und per Pull Request nach `main` übernommen. Danach wird `main`
 nach `beta` zurückgeführt. `docs/development.md` beschreibt auch Hotfixes,
-Repository-Pflege und die Voraussetzungen eines künftigen Beta-Builds.
+Repository-Pflege und den getrennten Beta-Build.
 
 `.github/workflows/checks.yml` führt vorhandene Syntax-, Locale-, Panel- und
 Finalcheck-Prüfungen sowie `src/check-branch-policy.mjs` aus. Die Branch-Prüfung
 vergleicht Entwicklungsdistributionen mit `origin/main` und verlangt auf
 `main` beziehungsweise Release-Kandidaten bytegleiche aktuelle Quellen und
 Distributionsdateien. Bei Pull Requests wird der Zielbranch geprüft. Der
-Workflow erzeugt oder veröffentlicht keine Dateien. Der neue Ablauf verändert
-weder Plugin-Laufzeit noch Speicherformat; zunächst gibt es keinen Beta-Build.
+Workflow erzeugt oder veröffentlicht keine Dateien. Die Branch-Einrichtung
+selbst verändert keine Plugin-Laufzeit. Nun erzeugt
+`src/build-beta.mjs` die beiden bytegleichen Dateien unter `beta-builds/`,
+ändert ausschließlich Name und Update-/Download-Metadaten für den Beta-Kanal
+und verlangt eine explizite Beta-Version. CI prüft zusätzlich diesen Build
+und `src/test-work-plan.mjs`; Stable-Dateien bleiben eingefroren.
 
 Die Entwicklungsfassung liegt unter `src/iitc-anchor-planner.user.js`; ihre
 Sprachquellen liegen ergänzend unter `src/locales/` und werden vor jeder
