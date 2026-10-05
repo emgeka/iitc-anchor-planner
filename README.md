@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.2
+### Beta testing: 0.2.0-beta.3
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -54,7 +54,8 @@ a suggestion; capture, outgoing-link limits and building under fields are not
 yet validated. Walk Sim is not included in this beta.
 
 Install only one Anchor Planner variant per IITC instance. The beta shares the
-existing saved keys, portal completion and settings; new directions initially
+portal completion and settings; inventory comes exclusively from IITC Keys,
+without migrating old local counts. New directions initially
 remain unconfirmed. The direction selector preselects a labeled suggestion from
 the first planned endpoint visit to the other endpoint. **Accept suggestion**
 confirms it; until then, key demand remains an estimate at both endpoints. Before returning to stable, export the plan: stable ignores the
@@ -130,7 +131,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.2**
+- Development version: **0.2.0-beta.3**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -162,3 +163,25 @@ The rules in `AGENTS.md` apply to the entire project. Functional changes are fir
 Before every handoff, commit, or publication, each change must be reconciled with the complete set of development-relevant files. This includes the source, locales, build process, both README languages, requirements, architecture, known limitations, test scenarios, changelog, and current release files where applicable. All files must be consciously checked and every affected file must be updated in the same change set; explicitly historical releases and changelog sections retain their original state.
 
 Translations are maintained separately under `src/locales/*.json`. Every file contains the same semantic keys and placeholders and provides its native name under `language.name`. `node src/build-locales.mjs` validates all files and bundles them into the single userscript; `node src/build-locales.mjs --check` also verifies that the bundle is current. No language files are loaded from the internet at runtime. English is the required fallback language.
+
+## Keys import draft (0.2.0-beta.3)
+
+Enable the official IITC **Keys** plugin. Its inventory is the only stock source;
+Anchor Planner still calculates requirements. Old local counts are ignored, with
+no migration. Without Keys, stock is shown as unknown and inventory inputs are disabled.
+Clearing Anchor Planner data does not clear Keys. Stock updates refresh the panel and tasks.
+
+Choose **Import keys** in the panel or tasks, select screenshots or a short video,
+choose English/German recognition, and read the files. Review the portal/count table,
+edit counts if needed, and apply selected rows. Unseen portals keep their counts;
+conflicting observations are not preselected. Selected values replace the current count.
+Only portals with known names in the current plan can be matched. Matching is conservative:
+normalized exact names or unique names visibly truncated with an ellipsis, not fuzzy matching.
+
+Processing happens locally using [Tesseract.js](https://github.com/naptha/tesseract.js).
+The first run downloads OCR code/language data; images and video frames are not uploaded.
+The draft supports up to 10 files, 150 MB per file and videos up to 2 minutes,
+sampling once per second with one worker. Cancellation discards results after the
+current OCR operation; slow scrolling improves coverage. OCR and codecs need real IITC
+desktop/mobile testing. New import texts currently have German and English translations;
+other UI languages use English for this draft. Inspired by Fan Fields 3's review workflow.

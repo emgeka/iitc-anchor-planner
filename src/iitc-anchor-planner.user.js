@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.2
+// @version        0.2.0-beta.3
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005101000';
+  plugin_info.dateTimeVersion = '20261005170000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.2';
+  ap.VERSION = '0.2.0-beta.3';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -249,7 +249,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Links",
       "tasks.columnBlockers": "Blocker",
       "tasks.expandDetails": "Aufgabendetails anzeigen",
-      "tasks.routeHelp": "Routenhinweise"
+      "tasks.routeHelp": "Routenhinweise",
+      "keys.import": "Keys importieren",
+      "keys.needPlugin": "Bestand unbekannt: Zum Verwalten und Importieren das IITC-Plugin Keys aktivieren.",
+      "keys.unknown": "Keybestand unbekannt",
+      "keys.notice": "Bilder und Videos werden lokal verarbeitet. OCR-Software und Sprachdaten werden beim ersten Aufruf heruntergeladen. Ergebnisse vor der Übernahme in Keys prüfen. Bis zu 10 Dateien, je 150 MB, Videos bis 2 Minuten. Erkennung auf Englisch und Deutsch.",
+      "keys.start": "Dateien auslesen",
+      "keys.cancel": "Abbrechen",
+      "keys.apply": "Ausgewählte Werte übernehmen",
+      "keys.select": "Übernehmen",
+      "keys.portal": "Portal",
+      "keys.current": "Bestand",
+      "keys.recognized": "Erkannt",
+      "keys.needed": "Bedarf",
+      "keys.review": "Namen und Mengen prüfen. ⚠ kennzeichnet widersprüchliche Erkennungen; leer bedeutet nicht erkannt. Nicht ausgewählte Portale bleiben unverändert. Erkannter Text erscheint beim Zeigen auf den Namen.",
+      "keys.failed": "Erkennung fehlgeschlagen. Dateiformat und Internetverbindung für OCR-Downloads prüfen.",
+      "keys.cancelled": "Erkennung abgebrochen.",
+      "keys.limits": "1–10 Bilder oder Videos wählen, je höchstens 150 MB. Videos dürfen höchstens 2 Minuten lang sein.",
+      "keys.changed": "Der Plan wurde geändert oder Keys ist nicht verfügbar. Dateien erneut auslesen.",
+      "keys.invalid": "Ausgewählte Mengen müssen ganze Zahlen ab null sein.",
+      "keys.partial": "Nur {count} Werte wurden übernommen. Vor einem erneuten Versuch das Keys-Plugin prüfen.",
+      "keys.applied": "{count} Werte in Keys übernommen."
     },
     "en": {
       "language.label": "Language",
@@ -454,7 +474,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Links",
       "tasks.columnBlockers": "Blockers",
       "tasks.expandDetails": "Show task details",
-      "tasks.routeHelp": "Route notes"
+      "tasks.routeHelp": "Route notes",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "es": {
       "language.label": "Idioma",
@@ -659,7 +699,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Enlaces",
       "tasks.columnBlockers": "Bloqueos",
       "tasks.expandDetails": "Mostrar detalles de tareas",
-      "tasks.routeHelp": "Notas de ruta"
+      "tasks.routeHelp": "Notas de ruta",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "fr": {
       "language.label": "Langue",
@@ -864,7 +924,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Liens",
       "tasks.columnBlockers": "Bloqueurs",
       "tasks.expandDetails": "Afficher les détails des tâches",
-      "tasks.routeHelp": "Notes de parcours"
+      "tasks.routeHelp": "Notes de parcours",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "it": {
       "language.label": "Lingua",
@@ -1069,7 +1149,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Link",
       "tasks.columnBlockers": "Blocchi",
       "tasks.expandDetails": "Mostra dettagli attività",
-      "tasks.routeHelp": "Note sul percorso"
+      "tasks.routeHelp": "Note sul percorso",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "ja": {
       "language.label": "言語",
@@ -1274,7 +1374,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "リンク",
       "tasks.columnBlockers": "障害",
       "tasks.expandDetails": "タスク詳細を表示",
-      "tasks.routeHelp": "ルートの注意事項"
+      "tasks.routeHelp": "ルートの注意事項",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "pl": {
       "language.label": "Język",
@@ -1479,7 +1599,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Linki",
       "tasks.columnBlockers": "Blokady",
       "tasks.expandDetails": "Pokaż szczegóły zadań",
-      "tasks.routeHelp": "Uwagi o trasie"
+      "tasks.routeHelp": "Uwagi o trasie",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -1684,7 +1824,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Links",
       "tasks.columnBlockers": "Bloqueios",
       "tasks.expandDetails": "Mostrar detalhes das tarefas",
-      "tasks.routeHelp": "Notas da rota"
+      "tasks.routeHelp": "Notas da rota",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "ru": {
       "language.label": "Язык",
@@ -1889,7 +2049,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "Линки",
       "tasks.columnBlockers": "Блоки",
       "tasks.expandDetails": "Показать детали задач",
-      "tasks.routeHelp": "Примечания к маршруту"
+      "tasks.routeHelp": "Примечания к маршруту",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2094,7 +2274,27 @@ function wrapper(plugin_info) {
       "tasks.columnLinks": "连线",
       "tasks.columnBlockers": "阻挡",
       "tasks.expandDetails": "显示任务详情",
-      "tasks.routeHelp": "路线说明"
+      "tasks.routeHelp": "路线说明",
+      "keys.import": "Import keys",
+      "keys.needPlugin": "Inventory unknown: enable the IITC Keys plugin to manage or import keys.",
+      "keys.unknown": "Key inventory unknown",
+      "keys.notice": "Images and videos are processed locally. OCR software and language data are downloaded on first use. Review the results before writing to Keys. Up to 10 files, 150 MB per file, videos up to 2 minutes. English and German recognition.",
+      "keys.start": "Read files",
+      "keys.cancel": "Cancel",
+      "keys.apply": "Apply selected counts",
+      "keys.select": "Use",
+      "keys.portal": "Portal",
+      "keys.current": "Owned",
+      "keys.recognized": "Recognized",
+      "keys.needed": "Needed",
+      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
+      "keys.cancelled": "Recognition cancelled.",
+      "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
+      "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
+      "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
+      "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
+      "keys.applied": "Applied {count} counts to Keys."
     }
   };
   // AP_LOCALES_END
@@ -2314,7 +2514,7 @@ function wrapper(plugin_info) {
   };
 
   ap.save = function () {
-    try { localStorage.setItem(ap.STORAGE_KEY, JSON.stringify(ap.state)); }
+    try { localStorage.setItem(ap.STORAGE_KEY, JSON.stringify(ap.state, function (key, value) { return key === 'ownedKeys' ? undefined : value; })); }
     catch (e) { console.warn('[Anchor Planner] Could not save state', e); }
   };
 
@@ -3279,7 +3479,7 @@ function wrapper(plugin_info) {
     var blockers = ap.getWorkBlockers().filter(function (item) {
       return item.links.some(function (candidate) { return candidate.id === link.id; });
     });
-    var missing = direction && ap.runtime.stats[direction.to] && Number(ap.ensureAnchorState(direction.to).ownedKeys) < 1;
+    var missing = direction && ap.runtime.stats[direction.to] && ap.getOwnedKeys(direction.to) !== null && ap.getOwnedKeys(direction.to) < 1;
     var status = link.existing ? 'tasks.existing' : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
     var html = '<div class="ap-task-link"><span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
     if (!link.existing) {
@@ -3314,7 +3514,8 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
-    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button></div>';
+    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button></div>';
+    if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
@@ -3328,17 +3529,17 @@ function wrapper(plugin_info) {
       var stopId = stop.planVisit ? 'plan:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
       var local = ap.ensureAnchorState(portal.guid);
       var title = ap.displayPortalTitle(portal.title);
-      var keyLabel = ap.t('row.keys', { owned: local.ownedKeys || 0, required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
+      var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
       html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
       html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.escapeHtml(title) + '</button></th>';
-      html += '<td class="ap-task-numeric' + (stop.planVisit && Number(local.ownedKeys) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (local.ownedKeys || 0) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
+      html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
       if (stop.planVisit) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.planVisit')) + '</div>';
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       if (stop.planVisit) {
-        html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: local.ownedKeys || 0, required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
-        html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (local.ownedKeys || 0) + '"></label>';
+        html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
+        html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (ap.getOwnedKeys(portal.guid) === null ? '' : ap.getOwnedKeys(portal.guid)) + '"' + (ap.getOwnedKeys(portal.guid) === null ? ' disabled placeholder="?"' : '') + '></label>';
         stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
         html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
@@ -3379,6 +3580,7 @@ function wrapper(plugin_info) {
     });
     element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
     element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
+    if (element.querySelector('#ap-task-key-import')) element.querySelector('#ap-task-key-import').onclick = ap.showKeyImport;
     element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-direction'), function (select) {
       select.onchange = function () { var link = ap.runtime.links[Number(this.getAttribute('data-link'))]; if (link) ap.setLinkDirection(link.id, this.value); };
@@ -3402,7 +3604,7 @@ function wrapper(plugin_info) {
       button.onclick = function () { var stop = plan.stops[Number(this.getAttribute('data-stop-index'))]; if (stop) ap.showPortalActions(stop.portal); };
     });
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-owned'), function (input) {
-      input.onchange = function () { ap.ensureAnchorState(this.getAttribute('data-guid')).ownedKeys = Math.max(0, parseInt(this.value, 10) || 0); ap.save(); ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); };
+      input.onchange = function () { ap.setOwnedKeys(this.getAttribute('data-guid'), Number(this.value)); ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); };
     });
   };
 
@@ -3971,12 +4173,178 @@ function wrapper(plugin_info) {
     return ap.t('portal.nameMissingPlain');
   };
 
+  // Keys owns inventory; Anchor Planner owns requirements and reviewed imports.
+  ap.getKeysPlugin = function () {
+    var keys = window.plugin && window.plugin.keys;
+    return keys && keys.keys && typeof keys.addKey === 'function' ? keys : null;
+  };
+  ap.getOwnedKeys = function (guid) {
+    var plugin = ap.getKeysPlugin();
+    if (!plugin) return null;
+    var count = Number(plugin.keys[guid] || 0);
+    return Number.isSafeInteger(count) && count >= 0 ? count : null;
+  };
+  ap.keyCountLabel = function (guid) { var count = ap.getOwnedKeys(guid); return count === null ? '?' : count; };
+  ap.setOwnedKeys = function (guid, count) {
+    var plugin = ap.getKeysPlugin(), current = ap.getOwnedKeys(guid);
+    if (typeof guid !== 'string' || !guid || !plugin || current === null || !Number.isSafeInteger(count) || count < 0) return false;
+    plugin.addKey(count - current, guid);
+    return ap.getOwnedKeys(guid) === count;
+  };
+  ap.refreshKeys = function () { ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); };
+  ap.setupKeysIntegration = function () {
+    var timer;
+    var changed = function () { clearTimeout(timer); timer = setTimeout(ap.refreshKeys, 100); };
+    if (typeof window.addHook === 'function') {
+      window.addHook('pluginKeysUpdateKey', changed);
+      window.addHook('pluginKeysRefreshAll', changed);
+    }
+    changed();
+  };
+  ap.keyImportSignature = function () {
+    return JSON.stringify(ap.sortedStats(false).map(function (p) { return [p.guid, p.title]; }).sort());
+  };
+  ap.normalizeKeyName = function (text) {
+    return String(text).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+  };
+  ap.parseKeyText = function (text, portals) {
+    var lines = String(text).split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+    var result = [];
+    lines.forEach(function (line, index) {
+      var name = ap.normalizeKeyName(line.replace(/[x×]\s*\d+\s*$/i, ''));
+      var matches = portals.filter(function (p) {
+        var title = ap.normalizeKeyName(p.title);
+        return title && (name === title || (name.length >= 8 && /(?:\.{2,}|…)\s*(?:[x×]\s*\d+)?$/i.test(line) && title.indexOf(name) === 0));
+      });
+      if (matches.length !== 1) return;
+      for (var offset = 0; offset <= 1 && index + offset < lines.length; offset++) {
+        if (offset && portals.some(function (p) { return ap.normalizeKeyName(lines[index + offset]) === ap.normalizeKeyName(p.title); })) break;
+        var count = lines[index + offset].match(/(?:^|\s)[x×]\s*(\d{1,6})(?:\s|$)/i);
+        if (count) { result.push({ guid: matches[0].guid, count: Number(count[1]), evidence: lines.slice(index, index + offset + 1).join(' / ') }); break; }
+      }
+    });
+    return result;
+  };
+  ap.mergeKeyObservations = function (observations, portals) {
+    return portals.map(function (portal) {
+      var hits = observations.filter(function (hit) { return hit.guid === portal.guid; });
+      var counts = Array.from(new Set(hits.map(function (hit) { return hit.count; })));
+      return { guid: portal.guid, title: portal.title, required: portal.requiredKeys || 0,
+        count: counts.length === 1 ? counts[0] : null, selected: counts.length === 1,
+        conflict: counts.length > 1, evidence: hits.map(function (hit) { return hit.evidence; }).filter(function (s, i, a) { return a.indexOf(s) === i; }).slice(0, 3).join(' | ') };
+    });
+  };
+  ap.applyKeyImport = function (rows, signature) {
+    if (signature !== ap.keyImportSignature() || !ap.getKeysPlugin()) throw new Error(ap.t('keys.changed'));
+    rows.filter(function (row) { return row.selected; }).forEach(function (row) {
+      if (!ap.runtime.stats[row.guid] || !Number.isSafeInteger(row.count) || row.count < 0) throw new Error(ap.t('keys.invalid'));
+    });
+    var applied = 0;
+    rows.filter(function (row) { return row.selected; }).forEach(function (row) {
+      try { if (!ap.setOwnedKeys(row.guid, row.count)) throw new Error(); }
+      catch (error) { throw new Error(ap.t('keys.partial', { count: applied })); }
+      applied++;
+    });
+    return applied;
+  };
+  ap.loadKeyOcr = function () {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    if (ap.keyOcrLoading) return ap.keyOcrLoading;
+    ap.keyOcrLoading = new Promise(function (resolve, reject) {
+      var ocrScript = document.createElement('script');
+      var timeout = setTimeout(function () { ocrScript.remove(); reject(new Error(ap.t('keys.failed'))); }, 45000);
+      ocrScript.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+      ocrScript.onload = function () { clearTimeout(timeout); if (window.Tesseract) resolve(window.Tesseract); else reject(new Error(ap.t('keys.failed'))); };
+      ocrScript.onerror = function () { clearTimeout(timeout); ocrScript.remove(); reject(new Error(ap.t('keys.failed'))); };
+      document.head.appendChild(ocrScript);
+    }).catch(function (error) { ap.keyOcrLoading = null; throw error; });
+    return ap.keyOcrLoading;
+  };
+  ap.keyMediaEvent = function (element, event, start, job) {
+    return new Promise(function (resolve, reject) {
+      var timer;
+      function cleanup() { clearTimeout(timer); element.removeEventListener(event, ok); element.removeEventListener('error', fail); job.signal.removeEventListener('abort', fail); }
+      function ok() { cleanup(); resolve(); }
+      function fail() { cleanup(); reject(new Error(ap.t('keys.failed'))); }
+      element.addEventListener(event, ok, { once: true }); element.addEventListener('error', fail, { once: true }); job.signal.addEventListener('abort', fail, { once: true });
+      timer = setTimeout(fail, 20000);
+      if (job.signal.aborted) fail(); else { try { start(); } catch (error) { cleanup(); reject(error); } }
+    });
+  };
+  ap.scanKeyFiles = async function (files, portals, language, job, progress) {
+    var worker, observations = [];
+    function check() { if (job.signal.aborted) throw new Error(ap.t('keys.cancelled')); }
+    try {
+      var engine = await ap.loadKeyOcr(); check();
+      worker = await engine.createWorker(language); check();
+      for (var f = 0; f < files.length; f++) {
+        check(); var file = files[f];
+        if (file.size > 150 * 1024 * 1024 || !/^(image|video)\//.test(file.type)) throw new Error(ap.t('keys.limits'));
+        var video = /^video\//.test(file.type), media = document.createElement(video ? 'video' : 'img');
+        var url = URL.createObjectURL(file);
+        try {
+          media.muted = true; media.preload = 'auto';
+          await ap.keyMediaEvent(media, video ? 'loadeddata' : 'load', function () { media.src = url; }, job); check();
+          if (video && (!Number.isFinite(media.duration) || media.duration > 120)) throw new Error(ap.t('keys.limits'));
+          var width = video ? media.videoWidth : media.naturalWidth, height = video ? media.videoHeight : media.naturalHeight;
+          if (!width || !height || height / width > 10) throw new Error(ap.t('keys.failed'));
+          var canvas = document.createElement('canvas'); canvas.width = Math.min(width, 1080); canvas.height = Math.round(height * canvas.width / width);
+          var context = canvas.getContext('2d');
+          var frames = video ? Math.max(1, Math.ceil(media.duration)) : 1;
+          for (var frame = 0; frame < frames; frame++) {
+            check();
+            if (video && frame > 0) await ap.keyMediaEvent(media, 'seeked', function () { media.currentTime = frame; }, job);
+            check(); context.drawImage(media, 0, 0, canvas.width, canvas.height);
+            progress((f + 1) + '/' + files.length + ' · ' + (frame + 1) + '/' + frames);
+            var result = await worker.recognize(canvas); check();
+            observations = observations.concat(ap.parseKeyText(result.data.text, portals));
+          }
+        } finally { if (video) { media.pause(); media.removeAttribute('src'); media.load(); } URL.revokeObjectURL(url); }
+      }
+      return ap.mergeKeyObservations(observations, portals);
+    } finally { if (worker) await worker.terminate(); }
+  };
+  ap.showKeyImport = function () {
+    if (!ap.getKeysPlugin()) { window.alert(ap.t('keys.needPlugin')); return; }
+    var element = document.createElement('div'), job = null, rows = [], signature;
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.notice')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" style="max-width:100%" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review" style="overflow:auto;max-height:50vh"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
+    var start = element.querySelector('.ap-key-start'), apply = element.querySelector('.ap-key-apply'), status = element.querySelector('.ap-key-progress');
+    function cancel() {
+      if (job) job.abort();
+      rows = []; apply.disabled = true;
+      element.querySelector('.ap-key-review').innerHTML = '';
+      status.textContent = ap.t('keys.cancelled');
+    }
+    element.querySelector('.ap-key-cancel').onclick = cancel;
+    start.onclick = async function () {
+      var files = Array.from(element.querySelector('.ap-key-files').files); if (!files.length || files.length > 10) { status.textContent = ap.t('keys.limits'); return; }
+      job = new AbortController(); start.disabled = true; apply.disabled = true; status.textContent = ap.t('keys.start') + ' …';
+      signature = ap.keyImportSignature();
+      var portals = ap.sortedStats(false).filter(function (p) { return !ap.isMissingPortalTitle(p.title); });
+      try {
+        rows = await ap.scanKeyFiles(files, portals, element.querySelector('.ap-key-language').value, job, function (text) { status.textContent = text; });
+        if (job.signal.aborted) return;
+        var html = '<table style="width:100%"><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.recognized', 'keys.needed'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
+        rows.forEach(function (row, i) { html += '<tr><td><input type="checkbox" data-index="' + i + '"' + (row.selected ? ' checked' : '') + '></td><td title="' + ap.escapeHtml(row.evidence) + '">' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + (row.conflict ? ' ⚠' : '') + '</td><td>' + ap.keyCountLabel(row.guid) + '</td><td><input type="number" min="0" step="1" style="width:5em" data-index="' + i + '" value="' + (row.count === null ? '' : row.count) + '"></td><td>' + row.required + '</td></tr>'; });
+        element.querySelector('.ap-key-review').innerHTML = html + '</tbody></table>';
+        status.textContent = ap.t('keys.review'); apply.disabled = !rows.length;
+      } catch (error) { status.textContent = job.signal.aborted ? ap.t('keys.cancelled') : error.message; }
+      finally { start.disabled = false; }
+    };
+    apply.onclick = function () {
+      rows.forEach(function (row, i) { row.selected = element.querySelector('input[type="checkbox"][data-index="' + i + '"]').checked; var value = element.querySelector('input[type="number"][data-index="' + i + '"]').value; row.count = value.trim() === '' ? null : Number(value); });
+      try { var count = ap.applyKeyImport(rows, signature); status.textContent = ap.t('keys.applied', { count: count }); apply.disabled = true; ap.refreshKeys(); }
+      catch (error) { status.textContent = error.message; ap.refreshKeys(); }
+    };
+    window.dialog({ id: 'anchor-planner-key-import', title: ap.t('keys.import'), html: element, width: 720, closeCallback: cancel });
+  };
+
   ap.ensureAnchorState = function (guid) {
     if (!ap.state.anchors[guid]) {
-      ap.state.anchors[guid] = { ownedKeys: 0, done: false, manual: false, note: '', routeOrder: null };
+      ap.state.anchors[guid] = { done: false, manual: false, note: '', routeOrder: null };
     }
     var s = ap.state.anchors[guid];
-    s.ownedKeys = parseInt(s.ownedKeys || 0, 10) || 0;
+    delete s.ownedKeys;
     if (s.routeOrder != null) {
       s.routeOrder = parseInt(s.routeOrder, 10);
       if (!isFinite(s.routeOrder)) s.routeOrder = null;
@@ -4481,8 +4849,9 @@ function wrapper(plugin_info) {
     if ((stat.blockedLinks || 0) > 0) return { key: 'blocked', label: ap.t('status.blocked'), symbol: '×', cls: 'ap-blocked' };
     var openLinks = stat.openLinks == null ? Math.max(0, (stat.linkCount || 0) - (stat.existingLinks || 0)) : stat.openLinks;
     if (openLinks === 0 && (stat.linkCount || 0) > 0) return { key: 'existing', label: ap.t('status.existing'), symbol: '↔', cls: 'ap-existing' };
-    if (local.ownedKeys >= stat.requiredKeys && openLinks > 0) return { key: 'ready', label: ap.t('status.ready'), symbol: '▲', cls: 'ap-ready' };
-    if (local.ownedKeys > 0) return { key: 'partial', label: ap.t('status.partial'), symbol: '◐', cls: 'ap-partial' };
+    if ((stat.requiredKeys || 0) > 0 && ap.getOwnedKeys(guid) === null) return { key: 'unknown', label: ap.t('keys.unknown'), symbol: '?', cls: 'ap-partial' };
+    if (ap.getOwnedKeys(guid) >= stat.requiredKeys && openLinks > 0) return { key: 'ready', label: ap.t('status.ready'), symbol: '▲', cls: 'ap-ready' };
+    if (ap.getOwnedKeys(guid) > 0) return { key: 'partial', label: ap.t('status.partial'), symbol: '◐', cls: 'ap-partial' };
     return { key: 'missing', label: ap.t('status.keysMissing'), symbol: '◆', cls: 'ap-missing' };
   };
 
@@ -4493,7 +4862,7 @@ function wrapper(plugin_info) {
     if (filter === 'open') return ap.isOpenPlanPortal(stat);
     if (filter === 'done') return !!local.done;
     if (filter === 'blocked') return !local.done && (stat.blockedLinks || 0) > 0;
-    if (filter === 'keys') return !local.done && (stat.requiredKeys || 0) > (local.ownedKeys || 0);
+    if (filter === 'keys') return !local.done && ap.getOwnedKeys(stat.guid) !== null && (stat.requiredKeys || 0) > ap.getOwnedKeys(stat.guid);
     return true;
   };
 
@@ -4514,7 +4883,7 @@ function wrapper(plugin_info) {
       if (local.done) counts.done++;
       else if (ap.isOpenPlanPortal(stat)) counts.open++;
       if (!local.done && (stat.blockedLinks || 0) > 0) counts.blocked++;
-      if (!local.done && (stat.requiredKeys || 0) > (local.ownedKeys || 0)) counts.keys++;
+      if (!local.done && ap.getOwnedKeys(stat.guid) !== null && (stat.requiredKeys || 0) > ap.getOwnedKeys(stat.guid)) counts.keys++;
     });
     return counts;
   };
@@ -4539,7 +4908,8 @@ function wrapper(plugin_info) {
     (stats || []).forEach(function (stat) {
       var local = ap.ensureAnchorState(stat.guid);
       if (!local.done) {
-        var keyDeficit = Math.max(0, (Number(stat.requiredKeys) || 0) - (Number(local.ownedKeys) || 0));
+        if ((stat.requiredKeys || 0) > 0 && ap.getOwnedKeys(stat.guid) === null) result.keysUnavailable = true;
+        var keyDeficit = ap.getOwnedKeys(stat.guid) === null ? 0 : Math.max(0, (Number(stat.requiredKeys) || 0) - ap.getOwnedKeys(stat.guid));
         if (keyDeficit) {
           result.missingKeyPortals++;
           result.missingKeys += keyDeficit;
@@ -4564,6 +4934,7 @@ function wrapper(plugin_info) {
       if (unresolvedEndpoints) result.summary.push(ap.tp('readiness.openEndpoint', unresolvedEndpoints));
       if (blockedPlannedLinks) result.summary.push(ap.tp('readiness.blockedPlanLink', blockedPlannedLinks));
       if (result.missingKeys) result.summary.push(ap.tp('readiness.missingKey', result.missingKeys));
+      if (result.keysUnavailable) result.summary.push(ap.t('keys.needPlugin'));
       if (result.missingNames) result.summary.push(ap.tp('readiness.missingName', result.missingNames));
       if (result.unresolvedExistingLinks) result.summary.push(ap.tp('readiness.unusableLink', result.unresolvedExistingLinks));
       if (finalScanPending) result.summary.push(ap.t('readiness.finalScanPending'));
@@ -4574,7 +4945,7 @@ function wrapper(plugin_info) {
       if (unresolvedEndpoints || blockedPlannedLinks || result.missingKeys) {
         result.key = 'blocked';
         result.label = ap.t('readiness.notReady');
-      } else if (result.missingNames || result.unresolvedExistingLinks || finalScanPending || finalScanIncomplete || noPlan) {
+      } else if (result.keysUnavailable || result.missingNames || result.unresolvedExistingLinks || finalScanPending || finalScanIncomplete || noPlan) {
         result.key = 'check';
         result.label = ap.t('readiness.check');
       }
@@ -4776,7 +5147,7 @@ function wrapper(plugin_info) {
       // Alle erkannten Planportale sichtbar markieren.
 
       var status = ap.getStatus(guid, stat);
-      var title = ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: local.ownedKeys, required: stat.requiredKeys }));
+      var title = ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: ap.keyCountLabel(guid), required: stat.requiredKeys }));
       ap.addHtmlStatusMarker(stat, status, title, !!(nextPortal && nextPortal.guid === guid));
     });
     var routeGuids = {};
@@ -5118,7 +5489,7 @@ function wrapper(plugin_info) {
           blockedLinks: stat.blockedLinks || 0,
           openLinks: stat.openLinks || stat.requiredKeys || 0,
           requiredKeys: stat.requiredKeys,
-          ownedKeys: local.ownedKeys || 0,
+          ownedKeys: ap.getOwnedKeys(stat.guid),
           done: !!local.done,
           note: local.note || '',
           navigation: {
@@ -5148,7 +5519,7 @@ function wrapper(plugin_info) {
       var local = ap.ensureAnchorState(stat.guid);
       if (local.done) doneCount++;
       totalRequired += stat.requiredKeys || 0;
-      totalOwned += local.ownedKeys || 0;
+      totalOwned += ap.getOwnedKeys(stat.guid) || 0;
     });
 
     lines.push('Anchor Planner');
@@ -5158,7 +5529,7 @@ function wrapper(plugin_info) {
     }));
     lines.push(ap.t('text.existing', { existing: last.existingPlannedLinks || 0, unconfirmed: last.unconfirmedLinks || 0 }));
     lines.push(ap.t('text.done', { done: doneCount, total: stats.length }));
-    lines.push(ap.t('text.keys', { owned: totalOwned, required: totalRequired }));
+    lines.push(ap.t('text.keys', { owned: ap.getKeysPlugin() ? totalOwned : '?', required: totalRequired }));
     lines.push('');
 
     if (blockedPlanLinks.length) {
@@ -5180,7 +5551,7 @@ function wrapper(plugin_info) {
       lines.push((index + 1) + '. ' + ap.displayPortalTitle(stat.title) + (local.done ? ' [' + ap.t('text.doneSuffix') + ']' : ''));
       if (stat.address) lines.push('   ' + ap.t('text.address') + ' ' + stat.address);
       lines.push('   ' + ap.t('text.links', { total: stat.linkCount, existing: stat.existingLinks || 0, open: stat.openLinks || stat.requiredKeys || 0, blocked: stat.blockedLinks || 0 }));
-      lines.push('   ' + ap.t('text.keysPortal', { owned: local.ownedKeys || 0, required: stat.requiredKeys || 0 }));
+      lines.push('   ' + ap.t('text.keysPortal', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys || 0 }));
       lines.push('   Waze: ' + nav.waze);
       if (local.note) lines.push('   ' + ap.t('text.note') + ' ' + local.note);
       lines.push('');
@@ -5374,7 +5745,7 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
-    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
+    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
@@ -5469,9 +5840,9 @@ function wrapper(plugin_info) {
       var status = ap.getStatus(stat.guid, stat);
       var nav = ap.navigationLinks(stat);
       html += '<details class="ap-row ap-planportal" data-guid="' + ap.escapeHtml(stat.guid) + '"' + (expandedPortals[stat.guid] ? ' open' : '') + '>';
-      html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: local.ownedKeys || 0, required: stat.requiredKeys })) + '</span></summary>';
+      html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys })) + '</span></summary>';
       if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
-      html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + ap.escapeHtml(local.ownedKeys || 0) + '"> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
+      html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + (ap.getOwnedKeys(stat.guid) === null ? '' : ap.getOwnedKeys(stat.guid)) + '"' + (ap.getOwnedKeys(stat.guid) === null ? ' disabled placeholder="?"' : '') + '> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
       html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
       html += '<input class="ap-note" type="hidden" value="' + ap.escapeHtml(local.note || '') + '">';
       html += '</details>';
@@ -5499,6 +5870,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-loadnames').onclick = ap.refreshMissingNames;
     document.getElementById('ap-export').onclick = ap.showExport;
     document.getElementById('ap-sort-location').onclick = ap.sortRouteFromUserLocation;
+    document.getElementById('ap-key-import').onclick = ap.showKeyImport;
     document.getElementById('ap-clear').onclick = ap.clearData;
     document.getElementById('ap-tolerance').onchange = function () { ap.state.tolerance = parseInt(this.value, 10) || ap.DEFAULT_TOLERANCE_M; ap.save(); };
     document.getElementById('ap-language').onchange = function () {
@@ -5540,7 +5912,7 @@ function wrapper(plugin_info) {
     Array.prototype.forEach.call(panel.querySelectorAll('.ap-row'), function (row) {
       var guid = row.getAttribute('data-guid');
       var local = ap.ensureAnchorState(guid);
-      row.querySelector('.ap-owned').onchange = function () { local.ownedKeys = parseInt(this.value, 10) || 0; ap.save(); ap.renderOverlays(); ap.renderPanel(); };
+      row.querySelector('.ap-owned').onchange = function () { ap.setOwnedKeys(guid, Number(this.value)); ap.renderOverlays(); ap.renderPanel(); };
       row.querySelector('.ap-done-check').onchange = function () {
         local.done = !!this.checked;
         if (!local.done && ap.state.blockerRoutePortals) delete ap.state.blockerRoutePortals[guid];
@@ -5693,6 +6065,7 @@ function wrapper(plugin_info) {
     ap.setupLayer();
     ap.setupPanel();
     setTimeout(ap.setupUserLocationIntegration, 0);
+    ap.setupKeysIntegration();
     console.log('[Anchor Planner] loaded v' + ap.VERSION);
   };
 

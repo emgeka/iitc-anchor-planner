@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.0-beta.3 — Keys integration and reviewed media import draft
+
+### English
+- Use IITC Keys as the sole stock source, without migrating local inventory. Unknown
+  stock stays unknown when Keys is absent; plan reset leaves Keys untouched.
+- Add local screenshot/video OCR with conservative name matching, conflict handling,
+  editable review table and explicit selected-count writes via Keys.addKey.
+- Limit videos to two minutes and sample once per second. Real desktop/mobile OCR
+  tests pending; import UI initially German/English (English fallback elsewhere).
+
+### Deutsch
+- IITC Keys als einzige Bestandsquelle, ohne Übernahme lokaler Bestände. Ohne Keys
+  bleibt der Bestand unbekannt; Plan zurücksetzen verändert Keys nicht.
+- Lokale Screenshot-/Videoerkennung mit vorsichtiger Namenszuordnung, Konfliktprüfung,
+  editierbarer Prüftabelle und ausdrücklicher Übernahme ausgewählter Mengen ergänzt.
+- Videos bis zwei Minuten, ein Bild pro Sekunde. Echte Desktop-/Mobile-OCR-Tests
+  stehen aus; Importtexte zunächst Deutsch/Englisch mit englischem Fallback.
+
+
 ## 0.2.0-beta.2 — compact tasks, practical test pending
 
 ### English

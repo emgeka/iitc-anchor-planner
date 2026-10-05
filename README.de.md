@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.2
+### Beta-Test: 0.2.0-beta.3
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -57,7 +57,8 @@ ausgehende Linklimits und Bauen unter Feldern werden noch nicht validiert.
 Walk Sim ist in dieser Beta noch nicht enthalten.
 
 Nur eine Anchor-Planner-Variante je IITC-Instanz installieren. Die Beta verwendet
-vorhandene Keys, Portal-Erledigung und Einstellungen weiter; neue Richtungen
+Portal-Erledigung und Einstellungen weiter. Vorhandene Keys werden ausschließlich
+aus dem IITC-Plugin Keys gelesen; alte lokale Bestände werden nicht übernommen; neue Richtungen
 beginnen unbestätigt. Im Auswahlfeld ist ein gekennzeichneter Vorschlag vom
 zuerst besuchten Planendportal zum anderen Endportal vorausgewählt.
 **Vorschlag übernehmen** bestätigt ihn; bis dahin bleibt der Keybedarf an
@@ -136,7 +137,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.2**
+- Entwicklungsversion: **0.2.0-beta.3**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -170,3 +171,28 @@ Die Regeln in `AGENTS.md` gelten für das gesamte Projekt. Funktionale Änderung
 Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderung mit dem vollständigen Satz der für die weitere Entwicklung maßgeblichen Dateien abgeglichen werden. Dazu gehören je nach Betroffenheit Quellcode, Locales, Build-Ablauf, beide README-Sprachen, Anforderungen, Architektur, bekannte Grenzen, Testszenarien, Changelog und aktuelle Release-Dateien. Alle Dateien müssen bewusst geprüft und jede betroffene Datei im selben Änderungssatz aktualisiert werden; ausdrücklich historische Releases und Changelog-Abschnitte behalten ihren ursprünglichen Stand.
 
 Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name` den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check` prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende Fallbacksprache.
+
+## Entwurf des Keyimports (0.2.0-beta.3)
+
+Das offizielle IITC-Plugin **Keys** aktivieren. Sein Bestand ist die einzige
+Bestandsquelle; Anchor Planner berechnet weiterhin den Bedarf. Alte lokale Mengen
+werden ignoriert, ohne Migration. Ohne Keys erscheint der Bestand als unbekannt;
+Bestandsfelder sind deaktiviert. Anchor-Planner-Daten löschen verändert Keys nicht.
+Bestandsänderungen aktualisieren Panel und Aufgaben.
+
+Im Panel oder unter Aufgaben **Keys importieren** wählen, Screenshots oder ein kurzes
+Video auswählen, Erkennungssprache Englisch/Deutsch einstellen und Dateien auslesen.
+Die Tabelle mit Portal, Bestand, Erkennung und Bedarf prüfen, Mengen gegebenenfalls
+korrigieren und ausgewählte Zeilen übernehmen. Nicht erkannte Portale behalten ihre
+Mengen. Widersprüchliche Beobachtungen sind nicht vorausgewählt. Übernommene Werte
+ersetzen den aktuellen Bestand. Nur bekannte Namen im aktuellen Plan werden zugeordnet:
+normalisierte exakte Namen oder eindeutige, mit Auslassungszeichen gekürzte Namen.
+
+Die Verarbeitung mit [Tesseract.js](https://github.com/naptha/tesseract.js) erfolgt
+lokal; der erste Aufruf lädt OCR-Code und Sprachdaten. Bilder und Videobilder werden
+nicht hochgeladen. Der Entwurf erlaubt bis zu 10 Dateien, je 150 MB, Videos bis
+2 Minuten, ein Bild pro Sekunde und einen OCR-Worker. Abbrechen verwirft Ergebnisse
+nach dem aktuellen OCR-Schritt. Langsames Scrollen erhöht die Abdeckung.
+Erkennung und Videoformate müssen auf Desktop-IITC und Mobile praktisch getestet werden.
+Neue Importtexte sind zunächst Deutsch/Englisch; andere UI-Sprachen verwenden dafür
+Englisch. Der Prüfablauf ist von Fan Fields 3 inspiriert.

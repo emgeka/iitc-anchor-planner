@@ -42,7 +42,9 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
 {
   const { ap } = runtime({ anchors: { A: { ownedKeys: 4, done: true, note: 'keep', routeOrder: 2 } } });
   ap.load();
-  assert.equal(ap.state.anchors.A.ownedKeys, 4);
+  ap.ensureAnchorState('A');
+  assert.equal(ap.state.anchors.A.ownedKeys, undefined);
+  assert.equal(ap.getOwnedKeys('A'), null, 'Legacy stock is ignored; Keys is required.');
   assert.equal(ap.state.anchors.A.note, 'keep');
   assert.equal(Object.keys(ap.state.linkDirections).length, 0, 'Old plans migrate with open direction.');
 }

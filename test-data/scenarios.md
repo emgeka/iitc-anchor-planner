@@ -415,3 +415,26 @@ Beispieldaten ersetzt nicht den noch ausstehenden IITC-Praxistest.
   Keymangel, offene Schätzung (`~`) und Blocker sind unterscheidbar.
 - Portalname öffnet die richtigen IITC-Details. Historie und nicht eingeplante
   Aufgaben bleiben verfügbar, einschließlich Rücknahme manueller Erledigung.
+
+## Keys und Medienimport (0.2.0-beta.3)
+1. Ohne Keys Bestand ?, deaktivierte Eingaben, Bereitschaft Prüfen statt erfundenem
+   Keymangel; Routing und gerichteter Bedarf bleiben nutzbar.
+2. Keys aktivieren (auch nach Anchor Planner booten). Panel/Aufgaben lesen den Bestand;
+   Eingabe dort sowie Änderungen im Keys-Plugin aktualisieren beide Ansichten.
+3. Alte AP-Bestände ignorieren. AP-Daten löschen lässt Keys-Mengen unverändert.
+4. Screenshot mit eindeutigen Planportalnamen und xN/×N importieren. Tabelle vor dem
+   Schreiben zeigen; Auswahl aufheben, Menge korrigieren, ausdrücklich null setzen.
+5. Doppelte Namen, nicht erkannte Namen, Entfernungen ohne x, widersprüchliche Mengen:
+   keine stillschweigende Zuordnung oder Übernahme; ungewählte Portale unverändert.
+6. Video langsam scrollen; Wiederholungen ergeben eine Zeile. Abbrechen/Schließen,
+   Decoderfehler und erneuter Start lassen keine spätere Übernahme zu.
+7. Plan während der Prüfung ändern oder Keys deaktivieren: Übernahme verweigern.
+8. Desktop und Mobile: Dateiauswahl, Sprachwahl, horizontale Tabelle und Touchbedienung
+   prüfen. Große/ungültige Datei oder Video über 2 Minuten verständlich ablehnen.
+Automatisiert: node src/test-key-import.mjs ergänzt die vorhandenen Runtime-Prüfungen.
+
+Lokale Browserprüfung des Entwurfs: echte Tesseract-Erkennung eines synthetischen
+SVG-Bildes und eines kurzen WebM-Videos erfolgreich; selektive Übernahme einer
+Zeile bei unveränderten anderen Beständen bestätigt. Bei 360 Pixel Breite sind
+Dateiauswahl und Abbruch bedienbar, Abbruch leert die Prüftabelle und deaktiviert
+Übernehmen. Dies ersetzt keinen Test echter Ingress-Aufnahmen in IITC.
