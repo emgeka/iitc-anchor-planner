@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.4
+### Beta-Test: 0.2.0-beta.5
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -137,7 +137,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.4**
+- Entwicklungsversion: **0.2.0-beta.5**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -172,7 +172,7 @@ Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderun
 
 Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name` den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check` prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende Fallbacksprache.
 
-## Entwurf des Keyimports (0.2.0-beta.4)
+## Entwurf des Keyimports (0.2.0-beta.5)
 
 Das offizielle IITC-Plugin **Keys** aktivieren. Sein Bestand ist die einzige
 Bestandsquelle; Anchor Planner berechnet weiterhin den Bedarf. Alte lokale Mengen
@@ -198,3 +198,5 @@ Neue Importtexte sind zunächst Deutsch/Englisch; andere UI-Sprachen verwenden d
 Englisch. Der Prüfablauf ist von Fan Fields 3 inspiriert.
 
 Die Erkennung berücksichtigt jetzt Inventarkarten: Auf überwiegend dunklen Bildern werden Fotohintergründe in zwei Durchläufen für helle und abgedunkelte neutrale Schrift ausgeblendet. Portallevel und Adresszeile vor der Menge werden berücksichtigt; eine weitere Titelzeile begrenzt die Zuordnung. Bei deutscher Oberfläche ist deutsche OCR vorausgewählt. Der bereitgestellte echte Screenshot wurde lokal geprüft: alle fünf sichtbaren Mengen (7, 6, 10, 1, 1) wurden erkannt. Die Portale müssen weiterhin im aktuellen Plan enthalten sein; ungesehene und mehrdeutige Einträge bleiben unverändert.
+
+**Alle Keys zurücksetzen** im Panel oder unter Aufgaben setzt nach Bestätigung den gesamten IITC-Keys-Bestand auf null, einschließlich Portalen außerhalb des Plans. **Keyänderung rückgängig** stellt den letzten Import oder Reset wieder her; die Sicherung bleibt nach einem IITC-Refresh erhalten. Spätere manuelle Änderungen sind Konflikte und müssen ausdrücklich ausgewählt werden. Ein neuer Import/Reset mit Änderungen ersetzt die vorige Sicherung; direkte Eingaben werden nicht gesichert. Die lokale Rücknahme ist vom Bestand getrennt und bleibt beim Löschen des Plans erhalten.

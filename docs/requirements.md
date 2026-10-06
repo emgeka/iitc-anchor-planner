@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.4
+# Anforderungen für Entwicklungsstand 0.2.0-beta.5
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -250,3 +250,7 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
   Entfernung/Icons vor der Menge verarbeiten. Die Menge darf nicht von der nächsten
   Karte übernommen werden. Fotohintergrund und abgedunkelte Schrift berücksichtigen.
 - Deutsche Oberfläche wählt deutsche OCR vor; die Sprache bleibt manuell änderbar.
+
+- Letzten Keyimport oder vollständigen Reset mit einer vor der ersten Änderung persistent gespeicherten Sicherung rückgängig machen. Kein Schreiben bei fehlgeschlagener Sicherung.
+- Vollständiger Reset umfasst alle Keys-Portale, auch außerhalb des Plans; Bestätigung nennt Portal- und Keyzahl. Keine Daten im Plan löschen.
+- Rücknahme zeigt spätere Bestandsänderungen als nicht vorausgewählte Konflikte. Vor dem Schreiben geprüfte Werte erneut validieren. Nicht ausgewählte Konflikte für spätere Rücknahme behalten.

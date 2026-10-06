@@ -221,5 +221,18 @@
   "keys.changed": "Der Plan wurde geändert oder Keys ist nicht verfügbar. Dateien erneut auslesen.",
   "keys.invalid": "Ausgewählte Mengen müssen ganze Zahlen ab null sein.",
   "keys.partial": "Nur {count} Werte wurden übernommen. Vor einem erneuten Versuch das Keys-Plugin prüfen.",
-  "keys.applied": "{count} Werte in Keys übernommen."
+  "keys.applied": "{count} Werte in Keys übernommen.",
+  "keys.reset": "Alle Keys zurücksetzen",
+  "keys.undo": "Keyänderung rückgängig",
+  "keys.resetConfirm": "{count} Keys an {portals} Portalen auf null setzen? Dies umfasst alle Portale in IITC Keys, auch außerhalb dieses Plans. Zum Abbrechen diesen Dialog schließen.",
+  "keys.undoNotice": "Der letzte Import oder das Zurücksetzen kann auch nach einem IITC-Refresh rückgängig gemacht werden. Ein neuer Import oder Reset ersetzt die Sicherung. Direkte manuelle Änderungen erzeugen keine Sicherung.",
+  "keys.backupFailed": "Die Sicherung für die Rücknahme konnte nicht gespeichert werden. Vor einem erneuten Versuch den Browserspeicher prüfen.",
+  "keys.inventoryChanged": "Bestand oder Sicherung wurde geändert. Diesen Dialog schließen und zur erneuten Prüfung wieder öffnen.",
+  "keys.noUndo": "Keine gespeicherte Keyänderung zum Rückgängigmachen.",
+  "keys.restore": "Wiederherstellen",
+  "keys.undoStatus": "Status",
+  "keys.undoReview": "Bestände vor dem letzten Import oder Zurücksetzen wiederherstellen. Spätere Änderungen sind als Konflikte markiert und nicht ausgewählt. Einen Konflikt nur auswählen, wenn sein aktueller Bestand überschrieben werden soll. Nicht ausgewählte Konflikte bleiben für eine spätere Rücknahme verfügbar.",
+  "keys.alreadyRestored": "Bereits wiederhergestellt",
+  "keys.undoConflict": "Nachträglich geändert",
+  "keys.undoReady": "Rücknahme möglich"
 }

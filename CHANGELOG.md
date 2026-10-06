@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.5 — complete key reset and persistent undo
+
+### English
+- Confirm resetting every IITC Keys count, including portals outside the plan.
+- Persist an undo backup before imports/resets; restore across refreshes with explicit conflict review. No inventory writes when backup storage fails.
+
+### Deutsch
+- Alle Bestände in IITC Keys nach Bestätigung zurücksetzen, auch außerhalb des Plans.
+- Rücknahme vor Import/Reset speichern; nach Refresh mit ausdrücklicher Konfliktprüfung wiederherstellen. Kein Bestandsschreiben bei fehlgeschlagener Sicherung.
+
 ## 0.2.0-beta.4 — inventory-card OCR correction
 
 ### English
