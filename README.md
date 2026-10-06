@@ -60,8 +60,8 @@ remain unconfirmed. The direction selector preselects a labeled suggestion from
 the first planned endpoint visit to the other endpoint. **Accept suggestion**
 confirms it; until then, key demand remains an estimate at both endpoints. Before returning to stable, export the plan: stable ignores the
 new directions and blocker task settings and uses its former key calculation.
-The beta updates only from its own URL; stable remains 0.1.55. Practical
-desktop-IITC and IITC-Mobile verification is still pending.
+The beta updates only from its own URL; stable remains 0.1.55. The key workflow has been confirmed in a real IITC test; separate desktop/mobile
+coverage and the remaining beta scenarios are still pending.
 
 ## Why use Anchor Planner?
 
@@ -191,3 +191,5 @@ Inventory-card recognition now removes photographic backgrounds on predominantly
 Use **Reset all keys** in the panel or tasks to confirm setting the entire IITC Keys inventory to zero, including portals outside the plan. **Undo key change** restores the last import or reset, with a persistent backup across IITC refreshes. Later manual changes are conflicts and require explicit selection. A new non-empty import/reset replaces the previous backup; direct edits are not backed up. Browser-local undo data is separate from inventory and survives clearing the plan.
 
 **Key inventory** in the panel or tasks shows the complete positive IITC Keys stock, including portals outside the plan, with total portal/key counts, name search and sorting by name or descending count. The list is read-only and updates on Keys changes; **Refresh** also updates known names. Names use plan portals, loaded markers and bookmarks. Missing names are marked and still counted; no background portal-detail requests.
+
+Practical test confirmed by the user on 2026-10-06: screenshot and video key recognition, applying selected video counts to IITC Keys, inventory-list display, and complete reset → IITC refresh → undo all worked. The platform was not specified; this does not establish separate desktop and mobile coverage.

@@ -462,3 +462,11 @@ Dateiauswahl und Abbruch bedienbar, Abbruch leert die Prüftabelle und deaktivie
 3. Nach Name suchen, alphabetisch und nach größter Menge sortieren. Gesamtzahlen bleiben unabhängig vom Filter. Leeren Bestand und fehlendes Keys-Plugin unterscheiden.
 4. Import, Reset oder Keys-Änderung bei offener Liste: Anzeige aktualisiert sich, Suche/Sortierung/Scroll bleiben erhalten. Nach Laden weiterer Portale Aktualisieren wählen.
 5. Bei 360 Pixel Breite: Suchfeld, Sortierung, Refresh, lange Namen und Mengen bleiben erreichbar. Dialog schließen und wieder öffnen.
+
+## Bestätigter Key-Praxistest — 2026-10-06
+Vom Nutzer im Chat bestätigt, Stand 0.2.0-beta.6:
+- Screenshot- und Videoerkennung liefern korrekte Mengen.
+- Ausgewählte Videomengen werden korrekt in IITC Keys gespeichert und in Keybestand angezeigt.
+- Alle Keys zurücksetzen → IITC neu laden → Keyänderung rückgängig stellt die vorherigen Mengen wieder her.
+
+Die Testplattform wurde nicht genannt. Diese Rückmeldung bestätigt den getesteten Ablauf, keine getrennte Desktop-/Mobile-Abdeckung oder sämtliche Konflikt-, Codec- und Fehlerszenarien. Diese bleiben anhand der obigen Szenarien zu prüfen.

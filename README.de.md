@@ -65,8 +65,8 @@ zuerst besuchten Planendportal zum anderen Endportal vorausgewählt.
 beiden Endportalen eine Schätzung. Vor der Rückkehr zu Stable den Plan exportieren: Stable ignoriert
 die neuen Richtungen und Blocker-Aufgabeneinstellungen und verwendet seine
 bisherige Keyberechnung. Die Beta aktualisiert sich nur aus ihrer eigenen
-Adresse; Stable bleibt 0.1.55. Praxistests auf Desktop-IITC und IITC Mobile stehen
-noch aus.
+Adresse; Stable bleibt 0.1.55. Der Key-Ablauf ist im echten IITC-Praxistest bestätigt; getrennte Desktop-/Mobile-Abdeckung
+und die übrigen Beta-Szenarien stehen noch aus.
 
 ## Warum Anchor Planner?
 
@@ -202,3 +202,5 @@ Die Erkennung berücksichtigt jetzt Inventarkarten: Auf überwiegend dunklen Bil
 **Alle Keys zurücksetzen** im Panel oder unter Aufgaben setzt nach Bestätigung den gesamten IITC-Keys-Bestand auf null, einschließlich Portalen außerhalb des Plans. **Keyänderung rückgängig** stellt den letzten Import oder Reset wieder her; die Sicherung bleibt nach einem IITC-Refresh erhalten. Spätere manuelle Änderungen sind Konflikte und müssen ausdrücklich ausgewählt werden. Ein neuer Import/Reset mit Änderungen ersetzt die vorige Sicherung; direkte Eingaben werden nicht gesichert. Die lokale Rücknahme ist vom Bestand getrennt und bleibt beim Löschen des Plans erhalten.
 
 **Keybestand** im Panel oder unter Aufgaben zeigt alle positiven IITC-Keys-Bestände, auch außerhalb des Plans, mit Portal-/Keygesamtzahl, Namenssuche und Sortierung nach Name oder absteigender Menge. Die Liste ist lesend und aktualisiert sich bei Keys-Änderungen; **Aktualisieren** liest auch bekannte Namen neu. Namen stammen aus Planportalen, geladenen Markern und Bookmarks. Fehlende Namen bleiben gekennzeichnet und werden mitgezählt; keine automatischen Detailabfragen.
+
+Am 2026-10-06 vom Nutzer bestätigt: Keyerkennung aus Screenshot und Video, Übernahme ausgewählter Videomengen in IITC Keys, Anzeige im Gesamtbestand sowie vollständiges Zurücksetzen → IITC-Refresh → Rücknahme funktionieren. Die Testplattform wurde nicht angegeben; eine getrennte Desktop-/Mobile-Abdeckung ist damit nicht belegt.

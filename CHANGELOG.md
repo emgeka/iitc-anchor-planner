@@ -3,9 +3,11 @@
 ## 0.2.0-beta.6 — complete key inventory list
 
 ### English
+- User confirmed screenshot/video recognition, selected-count writes and inventory display, plus reset/refresh/undo in IITC on 2026-10-06; test platform unspecified.
 - Read-only total IITC Keys inventory in the panel and tasks, with name search, name/count sorting and portal/key totals. Includes stock outside the plan; unknown names remain marked.
 
 ### Deutsch
+- Nutzer bestätigt Screenshot-/Videoerkennung, Übernahme und Bestandsanzeige sowie Reset/Refresh/Rücknahme in IITC am 2026-10-06; Testplattform nicht angegeben.
 - Gesamten IITC-Keys-Bestand im Panel und unter Aufgaben lesend anzeigen, mit Namenssuche, Sortierung nach Name/Menge und Portal-/Keysummen. Planfremde Bestände einbeziehen; fehlende Namen kennzeichnen.
 
 ## 0.2.0-beta.5 — complete key reset and persistent undo

@@ -86,7 +86,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.6 stehen noch aus.
+- Der Key-Ablauf wurde für 0.2.0-beta.6 praktisch bestätigt (siehe Testszenarien). Getrennte Desktop-/Mobile-Abdeckung und übrige Beta-Szenarien stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
@@ -186,7 +186,7 @@
   und stellt keine eigenen Intel-Tile-Anfragen.
 
 ## Keyimport-Entwurf
-- OCR-/Video-Praxistest mit echten Ingress-Dateien auf Desktop und Mobile steht aus.
+- Screenshot-/Videoerkennung und Übernahme in Keys wurden im echten IITC vom Nutzer bestätigt. Weitere Aufnahmen, Videoformate und getrennte Desktop-/Mobile-Abdeckung bleiben zu prüfen.
 - Erkennung derzeit Englisch/Deutsch, exakte Namen oder eindeutige sichtbare Kürzung;
   OCR-Tippfehler werden bewusst nicht unscharf zugeordnet. Unbekannte Planportale fehlen
   in der Prüftabelle. Neue Importtexte außerhalb Deutsch/Englisch verwenden Englisch.
@@ -199,7 +199,7 @@
 
 - Der bereitgestellte echte Screenshot wurde lokal mit Tesseract.js 5.1.1 und der
   tatsächlichen neuen Vorverarbeitung/Zuordnung geprüft: fünf Mengen korrekt erkannt.
-  Der integrierte IITC-/Mobile-Praxistest bleibt offen. Andere Fotos, verdeckte Namen,
+  Die Screenshot-Erkennung wurde anschließend auch im IITC-Praxistest bestätigt. Andere Fotos, verdeckte Namen,
   Scrollbewegungen oder kontrastarme Schrift können weiterhin zu Lücken führen.
 - Dunkle Aufnahmen benötigen zwei Erkennungsdurchläufe je Bild; Videos können dadurch
   langsamer werden. Mehrdeutige Namensvarianten und unterschiedliche Mengen bleiben offen.
@@ -207,8 +207,8 @@
 ## Key-Rücknahme
 - Nur die letzte AP-Import-/Reset-Änderung wird lokal gesichert; direkte manuelle Eingaben nicht. Ein neuer Vorgang mit tatsächlichen Änderungen ersetzt die Sicherung. Browserdaten löschen entfernt sie; Keys-Sync überträgt sie nicht auf andere Geräte.
 - Teilfehler werden gemeldet und bleiben rücknehmbar; kein automatischer Rollback. Außerhalb des Plans können Portalnamen fehlen. Spätere Änderungen verlangen eine ausdrückliche Konfliktauswahl.
-- Reset-/Rücknahmedialoge sind automatisiert mit Keys-Testdaten geprüft; der Desktop-/Mobile-Praxistest in IITC steht noch aus.
+- Vollständiger Reset, IITC-Refresh und anschließende Wiederherstellung der vorherigen Mengen wurden vom Nutzer bestätigt. Konflikt- und Fehlerfälle sind automatisiert geprüft; getrennte Desktop-/Mobile-Abdeckung bleibt offen.
 
 ## Gesamtbestandsliste
 - Keys speichert Mengen nach GUID, keine Portalnamen. Namen außerhalb von Plan, geladenen Portalen und Bookmarks können fehlen; diese Bestände werden trotzdem vollständig gezählt. Keine automatischen Detailabfragen. Nach Laden des Kartenausschnitts Aktualisieren wählen.
-- Suche gilt für bekannte/angezeigte Namen; Gesamtzahlen bleiben der vollständige Bestand. Die neuen Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch. Desktop-/Mobile-Praxistest der Liste bleibt offen.
+- Suche gilt für bekannte/angezeigte Namen; Gesamtzahlen bleiben der vollständige Bestand. Die neuen Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch. Anzeige der übernommenen Videomengen im Gesamtbestand wurde vom Nutzer bestätigt. Getrennte Desktop-/Mobile-Abdeckung, Such-/Sortierbedienung und weitere Namensfälle bleiben zu prüfen.
