@@ -221,5 +221,18 @@
   "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
   "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
   "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-  "keys.applied": "Applied {count} counts to Keys."
+  "keys.applied": "Applied {count} counts to Keys.",
+  "keys.reset": "Reset all keys",
+  "keys.undo": "Undo key change",
+  "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+  "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+  "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+  "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+  "keys.noUndo": "No saved key change to undo.",
+  "keys.restore": "Restore",
+  "keys.undoStatus": "Status",
+  "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+  "keys.alreadyRestored": "Already restored",
+  "keys.undoConflict": "Changed later",
+  "keys.undoReady": "Ready to restore"
 }

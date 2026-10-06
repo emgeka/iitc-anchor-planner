@@ -447,3 +447,11 @@ Dateiauswahl und Abbruch bedienbar, Abbruch leert die Prüftabelle und deaktivie
 - Reale Aufnahme lokal geprüft: alle fünf sichtbaren Mengen 7/6/10/1/1 korrekt;
   Bild und Ortsdaten bleiben ausschließlich in lokalen temporären Testdateien.
 - Erneut im echten IITC-Import mit deutscher OCR testen; Bestände erst nach Prüfung übernehmen.
+
+## Keys zurücksetzen und rückgängig machen (0.2.0-beta.5)
+1. Import übernehmen, IITC neu laden, Keyänderung rückgängig öffnen: Vorherwerte verfügbar. Einzelne Keys später ändern: Konflikte bleiben abgewählt; explizite Auswahl stellt sie wieder her.
+2. Keys außerhalb des Plans anlegen. Alle Keys zurücksetzen nennt vollständige Portal-/Keyzahl; Dialog schließen ändert nichts, bestätigen setzt alles auf null. Plan und Aufgaben bleiben erhalten. Rücknahme stellt auch planfremde Bestände wieder her.
+3. Während der Prüfung Bestand verändern oder neue Sicherung erzeugen: veraltete Übernahme ablehnen. Ausgewählte Konflikte nochmals verändern: nicht überschreiben.
+4. Plan löschen und neu laden: Rücknahme bleibt verfügbar. Keine Änderung bei erneutem identischem Import/leerem Reset; vorherige Sicherung bleibt erhalten.
+5. Speicherfehler vor Import/Reset: keine Keys schreiben. Teilfehler im Keys-Plugin: Sicherung verfügbar, bereits/unverändert gebliebene Mengen unterscheiden.
+6. Dialoge bei 360 Pixel Breite und per Touch prüfen; Tabelle scrollbar, Mengen und Konflikte erkennbar. Tests mit Testbeständen durchführen.

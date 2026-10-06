@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.4
+// @version        0.2.0-beta.5
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006120000';
+  plugin_info.dateTimeVersion = '20261006180000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.4';
+  ap.VERSION = '0.2.0-beta.5';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -269,7 +269,20 @@ function wrapper(plugin_info) {
       "keys.changed": "Der Plan wurde geändert oder Keys ist nicht verfügbar. Dateien erneut auslesen.",
       "keys.invalid": "Ausgewählte Mengen müssen ganze Zahlen ab null sein.",
       "keys.partial": "Nur {count} Werte wurden übernommen. Vor einem erneuten Versuch das Keys-Plugin prüfen.",
-      "keys.applied": "{count} Werte in Keys übernommen."
+      "keys.applied": "{count} Werte in Keys übernommen.",
+      "keys.reset": "Alle Keys zurücksetzen",
+      "keys.undo": "Keyänderung rückgängig",
+      "keys.resetConfirm": "{count} Keys an {portals} Portalen auf null setzen? Dies umfasst alle Portale in IITC Keys, auch außerhalb dieses Plans. Zum Abbrechen diesen Dialog schließen.",
+      "keys.undoNotice": "Der letzte Import oder das Zurücksetzen kann auch nach einem IITC-Refresh rückgängig gemacht werden. Ein neuer Import oder Reset ersetzt die Sicherung. Direkte manuelle Änderungen erzeugen keine Sicherung.",
+      "keys.backupFailed": "Die Sicherung für die Rücknahme konnte nicht gespeichert werden. Vor einem erneuten Versuch den Browserspeicher prüfen.",
+      "keys.inventoryChanged": "Bestand oder Sicherung wurde geändert. Diesen Dialog schließen und zur erneuten Prüfung wieder öffnen.",
+      "keys.noUndo": "Keine gespeicherte Keyänderung zum Rückgängigmachen.",
+      "keys.restore": "Wiederherstellen",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Bestände vor dem letzten Import oder Zurücksetzen wiederherstellen. Spätere Änderungen sind als Konflikte markiert und nicht ausgewählt. Einen Konflikt nur auswählen, wenn sein aktueller Bestand überschrieben werden soll. Nicht ausgewählte Konflikte bleiben für eine spätere Rücknahme verfügbar.",
+      "keys.alreadyRestored": "Bereits wiederhergestellt",
+      "keys.undoConflict": "Nachträglich geändert",
+      "keys.undoReady": "Rücknahme möglich"
     },
     "en": {
       "language.label": "Language",
@@ -494,7 +507,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "es": {
       "language.label": "Idioma",
@@ -719,7 +745,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "fr": {
       "language.label": "Langue",
@@ -944,7 +983,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "it": {
       "language.label": "Lingua",
@@ -1169,7 +1221,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "ja": {
       "language.label": "言語",
@@ -1394,7 +1459,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "pl": {
       "language.label": "Język",
@@ -1619,7 +1697,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -1844,7 +1935,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "ru": {
       "language.label": "Язык",
@@ -2069,7 +2173,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2294,7 +2411,20 @@ function wrapper(plugin_info) {
       "keys.changed": "The plan changed or Keys is unavailable. Read the files again.",
       "keys.invalid": "Selected counts must be whole numbers of zero or greater.",
       "keys.partial": "Only {count} counts were applied. Check the Keys plugin before trying again.",
-      "keys.applied": "Applied {count} counts to Keys."
+      "keys.applied": "Applied {count} counts to Keys.",
+      "keys.reset": "Reset all keys",
+      "keys.undo": "Undo key change",
+      "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
+      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
+      "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
+      "keys.noUndo": "No saved key change to undo.",
+      "keys.restore": "Restore",
+      "keys.undoStatus": "Status",
+      "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
+      "keys.alreadyRestored": "Already restored",
+      "keys.undoConflict": "Changed later",
+      "keys.undoReady": "Ready to restore"
     }
   };
   // AP_LOCALES_END
@@ -3514,7 +3644,7 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
-    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button></div>';
+    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
@@ -3581,6 +3711,8 @@ function wrapper(plugin_info) {
     element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
     element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
     if (element.querySelector('#ap-task-key-import')) element.querySelector('#ap-task-key-import').onclick = ap.showKeyImport;
+    if (element.querySelector('#ap-task-key-reset')) element.querySelector('#ap-task-key-reset').onclick = ap.showKeyReset;
+    if (element.querySelector('#ap-task-key-undo')) element.querySelector('#ap-task-key-undo').onclick = ap.showKeyUndo;
     element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-direction'), function (select) {
       select.onchange = function () { var link = ap.runtime.links[Number(this.getAttribute('data-link'))]; if (link) ap.setLinkDirection(link.id, this.value); };
@@ -4181,7 +4313,9 @@ function wrapper(plugin_info) {
   ap.getOwnedKeys = function (guid) {
     var plugin = ap.getKeysPlugin();
     if (!plugin) return null;
-    var count = Number(plugin.keys[guid] || 0);
+    var raw = plugin.keys[guid];
+    if (raw !== undefined && (raw === null || !['number', 'string'].includes(typeof raw) || String(raw).trim() === '')) return null;
+    var count = Number(raw === undefined ? 0 : raw);
     return Number.isSafeInteger(count) && count >= 0 ? count : null;
   };
   ap.keyCountLabel = function (guid) { var count = ap.getOwnedKeys(guid); return count === null ? '?' : count; };
@@ -4201,6 +4335,135 @@ function wrapper(plugin_info) {
     }
     changed();
   };
+  // Undo data is separate from plan state and is never an inventory fallback.
+  ap.readKeyUndo = function () {
+    var raw;
+    try { raw = localStorage.getItem(ap.STORAGE_KEY + '.keyUndo'); }
+    catch (error) { throw new Error(ap.t('keys.backupFailed')); }
+    if (!raw) return null;
+    try {
+      var value = JSON.parse(raw), seen = new Set();
+      if (!value || typeof value.id !== 'string' || !['import', 'reset'].includes(value.kind) || !Array.isArray(value.entries)) return null;
+      if (!value.entries.every(function (entry) {
+        if (!entry || typeof entry.guid !== 'string' || !entry.guid || seen.has(entry.guid) ||
+          !Number.isSafeInteger(entry.before) || entry.before < 0 || !Number.isSafeInteger(entry.after) || entry.after < 0) return false;
+        seen.add(entry.guid); return true;
+      })) return null;
+      return value.entries.length ? value : null;
+    } catch (error) { return null; }
+  };
+  ap.writeKeyUndo = function (value) {
+    try { localStorage.setItem(ap.STORAGE_KEY + '.keyUndo', JSON.stringify(value)); }
+    catch (error) { throw new Error(ap.t('keys.backupFailed')); }
+  };
+  ap.keyInventory = function () {
+    var plugin = ap.getKeysPlugin();
+    if (!plugin) throw new Error(ap.t('keys.needPlugin'));
+    return Object.keys(plugin.keys).sort().map(function (guid) {
+      var count = ap.getOwnedKeys(guid);
+      if (count === null) throw new Error(ap.t('keys.invalid'));
+      return { guid: guid, count: count };
+    }).filter(function (row) { return row.count > 0; });
+  };
+  ap.applyKeyBatch = function (rows, kind) {
+    if (!ap.getKeysPlugin()) throw new Error(ap.t('keys.needPlugin'));
+    if (!['import', 'reset'].includes(kind)) throw new Error(ap.t('keys.invalid'));
+    var seen = new Set();
+    var entries = rows.map(function (row) {
+      var before = ap.getOwnedKeys(row.guid);
+      if (typeof row.guid !== 'string' || !row.guid || seen.has(row.guid) || before === null || !Number.isSafeInteger(row.count) || row.count < 0) throw new Error(ap.t('keys.invalid'));
+      seen.add(row.guid);
+      var title = (ap.runtime.stats[row.guid] || {}).title || '';
+      if (!title && window.portals && window.portals[row.guid]) title = ap.getPortalTitleFromMarker(row.guid, window.portals[row.guid]);
+      return { guid: row.guid, title: title, before: before, after: row.count };
+    }).filter(function (entry) { return entry.before !== entry.after; });
+    if (!entries.length) return rows.length;
+    // Persist every intended change before the first Keys write. After interruption,
+    // unchanged entries are already restored; unexpected values require review.
+    var backup = { id: Date.now() + '-' + Math.random(), kind: kind, entries: entries };
+    var previousBackup = ap.readKeyUndo();
+    ap.writeKeyUndo(backup);
+    var applied = 0;
+    entries.forEach(function (entry) {
+      try {
+        if (ap.getOwnedKeys(entry.guid) !== entry.before || !ap.setOwnedKeys(entry.guid, entry.after)) throw new Error();
+      } catch (error) {
+        if (entries.every(function (item) { return ap.getOwnedKeys(item.guid) === item.before; })) ap.writeKeyUndo(previousBackup);
+        throw new Error(ap.t('keys.partial', { count: applied }));
+      }
+      applied++;
+    });
+    return rows.length;
+  };
+  ap.resetAllKeys = function (reviewed) {
+    if (JSON.stringify(ap.keyInventory()) !== JSON.stringify(reviewed)) throw new Error(ap.t('keys.inventoryChanged'));
+    return ap.applyKeyBatch(reviewed.map(function (row) { return { guid: row.guid, count: 0 }; }), 'reset');
+  };
+  ap.keyUndoRows = function (backup) {
+    if (!ap.getKeysPlugin()) throw new Error(ap.t('keys.needPlugin'));
+    return backup.entries.map(function (entry) {
+      var current = ap.getOwnedKeys(entry.guid);
+      return { guid: entry.guid, title: typeof entry.title === 'string' ? entry.title : '', before: entry.before, current: current,
+        restored: current === entry.before, conflict: current !== entry.before && current !== entry.after,
+        selected: current !== entry.before && current === entry.after };
+    });
+  };
+  ap.undoKeys = function (reviewed, id) {
+    var backup = ap.readKeyUndo();
+    if (!backup || backup.id !== id || !ap.getKeysPlugin()) throw new Error(ap.t('keys.inventoryChanged'));
+    var selected = reviewed.filter(function (row) { return row.selected; }), seen = new Set();
+    selected.forEach(function (row) {
+      if (seen.has(row.guid) || !backup.entries.some(function (entry) { return entry.guid === row.guid; }) ||
+        row.current === null || ap.getOwnedKeys(row.guid) !== row.current) throw new Error(ap.t('keys.inventoryChanged'));
+      seen.add(row.guid);
+    });
+    var applied = 0;
+    selected.forEach(function (row) {
+      var entry = backup.entries.find(function (item) { return item.guid === row.guid; });
+      try {
+        if (ap.getOwnedKeys(row.guid) !== row.current || !ap.setOwnedKeys(row.guid, entry.before)) throw new Error();
+      } catch (error) { throw new Error(ap.t('keys.partial', { count: applied })); }
+      applied++;
+    });
+    backup.entries = backup.entries.filter(function (entry) { return ap.getOwnedKeys(entry.guid) !== entry.before; });
+    ap.writeKeyUndo(backup.entries.length ? backup : null);
+    return applied;
+  };
+  ap.showKeyReset = function () {
+    var reviewed;
+    try { reviewed = ap.keyInventory(); } catch (error) { window.alert(error.message); return; }
+    var element = document.createElement('div');
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.resetConfirm', { portals: reviewed.length, count: reviewed.reduce(function (sum, row) { return sum + row.count; }, 0) })) + '</p><p>' + ap.escapeHtml(ap.t('keys.undoNotice')) + '</p><button class="ap-key-reset-confirm">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><p role="status"></p>';
+    var button = element.querySelector('button'); button.disabled = !reviewed.length;
+    button.onclick = function () {
+      try { var count = ap.resetAllKeys(reviewed); element.querySelector('[role="status"]').textContent = ap.t('keys.applied', { count: count }); }
+      catch (error) { element.querySelector('[role="status"]').textContent = error.message; }
+      button.disabled = true; ap.refreshKeys();
+    };
+    window.dialog({ id: 'anchor-planner-key-reset', title: ap.t('keys.reset'), html: element, width: 520 });
+  };
+  ap.showKeyUndo = function () {
+    var backup, rows;
+    try {
+      backup = ap.readKeyUndo();
+      if (!backup) throw new Error(ap.t('keys.noUndo'));
+      rows = ap.keyUndoRows(backup);
+    } catch (error) { window.alert(error.message); return; }
+    var element = document.createElement('div');
+    var html = '<p>' + ap.escapeHtml(ap.t('keys.undoReview')) + '</p><div style="overflow:auto;max-height:50vh"><table style="width:100%"><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.restore', 'keys.undoStatus'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (row, index) {
+      html += '<tr><td><input type="checkbox" data-index="' + index + '" aria-label="' + ap.escapeHtml(ap.t('keys.select')) + '"' + (row.selected ? ' checked' : '') + (row.restored || row.current === null ? ' disabled' : '') + '></td><td>' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + '</td><td>' + (row.current === null ? '?' : row.current) + '</td><td>' + row.before + '</td><td>' + ap.escapeHtml(ap.t(row.restored ? 'keys.alreadyRestored' : row.conflict ? 'keys.undoConflict' : 'keys.undoReady')) + '</td></tr>';
+    });
+    element.innerHTML = html + '</tbody></table></div><p><button>' + ap.escapeHtml(ap.t('keys.undo')) + '</button></p><p role="status"></p>';
+    element.querySelector('button').onclick = function () {
+      element.querySelectorAll('input[data-index]').forEach(function (input) { rows[Number(input.getAttribute('data-index'))].selected = input.checked && !input.disabled; });
+      try { var count = ap.undoKeys(rows, backup.id); element.querySelector('[role="status"]').textContent = ap.t('keys.applied', { count: count }); }
+      catch (error) { element.querySelector('[role="status"]').textContent = error.message; }
+      element.querySelector('button').disabled = true; ap.refreshKeys();
+    };
+    window.dialog({ id: 'anchor-planner-key-undo', title: ap.t('keys.undo'), html: element, width: 720 });
+  };
+
   ap.keyImportSignature = function () {
     return JSON.stringify(ap.sortedStats(false).map(function (p) { return [p.guid, p.title]; }).sort());
   };
@@ -4270,13 +4533,7 @@ function wrapper(plugin_info) {
     rows.filter(function (row) { return row.selected; }).forEach(function (row) {
       if (!ap.runtime.stats[row.guid] || !Number.isSafeInteger(row.count) || row.count < 0) throw new Error(ap.t('keys.invalid'));
     });
-    var applied = 0;
-    rows.filter(function (row) { return row.selected; }).forEach(function (row) {
-      try { if (!ap.setOwnedKeys(row.guid, row.count)) throw new Error(); }
-      catch (error) { throw new Error(ap.t('keys.partial', { count: applied })); }
-      applied++;
-    });
-    return applied;
+    return ap.applyKeyBatch(rows.filter(function (row) { return row.selected; }), 'import');
   };
   ap.loadKeyOcr = function () {
     if (window.Tesseract) return Promise.resolve(window.Tesseract);
@@ -4341,7 +4598,7 @@ function wrapper(plugin_info) {
   ap.showKeyImport = function () {
     if (!ap.getKeysPlugin()) { window.alert(ap.t('keys.needPlugin')); return; }
     var element = document.createElement('div'), job = null, rows = [], signature;
-    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.notice')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" style="max-width:100%" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review" style="overflow:auto;max-height:50vh"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.notice')) + '</p><p>' + ap.escapeHtml(ap.t('keys.undoNotice')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" style="max-width:100%" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review" style="overflow:auto;max-height:50vh"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
     element.querySelector('.ap-key-language').value = ap.getLanguage() === 'de' ? 'deu' : 'eng';
     var start = element.querySelector('.ap-key-start'), apply = element.querySelector('.ap-key-apply'), status = element.querySelector('.ap-key-progress');
     function cancel() {
@@ -5780,7 +6037,7 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
-    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
+    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
@@ -5906,6 +6163,8 @@ function wrapper(plugin_info) {
     document.getElementById('ap-export').onclick = ap.showExport;
     document.getElementById('ap-sort-location').onclick = ap.sortRouteFromUserLocation;
     document.getElementById('ap-key-import').onclick = ap.showKeyImport;
+    document.getElementById('ap-key-reset').onclick = ap.showKeyReset;
+    document.getElementById('ap-key-undo').onclick = ap.showKeyUndo;
     document.getElementById('ap-clear').onclick = ap.clearData;
     document.getElementById('ap-tolerance').onchange = function () { ap.state.tolerance = parseInt(this.value, 10) || ap.DEFAULT_TOLERANCE_M; ap.save(); };
     document.getElementById('ap-language').onchange = function () {

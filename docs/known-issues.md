@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.4
+# Bekannte Grenzen in 0.2.0-beta.5
 
 ## Portalzuordnung und Namen
 
@@ -86,7 +86,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.4 stehen noch aus.
+- Desktop-IITC- und IITC-Mobile-Praxistests für 0.2.0-beta.5 stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
@@ -203,3 +203,8 @@
   Scrollbewegungen oder kontrastarme Schrift können weiterhin zu Lücken führen.
 - Dunkle Aufnahmen benötigen zwei Erkennungsdurchläufe je Bild; Videos können dadurch
   langsamer werden. Mehrdeutige Namensvarianten und unterschiedliche Mengen bleiben offen.
+
+## Key-Rücknahme
+- Nur die letzte AP-Import-/Reset-Änderung wird lokal gesichert; direkte manuelle Eingaben nicht. Ein neuer Vorgang mit tatsächlichen Änderungen ersetzt die Sicherung. Browserdaten löschen entfernt sie; Keys-Sync überträgt sie nicht auf andere Geräte.
+- Teilfehler werden gemeldet und bleiben rücknehmbar; kein automatischer Rollback. Außerhalb des Plans können Portalnamen fehlen. Spätere Änderungen verlangen eine ausdrückliche Konfliktauswahl.
+- Reset-/Rücknahmedialoge sind automatisiert mit Keys-Testdaten geprüft; der Desktop-/Mobile-Praxistest in IITC steht noch aus.

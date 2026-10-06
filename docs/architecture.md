@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.4
+# Architekturübersicht 0.2.0-beta.5
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -408,3 +408,6 @@ Durchläufe verwenden denselben Worker; widersprüchliche Ergebnisse bleiben Kon
 parseKeyText prüft Varianten mit/ohne Level 1–8, lehnt dadurch mehrdeutige Namen ab
 und erlaubt eine Postleitzahl-/Adresszeile oder Entfernung vor xN/×N. Andere unbekannte
 Titel begrenzen die Suche. Bei deutscher UI ist die OCR-Sprache deu vorausgewählt.
+
+### Persistente Key-Rücknahme
+applyKeyBatch speichert GUID, Titel und Vorher-/Zielwerte vor allen addKey-Aufrufen unter STORAGE_KEY + `.keyUndo`, getrennt vom Planzustand. readKeyUndo validiert Struktur, doppelte GUIDs und sichere Ganzzahlen. Kein Ersatzbestand, kein Export, keine Migration. Ein No-op erhält die vorherige Sicherung. keyInventory/resetAllKeys erfassen alle positiven Keys-Einträge und prüfen die Bestandsliste vor dem Reset erneut. undoKeys prüft Sicherungs-ID und aktuelle ausgewählte Bestände; bereits wiederhergestellte Einträge entfallen, Konflikte bleiben offen. Bei Teilfehlern enthält die vorher gespeicherte Sicherung auch noch nicht ausgeführte Änderungen; diese erscheinen bei der Rücknahme als bereits wiederhergestellt. Erfolgreiche Rücknahmen werden aus der Sicherung entfernt. Scheitert deren abschließende Speicherung, bleibt die alte persistente Sicherung wiederholbar; restaurierte Werte werden beim nächsten Öffnen erkannt.

@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.4
+### Beta testing: 0.2.0-beta.5
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -131,7 +131,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.4**
+- Development version: **0.2.0-beta.5**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -164,7 +164,7 @@ Before every handoff, commit, or publication, each change must be reconciled wit
 
 Translations are maintained separately under `src/locales/*.json`. Every file contains the same semantic keys and placeholders and provides its native name under `language.name`. `node src/build-locales.mjs` validates all files and bundles them into the single userscript; `node src/build-locales.mjs --check` also verifies that the bundle is current. No language files are loaded from the internet at runtime. English is the required fallback language.
 
-## Keys import draft (0.2.0-beta.4)
+## Keys import draft (0.2.0-beta.5)
 
 Enable the official IITC **Keys** plugin. Its inventory is the only stock source;
 Anchor Planner still calculates requirements. Old local counts are ignored, with
@@ -187,3 +187,5 @@ desktop/mobile testing. New import texts currently have German and English trans
 other UI languages use English for this draft. Inspired by Fan Fields 3's review workflow.
 
 Inventory-card recognition now removes photographic backgrounds on predominantly dark images, using bright and dim neutral-text passes. It accepts level badges and an address row before the count, while stopping at another title. German UI preselects German OCR. The supplied real screenshot was tested locally: all five visible counts (7, 6, 10, 1, 1) were recognized. Exact matching still requires the portal to be in the current plan; unseen/ambiguous entries remain untouched.
+
+Use **Reset all keys** in the panel or tasks to confirm setting the entire IITC Keys inventory to zero, including portals outside the plan. **Undo key change** restores the last import or reset, with a persistent backup across IITC refreshes. Later manual changes are conflicts and require explicit selection. A new non-empty import/reset replaces the previous backup; direct edits are not backed up. Browser-local undo data is separate from inventory and survives clearing the plan.
