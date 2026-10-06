@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.5
+# Architekturübersicht 0.2.0-beta.6
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -411,3 +411,6 @@ Titel begrenzen die Suche. Bei deutscher UI ist die OCR-Sprache deu vorausgewäh
 
 ### Persistente Key-Rücknahme
 applyKeyBatch speichert GUID, Titel und Vorher-/Zielwerte vor allen addKey-Aufrufen unter STORAGE_KEY + `.keyUndo`, getrennt vom Planzustand. readKeyUndo validiert Struktur, doppelte GUIDs und sichere Ganzzahlen. Kein Ersatzbestand, kein Export, keine Migration. Ein No-op erhält die vorherige Sicherung. keyInventory/resetAllKeys erfassen alle positiven Keys-Einträge und prüfen die Bestandsliste vor dem Reset erneut. undoKeys prüft Sicherungs-ID und aktuelle ausgewählte Bestände; bereits wiederhergestellte Einträge entfallen, Konflikte bleiben offen. Bei Teilfehlern enthält die vorher gespeicherte Sicherung auch noch nicht ausgeführte Änderungen; diese erscheinen bei der Rücknahme als bereits wiederhergestellt. Erfolgreiche Rücknahmen werden aus der Sicherung entfernt. Scheitert deren abschließende Speicherung, bleibt die alte persistente Sicherung wiederholbar; restaurierte Werte werden beim nächsten Öffnen erkannt.
+
+### Gesamtbestandsliste
+keyInventoryRows verbindet alle positiven Einträge aus keyInventory mit Namen aus runtime.stats, geladenen Portalmarkern und collectPortalBookmarks; keine Inventarkopie oder Hintergrundabfrage. keyListHtml filtert nach Name, sortiert alphabetisch oder absteigend nach Menge und zeigt Gesamtsummen unabhängig vom Suchfilter. showKeyList erzeugt eine lesende Tabelle mit Such-/Sortierfeldern und Refresh; refreshKeys aktualisiert auch die offene Liste. refreshKeyList bewahrt Filter, Sortierung und Scrollposition. closeCallback verwirft ausschließlich die Referenz des geschlossenen Dialogs.
