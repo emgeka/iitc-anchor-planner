@@ -234,5 +234,15 @@
   "keys.undoReview": "Bestände vor dem letzten Import oder Zurücksetzen wiederherstellen. Spätere Änderungen sind als Konflikte markiert und nicht ausgewählt. Einen Konflikt nur auswählen, wenn sein aktueller Bestand überschrieben werden soll. Nicht ausgewählte Konflikte bleiben für eine spätere Rücknahme verfügbar.",
   "keys.alreadyRestored": "Bereits wiederhergestellt",
   "keys.undoConflict": "Nachträglich geändert",
-  "keys.undoReady": "Rücknahme möglich"
+  "keys.undoReady": "Rücknahme möglich",
+  "keys.list": "Keybestand",
+  "keys.listTotal": "Insgesamt {count} Keys an {portals} Portalen",
+  "keys.listNotice": "Gesamter Bestand aus IITC Keys, einschließlich Portalen außerhalb des Plans. Namen stammen aus dem Plan, geladenen Portalen oder Bookmarks; fehlende Namen bleiben gekennzeichnet. Diese Liste verändert keine Bestände.",
+  "keys.listSearch": "Portalnamen suchen",
+  "keys.listSort": "Bestand sortieren",
+  "keys.listSortName": "Portalname",
+  "keys.listSortCount": "Größte Menge zuerst",
+  "keys.listRefresh": "Aktualisieren",
+  "keys.listEmpty": "Keine Keys gespeichert.",
+  "keys.listNoMatch": "Keine passenden Portale."
 }

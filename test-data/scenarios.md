@@ -455,3 +455,10 @@ Dateiauswahl und Abbruch bedienbar, Abbruch leert die Prüftabelle und deaktivie
 4. Plan löschen und neu laden: Rücknahme bleibt verfügbar. Keine Änderung bei erneutem identischem Import/leerem Reset; vorherige Sicherung bleibt erhalten.
 5. Speicherfehler vor Import/Reset: keine Keys schreiben. Teilfehler im Keys-Plugin: Sicherung verfügbar, bereits/unverändert gebliebene Mengen unterscheiden.
 6. Dialoge bei 360 Pixel Breite und per Touch prüfen; Tabelle scrollbar, Mengen und Konflikte erkennbar. Tests mit Testbeständen durchführen.
+
+## Gesamtbestandsliste (0.2.0-beta.6)
+1. Keybestand ohne gescannten Plan öffnen: auch planfremde/offscreen Keys anzeigen. Gesamtsummen mit Keys abgleichen; positive Mengen vollständig zählen, Nullbestände auslassen.
+2. Namen aus Plan, geladenen Markern und Bookmarks anzeigen. Fehlende Namen kennzeichnen; keine GUID als Name, keine Detailabfragen oder Bestandsänderungen.
+3. Nach Name suchen, alphabetisch und nach größter Menge sortieren. Gesamtzahlen bleiben unabhängig vom Filter. Leeren Bestand und fehlendes Keys-Plugin unterscheiden.
+4. Import, Reset oder Keys-Änderung bei offener Liste: Anzeige aktualisiert sich, Suche/Sortierung/Scroll bleiben erhalten. Nach Laden weiterer Portale Aktualisieren wählen.
+5. Bei 360 Pixel Breite: Suchfeld, Sortierung, Refresh, lange Namen und Mengen bleiben erreichbar. Dialog schließen und wieder öffnen.

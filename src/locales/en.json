@@ -234,5 +234,15 @@
   "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
   "keys.alreadyRestored": "Already restored",
   "keys.undoConflict": "Changed later",
-  "keys.undoReady": "Ready to restore"
+  "keys.undoReady": "Ready to restore",
+  "keys.list": "Key inventory",
+  "keys.listTotal": "{count} keys at {portals} portals in total",
+  "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+  "keys.listSearch": "Search portal names",
+  "keys.listSort": "Sort inventory",
+  "keys.listSortName": "Portal name",
+  "keys.listSortCount": "Most keys first",
+  "keys.listRefresh": "Refresh",
+  "keys.listEmpty": "No keys stored.",
+  "keys.listNoMatch": "No matching portals."
 }

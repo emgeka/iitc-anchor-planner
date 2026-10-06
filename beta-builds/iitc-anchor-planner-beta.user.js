@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.5
+// @version        0.2.0-beta.6
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006180000';
+  plugin_info.dateTimeVersion = '20261006200000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.5';
+  ap.VERSION = '0.2.0-beta.6';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -282,7 +282,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Bestände vor dem letzten Import oder Zurücksetzen wiederherstellen. Spätere Änderungen sind als Konflikte markiert und nicht ausgewählt. Einen Konflikt nur auswählen, wenn sein aktueller Bestand überschrieben werden soll. Nicht ausgewählte Konflikte bleiben für eine spätere Rücknahme verfügbar.",
       "keys.alreadyRestored": "Bereits wiederhergestellt",
       "keys.undoConflict": "Nachträglich geändert",
-      "keys.undoReady": "Rücknahme möglich"
+      "keys.undoReady": "Rücknahme möglich",
+      "keys.list": "Keybestand",
+      "keys.listTotal": "Insgesamt {count} Keys an {portals} Portalen",
+      "keys.listNotice": "Gesamter Bestand aus IITC Keys, einschließlich Portalen außerhalb des Plans. Namen stammen aus dem Plan, geladenen Portalen oder Bookmarks; fehlende Namen bleiben gekennzeichnet. Diese Liste verändert keine Bestände.",
+      "keys.listSearch": "Portalnamen suchen",
+      "keys.listSort": "Bestand sortieren",
+      "keys.listSortName": "Portalname",
+      "keys.listSortCount": "Größte Menge zuerst",
+      "keys.listRefresh": "Aktualisieren",
+      "keys.listEmpty": "Keine Keys gespeichert.",
+      "keys.listNoMatch": "Keine passenden Portale."
     },
     "en": {
       "language.label": "Language",
@@ -520,7 +530,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "es": {
       "language.label": "Idioma",
@@ -758,7 +778,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "fr": {
       "language.label": "Langue",
@@ -996,7 +1026,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "it": {
       "language.label": "Lingua",
@@ -1234,7 +1274,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "ja": {
       "language.label": "言語",
@@ -1472,7 +1522,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "pl": {
       "language.label": "Język",
@@ -1710,7 +1770,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -1948,7 +2018,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "ru": {
       "language.label": "Язык",
@@ -2186,7 +2266,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2424,7 +2514,17 @@ function wrapper(plugin_info) {
       "keys.undoReview": "Restore the counts before the last import or reset. Later changes are marked as conflicts and are not selected. Select a conflict only if you want to overwrite its current count. Unselected conflicts remain available for later undo.",
       "keys.alreadyRestored": "Already restored",
       "keys.undoConflict": "Changed later",
-      "keys.undoReady": "Ready to restore"
+      "keys.undoReady": "Ready to restore",
+      "keys.list": "Key inventory",
+      "keys.listTotal": "{count} keys at {portals} portals in total",
+      "keys.listNotice": "Complete inventory from IITC Keys, including portals outside the plan. Names come from the plan, loaded portals or bookmarks; unavailable names remain marked. This list does not change inventory.",
+      "keys.listSearch": "Search portal names",
+      "keys.listSort": "Sort inventory",
+      "keys.listSortName": "Portal name",
+      "keys.listSortCount": "Most keys first",
+      "keys.listRefresh": "Refresh",
+      "keys.listEmpty": "No keys stored.",
+      "keys.listNoMatch": "No matching portals."
     }
   };
   // AP_LOCALES_END
@@ -3644,7 +3744,7 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
-    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
+    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
@@ -3710,6 +3810,7 @@ function wrapper(plugin_info) {
     });
     element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
     element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
+    if (element.querySelector('#ap-task-key-list')) element.querySelector('#ap-task-key-list').onclick = ap.showKeyList;
     if (element.querySelector('#ap-task-key-import')) element.querySelector('#ap-task-key-import').onclick = ap.showKeyImport;
     if (element.querySelector('#ap-task-key-reset')) element.querySelector('#ap-task-key-reset').onclick = ap.showKeyReset;
     if (element.querySelector('#ap-task-key-undo')) element.querySelector('#ap-task-key-undo').onclick = ap.showKeyUndo;
@@ -4325,7 +4426,7 @@ function wrapper(plugin_info) {
     plugin.addKey(count - current, guid);
     return ap.getOwnedKeys(guid) === count;
   };
-  ap.refreshKeys = function () { ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); };
+  ap.refreshKeys = function () { ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); ap.refreshKeyList(); };
   ap.setupKeysIntegration = function () {
     var timer;
     var changed = function () { clearTimeout(timer); timer = setTimeout(ap.refreshKeys, 100); };
@@ -4365,6 +4466,53 @@ function wrapper(plugin_info) {
       return { guid: guid, count: count };
     }).filter(function (row) { return row.count > 0; });
   };
+  ap.keyInventoryRows = function () {
+    var inventory = ap.keyInventory(), bookmarks = Object.create(null);
+    ap.collectPortalBookmarks(ap.getLoadedPortals()).forEach(function (portal) {
+      if (portal.guid && !ap.isMissingPortalTitle(portal.title)) bookmarks[portal.guid] = portal.title;
+    });
+    return inventory.map(function (row) {
+      var title = ap.cleanTitle((ap.runtime.stats[row.guid] || {}).title);
+      if (ap.isMissingPortalTitle(title) && window.portals && window.portals[row.guid]) title = ap.getPortalTitleFromMarker(row.guid, window.portals[row.guid]);
+      if (ap.isMissingPortalTitle(title)) title = bookmarks[row.guid] || '';
+      return { guid: row.guid, title: ap.displayPortalTitle(title), count: row.count, missingName: ap.isMissingPortalTitle(title) };
+    });
+  };
+  ap.keyListHtml = function (rows, query, sort) {
+    var filtered = rows.filter(function (row) { return row.title.toLocaleLowerCase().includes(String(query || '').toLocaleLowerCase()); });
+    filtered.sort(function (a, b) {
+      if (sort === 'count' && a.count !== b.count) return b.count - a.count;
+      if (a.missingName !== b.missingName) return a.missingName ? 1 : -1;
+      return a.title.localeCompare(b.title) || a.guid.localeCompare(b.guid);
+    });
+    var html = '<p>' + ap.escapeHtml(ap.t('keys.listTotal', { portals: rows.length, count: rows.reduce(function (sum, row) { return sum + row.count; }, 0) })) + '</p>';
+    if (!filtered.length) return html + '<p>' + ap.escapeHtml(ap.t(rows.length ? 'keys.listNoMatch' : 'keys.listEmpty')) + '</p>';
+    html += '<table style="width:100%;table-layout:fixed"><thead><tr><th style="text-align:left">' + ap.escapeHtml(ap.t('keys.portal')) + '</th><th style="width:5em;text-align:right">' + ap.escapeHtml(ap.t('keys.current')) + '</th></tr></thead><tbody>';
+    filtered.forEach(function (row) {
+      html += '<tr><td style="overflow-wrap:anywhere">' + ap.escapeHtml(row.title) + '</td><td style="text-align:right">' + row.count + '</td></tr>';
+    });
+    return html + '</tbody></table>';
+  };
+  ap.refreshKeyList = function () {
+    var element = ap.runtime.keyListElement;
+    if (!element) return;
+    var content = element.querySelector('.ap-key-list-content'), scroll = content.scrollTop;
+    try { content.innerHTML = ap.keyListHtml(ap.keyInventoryRows(), element.querySelector('input').value, element.querySelector('select').value); }
+    catch (error) { content.textContent = error.message; }
+    content.scrollTop = scroll;
+  };
+  ap.showKeyList = function () {
+    var element = document.createElement('div');
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.listNotice')) + '</p><div style="display:flex;flex-wrap:wrap;gap:6px"><input type="search" style="min-width:0;max-width:100%;flex:1" aria-label="' + ap.escapeHtml(ap.t('keys.listSearch')) + '" placeholder="' + ap.escapeHtml(ap.t('keys.listSearch')) + '"><select aria-label="' + ap.escapeHtml(ap.t('keys.listSort')) + '"><option value="name">' + ap.escapeHtml(ap.t('keys.listSortName')) + '</option><option value="count">' + ap.escapeHtml(ap.t('keys.listSortCount')) + '</option></select><button>' + ap.escapeHtml(ap.t('keys.listRefresh')) + '</button></div><div class="ap-key-list-content" style="overflow:auto;max-height:55vh" aria-live="polite"></div>';
+    ap.runtime.keyListElement = element;
+    element.querySelector('input').oninput = ap.refreshKeyList;
+    element.querySelector('select').onchange = ap.refreshKeyList;
+    element.querySelector('button').onclick = ap.refreshKeyList;
+    ap.refreshKeyList();
+    window.dialog({ id: 'anchor-planner-key-list', title: ap.t('keys.list'), html: element, width: 580,
+      closeCallback: function () { if (ap.runtime.keyListElement === element) ap.runtime.keyListElement = null; } });
+  };
+
   ap.applyKeyBatch = function (rows, kind) {
     if (!ap.getKeysPlugin()) throw new Error(ap.t('keys.needPlugin'));
     if (!['import', 'reset'].includes(kind)) throw new Error(ap.t('keys.invalid'));
@@ -6037,7 +6185,7 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
-    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
+    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
@@ -6162,6 +6310,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-loadnames').onclick = ap.refreshMissingNames;
     document.getElementById('ap-export').onclick = ap.showExport;
     document.getElementById('ap-sort-location').onclick = ap.sortRouteFromUserLocation;
+    document.getElementById('ap-key-list').onclick = ap.showKeyList;
     document.getElementById('ap-key-import').onclick = ap.showKeyImport;
     document.getElementById('ap-key-reset').onclick = ap.showKeyReset;
     document.getElementById('ap-key-undo').onclick = ap.showKeyUndo;
