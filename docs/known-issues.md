@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.7
+# Bekannte Grenzen in 0.2.0-beta.8
 
 ## Portalzuordnung und Namen
 
@@ -218,3 +218,9 @@
 - Unbestätigte Wurfrichtung, fehlende Intel-Linkidentität, unbekannter/null Bestand und Schreibunterbrechungen werden nicht automatisch nachgebucht. In Aufgaben den Bestand prüfen/korrigieren und als geprüft markieren.
 - Buchungen sind lokale Beobachtungen; Keys-Sync überträgt Mengen, aber nicht das Buchungsjournal. Mehrere aktive Geräte/Tabs können daher dieselbe Beobachtung separat verarbeiten. Nach Browserdatenlöschung beginnt eine neue Basisaufnahme.
 - Automatisierte Tests decken Übergänge und Doppelbuchungen ab; IITC-Praxistest des Verbrauchs bleibt offen.
+
+## Walk Sim
+- Vorschau nur für die verbleibende Aufgabenroute. Änderungen/GPS während des Laufs werden erst beim erneuten Öffnen berücksichtigt. Nicht aufgelöste Aufgaben werden gezählt, ohne erfundene Stopps.
+- Dreiecke sind geometrische Vorschauen; Eroberung, Feldüberlagerungen, Linklimits und Bauen unter Feldern werden nicht validiert. Unbestätigte Richtung, fehlende Koordinaten/Keys oder noch aktive Blocker verhindern den simulierten Wurf.
+- Nach Schließen ist ein neuer Scan/Finalcheck erforderlich, um passive Link-/Keybeobachtungen wieder zu aktivieren. Dadurch können verspätete Kartenladungen aus der Vorschau keinen Bestand ändern.
+- Automatisierte Simulation-/Timer-/Layerprüfungen; echter IITC-Desktop-/Mobile-Praxistest steht aus. Neue Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch.

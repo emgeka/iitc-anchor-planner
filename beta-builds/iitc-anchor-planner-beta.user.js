@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.7
+// @version        0.2.0-beta.8
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006210000';
+  plugin_info.dateTimeVersion = '20261006220000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.7';
+  ap.VERSION = '0.2.0-beta.8';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -297,7 +297,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Der automatische Keyverbrauch konnte nicht sicher gespeichert werden. Für diese Beobachtung erfolgt keine weitere automatische Buchung; Browserspeicher und Bestand prüfen.",
       "keys.usageCheck": "Keybestand prüfen: Automatische Buchung war nicht möglich oder wurde unterbrochen. Richtung prüfen und aktuellen Bestand korrigieren/importieren, bevor er als geprüft markiert wird.",
       "keys.usageReviewed": "Bestand geprüft",
-      "keys.usageBooked": "1 Key bei {portal} abgezogen"
+      "keys.usageBooked": "1 Key bei {portal} abgezogen",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau.",
+      "walk.previous": "Zurück",
+      "walk.next": "Weiter",
+      "walk.play": "Abspielen",
+      "walk.pause": "Pause",
+      "walk.restart": "Von vorn",
+      "walk.stop": "Stopp {index} von {count}",
+      "walk.totals": "Vorschau: {links} Links · {fields} Dreiecke · {distance} Luftlinienweg",
+      "walk.empty": "Keine verbleibenden Stopps. Zuerst einen Plan scannen und Aufgaben prüfen.",
+      "walk.remove": "Blocker abbauen",
+      "walk.throw": "Link werfen",
+      "walk.ready": "Simuliert; ein Key verbraucht",
+      "walk.direction": "Richtung unbestätigt; nicht simuliert",
+      "walk.coordinates": "Koordinaten fehlen; nicht simuliert",
+      "walk.blocked": "Blocker noch nicht abgebaut; nicht simuliert",
+      "walk.unknownKeys": "Keybestand unbekannt; nicht simuliert",
+      "walk.missingKeys": "Kein Key in der Vorschau übrig; nicht simuliert",
+      "walk.visit": "Portal besuchen und vorbereiten",
+      "walk.unresolved": "{count} Aufgaben konnten nicht eingeplant werden. Aufgaben prüfen.",
+      "walk.finalScan": "Vor Walk Sim den Finalcheck pausieren.",
+      "walk.resumeScan": "Nach Walk Sim die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
+      "walk.stopped": "Vorschau beendet. Zum Neustart Walk Sim erneut öffnen.",
+      "walk.notes": "Vorschau: Hinweise",
+      "walk.keysLeft": "Virtuell übrig: {count} Keys"
     },
     "en": {
       "language.label": "Language",
@@ -550,7 +575,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "es": {
       "language.label": "Idioma",
@@ -803,7 +853,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "fr": {
       "language.label": "Langue",
@@ -1056,7 +1131,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "it": {
       "language.label": "Lingua",
@@ -1309,7 +1409,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "ja": {
       "language.label": "言語",
@@ -1562,7 +1687,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "pl": {
       "language.label": "Język",
@@ -1815,7 +1965,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2068,7 +2243,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "ru": {
       "language.label": "Язык",
@@ -2321,7 +2521,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2574,7 +2799,32 @@ function wrapper(plugin_info) {
       "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
-      "keys.usageBooked": "1 key deducted at {portal}"
+      "keys.usageBooked": "1 key deducted at {portal}",
+      "walk.title": "Walk Sim",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.previous": "Previous",
+      "walk.next": "Next",
+      "walk.play": "Play",
+      "walk.pause": "Pause",
+      "walk.restart": "Start again",
+      "walk.stop": "Stop {index} of {count}",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
+      "walk.remove": "Remove blocker",
+      "walk.throw": "Throw link",
+      "walk.ready": "Simulated; one key used",
+      "walk.direction": "Direction unconfirmed; not simulated",
+      "walk.coordinates": "Coordinates unavailable; not simulated",
+      "walk.blocked": "Blocker not cleared yet; not simulated",
+      "walk.unknownKeys": "Key inventory unknown; not simulated",
+      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.visit": "Visit and prepare portal",
+      "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
+      "walk.finalScan": "Pause the final check before starting Walk Sim.",
+      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.notes": "Preview notes",
+      "walk.keysLeft": "Virtual stock left: {count} keys"
     }
   };
   // AP_LOCALES_END
@@ -3794,7 +4044,7 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
-    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
+    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
@@ -3861,6 +4111,7 @@ function wrapper(plugin_info) {
     });
     element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
     element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
+    if (element.querySelector('#ap-task-walk')) element.querySelector('#ap-task-walk').onclick = ap.showWalkSimulation;
     if (element.querySelector('#ap-task-key-list')) element.querySelector('#ap-task-key-list').onclick = ap.showKeyList;
     if (element.querySelector('#ap-task-key-import')) element.querySelector('#ap-task-key-import').onclick = ap.showKeyImport;
     if (element.querySelector('#ap-task-key-reset')) element.querySelector('#ap-task-key-reset').onclick = ap.showKeyReset;
@@ -3910,6 +4161,158 @@ function wrapper(plugin_info) {
     });
     ap.wireTaskList(element);
     element.scrollTop = scroll;
+  };
+
+  ap.createWalkSimulation = function () {
+    var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
+    var points = Object.create(null), keys = Object.create(null), edges = Object.create(null), formed = new Set();
+    var built = [], fields = [], cleared = new Set(), trail = [], paths = [[]], distance = 0;
+    (ap.runtime.links || []).forEach(function (link) {
+      var pointA = ap.workPoint(link.latlngA), pointB = ap.workPoint(link.latlngB);
+      if (pointA) points[link.a] = { lat: pointA.lat, lng: pointA.lng };
+      if (pointB) points[link.b] = { lat: pointB.lat, lng: pointB.lng };
+      if (link.existing) edges[link.id] = [link.a, link.b];
+    });
+    Object.keys(ap.runtime.stats || {}).forEach(function (guid) {
+      var point = ap.workPoint(ap.runtime.stats[guid]);
+      if (point) points[guid] = { lat: point.lat, lng: point.lng };
+    });
+    function closeTriangles(a, b, emit) {
+      Object.keys(points).forEach(function (c) {
+        if (c === a || c === b || !edges[ap.normalizedLinkId(a, c)] || !edges[ap.normalizedLinkId(b, c)]) return;
+        var id = [a, b, c].sort().join('|');
+        if (formed.has(id) || !points[a] || !points[b]) return;
+        var p = points[a], q = points[b], r = points[c];
+        if (Math.abs((q.lng-p.lng)*(r.lat-p.lat)-(q.lat-p.lat)*(r.lng-p.lng)) < 1e-12) return;
+        formed.add(id); if (emit) fields.push([p, q, r]);
+      });
+    }
+    Object.keys(edges).forEach(function (id) { closeTriangles(edges[id][0], edges[id][1], false); });
+    plan.blockers.filter(function (item) { return item.manual; }).forEach(function (item) { cleared.add(item.id); });
+    var previous = location && location.latlng;
+    var frames = plan.stops.map(function (stop, index) {
+      var point = ap.workPoint(stop.portal), actions = [];
+      if (point) {
+        if (previous) distance += ap.workDistance(previous, point);
+        previous = point; trail.push({ lat: point.lat, lng: point.lng }); paths[paths.length - 1].push({ lat: point.lat, lng: point.lng });
+      } else { previous = null; paths.push([]); }
+      stop.blockers.forEach(function (item) {
+        cleared.add(item.id);
+        actions.push({ kind: 'blocker', title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) });
+      });
+      stop.links.forEach(function (link) {
+        var direction = ap.getLinkDirection(link), status = 'walk.ready';
+        var target = direction && direction.to;
+        if (!direction) status = 'walk.direction';
+        else if (!point || !points[target]) status = 'walk.coordinates';
+        else if (plan.blockers.some(function (item) { return item.links.some(function (other) { return other.id === link.id; }) && !cleared.has(item.id); })) status = 'walk.blocked';
+        else {
+          if (!Object.prototype.hasOwnProperty.call(keys, target)) keys[target] = ap.getOwnedKeys(target);
+          if (keys[target] === null) status = 'walk.unknownKeys';
+          else if (keys[target] < 1) status = 'walk.missingKeys';
+        }
+        actions.push({ kind: 'link', title: ap.displayPortalTitle(direction && direction.from === link.b ? link.titleB : link.titleA) + (direction ? ' → ' : ' ↔ ') + ap.displayPortalTitle(direction && direction.from === link.b ? link.titleA : link.titleB), status: status,
+          owned: target && Object.prototype.hasOwnProperty.call(keys, target) ? (status === 'walk.ready' ? keys[target] - 1 : keys[target]) : null });
+        if (status === 'walk.ready') {
+          keys[target]--;
+          edges[link.id] = [link.a, link.b];
+          built.push([points[direction.from], points[target]]);
+          closeTriangles(link.a, link.b, true);
+        }
+      });
+      return { index: index, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
+        actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
+    });
+    return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
+  };
+  ap.stopWalkSimulation = function () {
+    var session = ap.runtime.walkSimulation;
+    if (!session) return;
+    ap.runtime.walkSimulation = null; clearTimeout(session.timer);
+    session.element.querySelector('.ap-walk-content').textContent = ap.t('walk.stopped');
+    ['.ap-walk-previous', '.ap-walk-next', '.ap-walk-play', '.ap-walk-restart'].forEach(function (selector) { session.element.querySelector(selector).disabled = true; });
+    if (session.layer) { session.layer.clearLayers(); if (window.map && window.map.removeLayer) window.map.removeLayer(session.layer); }
+    if (session.view && window.map && window.map.setView) window.map.setView(session.view.center, session.view.zoom, { animate: false });
+  };
+  ap.renderWalkSimulation = function () {
+    var session = ap.runtime.walkSimulation;
+    if (!session) return;
+    var frame = session.model.frames[session.index], element = session.element;
+    element.querySelector('.ap-walk-previous').disabled = session.index <= 0;
+    element.querySelector('.ap-walk-next').disabled = !frame || session.index >= session.model.frames.length - 1;
+    element.querySelector('.ap-walk-play').disabled = !frame || session.model.frames.length < 2;
+    element.querySelector('.ap-walk-play').textContent = ap.t(session.playing ? 'walk.pause' : 'walk.play');
+    var html = '';
+    if (!frame) html = '<p>' + ap.escapeHtml(ap.t('walk.empty')) + '</p>';
+    else {
+      html = '<p><b>' + ap.escapeHtml(ap.t('walk.stop', { index: session.index + 1, count: session.model.frames.length })) + ' · ' + ap.escapeHtml(frame.title) + '</b></p>';
+      html += '<p>' + ap.escapeHtml(ap.t('walk.totals', { links: frame.links.length, fields: frame.fields.length, distance: ap.formatDistance(frame.distance) })) + '</p><ol>';
+      frame.actions.forEach(function (action) {
+        html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'blocker' ? 'walk.remove' : 'walk.throw')) + ': ' + ap.escapeHtml(action.title);
+        if (action.status) html += ' · ' + ap.escapeHtml(ap.t(action.status));
+        if (action.owned !== null && action.owned !== undefined) html += ' · ' + ap.escapeHtml(ap.t('walk.keysLeft', { count: action.owned }));
+        html += '</li>';
+      });
+      html += '</ol>';
+      if (!frame.actions.length) html += '<p>' + ap.escapeHtml(ap.t('walk.visit')) + '</p>';
+      if (!frame.point) html += '<p>' + ap.escapeHtml(ap.t('walk.coordinates')) + '</p>';
+    }
+    if (session.model.unresolved) html += '<p>' + ap.escapeHtml(ap.t('walk.unresolved', { count: session.model.unresolved })) + '</p>';
+    element.querySelector('.ap-walk-content').innerHTML = html;
+    if (!session.layer || !frame) return;
+    session.layer.clearLayers();
+    frame.paths.forEach(function (path) { if (path.length > 1) L.polyline(path, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer); });
+    frame.links.forEach(function (points) { L.polyline(points, { color: '#00e5ff', weight: 2, opacity: 0.7, interactive: false }).addTo(session.layer); });
+    frame.fields.forEach(function (points) { L.polygon(points, { color: '#00e5ff', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(session.layer); });
+    if (frame.point) {
+      L.circleMarker(frame.point, { radius: 8, color: '#00e5ff', fillOpacity: 1, interactive: false }).addTo(session.layer);
+      if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: false });
+    }
+  };
+  ap.seekWalkSimulation = function (index) {
+    var session = ap.runtime.walkSimulation;
+    if (!session) return;
+    clearTimeout(session.timer); session.playing = false;
+    session.index = Math.max(0, Math.min(session.model.frames.length - 1, index));
+    ap.renderWalkSimulation();
+  };
+  ap.playWalkSimulation = function () {
+    var session = ap.runtime.walkSimulation;
+    if (!session || session.model.frames.length < 2) return;
+    clearTimeout(session.timer);
+    if (session.playing) { session.playing = false; ap.renderWalkSimulation(); return; }
+    if (session.index >= session.model.frames.length - 1) session.index = 0;
+    session.playing = true; ap.renderWalkSimulation();
+    function advance() {
+      if (ap.runtime.walkSimulation !== session || !session.playing) return;
+      session.index++;
+      if (session.index >= session.model.frames.length - 1) session.playing = false;
+      ap.renderWalkSimulation();
+      if (session.playing) session.timer = setTimeout(advance, 1500);
+    }
+    session.timer = setTimeout(advance, 1500);
+  };
+  ap.showWalkSimulation = function () {
+    if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
+    ap.stopWalkSimulation();
+    var model = ap.createWalkSimulation(), element = document.createElement('div');
+    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px"><button style="min-height:36px;padding:6px 10px" class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button style="min-height:36px;padding:6px 10px" class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button style="min-height:36px;padding:6px 10px" class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button style="min-height:36px;padding:6px 10px" class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" style="max-height:45vh;overflow:auto" aria-live="polite"></div>';
+    var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
+    if (window.map && typeof L.LayerGroup === 'function') {
+      session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
+      session.layer = new L.LayerGroup(); session.layer.addTo(window.map);
+    }
+    // Tile loads caused by preview panning cannot become real inventory bookings.
+    // A subsequent explicit scan resumes passive observations on real map data.
+    ap.runtime.suppressWalkObservations = true;
+    ap.runtime.walkSimulation = session;
+    element.querySelector('.ap-walk-previous').onclick = function () { ap.seekWalkSimulation(session.index - 1); };
+    element.querySelector('.ap-walk-next').onclick = function () { ap.seekWalkSimulation(session.index + 1); };
+    element.querySelector('.ap-walk-play').onclick = ap.playWalkSimulation;
+    element.querySelector('.ap-walk-restart').onclick = function () { ap.seekWalkSimulation(0); };
+    ap.renderWalkSimulation();
+    window.dialog({ id: 'anchor-planner-walk', title: ap.t('walk.title'), html: element, width: Math.min(580, (window.innerWidth || 600) - 20),
+      closeCallback: function () { if (ap.runtime.walkSimulation === session) { ap.stopWalkSimulation(); ap.renderPanel(); } } });
   };
 
   ap.showTaskList = function () {
@@ -4326,6 +4729,7 @@ function wrapper(plugin_info) {
   };
 
   ap.startFinalScan = function () {
+    ap.stopWalkSimulation(); ap.runtime.suppressWalkObservations = false;
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) return false;
     var links = ap.runtime.links || [];
     var unconfirmed = links.filter(function (link) { return link && !link.existing; });
@@ -4545,6 +4949,7 @@ function wrapper(plugin_info) {
     catch (error) { throw new Error(ap.t('keys.usageStorage')); }
   };
   ap.updateKeyConsumption = function () {
+    if (ap.runtime.walkSimulation || ap.runtime.suppressWalkObservations) return;
     var journal;
     try { journal = ap.readKeyUsage(); }
     catch (error) { ap.runtime.keyUsageError = error.message; return; }
@@ -4601,6 +5006,7 @@ function wrapper(plugin_info) {
     ap.writeKeyUsage(journal); ap.runtime.keyUsageJournal = journal; ap.refreshKeys();
   };
   ap.observeNewPlanLinks = function () {
+    if (ap.runtime.walkSimulation || ap.runtime.suppressWalkObservations) return false;
     if (!(ap.runtime.links || []).length) return false;
     var portals = ap.mergePortalSources(ap.getLoadedPortals(), ap.collectPortalBookmarks(ap.getLoadedPortals()));
     var loaded = ap.collectExistingLinkIds(portals);
@@ -5244,6 +5650,7 @@ function wrapper(plugin_info) {
   };
 
   ap.scan = function () {
+    ap.stopWalkSimulation(); ap.runtime.suppressWalkObservations = false;
     ap.runtime.selectedBlocker = null;
     if (!(window.plugin && window.plugin.drawTools)) {
       ap.setMessage(ap.t('scan.drawToolsMissing'));
@@ -6228,6 +6635,7 @@ function wrapper(plugin_info) {
 
   ap.clearData = function () {
     if (!confirm(ap.t('confirm.clearData'))) return;
+    ap.stopWalkSimulation();
     var activeFinalScan = ap.runtime.finalScan;
     if (activeFinalScan && activeFinalScan.running) {
       activeFinalScan.running = false;
@@ -6332,8 +6740,9 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
-    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
+    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
+    if (ap.runtime.suppressWalkObservations && !ap.runtime.walkSimulation) html += '<p>' + ap.escapeHtml(ap.t('walk.resumeScan')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p>' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
@@ -6458,6 +6867,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-loadnames').onclick = ap.refreshMissingNames;
     document.getElementById('ap-export').onclick = ap.showExport;
     document.getElementById('ap-sort-location').onclick = ap.sortRouteFromUserLocation;
+    document.getElementById('ap-walk').onclick = ap.showWalkSimulation;
     document.getElementById('ap-key-list').onclick = ap.showKeyList;
     document.getElementById('ap-key-import').onclick = ap.showKeyImport;
     document.getElementById('ap-key-reset').onclick = ap.showKeyReset;

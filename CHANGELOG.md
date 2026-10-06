@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.8 — Walk Sim work-route preview
+
+### English
+- Preview the remaining route with blocker removal, virtual key use, links and geometric triangles. Add step controls, play/pause, restart and map cleanup/view restoration.
+- Keep real inventory/completion unchanged and isolate preview tile loads from automatic consumption until the next real scan.
+
+### Deutsch
+- Verbleibende Route mit Blocker-Abbau, virtuellem Keyverbrauch, Links und geometrischen Dreiecken durchspielen. Schrittsteuerung, Abspielen/Pause, Neustart und Kartenaufräumen/Ansichtsrestaurierung.
+- Echten Bestand/Erledigung erhalten; Kartenladungen der Vorschau bis zum nächsten echten Scan von Verbrauchsbuchungen trennen.
+
 ## 0.2.0-beta.7 — automatic key consumption for new plan links
 
 ### English
