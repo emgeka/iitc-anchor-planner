@@ -131,6 +131,8 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
   bestätigt keine Eroberung, Linklimits oder Ausführbarkeit unter Feldern.
 - Nach Aufgabenänderungen `node src/test-work-plan.mjs` und
   `node src/build-beta.mjs --check` zusätzlich ausführen.
+- Bei Walk-Sim-Änderungen `node src/test-walk-simulation.mjs` ausführen; virtuelle
+  Aktionen und dadurch geladene Intel-Daten dürfen keine echten Keys oder Erledigung verändern.
 
 ## Internationalisierung
 

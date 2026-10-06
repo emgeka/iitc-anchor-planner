@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.7
+# Architekturübersicht 0.2.0-beta.8
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -239,7 +239,7 @@ Aktualisierungen erhalten. Sichtbare Texte sind vollständig gebündelt überset
 JSON exportiert die neue sprachneutrale Liste `plannedLinks` mit `from`/`to`
 (bei offener Richtung null); der Standort wird weiterhin nicht exportiert.
 Die Vorschläge prüfen weder Eroberung noch ausgehende Linklimits oder Linken
-unter Feldern. Walk Sim ist noch nicht implementiert.
+unter Feldern. Walk Sim verwendet denselben Arbeitsplan als rein virtuelle Vorschau.
 
 ## Karten- und Blockerdarstellung
 
@@ -417,3 +417,6 @@ keyInventoryRows verbindet alle positiven Einträge aus keyInventory mit Namen a
 
 ### Automatischer Keyverbrauch
 updateKeyConsumption verarbeitet normale Scanergebnisse und applyExistingLinkCoverage. Ein separates `.keyUsage`-Journal enthält je Planlink open sowie Intel-GUID-Ereignisse mit baseline/attempt/booked/check/reviewed. Ein vorhandener Link ohne vorherige offene Beobachtung ist baseline. Bekannte GUIDs werden nie erneut gebucht; neue GUID nach offenem Zustand verbraucht bei bestätigter Richtung und positivem bekannten Bestand einen Key. attempt wird vor Keys.addKey gespeichert; ein abgebrochener/fehlgeschlagener Versuch verlangt Prüfung statt Retry. Dieses Journal überlebt Planreset, bleibt unabhängig von Imports/Resets und liefert keinen Ersatzbestand. taskLinkHtml zeigt Buchungs-/Prüfhinweise; markKeyUsageReviewed bestätigt nur die manuelle Bestandsprüfung. observeNewPlanLinks ergänzt nach Kartenrefresh positive neue Treffer in der laufenden Plangeometrie, ohne bereits erkannte Links wegen fehlender Kartenabdeckung wieder zu öffnen.
+
+### Walk Sim
+createWalkSimulation erzeugt eingefrorene Frames aus getWorkPlan. Blocker werden vor den Links eines Stopps virtuell freigegeben; bestätigte Links mit bekannten positiven Keys verbrauchen ausschließlich lokale virtuelle Mengen. Planlinks mit existing bilden die Ausgangskanten. Ein abschließender simulierter Dreiecksrand erzeugt ein geometrisches Polygon; keine Feld-/Linklimitprüfung. showWalkSimulation verwaltet nur Laufzeitzustand und separaten Leaflet-Layer. seek/play rekonstruieren Frames deterministisch; Timer prüfen die Sessionidentität. stop entfernt Timer/Layer und restauriert die Kartenansicht. suppressWalkObservations schützt passive Intel-Erkennung und updateKeyConsumption bis zum nächsten expliziten Scan/Finalcheck, auch vor verspäteten Kartenereignissen der Vorschau. Keine direkte Übernahme von Fan-Fields-Quellcode.

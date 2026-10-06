@@ -479,3 +479,11 @@ Automatisiert: `node src/test-key-consumption.mjs` (auch im Repository-CI).
 4. Richtung offen, Keys deaktiviert, Menge unbekannt/null oder Schreibfehler: keine negative/fiktive Buchung; Prüfhinweis am Link, Bestand korrigieren/importieren und Bestand geprüft wählen. Keine verspätete Nachbuchung.
 5. Plan löschen, neu scannen: Journal bleibt zum Schutz vor Doppelbuchung erhalten. Letzte Import-/Reset-Sicherung bleibt bestehen; spätere Verbrauchsänderung wird bei Rücknahme als Konflikt geprüft.
 6. Desktop/Mobile: Verbrauchs- und Prüfhinweise in Aufgaben sowie Bestandsanzeige nach Kartenrefresh prüfen. Andere Spieler und mehrere Geräte gemäß bekannter Grenzen berücksichtigen.
+
+## Walk Sim (0.2.0-beta.8)
+1. Gerichteten Plan mit Blockern, Wiederbesuchen und Keys scannen. Walk Sim öffnen: Reihenfolge entspricht Aufgaben, Abbau erfolgt vor abhängigen Würfen.
+2. Vor/Zurück, Abspielen/Pause, Von vorn und Ende testen. Karte zeigt Spur, Links und geometrische Dreiecke. Wiederholtes Abspielen bucht keine echten Keys und ändert keine Erledigung.
+3. Unbekannte Keys, Mangel, offene Richtung, fehlende Koordinaten und nicht eingeplante Aufgaben sichtbar prüfen; kein erfundener Wurf.
+4. Dialog schließen, erneut öffnen, Scan/Finalcheck auslösen: Timer und Layer werden aufgeräumt, Originalansicht restauriert. Kartenladungen aus Walk Sim dürfen keine echten Keybuchungen erzeugen. Nach Schließen real neu scannen.
+5. Plan/GPS während Vorschau ändern: eingefrorener Plan bleibt nachvollziehbar, erneutes Öffnen übernimmt neuen Stand. Desktop/Mobile bei 360 px Bedienelemente und Kartensicht prüfen.
+Automatisiert: node src/test-walk-simulation.mjs und bestehende Aufgaben-/Keys-Prüfungen.

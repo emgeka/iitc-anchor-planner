@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.7
+# Anforderungen für Entwicklungsstand 0.2.0-beta.8
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -261,3 +261,7 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 - Bei Übergang eines zuvor offenen Planlinks zu neu erkanntem Intel-Link einen Key am Ziel der bestätigten Richtung über Keys.addKey abziehen. Erstmalig vorhandene Links nicht abbuchen.
 - Persistente Intel-Linkidentität verhindert Doppelbuchungen bei Scan, Finalcheck, Refresh, Kartenlücken, Planreset und Keyimport. Neubau mit neuer Identität nach offenem Zustand ist neuer Verbrauch.
 - Keine negativen oder erfundenen Bestände. Fehlende Richtung, Keys, Menge oder Schreibfehler als Prüfhinweis am Link; keine verspätete automatische Nachbuchung nach Import. Verbrauch verändert keine Intel-Daten und überschreibt die Import-/Reset-Sicherung nicht.
+
+- Walk Sim als Vorschau der verbleibenden Aufgabenroute mit Blocker-Abbau vor Wurfaufträgen; Zurück/Weiter, Abspielen/Pause und Neustart. Bestehende Reihenfolge und Wiederbesuche übernehmen.
+- Virtuellen Keyverbrauch, Richtungs-/Bestandslücken und nicht eingeplante Aufgaben sichtbar machen. Weg, simulierte Links und geometrische Dreiecke auf separatem Layer zeigen. Keine Ingress-Ausführbarkeitsgarantie.
+- Vorschau niemals als reale Erledigung oder Keybuchung behandeln; auch eigene Kartenladungen dürfen keine Verbrauchsbuchungen auslösen. Originalansicht beim Schließen restaurieren, reale Beobachtungen erst nach neuem Scan/Finalcheck fortsetzen.
