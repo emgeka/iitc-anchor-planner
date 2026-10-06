@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.8
+# Anforderungen für Entwicklungsstand 0.2.0-beta.9
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -265,3 +265,5 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 - Walk Sim als Vorschau der verbleibenden Aufgabenroute mit Blocker-Abbau vor Wurfaufträgen; Zurück/Weiter, Abspielen/Pause und Neustart. Bestehende Reihenfolge und Wiederbesuche übernehmen.
 - Virtuellen Keyverbrauch, Richtungs-/Bestandslücken und nicht eingeplante Aufgaben sichtbar machen. Weg, simulierte Links und geometrische Dreiecke auf separatem Layer zeigen. Keine Ingress-Ausführbarkeitsgarantie.
 - Vorschau niemals als reale Erledigung oder Keybuchung behandeln; auch eigene Kartenladungen dürfen keine Verbrauchsbuchungen auslösen. Originalansicht beim Schließen restaurieren, reale Beobachtungen erst nach neuem Scan/Finalcheck fortsetzen.
+
+- Walk Sim soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.

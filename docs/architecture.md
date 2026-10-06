@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.8
+# Architekturübersicht 0.2.0-beta.9
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 195 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 276 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -420,3 +420,5 @@ updateKeyConsumption verarbeitet normale Scanergebnisse und applyExistingLinkCov
 
 ### Walk Sim
 createWalkSimulation erzeugt eingefrorene Frames aus getWorkPlan. Blocker werden vor den Links eines Stopps virtuell freigegeben; bestätigte Links mit bekannten positiven Keys verbrauchen ausschließlich lokale virtuelle Mengen. Planlinks mit existing bilden die Ausgangskanten. Ein abschließender simulierter Dreiecksrand erzeugt ein geometrisches Polygon; keine Feld-/Linklimitprüfung. showWalkSimulation verwaltet nur Laufzeitzustand und separaten Leaflet-Layer. seek/play rekonstruieren Frames deterministisch; Timer prüfen die Sessionidentität. stop entfernt Timer/Layer und restauriert die Kartenansicht. suppressWalkObservations schützt passive Intel-Erkennung und updateKeyConsumption bis zum nächsten expliziten Scan/Finalcheck, auch vor verspäteten Kartenereignissen der Vorschau. Keine direkte Übernahme von Fan-Fields-Quellcode.
+
+renderWalkSimulation hält renderedIndex, pathLayers und head nur in der Session. Vorwärts aktualisiert es Weg/Marker und ergänzt nur neue Links/Dreiecke; gleiche Frames lassen den Layer und die Kamera unangetastet. Rückwärts wird der korrekte Präfix neu aufgebaut. Leaflet panTo erzwingt Animation auch außerhalb des Viewports (0,9 s, easeLinearity 0,5), außer bei prefers-reduced-motion. stop beendet auch laufende Kartenbewegung vor der Ansichtsrestaurierung. Der Schritttakt bleibt 1,5 s.

@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.8
+// @version        0.2.0-beta.9
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006220000';
+  plugin_info.dateTimeVersion = '20261006220100';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.8';
+  ap.VERSION = '0.2.0-beta.9';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4229,6 +4229,7 @@ function wrapper(plugin_info) {
     var session = ap.runtime.walkSimulation;
     if (!session) return;
     ap.runtime.walkSimulation = null; clearTimeout(session.timer);
+    if (window.map && window.map.stop) window.map.stop();
     session.element.querySelector('.ap-walk-content').textContent = ap.t('walk.stopped');
     ['.ap-walk-previous', '.ap-walk-next', '.ap-walk-play', '.ap-walk-restart'].forEach(function (selector) { session.element.querySelector(selector).disabled = true; });
     if (session.layer) { session.layer.clearLayers(); if (window.map && window.map.removeLayer) window.map.removeLayer(session.layer); }
@@ -4260,14 +4261,37 @@ function wrapper(plugin_info) {
     if (session.model.unresolved) html += '<p>' + ap.escapeHtml(ap.t('walk.unresolved', { count: session.model.unresolved })) + '</p>';
     element.querySelector('.ap-walk-content').innerHTML = html;
     if (!session.layer || !frame) return;
-    session.layer.clearLayers();
-    frame.paths.forEach(function (path) { if (path.length > 1) L.polyline(path, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer); });
-    frame.links.forEach(function (points) { L.polyline(points, { color: '#00e5ff', weight: 2, opacity: 0.7, interactive: false }).addTo(session.layer); });
-    frame.fields.forEach(function (points) { L.polygon(points, { color: '#00e5ff', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(session.layer); });
-    if (frame.point) {
-      L.circleMarker(frame.point, { radius: 8, color: '#00e5ff', fillOpacity: 1, interactive: false }).addTo(session.layer);
-      if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: false });
+    // Pause/resume only changes controls; preserve geometry and camera position.
+    if (session.renderedIndex === session.index) return;
+    var previous = session.model.frames[session.renderedIndex];
+    if (!previous || session.index < session.renderedIndex) {
+      session.layer.clearLayers(); session.pathLayers = []; session.head = null;
+      previous = null;
     }
+    frame.paths.forEach(function (path, index) {
+      if (path.length < 2) return;
+      if (session.pathLayers[index]) {
+        if (!previous || !previous.paths[index] || previous.paths[index].length !== path.length) session.pathLayers[index].setLatLngs(path);
+      } else session.pathLayers[index] = L.polyline(path, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer);
+    });
+    for (var linkIndex = previous ? previous.links.length : 0; linkIndex < frame.links.length; linkIndex++) {
+      L.polyline(frame.links[linkIndex], { color: '#00e5ff', weight: 2, opacity: 0.7, interactive: false }).addTo(session.layer);
+    }
+    for (var fieldIndex = previous ? previous.fields.length : 0; fieldIndex < frame.fields.length; fieldIndex++) {
+      L.polygon(frame.fields[fieldIndex], { color: '#00e5ff', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(session.layer);
+    }
+    if (frame.point) {
+      if (session.head) session.head.setLatLng(frame.point);
+      else session.head = L.circleMarker(frame.point, { radius: 8, color: '#00e5ff', fillOpacity: 1, interactive: false }).addTo(session.layer);
+      if (!previous || !previous.point || previous.point.lat !== frame.point.lat || previous.point.lng !== frame.point.lng) {
+        if (window.map && window.map.stop) window.map.stop();
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: !reduceMotion, duration: 0.9, easeLinearity: 0.5 });
+      }
+    } else if (session.head) {
+      session.layer.removeLayer(session.head); session.head = null;
+    }
+    session.renderedIndex = session.index;
   };
   ap.seekWalkSimulation = function (index) {
     var session = ap.runtime.walkSimulation;

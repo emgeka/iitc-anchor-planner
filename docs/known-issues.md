@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.8
+# Bekannte Grenzen in 0.2.0-beta.9
 
 ## Portalzuordnung und Namen
 
@@ -224,3 +224,5 @@
 - Dreiecke sind geometrische Vorschauen; Eroberung, Feldüberlagerungen, Linklimits und Bauen unter Feldern werden nicht validiert. Unbestätigte Richtung, fehlende Koordinaten/Keys oder noch aktive Blocker verhindern den simulierten Wurf.
 - Nach Schließen ist ein neuer Scan/Finalcheck erforderlich, um passive Link-/Keybeobachtungen wieder zu aktivieren. Dadurch können verspätete Kartenladungen aus der Vorschau keinen Bestand ändern.
 - Automatisierte Simulation-/Timer-/Layerprüfungen; echter IITC-Desktop-/Mobile-Praxistest steht aus. Neue Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch.
+
+- Nutzer meldet ruckartige Animation bei einem großen Plan in beta.8. beta.9 ersetzt die bisherigen direkten Sprünge durch weiche Kartenbewegung und vermeidet den vollständigen Layer-Neuaufbau vorwärts. Die Wirkung bei großen Plänen und auf Mobilgeräten muss noch praktisch geprüft werden; Kartenladung und Gerätegeschwindigkeit beeinflussen weiterhin die Darstellung.

@@ -487,3 +487,9 @@ Automatisiert: `node src/test-key-consumption.mjs` (auch im Repository-CI).
 4. Dialog schließen, erneut öffnen, Scan/Finalcheck auslösen: Timer und Layer werden aufgeräumt, Originalansicht restauriert. Kartenladungen aus Walk Sim dürfen keine echten Keybuchungen erzeugen. Nach Schließen real neu scannen.
 5. Plan/GPS während Vorschau ändern: eingefrorener Plan bleibt nachvollziehbar, erneutes Öffnen übernimmt neuen Stand. Desktop/Mobile bei 360 px Bedienelemente und Kartensicht prüfen.
 Automatisiert: node src/test-walk-simulation.mjs und bestehende Aufgaben-/Keys-Prüfungen.
+
+## Walk-Sim-Animation (0.2.0-beta.9)
+1. Großen Plan mit weit auseinanderliegenden Stopps abspielen: weiche Kartenbewegung ohne Zoomwechsel, vorhandene Links/Dreiecke bleiben stehen, neue werden ergänzt. Mit beta.8 vergleichen.
+2. Pause/Abspielen am gleichen Stopp: keine erneute Kartenbewegung oder Neuzeichnung. Zurück/Neustart entfernt zukünftige Geometrie korrekt. Schnelle Schrittwechsel und Schließen während der Bewegung: keine nachlaufende Kamera, Originalansicht wiederhergestellt.
+3. Systemeinstellung für reduzierte Bewegung: Karte zentriert ohne Animation. Fehlende Stoppkoordinaten entfernen den aktuellen Marker; Wiederbesuch gleicher Koordinaten erzeugt keinen unnötigen Kameraschwenk.
+Automatisiert: test-walk-simulation.mjs prüft Layer-Identitäten, nur neue Geometrie vorwärts, Rückwärtsschritte, Pause/Abspielen, Pan-Optionen, reduzierte Bewegung und Stop vor Restaurierung. Ein synthetischer Lauf mit 100 Stopps und 5.000 Links prüft Erhalt vorhandener Layer und das Ausbleiben doppelter Geometrie, kein reales Rendering-Benchmark.

@@ -6,14 +6,14 @@ const wrapper=source.slice(source.indexOf('function wrapper(plugin_info) {'),sou
 function point(lat,lng){return {lat,lng,distanceTo:p=>Math.hypot(lat-p.lat,lng-p.lng)*1000};}
 function runtime(){
   const storage=new Map(),timers=new Map(),layers=[],mapEvents=[];let timerId=0;
-  class Layer {constructor(){this.items=[];layers.push(this);}addTo(){return this;}clearLayers(){this.items=[];}}
-  const draw=(kind,coords)=>({addTo(layer){layer.items.push({kind,coords});return this;}});
+  class Layer {constructor(){this.items=[];this.clears=0;layers.push(this);}addTo(){return this;}clearLayers(){this.items=[];this.clears++;}removeLayer(item){this.items=this.items.filter(i=>i!==item);}}
+  const draw=(kind,coords)=>({kind,coords,addTo(layer){layer.items.push(this);return this;},setLatLngs(p){this.coords=p;return this;},setLatLng(p){this.coords=p;return this;}});
   const nodes=()=>{const n={'.ap-walk-content':{innerHTML:'',textContent:''}};for(const s of ['previous','next','play','restart'])n['.ap-walk-'+s]={disabled:false,textContent:''};return {innerHTML:'',querySelector:s=>n[s]};};
   const context={console,navigator:{},document:{getElementById:()=>null,createElement:nodes},
     localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},
     setTimeout:fn=>{timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),
     L:{latLng:point,LayerGroup:Layer,polyline:p=>draw('line',p),polygon:p=>draw('field',p),circleMarker:p=>draw('head',p)},
-    window:{bootPlugins:[],innerWidth:360,portals:{},map:{getCenter:()=>point(9,9),getZoom:()=>13,panTo:p=>mapEvents.push(['pan',p]),setView:(p,z)=>mapEvents.push(['restore',p,z]),removeLayer:()=>mapEvents.push(['remove'])},alert:m=>mapEvents.push(['alert',m])}};
+    window:{bootPlugins:[],innerWidth:360,portals:{},map:{getCenter:()=>point(9,9),getZoom:()=>13,stop:()=>mapEvents.push(['stop']),panTo:(p,options)=>mapEvents.push(['pan',p,options]),setView:(p,z)=>mapEvents.push(['restore',p,z]),removeLayer:()=>mapEvents.push(['remove'])},alert:m=>mapEvents.push(['alert',m])}};
   vm.runInNewContext(wrapper+'\nwrapper({});',context);const ap=context.window.plugin.anchorPlanner;
   ap.state.language='en';ap.renderPanel=()=>{};ap.renderOverlays=()=>{};ap.refreshTaskList=()=>{};
   context.window.dialog=d=>context.dialog=d;
@@ -77,6 +77,48 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   stale();assert.equal(ap.runtime.walkSimulation,null,'Late timer callbacks cannot revive a closed preview.');
   ap.updateKeyConsumption();assert.equal(storage.size,0,'Late tile events after close stay isolated until a real scan.');
   ap.showWalkSimulation();const second=ap.runtime.walkSimulation;close();assert.equal(ap.runtime.walkSimulation,second,'Old dialog close cannot stop a new session.');
+  context.dialog.closeCallback();
+}
+{
+  const {ap,context,mapEvents}=runtime();
+  ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  const firstHead=session.head,clears=session.layer.clears;
+  ap.seekWalkSimulation(1);
+  const previousLink=session.layer.items.find(i=>i.kind==='line'&&i.coords.length===2&&i.coords[0].lng===0);
+  ap.seekWalkSimulation(2);
+  assert.equal(session.layer.clears,clears,'Forward steps retain the existing overlay instead of rebuilding it.');
+  assert.ok(session.layer.items.includes(previousLink),'Previously drawn links retain their Leaflet identity.');
+  assert.equal(session.head,firstHead,'The current-stop marker is updated in place.');
+  const moves=mapEvents.filter(e=>e[0]==='pan');
+  assert.ok(moves.every(e=>e[2].animate&&e[2].duration===0.9),'Force smooth panning even for stops beyond the viewport.');
+  const count=mapEvents.length,items=session.layer.items.slice();
+  ap.playWalkSimulation();ap.playWalkSimulation();
+  assert.equal(mapEvents.length,count,'Pause/resume does not repeat the camera move.');
+  assert.deepEqual(session.layer.items,items);
+  ap.seekWalkSimulation(1);assert.equal(session.layer.clears,clears+1,'Backward seeking rebuilds the correct prefix.');
+  context.window.matchMedia=()=>({matches:true});ap.seekWalkSimulation(2);
+  assert.equal(mapEvents.filter(e=>e[0]==='pan').at(-1)[2].animate,false,'Respect reduced-motion preference.');
+  context.dialog.closeCallback();
+  assert.equal(mapEvents.at(-3)[0],'stop','Stop camera animation before removing the preview and restoring the view.');
+}
+{
+  const {ap,mapEvents,context}=runtime();ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  ap.seekWalkSimulation(2);const moves=mapEvents.filter(e=>e[0]==='pan').length;
+  session.model.frames[3].point=session.model.frames[2].point;ap.seekWalkSimulation(3);
+  assert.equal(mapEvents.filter(e=>e[0]==='pan').length,moves,'Repeat coordinates do not move the camera again.');
+  ap.seekWalkSimulation(0);session.model.frames[1].point=null;ap.seekWalkSimulation(1);
+  assert.equal(session.head,null);assert.ok(!session.layer.items.some(i=>i.kind==='head'),'Missing coordinates must not retain the previous stop marker.');
+  context.dialog.closeCallback();
+}
+{
+  const {ap,context}=runtime(),base=ap.createWalkSimulation().frames[1];
+  const links=Array.from({length:5000},(_,i)=>[point(0,i/100),point(1,i/100)]);
+  ap.createWalkSimulation=()=>({unresolved:0,frames:Array.from({length:100},(_,i)=>({...base,index:i,links:links.slice(0,(i+1)*50),fields:[],point:{lat:0,lng:i}}))});
+  ap.showWalkSimulation();const session=ap.runtime.walkSimulation,firstLink=session.layer.items.find(i=>i.kind==='line'),clears=session.layer.clears;
+  for(let i=1;i<100;i++)ap.seekWalkSimulation(i);
+  assert.equal(session.layer.clears,clears,'A large preview never clears the overlay while moving forward.');
+  assert.ok(session.layer.items.includes(firstLink));
+  assert.equal(session.layer.items.length,5002,'Only 5000 links, one trail and one current marker are retained; no duplicates.');
   context.dialog.closeCallback();
 }
 {

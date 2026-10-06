@@ -53,7 +53,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.8` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.9` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -62,7 +62,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.8` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.9` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.8` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.9` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.8` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.9` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.

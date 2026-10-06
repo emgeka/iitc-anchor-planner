@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.9 — smoother Walk Sim
+
+### English
+- Animate camera movement to distant stops; retain existing preview geometry on forward steps and avoid redraws on pause/resume. Respect reduced motion and stop camera animation before closing.
+
+### Deutsch
+- Kartenbewegung auch zu entfernten Stopps weich animieren; vorhandene Vorschaugeometrie vorwärts erhalten und bei Abspielen/Pause nicht neu zeichnen. Reduzierte Bewegung respektieren und Kameraanimation vor dem Schließen stoppen.
+
 ## 0.2.0-beta.8 — Walk Sim work-route preview
 
 ### English

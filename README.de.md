@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.8
+### Beta-Test: 0.2.0-beta.9
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -137,7 +137,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.8**
+- Entwicklungsversion: **0.2.0-beta.9**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -172,7 +172,7 @@ Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderun
 
 Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name` den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check` prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende Fallbacksprache.
 
-## Entwurf des Keyimports (0.2.0-beta.8)
+## Entwurf des Keyimports (0.2.0-beta.9)
 
 Das offizielle IITC-Plugin **Keys** aktivieren. Sein Bestand ist die einzige
 Bestandsquelle; Anchor Planner berechnet weiterhin den Bedarf. Alte lokale Mengen
@@ -207,5 +207,7 @@ Am 2026-10-06 vom Nutzer bestätigt: Keyerkennung aus Screenshot und Video, Übe
 
 Neu erkannte Planlinks ziehen automatisch einen Key am Ziel der bestätigten Wurfrichtung ab, wenn der Link zuvor als offen beobachtet wurde. Beim ersten Scan vorhandene Links bilden den Ausgangsstand; gespeicherte Intel-Linkidentitäten verhindern Doppelabzüge bei Scans, Refreshs, Kartenlücken und Imports. Ein neu gebauter Link mit neuer Intel-Identität kann nach einer offenen Beobachtung erneut einen Key verbrauchen. Ohne bestätigte Richtung, bei unbekanntem/leerem Bestand oder unterbrochenen Schreibvorgängen erscheint ein Prüfhinweis unter Aufgaben; Bestand korrigieren/importieren und **Bestand geprüft** wählen. Verbrauch ersetzt die Rücknahme des letzten Imports/Resets nicht. Auch Links anderer Spieler lösen diese Regel aus; Intel zeigt nicht, wessen Keys verbraucht wurden.
 
-## Walk Sim (0.2.0-beta.8)
+## Walk Sim (0.2.0-beta.9)
 **Walk Sim** im Panel oder unter Aufgaben öffnen. Mit Zurück/Weiter schrittweise oder Abspielen/Pause automatisch durchlaufen; Von vorn spielt denselben eingefrorenen Plan erneut ab. Die Karte zeigt besuchten Weg, simulierte Wurflinks und geometrische Dreiecke; am Stopp erscheinen Blocker-Abbau und Wurfaufträge. Virtuelle Keys sinken nur bei bestätigten, freigeräumten Links mit Bestand; offene Richtungen, unbekannte Bestände und Mangel bleiben gekennzeichnet. Schließen entfernt die Vorschau und stellt die Kartenansicht wieder her. Kein Schreiben von Bestand, Erledigung oder Intel-Daten. Danach erneut scannen, damit automatische Beobachtungen weiterlaufen: Kartenladungen aus der Vorschau dürfen keine echten Keys abbuchen. Vom Prinzip in [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert, mit dem eigenen Arbeitsplan umgesetzt.
+
+Vorwärtsschritte erhalten vorhandene Geometrie und bewegen die Karte innerhalb des 1,5-Sekunden-Schritttakts weich über 0,9 Sekunden, auch zu entfernten Stopps. Abspielen/Pause zeichnet nicht erneut und bewegt die Kamera nicht; Zurück rekonstruiert die frühere Vorschau. Die Systemeinstellung für reduzierte Bewegung deaktiviert die Kartenanimation.
