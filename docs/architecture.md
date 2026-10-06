@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.6
+# Architekturübersicht 0.2.0-beta.7
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -414,3 +414,6 @@ applyKeyBatch speichert GUID, Titel und Vorher-/Zielwerte vor allen addKey-Aufru
 
 ### Gesamtbestandsliste
 keyInventoryRows verbindet alle positiven Einträge aus keyInventory mit Namen aus runtime.stats, geladenen Portalmarkern und collectPortalBookmarks; keine Inventarkopie oder Hintergrundabfrage. keyListHtml filtert nach Name, sortiert alphabetisch oder absteigend nach Menge und zeigt Gesamtsummen unabhängig vom Suchfilter. showKeyList erzeugt eine lesende Tabelle mit Such-/Sortierfeldern und Refresh; refreshKeys aktualisiert auch die offene Liste. refreshKeyList bewahrt Filter, Sortierung und Scrollposition. closeCallback verwirft ausschließlich die Referenz des geschlossenen Dialogs.
+
+### Automatischer Keyverbrauch
+updateKeyConsumption verarbeitet normale Scanergebnisse und applyExistingLinkCoverage. Ein separates `.keyUsage`-Journal enthält je Planlink open sowie Intel-GUID-Ereignisse mit baseline/attempt/booked/check/reviewed. Ein vorhandener Link ohne vorherige offene Beobachtung ist baseline. Bekannte GUIDs werden nie erneut gebucht; neue GUID nach offenem Zustand verbraucht bei bestätigter Richtung und positivem bekannten Bestand einen Key. attempt wird vor Keys.addKey gespeichert; ein abgebrochener/fehlgeschlagener Versuch verlangt Prüfung statt Retry. Dieses Journal überlebt Planreset, bleibt unabhängig von Imports/Resets und liefert keinen Ersatzbestand. taskLinkHtml zeigt Buchungs-/Prüfhinweise; markKeyUsageReviewed bestätigt nur die manuelle Bestandsprüfung. observeNewPlanLinks ergänzt nach Kartenrefresh positive neue Treffer in der laufenden Plangeometrie, ohne bereits erkannte Links wegen fehlender Kartenabdeckung wieder zu öffnen.

@@ -33,6 +33,7 @@ jobs:
           node src/test-final-scan.mjs
           node src/test-work-plan.mjs
           node src/test-key-import.mjs
+          node src/test-key-consumption.mjs
       - name: Metadata and branch policy
         env:
           POLICY_BRANCH: ${{ github.base_ref || github.ref_name }}

@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.6
+### Beta testing: 0.2.0-beta.7
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -131,7 +131,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.6**
+- Development version: **0.2.0-beta.7**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -164,7 +164,7 @@ Before every handoff, commit, or publication, each change must be reconciled wit
 
 Translations are maintained separately under `src/locales/*.json`. Every file contains the same semantic keys and placeholders and provides its native name under `language.name`. `node src/build-locales.mjs` validates all files and bundles them into the single userscript; `node src/build-locales.mjs --check` also verifies that the bundle is current. No language files are loaded from the internet at runtime. English is the required fallback language.
 
-## Keys import draft (0.2.0-beta.6)
+## Keys import draft (0.2.0-beta.7)
 
 Enable the official IITC **Keys** plugin. Its inventory is the only stock source;
 Anchor Planner still calculates requirements. Old local counts are ignored, with
@@ -193,3 +193,5 @@ Use **Reset all keys** in the panel or tasks to confirm setting the entire IITC 
 **Key inventory** in the panel or tasks shows the complete positive IITC Keys stock, including portals outside the plan, with total portal/key counts, name search and sorting by name or descending count. The list is read-only and updates on Keys changes; **Refresh** also updates known names. Names use plan portals, loaded markers and bookmarks. Missing names are marked and still counted; no background portal-detail requests.
 
 Practical test confirmed by the user on 2026-10-06: screenshot and video key recognition, applying selected video counts to IITC Keys, inventory-list display, and complete reset → IITC refresh → undo all worked. The platform was not specified; this does not establish separate desktop and mobile coverage.
+
+Newly detected planned links automatically deduct one key at the confirmed direction target if that link was previously observed open. First-scan existing links are a baseline; persistent Intel link identities prevent duplicate deductions across scans, reloads, map coverage gaps and imports. A rebuilt link with a new Intel identity can consume a new key after an open observation. No confirmed direction, unavailable/zero stock or interrupted writes leave a review note in Tasks; correct/import stock and choose **Inventory checked**. Consumption does not replace the last import/reset undo backup. This rule also applies to links built by other agents; Intel cannot identify whose inventory was used.

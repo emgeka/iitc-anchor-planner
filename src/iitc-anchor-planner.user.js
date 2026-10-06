@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.6
+// @version        0.2.0-beta.7
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006200000';
+  plugin_info.dateTimeVersion = '20261006210000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.6';
+  ap.VERSION = '0.2.0-beta.7';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -292,7 +292,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Größte Menge zuerst",
       "keys.listRefresh": "Aktualisieren",
       "keys.listEmpty": "Keine Keys gespeichert.",
-      "keys.listNoMatch": "Keine passenden Portale."
+      "keys.listNoMatch": "Keine passenden Portale.",
+      "keys.usageNotice": "Ein zuvor als offen erkannter Planlink verbraucht bei neuer Erkennung in Intel einen Key am bestätigten Zielportal. Beim ersten Scan vorhandene Links werden nicht gebucht. Weitere Scans oder Refreshs buchen denselben Link nicht doppelt. Auch Links anderer Spieler lösen diese Regel aus.",
+      "keys.usageStorage": "Der automatische Keyverbrauch konnte nicht sicher gespeichert werden. Für diese Beobachtung erfolgt keine weitere automatische Buchung; Browserspeicher und Bestand prüfen.",
+      "keys.usageCheck": "Keybestand prüfen: Automatische Buchung war nicht möglich oder wurde unterbrochen. Richtung prüfen und aktuellen Bestand korrigieren/importieren, bevor er als geprüft markiert wird.",
+      "keys.usageReviewed": "Bestand geprüft",
+      "keys.usageBooked": "1 Key bei {portal} abgezogen"
     },
     "en": {
       "language.label": "Language",
@@ -540,7 +545,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "es": {
       "language.label": "Idioma",
@@ -788,7 +798,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "fr": {
       "language.label": "Langue",
@@ -1036,7 +1051,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "it": {
       "language.label": "Lingua",
@@ -1284,7 +1304,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "ja": {
       "language.label": "言語",
@@ -1532,7 +1557,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "pl": {
       "language.label": "Język",
@@ -1780,7 +1810,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2028,7 +2063,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "ru": {
       "language.label": "Язык",
@@ -2276,7 +2316,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2524,7 +2569,12 @@ function wrapper(plugin_info) {
       "keys.listSortCount": "Most keys first",
       "keys.listRefresh": "Refresh",
       "keys.listEmpty": "No keys stored.",
-      "keys.listNoMatch": "No matching portals."
+      "keys.listNoMatch": "No matching portals.",
+      "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+      "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+      "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+      "keys.usageReviewed": "Inventory checked",
+      "keys.usageBooked": "1 key deducted at {portal}"
     }
   };
   // AP_LOCALES_END
@@ -3723,7 +3773,7 @@ function wrapper(plugin_info) {
       html += '</select></label>';
       if (suggestion) html += ' <button class="ap-task-accept-direction" data-link="' + index + '" data-from="' + ap.escapeHtml(suggestion.from) + '">' + ap.escapeHtml(ap.t('tasks.acceptDirection')) + '</button>';
     }
-    return html + '</div>';
+    return html + ap.keyUsageMessage(link) + '</div>';
   };
 
   ap.taskBlockerHtml = function (item, index) {
@@ -3746,6 +3796,7 @@ function wrapper(plugin_info) {
     var estimate = ap.getRouteEstimate(location);
     var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
+    if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
@@ -3815,6 +3866,9 @@ function wrapper(plugin_info) {
     if (element.querySelector('#ap-task-key-reset')) element.querySelector('#ap-task-key-reset').onclick = ap.showKeyReset;
     if (element.querySelector('#ap-task-key-undo')) element.querySelector('#ap-task-key-undo').onclick = ap.showKeyUndo;
     element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-key-usage-review'), function (button) {
+      button.onclick = function () { try { ap.markKeyUsageReviewed(this.getAttribute('data-link')); } catch (error) { window.alert(error.message); } };
+    });
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-direction'), function (select) {
       select.onchange = function () { var link = ap.runtime.links[Number(this.getAttribute('data-link'))]; if (link) ap.setLinkDirection(link.id, this.value); };
     });
@@ -4125,6 +4179,7 @@ function wrapper(plugin_info) {
 
     ap.runtime.existingLinkIds = existingInfo.map;
     ap.runtime.existingLinks = existingInfo.list || [];
+    ap.updateKeyConsumption();
     ap.recalculateDirectedKeys();
     ap.runtime.workPlan = null;
     var last = ap.state.lastScan || {};
@@ -4466,6 +4521,97 @@ function wrapper(plugin_info) {
       return { guid: guid, count: count };
     }).filter(function (row) { return row.count > 0; });
   };
+  // Link identities prevent repeated debits when Intel data disappears/reappears.
+  // This journal is independent of plan reset and never supplies inventory counts.
+  ap.readKeyUsage = function () {
+    var raw;
+    try { raw = localStorage.getItem(ap.STORAGE_KEY + '.keyUsage'); }
+    catch (error) { throw new Error(ap.t('keys.usageStorage')); }
+    if (!raw) return { links: {} };
+    try {
+      var value = JSON.parse(raw);
+      if (!value || !value.links || typeof value.links !== 'object' || Array.isArray(value.links)) throw new Error();
+      Object.keys(value.links).forEach(function (id) {
+        var entry = value.links[id];
+        if (!entry || typeof entry.open !== 'boolean' || !Array.isArray(entry.events) || !entry.events.every(function (event) {
+          return event && typeof event.guid === 'string' && typeof event.target === 'string' && ['baseline', 'attempt', 'booked', 'check', 'reviewed'].includes(event.status);
+        }) || new Set(entry.events.map(function (event) { return event.guid; })).size !== entry.events.length) throw new Error();
+      });
+      return value;
+    } catch (error) { throw new Error(ap.t('keys.usageStorage')); }
+  };
+  ap.writeKeyUsage = function (journal) {
+    try { localStorage.setItem(ap.STORAGE_KEY + '.keyUsage', JSON.stringify(journal)); }
+    catch (error) { throw new Error(ap.t('keys.usageStorage')); }
+  };
+  ap.updateKeyConsumption = function () {
+    var journal;
+    try { journal = ap.readKeyUsage(); }
+    catch (error) { ap.runtime.keyUsageError = error.message; return; }
+    ap.runtime.keyUsageError = '';
+    (ap.runtime.links || []).forEach(function (link) {
+      var previous = Object.prototype.hasOwnProperty.call(journal.links, link.id) ? journal.links[link.id] : null;
+      var entry = previous || { open: false, events: [] };
+      if (!link.existing) {
+        if (!entry.open) {
+          entry.open = true; journal.links[link.id] = entry;
+          try { ap.writeKeyUsage(journal); } catch (error) { ap.runtime.keyUsageError = error.message; }
+        }
+        return;
+      }
+      var guid = typeof link.existingGuid === 'string' ? link.existingGuid : '';
+      if (entry.events.some(function (event) { return event.guid === guid; })) {
+        if (entry.open) { entry.open = false; journal.links[link.id] = entry; try { ap.writeKeyUsage(journal); } catch (error) { ap.runtime.keyUsageError = error.message; } }
+        return;
+      }
+      var direction = ap.getLinkDirection(link), current = direction ? ap.getOwnedKeys(direction.to) : null;
+      var eligible = previous && previous.open;
+      var event = { guid: guid, target: direction ? direction.to : '', status: eligible ? 'check' : 'baseline' };
+      if (eligible && guid && direction && current !== null && current > 0) {
+        event.status = 'attempt'; event.before = current; event.after = current - 1;
+      }
+      entry.open = false; entry.events.push(event); journal.links[link.id] = entry;
+      // Record the attempt before calling Keys: interruption or plugin failure must
+      // require review, never a second automatic debit after refresh.
+      try { ap.writeKeyUsage(journal); }
+      catch (error) { ap.runtime.keyUsageError = error.message; return; }
+      if (event.status === 'attempt') {
+        try { event.status = ap.getOwnedKeys(event.target) === current && ap.setOwnedKeys(event.target, current - 1) ? 'booked' : 'check'; }
+        catch (error) { event.status = 'check'; }
+        try { ap.writeKeyUsage(journal); } catch (error) { ap.runtime.keyUsageError = error.message; }
+      }
+    });
+    ap.runtime.keyUsageJournal = journal;
+    ap.refreshKeyList();
+  };
+  ap.keyUsageMessage = function (link) {
+    var journal = ap.runtime.keyUsageJournal;
+    if (!journal || !Object.prototype.hasOwnProperty.call(journal.links, link.id)) return '';
+    var events = journal.links[link.id].events;
+    if (events.some(function (event) { return event.status === 'attempt' || event.status === 'check'; })) {
+      return '<div class="ap-task-warning">' + ap.escapeHtml(ap.t('keys.usageCheck')) + ' <button class="ap-key-usage-review" data-link="' + ap.escapeHtml(link.id) + '">' + ap.escapeHtml(ap.t('keys.usageReviewed')) + '</button></div>';
+    }
+    var event = events.find(function (item) { return item.guid === link.existingGuid; });
+    return event && event.status === 'booked' ? '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('keys.usageBooked', { portal: ap.portalDisplayLabel(event.target) })) + '</div>' : '';
+  };
+  ap.markKeyUsageReviewed = function (id) {
+    var journal = ap.readKeyUsage(), entry = Object.prototype.hasOwnProperty.call(journal.links, id) && journal.links[id];
+    if (!entry) return;
+    entry.events.forEach(function (event) { if (event.status === 'check' || event.status === 'attempt') event.status = 'reviewed'; });
+    ap.writeKeyUsage(journal); ap.runtime.keyUsageJournal = journal; ap.refreshKeys();
+  };
+  ap.observeNewPlanLinks = function () {
+    if (!(ap.runtime.links || []).length) return false;
+    var portals = ap.mergePortalSources(ap.getLoadedPortals(), ap.collectPortalBookmarks(ap.getLoadedPortals()));
+    var loaded = ap.collectExistingLinkIds(portals);
+    if (!ap.runtime.links.some(function (link) { return !link.existing && loaded.map[link.id]; })) return false;
+    var accumulated = ap.createExistingLinkAccumulator();
+    ap.mergeExistingLinkInfo(accumulated, { map: ap.runtime.existingLinkIds || {}, list: ap.runtime.existingLinks || [], count: (ap.runtime.existingLinks || []).length, unresolved: 0 });
+    ap.mergeExistingLinkInfo(accumulated, loaded);
+    ap.applyExistingLinkCoverage(accumulated);
+    return true;
+  };
+
   ap.keyInventoryRows = function () {
     var inventory = ap.keyInventory(), bookmarks = Object.create(null);
     ap.collectPortalBookmarks(ap.getLoadedPortals()).forEach(function (portal) {
@@ -4503,7 +4649,7 @@ function wrapper(plugin_info) {
   };
   ap.showKeyList = function () {
     var element = document.createElement('div');
-    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.listNotice')) + '</p><div style="display:flex;flex-wrap:wrap;gap:6px"><input type="search" style="min-width:0;max-width:100%;flex:1" aria-label="' + ap.escapeHtml(ap.t('keys.listSearch')) + '" placeholder="' + ap.escapeHtml(ap.t('keys.listSearch')) + '"><select aria-label="' + ap.escapeHtml(ap.t('keys.listSort')) + '"><option value="name">' + ap.escapeHtml(ap.t('keys.listSortName')) + '</option><option value="count">' + ap.escapeHtml(ap.t('keys.listSortCount')) + '</option></select><button>' + ap.escapeHtml(ap.t('keys.listRefresh')) + '</button></div><div class="ap-key-list-content" style="overflow:auto;max-height:55vh" aria-live="polite"></div>';
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.listNotice')) + '</p><p>' + ap.escapeHtml(ap.t('keys.usageNotice')) + '</p><div style="display:flex;flex-wrap:wrap;gap:6px"><input type="search" style="min-width:0;max-width:100%;flex:1" aria-label="' + ap.escapeHtml(ap.t('keys.listSearch')) + '" placeholder="' + ap.escapeHtml(ap.t('keys.listSearch')) + '"><select aria-label="' + ap.escapeHtml(ap.t('keys.listSort')) + '"><option value="name">' + ap.escapeHtml(ap.t('keys.listSortName')) + '</option><option value="count">' + ap.escapeHtml(ap.t('keys.listSortCount')) + '</option></select><button>' + ap.escapeHtml(ap.t('keys.listRefresh')) + '</button></div><div class="ap-key-list-content" style="overflow:auto;max-height:55vh" aria-live="polite"></div>';
     ap.runtime.keyListElement = element;
     element.querySelector('input').oninput = ap.refreshKeyList;
     element.querySelector('select').onchange = ap.refreshKeyList;
@@ -5242,6 +5388,7 @@ function wrapper(plugin_info) {
     ap.runtime.existingLinkIds = existingLinkIds;
     ap.runtime.existingLinks = existingLinks;
     ap.runtime.unresolvedEndpoints = unresolved;
+    ap.updateKeyConsumption();
     if (ap.state.finalScanProgress && ap.state.finalScanProgress.planSignature !== ap.finalScanPlanSignature(links)) {
       ap.state.finalScanProgress = null;
     }
@@ -6187,6 +6334,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
     html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
+    if (ap.runtime.keyUsageError) html += '<p>' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
       if (readiness.summary.length) html += ' · ' + ap.escapeHtml(readiness.summary.join(' · '));
@@ -6446,7 +6594,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.mapDataPanelRefreshTimer) clearTimeout(ap.runtime.mapDataPanelRefreshTimer);
     ap.runtime.mapDataPanelRefreshTimer = setTimeout(function () {
       ap.runtime.mapDataPanelRefreshTimer = null;
-      if (ap.runtime.enabled && ap.runtime.panel && (ap.runtime.links || []).length) ap.renderPanel();
+      if (ap.runtime.enabled && ap.runtime.panel && (ap.runtime.links || []).length && !ap.observeNewPlanLinks()) ap.renderPanel();
     }, delay == null ? 150 : delay);
   };
 

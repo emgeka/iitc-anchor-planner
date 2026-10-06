@@ -470,3 +470,12 @@ Vom Nutzer im Chat bestätigt, Stand 0.2.0-beta.6:
 - Alle Keys zurücksetzen → IITC neu laden → Keyänderung rückgängig stellt die vorherigen Mengen wieder her.
 
 Die Testplattform wurde nicht genannt. Diese Rückmeldung bestätigt den getesteten Ablauf, keine getrennte Desktop-/Mobile-Abdeckung oder sämtliche Konflikt-, Codec- und Fehlerszenarien. Diese bleiben anhand der obigen Szenarien zu prüfen.
+
+## Automatischer Keyverbrauch (0.2.0-beta.7)
+Automatisiert: `node src/test-key-consumption.mjs` (auch im Repository-CI).
+1. Gerichteten offenen Planlink A → B mit bekannten positiven Mengen scannen. Link bauen, Intel aktualisieren: Bestand B und Bedarf B sinken um eins, A bleibt unverändert. Keybestand zeigt die neue Menge.
+2. Scan/Finalcheck wiederholen, Karte weg/zurück, IITC refreshen und Plan erneut scannen: keine zweite Buchung desselben Intel-Links. Beim ersten Scan vorhandener Link kostet keinen Key.
+3. Nach beobachtetem Abbau neu bauen (neue Intel-GUID): genau ein weiterer Abzug. Import nach Buchung ersetzt die Menge; erneut erkannter gleicher Link verursacht keinen weiteren Abzug.
+4. Richtung offen, Keys deaktiviert, Menge unbekannt/null oder Schreibfehler: keine negative/fiktive Buchung; Prüfhinweis am Link, Bestand korrigieren/importieren und Bestand geprüft wählen. Keine verspätete Nachbuchung.
+5. Plan löschen, neu scannen: Journal bleibt zum Schutz vor Doppelbuchung erhalten. Letzte Import-/Reset-Sicherung bleibt bestehen; spätere Verbrauchsänderung wird bei Rücknahme als Konflikt geprüft.
+6. Desktop/Mobile: Verbrauchs- und Prüfhinweise in Aufgaben sowie Bestandsanzeige nach Kartenrefresh prüfen. Andere Spieler und mehrere Geräte gemäß bekannter Grenzen berücksichtigen.
