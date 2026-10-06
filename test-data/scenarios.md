@@ -438,3 +438,12 @@ SVG-Bildes und eines kurzen WebM-Videos erfolgreich; selektive Übernahme einer
 Zeile bei unveränderten anderen Beständen bestätigt. Bei 360 Pixel Breite sind
 Dateiauswahl und Abbruch bedienbar, Abbruch leert die Prüftabelle und deaktiviert
 Übernehmen. Dies ersetzt keinen Test echter Ingress-Aufnahmen in IITC.
+
+## Inventarkarten-OCR (0.2.0-beta.4)
+- Helle und abgedunkelte weiße Schrift über Fotos, farbige Level vor Namen,
+  gekürzte Namen, Adresse mit Postleitzahl und Entfernung/Icons vor xN testen.
+- Nächste Kartenüberschrift und unbekannte Titel dürfen keinen fremden Bestand liefern.
+- Namensvarianten mit/ohne Level bei zwei passenden Portalen als mehrdeutig behandeln.
+- Reale Aufnahme lokal geprüft: alle fünf sichtbaren Mengen 7/6/10/1/1 korrekt;
+  Bild und Ortsdaten bleiben ausschließlich in lokalen temporären Testdateien.
+- Erneut im echten IITC-Import mit deutscher OCR testen; Bestände erst nach Prüfung übernehmen.

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.0-beta.4 — inventory-card OCR correction
+
+### English
+- Recognize counts below address rows and beside distances/icons; accept level badges
+  without borrowing a count from the next card or accepting ambiguous title variants.
+- Filter photographic backgrounds with bright/dim neutral-text passes for dark images.
+  Preselect German OCR in the German UI. Real screenshot: five counts verified locally.
+
+### Deutsch
+- Mengen unter Adresszeilen und neben Entfernungen/Icons erkennen; Levelziffern
+  berücksichtigen, ohne Mengen der nächsten Karte oder mehrdeutige Namen zu übernehmen.
+- Fotohintergründe bei dunklen Bildern mit heller/dunkler Schriftmaske ausblenden.
+  Deutsche OCR bei deutscher UI vorauswählen. Fünf Mengen im echten Screenshot lokal geprüft.
+
+
 ## 0.2.0-beta.3 — Keys integration and reviewed media import draft
 
 ### English

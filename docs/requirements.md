@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.3
+# Anforderungen für Entwicklungsstand 0.2.0-beta.4
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -245,3 +245,8 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
   Mengen nicht vorauswählen. Kein automatisches Nullsetzen ungesehener Portale.
 - Änderungen ausschließlich über Keys.addKey vornehmen; aktuellen Bestand beim
   Schreiben neu lesen. Bei geändertem Plan neue Erkennung verlangen.
+
+- Keyerkennung muss Inventarkarten mit Levelziffer vor dem Namen, Adresszeile und
+  Entfernung/Icons vor der Menge verarbeiten. Die Menge darf nicht von der nächsten
+  Karte übernommen werden. Fotohintergrund und abgedunkelte Schrift berücksichtigen.
+- Deutsche Oberfläche wählt deutsche OCR vor; die Sprache bleibt manuell änderbar.
