@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.3
+// @version        0.2.0-beta.4
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261005170000';
+  plugin_info.dateTimeVersion = '20261006120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.3';
+  ap.VERSION = '0.2.0-beta.4';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4210,20 +4210,51 @@ function wrapper(plugin_info) {
   ap.parseKeyText = function (text, portals) {
     var lines = String(text).split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
     var result = [];
-    lines.forEach(function (line, index) {
-      var name = ap.normalizeKeyName(line.replace(/[x×]\s*\d+\s*$/i, ''));
-      var matches = portals.filter(function (p) {
+    function matchingPortals(line) {
+      var raw = line.replace(/[x×]\s*\d+\s*$/i, '');
+      var names = [ap.normalizeKeyName(raw), ap.normalizeKeyName(raw.replace(/^\W*[1-8]\s*/, ''))];
+      return portals.filter(function (p) {
         var title = ap.normalizeKeyName(p.title);
-        return title && (name === title || (name.length >= 8 && /(?:\.{2,}|…)\s*(?:[x×]\s*\d+)?$/i.test(line) && title.indexOf(name) === 0));
+        return title && names.some(function (name) { return name === title || (name.length >= 8 && /(?:\.{2,}|…)\s*(?:[x×]\s*\d+)?$/i.test(line) && title.indexOf(name) === 0); });
       });
+    }
+    lines.forEach(function (line, index) {
+      var matches = matchingPortals(line);
       if (matches.length !== 1) return;
-      for (var offset = 0; offset <= 1 && index + offset < lines.length; offset++) {
-        if (offset && portals.some(function (p) { return ap.normalizeKeyName(lines[index + offset]) === ap.normalizeKeyName(p.title); })) break;
-        var count = lines[index + offset].match(/(?:^|\s)[x×]\s*(\d{1,6})(?:\s|$)/i);
+      for (var offset = 0; offset <= 3 && index + offset < lines.length; offset++) {
+        var next = lines[index + offset];
+        if (offset && matchingPortals(next).length) break;
+        var count = next.match(/(?:^|\s)[x×]\s*(\d{1,6})(?:\s|$)/i);
         if (count) { result.push({ guid: matches[0].guid, count: Number(count[1]), evidence: lines.slice(index, index + offset + 1).join(' / ') }); break; }
+        // Cross only an address (postcode) or a distance, never another unknown title.
+        if (offset && !/\b\d{4,6}\b/.test(next) && !/^\s*[\d.,‚]+\s*(?:km|m)\b/i.test(next)) break;
       }
     });
     return result;
+  };
+  ap.maskKeyPixels = function (pixels, threshold) {
+    var output = new Uint8ClampedArray(pixels.length);
+    for (var i = 0; i < pixels.length; i += 4) {
+      var low = Math.min(pixels[i], pixels[i + 1], pixels[i + 2]);
+      var high = Math.max(pixels[i], pixels[i + 1], pixels[i + 2]);
+      var value = low >= threshold && high - low < 65 ? 0 : 255;
+      output[i] = output[i + 1] = output[i + 2] = value; output[i + 3] = 255;
+    }
+    return output;
+  };
+  ap.keyOcrCanvases = function (canvas) {
+    var context = canvas.getContext('2d');
+    if (typeof context.getImageData !== 'function') return [canvas];
+    var pixels = context.getImageData(0, 0, canvas.width, canvas.height), dark = 0;
+    for (var i = 0; i < pixels.data.length; i += 4) if ((pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3 < 128) dark++;
+    if (dark / (pixels.data.length / 4) < 0.55) return [canvas];
+    // Ingress uses neutral light text over photos. Keep bright and dim text separately.
+    return [180, 100].map(function (threshold) {
+      var filtered = document.createElement('canvas'); filtered.width = canvas.width; filtered.height = canvas.height;
+      var target = filtered.getContext('2d'), data = target.createImageData(canvas.width, canvas.height);
+      data.data.set(ap.maskKeyPixels(pixels.data, threshold)); target.putImageData(data, 0, 0);
+      return filtered;
+    });
   };
   ap.mergeKeyObservations = function (observations, portals) {
     return portals.map(function (portal) {
@@ -4296,8 +4327,11 @@ function wrapper(plugin_info) {
             if (video && frame > 0) await ap.keyMediaEvent(media, 'seeked', function () { media.currentTime = frame; }, job);
             check(); context.drawImage(media, 0, 0, canvas.width, canvas.height);
             progress((f + 1) + '/' + files.length + ' · ' + (frame + 1) + '/' + frames);
-            var result = await worker.recognize(canvas); check();
-            observations = observations.concat(ap.parseKeyText(result.data.text, portals));
+            var passes = ap.keyOcrCanvases(canvas);
+            for (var pass = 0; pass < passes.length; pass++) {
+              check(); var result = await worker.recognize(passes[pass]); check();
+              observations = observations.concat(ap.parseKeyText(result.data.text, portals));
+            }
           }
         } finally { if (video) { media.pause(); media.removeAttribute('src'); media.load(); } URL.revokeObjectURL(url); }
       }
@@ -4308,6 +4342,7 @@ function wrapper(plugin_info) {
     if (!ap.getKeysPlugin()) { window.alert(ap.t('keys.needPlugin')); return; }
     var element = document.createElement('div'), job = null, rows = [], signature;
     element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.notice')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" style="max-width:100%" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review" style="overflow:auto;max-height:50vh"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
+    element.querySelector('.ap-key-language').value = ap.getLanguage() === 'de' ? 'deu' : 'eng';
     var start = element.querySelector('.ap-key-start'), apply = element.querySelector('.ap-key-apply'), status = element.querySelector('.ap-key-progress');
     function cancel() {
       if (job) job.abort();

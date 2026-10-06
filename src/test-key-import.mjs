@@ -29,6 +29,13 @@ assert.equal(ap.parseKeyText('Rathaus\nx12',[...portals,{guid:'D',title:'Rathaus
 assert.equal(ap.parseKeyText('Brunnen am...\n×3',portals)[0].count,3);
 assert.equal(ap.parseKeyText('Unrelated\nx8',portals).length,0);
 assert.equal(ap.parseKeyText('Rathaus\nUnrelated portal\nx8',portals).length,0,'Never borrow a count across another name.');
+const cards = ap.parseKeyText('3Rathaus\nAlte Straße, 12345 Beispielstadt..\n8,6km ZU x7\n6 Brunnen am...\nAm Markt 4, 12345 Beispielstadt\n6,0 km x6\nStadtpark\nAm Park 10, 12345..\n9,3km ZN x10',portals);
+assert.deepEqual(Array.from(cards,c=>c.count),[7,6,10],'Level badges, address rows and distance/icon prefixes belong to one inventory card.');
+assert.equal(ap.parseKeyText('Rathaus\nBrunnen am...\nAm Markt, 12345 Stadt\nx6',portals)[0].guid,'B','Stop before the next recognized truncated title.');
+assert.equal(ap.parseKeyText('6Rathaus\nx7',[...portals,{guid:'D',title:'6Rathaus'}]).length,0,'A real digit-prefixed name and a level badge must not be silently confused.');
+const colors=new Uint8ClampedArray([255,255,255,255,120,120,120,255,50,140,240,255,0,0,0,255]);
+assert.deepEqual(Array.from(ap.maskKeyPixels(colors,180)).filter((v,i)=>i%4===0),[0,255,255,255]);
+assert.deepEqual(Array.from(ap.maskKeyPixels(colors,100)).filter((v,i)=>i%4===0),[0,0,255,255]);
 let rows=ap.mergeKeyObservations([...hits,{guid:'A',count:13,evidence:'other frame'}],portals);
 assert.equal(rows[0].selected,false); assert.equal(rows[0].conflict,true);
 assert.equal(rows[2].count,null); assert.equal(rows[2].selected,false);

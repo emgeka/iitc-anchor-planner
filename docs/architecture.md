@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.3
+# Architekturübersicht 0.2.0-beta.4
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -399,3 +399,12 @@ lässt Konflikte und nicht erkannte Portale offen. applyKeyImport validiert ausg
 Ganzzahlen und die GUID-/Namenssignatur des Plans vor dem Schreiben. OCR-Ergebnisse,
 Dateien und Prüftabelle werden nicht gespeichert. Decoderfehler und Abbruch räumen
 Blob-URLs und Worker auf; eine laufende OCR-Operation wird vor dem Abbruch beendet.
+
+### OCR von Inventarkarten
+keyOcrCanvases erkennt überwiegend dunkle Bilder (>55 % dunkle Pixel). maskKeyPixels
+erzeugt zwei neutrale Schriftmasken (180/100), um weiße und abgedunkelte Schrift über
+Portalbildern zu erkennen. Helle Bilder behalten die ursprüngliche Erkennung. Beide
+Durchläufe verwenden denselben Worker; widersprüchliche Ergebnisse bleiben Konflikte.
+parseKeyText prüft Varianten mit/ohne Level 1–8, lehnt dadurch mehrdeutige Namen ab
+und erlaubt eine Postleitzahl-/Adresszeile oder Entfernung vor xN/×N. Andere unbekannte
+Titel begrenzen die Suche. Bei deutscher UI ist die OCR-Sprache deu vorausgewählt.
