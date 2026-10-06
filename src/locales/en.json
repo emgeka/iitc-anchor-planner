@@ -244,5 +244,10 @@
   "keys.listSortCount": "Most keys first",
   "keys.listRefresh": "Refresh",
   "keys.listEmpty": "No keys stored.",
-  "keys.listNoMatch": "No matching portals."
+  "keys.listNoMatch": "No matching portals.",
+  "keys.usageNotice": "A plan link previously seen as open uses one key at its confirmed target when it is newly detected in Intel. Existing links at the first scan are not charged. Repeated scans or refreshes do not charge the same link twice. Links built by other players also trigger this rule.",
+  "keys.usageStorage": "Automatic key consumption could not be saved safely. No further automatic booking for this observation; check browser storage and inventory.",
+  "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
+  "keys.usageReviewed": "Inventory checked",
+  "keys.usageBooked": "1 key deducted at {portal}"
 }

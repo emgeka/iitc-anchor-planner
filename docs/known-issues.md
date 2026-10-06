@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.6
+# Bekannte Grenzen in 0.2.0-beta.7
 
 ## Portalzuordnung und Namen
 
@@ -86,7 +86,7 @@
 - Wenn das Wurfportal manuell erledigt ist, seine Planlinks jedoch weiterhin
   fehlen, bleiben diese Aufgaben als nicht eingeplant sichtbar. Den
   Erledigt-Status zurücknehmen oder den Intel-Stand erneut prüfen.
-- Der Key-Ablauf wurde für 0.2.0-beta.6 praktisch bestätigt (siehe Testszenarien). Getrennte Desktop-/Mobile-Abdeckung und übrige Beta-Szenarien stehen noch aus.
+- Import, Bestandsanzeige und Reset/Rücknahme wurden bis 0.2.0-beta.6 praktisch bestätigt (siehe Testszenarien). Automatischer Verbrauch in beta.7, getrennte Desktop-/Mobile-Abdeckung und übrige Beta-Szenarien stehen noch aus.
 - Standortdaten werden nur zur Laufzeit gehalten und weder gespeichert noch
   exportiert.
 - Vorgemerkte Blocker-Portale werden nur berücksichtigt, solange sie weiterhin
@@ -212,3 +212,9 @@
 ## Gesamtbestandsliste
 - Keys speichert Mengen nach GUID, keine Portalnamen. Namen außerhalb von Plan, geladenen Portalen und Bookmarks können fehlen; diese Bestände werden trotzdem vollständig gezählt. Keine automatischen Detailabfragen. Nach Laden des Kartenausschnitts Aktualisieren wählen.
 - Suche gilt für bekannte/angezeigte Namen; Gesamtzahlen bleiben der vollständige Bestand. Die neuen Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch. Anzeige der übernommenen Videomengen im Gesamtbestand wurde vom Nutzer bestätigt. Getrennte Desktop-/Mobile-Abdeckung, Such-/Sortierbedienung und weitere Namensfälle bleiben zu prüfen.
+
+## Automatischer Keyverbrauch
+- Die Regel folgt ausdrücklich der Intel-Erkennung, nicht dem tatsächlichen ausführenden Spieler. Auch durch andere Spieler gebaute Links können den eigenen gespeicherten Bestand reduzieren. Ein zuvor wegen fehlender Abdeckung offener Link kann erst später erkannt werden.
+- Unbestätigte Wurfrichtung, fehlende Intel-Linkidentität, unbekannter/null Bestand und Schreibunterbrechungen werden nicht automatisch nachgebucht. In Aufgaben den Bestand prüfen/korrigieren und als geprüft markieren.
+- Buchungen sind lokale Beobachtungen; Keys-Sync überträgt Mengen, aber nicht das Buchungsjournal. Mehrere aktive Geräte/Tabs können daher dieselbe Beobachtung separat verarbeiten. Nach Browserdatenlöschung beginnt eine neue Basisaufnahme.
+- Automatisierte Tests decken Übergänge und Doppelbuchungen ab; IITC-Praxistest des Verbrauchs bleibt offen.

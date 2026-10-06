@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.7 — automatic key consumption for new plan links
+
+### English
+- Deduct one key at the confirmed target for a previously open plan link newly seen in Intel. Persist identities to prevent repeated charges across scans/refreshes; first-scan existing links are a baseline.
+- Show review notes for missing direction/inventory or interrupted writes. Keep import/reset backups intact.
+
+### Deutsch
+- Bei neu in Intel erkanntem, zuvor offenem Planlink einen Key am bestätigten Ziel abziehen. Linkidentitäten verhindern wiederholte Abzüge bei Scans/Refreshs; beim ersten Scan vorhandene Links bilden den Ausgangsstand.
+- Fehlende Richtung/Bestände oder Schreibunterbrechung als Prüfhinweis anzeigen. Import-/Reset-Sicherungen erhalten.
+
 ## 0.2.0-beta.6 — complete key inventory list
 
 ### English

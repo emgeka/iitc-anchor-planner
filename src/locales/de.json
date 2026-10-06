@@ -244,5 +244,10 @@
   "keys.listSortCount": "Größte Menge zuerst",
   "keys.listRefresh": "Aktualisieren",
   "keys.listEmpty": "Keine Keys gespeichert.",
-  "keys.listNoMatch": "Keine passenden Portale."
+  "keys.listNoMatch": "Keine passenden Portale.",
+  "keys.usageNotice": "Ein zuvor als offen erkannter Planlink verbraucht bei neuer Erkennung in Intel einen Key am bestätigten Zielportal. Beim ersten Scan vorhandene Links werden nicht gebucht. Weitere Scans oder Refreshs buchen denselben Link nicht doppelt. Auch Links anderer Spieler lösen diese Regel aus.",
+  "keys.usageStorage": "Der automatische Keyverbrauch konnte nicht sicher gespeichert werden. Für diese Beobachtung erfolgt keine weitere automatische Buchung; Browserspeicher und Bestand prüfen.",
+  "keys.usageCheck": "Keybestand prüfen: Automatische Buchung war nicht möglich oder wurde unterbrochen. Richtung prüfen und aktuellen Bestand korrigieren/importieren, bevor er als geprüft markiert wird.",
+  "keys.usageReviewed": "Bestand geprüft",
+  "keys.usageBooked": "1 Key bei {portal} abgezogen"
 }
