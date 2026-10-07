@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.16
+// @version        0.2.0-beta.17
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007130000';
+  plugin_info.dateTimeVersion = '20261007133000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.16';
+  ap.VERSION = '0.2.0-beta.17';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4889,12 +4889,14 @@ function wrapper(plugin_info) {
     var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
     draft.preview = ap.buildFanDesign(portals, draft.anchors, draft.assignments);
     if (ap.fanDrawingConflict(draft.preview, draft.source === 'area')) draft.preview.errors.push('fan.drawConflict');
-    if (!draft.preview.errors.length && window.map && typeof L.LayerGroup === 'function') {
+    // Existing drawings can forbid applying a valid design without hiding its preview.
+    var visible = draft.preview.errors.every(function (error) { return error === 'fan.drawConflict'; });
+    if (visible && window.map && typeof L.LayerGroup === 'function') {
       draft.layer = new L.LayerGroup().addTo(window.map);
       var colors = ['#00e5ff', '#ffbf47', '#bb8bff', '#63dd85'];
       if (L.polygon) draft.preview.fields.forEach(function (vertices) {
         var guid = draft.anchors.indexOf(vertices[0].guid) !== -1 ? vertices[0].guid : draft.preview.assignments[vertices[0].guid];
-        L.polygon(vertices, { color: colors[draft.anchors.indexOf(guid) % colors.length], weight: 1, fillOpacity: .06, interactive: false }).addTo(draft.layer);
+        L.polygon(vertices, { color: colors[draft.anchors.indexOf(guid) % colors.length], weight: 2, opacity: .9, fillOpacity: .18, interactive: false }).addTo(draft.layer);
       });
       draft.preview.links.forEach(function (edge) { L.polyline([edge.a, edge.b], { color: colors[draft.anchors.indexOf(edge.anchor) % colors.length], weight: 3, interactive: false }).addTo(draft.layer); });
       draft.preview.anchors.forEach(function (anchor) { L.circleMarker(anchor, { radius: 11, color: '#fff', weight: 3, fillOpacity: .7, interactive: false }).addTo(draft.layer); });

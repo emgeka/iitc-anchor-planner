@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.17
+
+### English
+- Keep geometrically valid fan previews visible when existing Draw Tools lines prevent applying them. Strengthen field fill and outlines; conflict warnings and the apply lock remain.
+
+### Deutsch
+- Geometrisch gültige Fächervorschläge auch bei Konflikten mit vorhandenen Draw-Tools-Linien anzeigen. Feldflächen und Umrisse deutlicher darstellen; Konfliktmeldung und Übernahmesperre bleiben erhalten.
+
 ## 0.2.0-beta.16
 
 ### English

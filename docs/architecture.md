@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.16
+# Architekturübersicht 0.2.0-beta.17
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -448,3 +448,6 @@ buildFanDesign weist jeden Nicht-Anker genau einem Anker zu (manuell, sonst näc
 suggestFanAnchors bewahrt manuelle Anker und Zuordnungsziele. Deterministische greedy-Suche: Fehlerzahl, Feldzahl, Blocker, vorhandene Links, Gesamtlinklänge. Maximal 20 abgetastete Kandidaten; Budget min(100,max(8,floor(600/Portalzahl))) Geometrieprüfungen. Danach weitere gewünschte Anker per größtem Abstand ergänzen. Begrenzung schützt mobile Bedienung, garantiert kein Optimum.
 getFanCandidates liefert koordinierte Snapshots aus Plan, Kartenausschnitt oder einfachen Auswahlpolygonen (Rand inklusive). runtime.fanDraft hält Ausschlüsse, feste Anker, Zuordnungen und einen separaten LayerGroup. Dialogwechsel/Schließen bereinigt nur die eigene Vorschau; Quellenwechsel lädt neu und invalidiert sie. HTML-Inhalte werden escaped.
 applyFanDesign revalidiert Geometrie und vorhandene Zeichnungen, dedupliziert über Segmentkoordinaten, ergänzt geodesicPolyline/polyline in drawTools.drawnItems und ruft save auf. Bei Fehler neue Layer entfernen und Speicherung erneut versuchen; vorhandene Zeichnungen unverändert. Erst danach Metadaten speichern, Vorschau entfernen und regulär scan ausführen. Während Finalcheck/Planvorschau keine Übernahme. Richtungs-, Aufgaben-, Key- und Erledigungssemantik bleiben im bestehenden Scan/Arbeitsplan.
+
+### Fächervorschau beta.17
+previewFanDesign trennt Geometrie und Übernahmekonflikte: ausschließlich fan.drawConflict in errors verhindert das separate Overlay nicht. Andere Fehler verhindern es weiterhin. Feldfüllung 0,18 und Umrissgewicht 2/Deckkraft 0,9; keine Änderung am Plan oder Keys. applyFanDesign und Button bleiben bei jedem Fehler gesperrt.

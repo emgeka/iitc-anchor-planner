@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.16
+# Anforderungen für Entwicklungsstand 0.2.0-beta.17
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -300,3 +300,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 - Reine Karten-Vorschau; erst ausdrückliches Ergänzen fügt fehlende Linien dem aktuellen Draw-Tools-Projekt hinzu und speichert/scant. Vorhandene Zeichnungen erhalten, doppelte Linien vermeiden, Speicherfehler rollen neu hinzugefügte Linien zurück. Fremde Planlinien dürfen den Entwurf nicht kreuzen.
 - Keine Keys oder Erledigungen ändern, neue Wurfrichtungen bleiben unbestätigt. Anker/Zuordnung/Auswahlflächen-Metadaten speichern und exportieren. Übernommene Auswahlpolygon-Ränder nicht als Planlinks scannen.
 - Geometrische Feldzahl ist kein Nachweis einer ausführbaren Ingress-Baureihenfolge; bestehender Einsatz-/Finalcheck bleibt erforderlich. Desktop und mobile Dialogbreite berücksichtigen.
+
+## Sichtbare Fächervorschau (0.2.0-beta.17)
+- Konflikte mit vorhandenen Draw-Tools-Linien sperren nur die Übernahme; geometrisch gültige Felder bleiben als Vorschlag sichtbar. Flächen und Umrisse deutlich einfärben. Ungültige Fächergeometrie weiterhin nicht anzeigen.
