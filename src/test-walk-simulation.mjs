@@ -5,13 +5,13 @@ const source=fs.readFileSync(new URL('./iitc-anchor-planner.user.js',import.meta
 const wrapper=source.slice(source.indexOf('function wrapper(plugin_info) {'),source.lastIndexOf('var script = document.createElement'));
 function point(lat,lng){return {lat,lng,distanceTo:p=>Math.hypot(lat-p.lat,lng-p.lng)*1000};}
 function runtime(){
-  const storage=new Map(),timers=new Map(),layers=[],mapEvents=[];let timerId=0;
+  const storage=new Map(),timers=new Map(),timerDelays=[],layers=[],mapEvents=[];let timerId=0;
   class Layer {constructor(){this.items=[];this.clears=0;layers.push(this);}addTo(){return this;}clearLayers(){this.items=[];this.clears++;}removeLayer(item){this.items=this.items.filter(i=>i!==item);}}
   const draw=(kind,coords)=>({kind,coords,addTo(layer){layer.items.push(this);return this;},setLatLngs(p){this.coords=p;return this;},setLatLng(p){this.coords=p;return this;}});
   const nodes=()=>{const n={'.ap-walk-content':{innerHTML:'',textContent:''}};for(const s of ['previous','next','play','restart'])n['.ap-walk-'+s]={disabled:false,textContent:''};return {innerHTML:'',querySelector:s=>n[s]};};
   const context={console,navigator:{},document:{getElementById:()=>null,createElement:nodes},
     localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},
-    setTimeout:fn=>{timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),
+    setTimeout:(fn,ms)=>{timerDelays.push(ms);timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),
     L:{latLng:point,LayerGroup:Layer,polyline:p=>draw('line',p),polygon:p=>draw('field',p),circleMarker:p=>draw('head',p)},
     window:{bootPlugins:[],innerWidth:360,portals:{},map:{getCenter:()=>point(9,9),getZoom:()=>13,stop:()=>mapEvents.push(['stop']),panTo:(p,options)=>mapEvents.push(['pan',p,options]),setView:(p,z)=>mapEvents.push(['restore',p,z]),removeLayer:()=>mapEvents.push(['remove'])},alert:m=>mapEvents.push(['alert',m])}};
   vm.runInNewContext(wrapper+'\nwrapper({});',context);const ap=context.window.plugin.anchorPlanner;
@@ -27,7 +27,7 @@ function runtime(){
     {portal:ap.runtime.stats.B,planVisit:true,links:[bc],blockers:[]},
     {portal:ap.runtime.stats.A,planVisit:true,links:[],blockers:[]}],blockers:[blocker],unscheduled:[],unassigned:[]};
   ap.getWorkPlan=()=>plan;ap.getCurrentUserLocation=()=>({latlng:point(0,-2)});
-  return {ap,context,storage,timers,layers,mapEvents,plan,ab,ac,bc};
+  return {ap,context,storage,timers,timerDelays,layers,mapEvents,plan,ab,ac,bc};
 }
 {
   const {ap,context,storage}=runtime(),before=JSON.stringify(ap.state),inventory=JSON.stringify(context.window.plugin.keys.keys);
@@ -98,7 +98,7 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   assert.ok(session.layer.items.includes(previousLink),'Previously drawn links retain their Leaflet identity.');
   assert.equal(session.head,firstHead,'The current-stop marker is updated in place.');
   const moves=mapEvents.filter(e=>e[0]==='pan');
-  assert.ok(moves.every(e=>e[2].animate&&e[2].duration===0.9),'Force smooth panning even for stops beyond the viewport.');
+  assert.ok(moves.every(e=>e[2].animate&&e[2].duration>=2.5&&e[2].duration<=5),'Slower panning remains bounded, including distant stops.');
   const count=mapEvents.length,items=session.layer.items.slice();
   ap.playWalkSimulation();ap.playWalkSimulation();
   assert.equal(mapEvents.length,count,'Pause/resume does not repeat the camera move.');
@@ -110,7 +110,17 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   assert.equal(mapEvents.at(-3)[0],'stop','Stop camera animation before removing the preview and restoring the view.');
 }
 {
-  const {ap,mapEvents,context}=runtime();ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  const {ap,mapEvents,context,timers,timerDelays}=runtime();ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  ap.seekWalkSimulation(1);const shortDuration=mapEvents.filter(e=>e[0]==='pan').at(-1)[2].duration;
+  session.model.frames[2].point={lat:0,lng:20};ap.seekWalkSimulation(2);
+  const longDuration=mapEvents.filter(e=>e[0]==='pan').at(-1)[2].duration;
+  assert.ok(longDuration>shortDuration,'Long travel gets more time than short travel.');assert.equal(longDuration,5);
+  ap.playWalkSimulation();assert.ok(timerDelays.at(-1)>=longDuration*1000+1200,'Automatic next stop waits for movement and a reading pause.');
+  assert.equal(timers.size,1);ap.playWalkSimulation();assert.equal(timers.size,0);
+  session.model.frames[2].point={lat:0,lng:1};ap.seekWalkSimulation(1);ap.playWalkSimulation();
+  const [id,advance]=timers.entries().next().value;timers.delete(id);advance();
+  assert.ok(timerDelays.at(-1)>=mapEvents.filter(e=>e[0]==='pan').at(-1)[2].duration*1000+1200,'Following steps also wait for their own movement.');
+  ap.playWalkSimulation();
   ap.seekWalkSimulation(2);const moves=mapEvents.filter(e=>e[0]==='pan').length;
   session.model.frames[3].point=session.model.frames[2].point;ap.seekWalkSimulation(3);
   assert.equal(mapEvents.filter(e=>e[0]==='pan').length,moves,'Repeat coordinates do not move the camera again.');

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.12
+# Bekannte Grenzen in 0.2.0-beta.13
 
 ## Portalzuordnung und Namen
 
@@ -241,3 +241,5 @@
 Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
 
 - Empfangsportale werden ohne konkrete Aufgabe übersprungen. Keymangel erzeugt keine automatische Farmroute; Portalübernahme und Aufrüstung werden weiterhin nicht als Aufgaben erkannt. Für einen erforderlichen Aufenthalt muss ein konkreter Arbeitsauftrag künftig ausdrücklich modelliert werden.
+
+- Nutzer bestätigt in beta.12 die verbesserte Route, empfindet die Animation aber als zu schnell. beta.13 verlängert die Bewegung auf 2,5–5 Sekunden und passt den automatischen Schritttakt an. Praktische Wirkung auf Desktop/Mobile noch bestätigen; langsame Kartenladung kann weiterhin die Darstellung beeinflussen.

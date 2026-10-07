@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.12
+// @version        0.2.0-beta.13
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007110000';
+  plugin_info.dateTimeVersion = '20261007113000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.12';
+  ap.VERSION = '0.2.0-beta.13';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4465,6 +4465,8 @@ function wrapper(plugin_info) {
     // Pause/resume only changes controls; preserve geometry and camera position.
     if (session.renderedIndex === session.index) return;
     var previous = session.model.frames[session.renderedIndex];
+    var panFrom = previous && previous.point || session.view && session.view.center;
+    session.stepDelay = 3700;
     if (!previous || session.index < session.renderedIndex) {
       session.layer.clearLayers(); session.pathLayers = []; session.head = null;
       previous = null;
@@ -4487,7 +4489,10 @@ function wrapper(plugin_info) {
       if (!previous || !previous.point || previous.point.lat !== frame.point.lat || previous.point.lng !== frame.point.lng) {
         if (window.map && window.map.stop) window.map.stop();
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: !reduceMotion, duration: 0.9, easeLinearity: 0.5 });
+        var distance = panFrom ? ap.workDistance(L.latLng(panFrom.lat, panFrom.lng), L.latLng(frame.point.lat, frame.point.lng)) : 0;
+        var duration = 2.5 + Math.min(2.5, isFinite(distance) ? distance / 2000 : 0);
+        session.stepDelay = Math.ceil(duration * 1000) + 1200;
+        if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: !reduceMotion, duration: duration, easeLinearity: 0.5 });
       }
     } else if (session.head) {
       session.layer.removeLayer(session.head); session.head = null;
@@ -4513,9 +4518,9 @@ function wrapper(plugin_info) {
       session.index++;
       if (session.index >= session.model.frames.length - 1) session.playing = false;
       ap.renderWalkSimulation();
-      if (session.playing) session.timer = setTimeout(advance, 1500);
+      if (session.playing) session.timer = setTimeout(advance, session.stepDelay || 3700);
     }
-    session.timer = setTimeout(advance, 1500);
+    session.timer = setTimeout(advance, session.stepDelay || 3700);
   };
   ap.showWalkSimulation = function () {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
