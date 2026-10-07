@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.16
+# Bekannte Grenzen in 0.2.0-beta.17
 
 ## Portalzuordnung und Namen
 
@@ -255,3 +255,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 - Nächster Anker als automatische Zuordnung kann ungünstig sein. Manuelle Zuordnung und Ankerwahl möglich; kreuzende oder überlappende Speichen erfordern Anpassung. Zu viele Anker können Fächer ohne Feld erzeugen. Vorhandene kreuzende Draw-Tools-Linien verhindern Ergänzung; gegebenenfalls ein anderes Projekt verwenden.
 - Speicherfehler: neue Linien werden aus der Session entfernt und Speicherung erneut versucht. Scheitert auch diese, gespeicherten Draw-Tools-Stand vor einem Refresh prüfen. Kein vollautomatischer ausführbarer Mehrlagenplan; Wurfrichtungen ausdrücklich bestätigen.
 - Automatisierte Geometrie-/Persistenz-/Rollbacktests bestanden. Echter IITC- und Mobile-Praxistest des Fächerdialogs ausstehend. Nächste Aufgabe aus beta.15 vom Nutzer im praktischen Test bestätigt; Mobile-Abdeckung weiterhin offen.
+
+## Fächervorschau beta.17
+Nutzer meldet keine sichtbaren vorgeschlagenen Felder in beta.16; genaue Dialogmeldung/Plattform noch nicht bekannt. Codeprüfung zeigt komplette Ausblendung bei Konflikten mit alten Zeichnungen sowie sehr schwache Feldfüllung. Beta.17 behebt beide Darstellungsprobleme; automatisierte Konflikt-/Übernahmesperrentests bestanden, Nutzerbestätigung ausstehend. Ein Entwurf ohne geometrische Felder oder mit ungültiger Geometrie bleibt mit Meldung unsichtbar.

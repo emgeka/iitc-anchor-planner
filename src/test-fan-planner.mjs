@@ -146,6 +146,12 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   drawn.addLayer(new Line([point(-1, .5), point(2, .5)]));
   assert.equal(ap.applyFanDesign(), false, 'New conflicting drawings invalidate a previously valid preview');
   assert.equal(drawn.layers.length, 1);
+  ap.previewFanDesign();
+  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.drawConflict'));
+  assert.ok(ap.runtime.fanDraft.layer, 'Conflicting old drawings must not hide a geometrically valid proposal');
+  assert.equal(ap.runtime.fanDraft.layer.layers.filter(layer => layer instanceof Polygon).length, 1);
+  assert.equal(ap.applyFanDesign(), false, 'Visible conflict preview still cannot be applied');
+  assert.equal(drawn.layers.length, 1);
 }
 {
   const { ap, drawn, context } = runtime();

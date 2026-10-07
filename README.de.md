@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.16
+### Beta-Test: 0.2.0-beta.17
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -231,3 +231,5 @@ Die hellblaue Weglinie wächst schrittweise bis zum mitwandernden Positionsmarke
 **Fächer planen** im Panel öffnen. 3–60 Portale aus dem aktuellen Plan, dem sichtbaren Kartenausschnitt oder einem einfachen Draw-Tools-Auswahlpolygon laden. Einen, zwei oder mehr Anker vorschlagen lassen. Einzelne Portale als Anker (festgelegt), Portal oder Ausgeschlossen markieren. Jedes weitere Portal gehört zum nächstgelegenen Anker, sofern du keinen anderen zuweist. Getrennte Fächer verbinden keine unterschiedlichen Ankergruppen.
 
 **Vorschau** prüfen und anschließend **In Draw Tools ergänzen**. Bestehende Zeichnungen bleiben erhalten, hinzugefügte Links werden gescannt. Wurfrichtungen unter Aufgaben bestätigen. Vorschläge ändern weder Keys noch Erledigungen. Die begrenzte Ankersuche bewertet Geometrie, geladene Blocker, vorhandene Links und Linklänge; sie garantiert weder das Optimum noch eine gültige Ingress-Baureihenfolge. Nur geladene Intel-Daten zählen. Die Idee ist von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert; der eigenständige Mehranker-Planer entsteht in Anchor Planner.
+
+Beta.17 zeigt gültige Fächervorschläge auch dann, wenn vorhandene Draw-Tools-Linien die Übernahme verhindern. Feldflächen und Umrisse sind deutlicher; Konfliktmeldung und gesperrter Übernahmebutton bleiben erhalten.
