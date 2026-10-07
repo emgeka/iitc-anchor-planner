@@ -118,7 +118,7 @@ function createRuntime({ languages = [], language = '', pageLanguage = '', saved
   assert.match(germanText, /Vorhandene Links: 0 · nicht bestätigt: 1/);
 
   const exported = ap.exportData();
-  assert.deepEqual(Object.keys(exported), ['plugin', 'version', 'exportedAt', 'scan', 'blockedPlanLinks', 'plannedLinks', 'anchors']);
+  assert.deepEqual(Object.keys(exported), ['plugin', 'version', 'exportedAt', 'scan', 'fanDesign', 'blockedPlanLinks', 'plannedLinks', 'anchors']);
   assert.deepEqual(Object.keys(exported.anchors[0]), [
     'guid', 'title', 'address', 'lat', 'lng', 'linkCount', 'existingLinks', 'blockedLinks',
     'openLinks', 'requiredKeys', 'ownedKeys', 'done', 'note', 'navigation'

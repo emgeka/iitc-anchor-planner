@@ -170,3 +170,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Bei Bestands-/Importänderungen zusätzlich node src/test-key-import.mjs ausführen.
 - Bei Änderungen an automatischer Linkverbrauchsbuchung zusätzlich node src/test-key-consumption.mjs ausführen; Intel-GUIDs dauerhaft gegen Doppelbuchungen schützen.
 - Der 0.2.0-Entwurf braucht einen echten Screenshot-/Video-Praxistest vor Stable.
+
+## Fächerplanung
+- Bei Generator-/Anker-/Zuordnungsänderungen zusätzlich `node src/test-fan-planner.mjs` ausführen. Vorschläge verändern weder Draw Tools noch Keys/Erledigung; erst der explizite Übernahmebutton ergänzt Linien. Bestehende Zeichnungen erhalten, selbst kreuzende Ankerlinks nicht übernehmen. Wurfrichtungen bleiben pro Link ausdrücklich zu bestätigen.

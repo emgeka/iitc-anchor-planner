@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.15
+# Bekannte Grenzen in 0.2.0-beta.16
 
 ## Portalzuordnung und Namen
 
@@ -248,3 +248,10 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 - Nächste Aufgabe ist die erste konkrete Arbeit der Luftlinienroute, keine automatisch erkannte Ankunft. Manuell erledigte Wurfportale mit offenen Intel-Links erzeugen weiterhin Prüfaufgaben; Rücknahme über vollständige Aufgabenliste. Bei bewegtem GPS kann die Route nach bestehender 100-m-Regel wechseln. Desktop-/Mobile-Praxistest der neuen Ansicht ausstehend.
 - Nutzer bestätigt die Weglinien-/Markeranimation in beta.14 als gelungen; Plattform nicht angegeben, keine getrennte Mobile-Abdeckung.
+
+## Fächer-Entwurf in beta.16
+- Ankersuche ist eine begrenzte Heuristik, kein globales Optimum. Höchstens 60 ausgewählte Portale; keine Bewertung von Wegen, Erreichbarkeit, Besitz, Schlüsselbedarf oder legaler Ingress-Baureihenfolge. Dreiecke zählen geometrisch, auch geschachtelte und Blattdreiecke.
+- Nur geladene Portale/Links verfügbar. Auswahlflächen unterstützen einfache Polygone ohne Löcher; mehrere Flächen bilden eine gemeinsame Auswahl. Nach Übernahme werden alle dabei verwendeten Polygonränder im Scan ignoriert. Geänderte Ränder gelten als neue Zeichnung; Metadaten im Export enthalten.
+- Nächster Anker als automatische Zuordnung kann ungünstig sein. Manuelle Zuordnung und Ankerwahl möglich; kreuzende oder überlappende Speichen erfordern Anpassung. Zu viele Anker können Fächer ohne Feld erzeugen. Vorhandene kreuzende Draw-Tools-Linien verhindern Ergänzung; gegebenenfalls ein anderes Projekt verwenden.
+- Speicherfehler: neue Linien werden aus der Session entfernt und Speicherung erneut versucht. Scheitert auch diese, gespeicherten Draw-Tools-Stand vor einem Refresh prüfen. Kein vollautomatischer ausführbarer Mehrlagenplan; Wurfrichtungen ausdrücklich bestätigen.
+- Automatisierte Geometrie-/Persistenz-/Rollbacktests bestanden. Echter IITC- und Mobile-Praxistest des Fächerdialogs ausstehend. Nächste Aufgabe aus beta.15 vom Nutzer im praktischen Test bestätigt; Mobile-Abdeckung weiterhin offen.

@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.15
+# Anforderungen für Entwicklungsstand 0.2.0-beta.16
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -268,13 +268,13 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 
 - Die Planvorschau soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.
 
-## Gemeinsame Routenverbesserung (0.2.0-beta.15)
+## Gemeinsame Routenverbesserung (0.2.0-beta.16)
 - Im automatischen Standortmodus die vollständige Luftlinienstrecke ab Standort bewerten: Portalreihenfolge, gemeinsame Abbau-Endportale und nachträgliche Position bestehender Blocker-Stopps zusammen verbessern. Nur strikt kürzere Varianten bei erhaltenen Aufgaben übernehmen.
 - Jeder Abbau bleibt spätestens vor dem frühesten abhängigen Wurf; offene Richtungen konservativ vor dem ersten Planendportalbesuch. Getrennte Wiederbesuche erhalten.
 - Explizite Abbauziele, vorgemerkte Endportale und manuelle Abbau-Meldungen respektieren; keine Speicherung von Vorschlagsentscheidungen oder GPS, keine Key-/Erledigungsänderung. Aufgaben, nächstes Ziel, Reststrecke und Planvorschau verwenden dieselbe Route.
 - Manuelle Portalreihenfolge und Reihenfolge ohne gültigen Standort nicht optimierend überschreiben. Begrenzte deterministische Suche; bei großen/fehlenden Daten den bisherigen gültigen Vorschlag behalten. Keine Optimalitäts- oder Erreichbarkeitsgarantie.
 
-## Eindeutige Routenstarts und Planvorschau (0.2.0-beta.15)
+## Eindeutige Routenstarts und Planvorschau (0.2.0-beta.16)
 - Route ab Standort plant die automatische Route ab echtem IITC User Location und meldet fehlendes GPS; gespeicherte Reihenfolge nicht überschreiben.
 - Route ab diesem Portal beim Planportal/zugehörigen Aufgabenstopp setzt festen ersten Stopp und Ursprung, auch ohne GPS. Titel anzeigen, GPS-Bewegung ignorieren; nur GUID speichern. Fehlenden Ursprung klar kennzeichnen, keine erfundenen Koordinaten oder stilles GPS-Substitut.
 - Falls Blocker einen sofortigen Wurf verhindern: erster Stopp nur Routenstart, späterer Wurfbesuch nach Abbau bleibt erhalten. Keine Key-/Erledigungs-/Inteländerung durch den Start. Aufgaben, Ziel, Reststrecke und Vorschau konsistent.
@@ -287,8 +287,16 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 - Hellblaue Weglinie und Positionsmarker bewegen sich während der Strecke gemeinsam; kein sofortiger vollständiger Weg beim Folgestopp. Rückwärts letztes Wegstück zurücknehmen. Routenursprung einbeziehen; Datenlücken nicht mit einer fiktiven Strecke verbinden. Abschluss exakt am Ziel; Abbruch/Schließen und reduzierte Bewegung berücksichtigen.
 
-## Nächste Aufgabe (0.2.0-beta.15)
+## Nächste Aufgabe (0.2.0-beta.16)
 - Erste konkrete Arbeit aus getWorkPlan anzeigen, keine eigene Route und kein Wegklicken ungelöster Aufgaben. Reiner Routenstart bleibt Kontext.
 - Portalname/Details, GPS-Entfernung wenn vorhanden, Navigation, Blocker vor Links, Richtungen/Status und Ziel-Keybedarf zeigen. Unbekannte Keys und Richtungen nicht als ausführbar ausgeben.
 - Vorhandene manuelle Meldungen wiederverwenden: keine automatische Erledigung beim Ankommen, keine Keybuchung durch Checkbox. Scans und Änderungen aktualisieren offene Ansicht auch ohne offene Aufgabenliste.
 - Kompakter scrollbarerer Dialog mit Touch-Controls, vollständige Liste/Scan/Standortbutton erreichbar, fehlendes GPS und nicht eingeplante Arbeit klar kennzeichnen.
+
+## Getrennte Fächer (0.2.0-beta.16)
+- Ein, zwei oder mehr automatisch vorgeschlagene oder manuell festgelegte Anker. Jedes weitere Portal genau einer Gruppe zuweisen: nächster Anker als Standard, manuelle Zuordnung hat Vorrang. Keine Links zwischen Gruppen.
+- Auswahl: aktueller Plan, geladene Portale im Kartenausschnitt oder einfache Draw-Tools-Polygone; 3–60 ausgewählte Portale. Einzelne Portale ausschließbar. Manuelle Anker/Zuordnungen bei neuer Suche erhalten.
+- Geometrische Dreiecke und Linknetz ohne gegenseitige Kreuzung vorschlagen, Blocker/existierende Links aus geladenem Intel kennzeichnen. Kreuzende/überlappende radiale Links, ungültige Daten und feldlose Entwürfe verhindern die Übernahme.
+- Reine Karten-Vorschau; erst ausdrückliches Ergänzen fügt fehlende Linien dem aktuellen Draw-Tools-Projekt hinzu und speichert/scant. Vorhandene Zeichnungen erhalten, doppelte Linien vermeiden, Speicherfehler rollen neu hinzugefügte Linien zurück. Fremde Planlinien dürfen den Entwurf nicht kreuzen.
+- Keine Keys oder Erledigungen ändern, neue Wurfrichtungen bleiben unbestätigt. Anker/Zuordnung/Auswahlflächen-Metadaten speichern und exportieren. Übernommene Auswahlpolygon-Ränder nicht als Planlinks scannen.
+- Geometrische Feldzahl ist kein Nachweis einer ausführbaren Ingress-Baureihenfolge; bestehender Einsatz-/Finalcheck bleibt erforderlich. Desktop und mobile Dialogbreite berücksichtigen.
