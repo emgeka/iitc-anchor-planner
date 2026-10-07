@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.12
+# Anforderungen für Entwicklungsstand 0.2.0-beta.13
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -268,13 +268,13 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 
 - Die Planvorschau soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.
 
-## Gemeinsame Routenverbesserung (0.2.0-beta.12)
+## Gemeinsame Routenverbesserung (0.2.0-beta.13)
 - Im automatischen Standortmodus die vollständige Luftlinienstrecke ab Standort bewerten: Portalreihenfolge, gemeinsame Abbau-Endportale und nachträgliche Position bestehender Blocker-Stopps zusammen verbessern. Nur strikt kürzere Varianten bei erhaltenen Aufgaben übernehmen.
 - Jeder Abbau bleibt spätestens vor dem frühesten abhängigen Wurf; offene Richtungen konservativ vor dem ersten Planendportalbesuch. Getrennte Wiederbesuche erhalten.
 - Explizite Abbauziele, vorgemerkte Endportale und manuelle Abbau-Meldungen respektieren; keine Speicherung von Vorschlagsentscheidungen oder GPS, keine Key-/Erledigungsänderung. Aufgaben, nächstes Ziel, Reststrecke und Planvorschau verwenden dieselbe Route.
 - Manuelle Portalreihenfolge und Reihenfolge ohne gültigen Standort nicht optimierend überschreiben. Begrenzte deterministische Suche; bei großen/fehlenden Daten den bisherigen gültigen Vorschlag behalten. Keine Optimalitäts- oder Erreichbarkeitsgarantie.
 
-## Eindeutige Routenstarts und Planvorschau (0.2.0-beta.12)
+## Eindeutige Routenstarts und Planvorschau (0.2.0-beta.13)
 - Route ab Standort plant die automatische Route ab echtem IITC User Location und meldet fehlendes GPS; gespeicherte Reihenfolge nicht überschreiben.
 - Route ab diesem Portal beim Planportal/zugehörigen Aufgabenstopp setzt festen ersten Stopp und Ursprung, auch ohne GPS. Titel anzeigen, GPS-Bewegung ignorieren; nur GUID speichern. Fehlenden Ursprung klar kennzeichnen, keine erfundenen Koordinaten oder stilles GPS-Substitut.
 - Falls Blocker einen sofortigen Wurf verhindern: erster Stopp nur Routenstart, späterer Wurfbesuch nach Abbau bleibt erhalten. Keine Key-/Erledigungs-/Inteländerung durch den Start. Aufgaben, Ziel, Reststrecke und Vorschau konsistent.
@@ -282,3 +282,5 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 - Walk Sim in der aktuellen Oberfläche als Planvorschau bezeichnen, unabhängig von Fortbewegungsart.
 
 Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
+
+- Planvorschau: Kartenbewegung je nach Strecke 2,5–5 Sekunden, automatischer Folgestopp nach zusätzlich 1,2 Sekunden Lesepause. Vorwärts und rückwärts gleich langsam, keine Überlappung automatisch ausgelöster Bewegungen. Pause/Schließen verwerfen Timer; reduzierte Bewegung weiterhin respektieren.

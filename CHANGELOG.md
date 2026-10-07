@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.13
+
+### English
+- Slow Plan preview panning from 0.9 to 2.5–5 seconds based on travel distance, including backward steps. Automatic playback waits for the configured movement plus a 1.2-second reading pause before advancing.
+
+### Deutsch
+- Kartenbewegung der Planvorschau von 0,9 auf 2,5–5 Sekunden je nach Strecke verlangsamen, auch rückwärts. Automatisches Abspielen wartet die vorgesehene Bewegung und zusätzlich 1,2 Sekunden Lesepause ab.
+
 ## 0.2.0-beta.12
 
 - EN: Remove route stops without link or blocker tasks, including receiving-only portals and unused direction candidates. Preserve explicit origins as Route start; remove the generic preparation message.
