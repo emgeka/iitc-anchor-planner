@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.11
+// @version        0.2.0-beta.12
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007081000';
+  plugin_info.dateTimeVersion = '20261007110000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.11';
+  ap.VERSION = '0.2.0-beta.12';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -236,7 +236,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Luftlinienvorschlag. Eroberung, ausgehende Linklimits und Linken unter Feldern weiterhin prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
       "tasks.modeManual": "Gespeicherte Portalreihenfolge mit Blocker-Stopps",
       "tasks.modeLocation": "Ab IITC-Standort; kleine GPS-Änderungen behalten die Reihenfolge",
-      "tasks.planVisit": "Portal vorbereiten / Links bauen",
+      "tasks.planVisit": "Linkaufgaben",
       "tasks.estimatedKeys": "Schätzung: Wurfrichtungen teilweise offen",
       "tasks.portalDone": "Portalarbeit manuell erledigt",
       "tasks.unresolved": "Nicht alle Aufgaben einplanbar: Koordinaten, Richtungen und erledigte Wurfportale prüfen.",
@@ -316,7 +316,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker noch nicht abgebaut; nicht simuliert",
       "walk.unknownKeys": "Keybestand unbekannt; nicht simuliert",
       "walk.missingKeys": "Kein Key in der Vorschau übrig; nicht simuliert",
-      "walk.visit": "Portal besuchen und vorbereiten",
       "walk.unresolved": "{count} Aufgaben konnten nicht eingeplant werden. Aufgaben prüfen.",
       "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
       "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
@@ -326,7 +325,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route ab diesem Portal",
       "tasks.modePortal": "Ab Portal: {title}",
       "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
-      "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein."
+      "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein.",
+      "walk.start": "Routenstart"
     },
     "en": {
       "language.label": "Language",
@@ -518,7 +518,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line suggestion. Capture, outgoing-link limits and linking under fields still need checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Saved portal order with blocker stops",
       "tasks.modeLocation": "From IITC location; small GPS changes keep the order",
-      "tasks.planVisit": "Prepare portal / build links",
+      "tasks.planVisit": "Link tasks",
       "tasks.estimatedKeys": "Estimate: some directions remain open",
       "tasks.portalDone": "Portal work manually completed",
       "tasks.unresolved": "Cannot schedule all tasks: check coordinates, directions and completed source portals.",
@@ -598,7 +598,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -608,7 +607,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Route start"
     },
     "es": {
       "language.label": "Idioma",
@@ -800,7 +800,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Propuesta en línea recta. Comprobar captura, límites de salida y enlaces bajo campos. Completar manualmente no confirma Intel.",
       "tasks.modeManual": "Orden guardado con paradas de bloqueadores",
       "tasks.modeLocation": "Desde la ubicación IITC; pequeños cambios GPS mantienen el orden",
-      "tasks.planVisit": "Preparar portal / crear enlaces",
+      "tasks.planVisit": "Tareas de enlaces",
       "tasks.estimatedKeys": "Estimación: algunas direcciones sin definir",
       "tasks.portalDone": "Trabajo del portal completado manualmente",
       "tasks.unresolved": "No se pueden ordenar todas las tareas: comprobar coordenadas, direcciones y portales de origen completados.",
@@ -880,7 +880,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -890,7 +889,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Inicio de la ruta"
     },
     "fr": {
       "language.label": "Langue",
@@ -1082,7 +1082,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Suggestion à vol d’oiseau. Vérifier capture, limites des liens sortants et liens sous champs. Une validation manuelle ne confirme pas Intel.",
       "tasks.modeManual": "Ordre enregistré avec arrêts pour les obstacles",
       "tasks.modeLocation": "Depuis la position IITC ; les petits changements GPS gardent l’ordre",
-      "tasks.planVisit": "Préparer le portail / créer les liens",
+      "tasks.planVisit": "Tâches de liens",
       "tasks.estimatedKeys": "Estimation : certains sens restent ouverts",
       "tasks.portalDone": "Travail du portail terminé manuellement",
       "tasks.unresolved": "Impossible de planifier toutes les tâches : vérifier coordonnées, sens et portails de départ terminés.",
@@ -1162,7 +1162,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1172,7 +1171,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Départ de l’itinéraire"
     },
     "it": {
       "language.label": "Lingua",
@@ -1364,7 +1364,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Proposta in linea d’aria. Verificare cattura, limiti dei link in uscita e link sotto i campi. Il completamento manuale non conferma Intel.",
       "tasks.modeManual": "Ordine salvato con soste per i blocchi",
       "tasks.modeLocation": "Dalla posizione IITC; piccoli cambiamenti GPS mantengono l’ordine",
-      "tasks.planVisit": "Preparare il portale / creare link",
+      "tasks.planVisit": "Attività dei link",
       "tasks.estimatedKeys": "Stima: alcune direzioni non definite",
       "tasks.portalDone": "Lavoro del portale completato manualmente",
       "tasks.unresolved": "Non tutte le attività sono pianificabili: verificare coordinate, direzioni e portali di partenza completati.",
@@ -1444,7 +1444,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1454,7 +1453,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Partenza del percorso"
     },
     "ja": {
       "language.label": "言語",
@@ -1646,7 +1646,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "直線経路の提案です。キャプチャ、出力リンク数、フィールド内からのリンク条件を確認してください。手動完了はIntel確認ではありません。",
       "tasks.modeManual": "保存されたポータル順序とブロッカー停止地点",
       "tasks.modeLocation": "IITC現在地から・小さなGPS変動では順序を維持",
-      "tasks.planVisit": "ポータル準備・リンク構築",
+      "tasks.planVisit": "リンクのタスク",
       "tasks.estimatedKeys": "推定：未設定の方向があります",
       "tasks.portalDone": "ポータル作業の手動完了",
       "tasks.unresolved": "すべての作業を配置できません。座標、方向、完了済みのリンク元を確認してください。",
@@ -1726,7 +1726,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1736,7 +1735,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "ルートの開始地点"
     },
     "pl": {
       "language.label": "Język",
@@ -1928,7 +1928,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Propozycja w linii prostej. Sprawdź przejęcie, limity linków wychodzących i linkowanie pod polami. Ręczne wykonanie nie potwierdza Intel.",
       "tasks.modeManual": "Zapisana kolejność z przystankami blokad",
       "tasks.modeLocation": "Od pozycji IITC; małe zmiany GPS zachowują kolejność",
-      "tasks.planVisit": "Przygotuj portal / zbuduj linki",
+      "tasks.planVisit": "Zadania linków",
       "tasks.estimatedKeys": "Szacunek: część kierunków nieokreślona",
       "tasks.portalDone": "Praca przy portalu wykonana ręcznie",
       "tasks.unresolved": "Nie można zaplanować wszystkich zadań: sprawdź współrzędne, kierunki i ukończone portale źródłowe.",
@@ -2008,7 +2008,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2018,7 +2017,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Początek trasy"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2210,7 +2210,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Sugestão em linha reta. Verifique captura, limites de links de saída e links sob campos. Conclusão manual não confirma o Intel.",
       "tasks.modeManual": "Ordem salva com paradas para bloqueadores",
       "tasks.modeLocation": "Da posição IITC; pequenas mudanças GPS mantêm a ordem",
-      "tasks.planVisit": "Preparar portal / criar links",
+      "tasks.planVisit": "Tarefas de links",
       "tasks.estimatedKeys": "Estimativa: algumas direções indefinidas",
       "tasks.portalDone": "Trabalho no portal concluído manualmente",
       "tasks.unresolved": "Nem todas as tarefas podem ser planejadas: verifique coordenadas, direções e portais de origem concluídos.",
@@ -2290,7 +2290,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2300,7 +2299,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Início da rota"
     },
     "ru": {
       "language.label": "Язык",
@@ -2492,7 +2492,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Маршрут по прямой. Проверьте захват, лимиты исходящих линков и линкование под полями. Ручная отметка не подтверждает Intel.",
       "tasks.modeManual": "Сохранённый порядок с остановками для блокировок",
       "tasks.modeLocation": "От позиции IITC; небольшие изменения GPS сохраняют порядок",
-      "tasks.planVisit": "Подготовить портал / создать линки",
+      "tasks.planVisit": "Задачи по линкам",
       "tasks.estimatedKeys": "Оценка: часть направлений не задана",
       "tasks.portalDone": "Работа на портале выполнена вручную",
       "tasks.unresolved": "Не все задачи можно запланировать: проверьте координаты, направления и завершённые порталы отправления.",
@@ -2572,7 +2572,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2582,7 +2581,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "Начало маршрута"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2774,7 +2774,7 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "直线路线建议。仍需检查占领、出链上限及场内链接条件。手动完成不代表 Intel 确认。",
       "tasks.modeManual": "已保存的 Portal 顺序及阻挡停靠点",
       "tasks.modeLocation": "从 IITC 位置开始；轻微 GPS 变化保持顺序",
-      "tasks.planVisit": "准备 Portal / 建造链接",
+      "tasks.planVisit": "连线任务",
       "tasks.estimatedKeys": "估计：部分方向未设置",
       "tasks.portalDone": "Portal 工作已手动完成",
       "tasks.unresolved": "无法安排所有任务：请检查坐标、方向和已完成的发链 Portal。",
@@ -2854,7 +2854,6 @@ function wrapper(plugin_info) {
       "walk.blocked": "Blocker not cleared yet; not simulated",
       "walk.unknownKeys": "Key inventory unknown; not simulated",
       "walk.missingKeys": "No key remaining in preview; not simulated",
-      "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2864,7 +2863,8 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+      "walk.start": "路线起点"
     }
   };
   // AP_LOCALES_END
@@ -3922,14 +3922,20 @@ function wrapper(plugin_info) {
     if (ap.state.workRouteMode !== 'portal' || !plan.stops.length) return plan;
     var portal = ap.runtime.stats[ap.state.workRouteStart];
     if (ap.workPoint(portal) && plan.stops[0].portal.guid !== portal.guid) {
-      // Starting here is a preparation visit, not permission to throw blocked links.
+      // The explicitly chosen origin is not a preparation or throw task.
       plan.stops.unshift({ portal: portal, planVisit: false, blockers: [], links: [], routeTargetType: 'start' });
     }
     return plan;
   };
 
   ap.buildWorkPlanForOrder = function (base, start, location, targets) {
-    var stops = base.map(function (portal) {
+    var openLinks = (ap.runtime.links || []).filter(function (link) { return !link.existing; });
+    var stops = base.filter(function (portal) {
+      return openLinks.some(function (link) {
+        var direction = ap.getLinkDirection(link);
+        return direction ? direction.from === portal.guid : link.a === portal.guid || link.b === portal.guid;
+      });
+    }).map(function (portal) {
       return { portal: portal, planVisit: true, blockers: [], links: [], routeTargetType: 'plan' };
     });
     var unscheduled = [];
@@ -3988,17 +3994,9 @@ function wrapper(plugin_info) {
       if (index < 0) unassigned.push(link);
       else stops[index].links.push(link);
     });
+    // Destinations and unused direction candidates carry no executable task.
+    stops = stops.filter(function (stop) { return stop.links.length || stop.blockers.length; });
     if (targets) stops = ap.refineBlockerStops(stops, start);
-    // Explicit legacy work targets remain visits even if they clear no current blocker.
-    ap.getBlockerWorklist(location).filter(function (portal) {
-      return portal.selected && blocked.some(function (item) {
-        return !item.manual && (item.blocker.a === portal.guid || item.blocker.b === portal.guid);
-      });
-    }).forEach(function (portal) {
-      if (!stops.some(function (stop) { return stop.portal.guid === portal.guid; })) {
-        stops.push({ portal: portal, planVisit: false, blockers: [], links: [], routeTargetType: 'blocker' });
-      }
-    });
     return { stops: stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned };
   };
 
@@ -4263,6 +4261,7 @@ function wrapper(plugin_info) {
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
+      if (stop.routeTargetType === 'start') html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('walk.start')) + '</div>';
       if (stop.planVisit) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.planVisit')) + '</div>';
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       if (stop.planVisit) {
@@ -4423,7 +4422,7 @@ function wrapper(plugin_info) {
         }
       });
       return { index: index, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
-        actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
+        routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
     return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
   };
@@ -4457,7 +4456,7 @@ function wrapper(plugin_info) {
         html += '</li>';
       });
       html += '</ol>';
-      if (!frame.actions.length) html += '<p>' + ap.escapeHtml(ap.t('walk.visit')) + '</p>';
+      if (!frame.actions.length && frame.routeTargetType === 'start') html += '<p>' + ap.escapeHtml(ap.t('walk.start')) + '</p>';
       if (!frame.point) html += '<p>' + ap.escapeHtml(ap.t('walk.coordinates')) + '</p>';
     }
     if (session.model.unresolved) html += '<p>' + ap.escapeHtml(ap.t('walk.unresolved', { count: session.model.unresolved })) + '</p>';

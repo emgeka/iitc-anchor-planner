@@ -108,8 +108,8 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
   const plan = ap.buildWorkPlan(null);
   assert.equal(plan.stops[0].portal.guid, 'B');
   assert.equal(plan.stops[0].planVisit, false);
-  assert.equal(plan.stops[2].portal.guid, 'B');
-  assert.equal(plan.stops[2].planVisit, true, 'Early removal must not complete or consume the later plan visit.');
+  assert.equal(plan.stops.length, 2, 'A receiving-only portal has no redundant later visit.');
+  assert.equal(ap.ensureAnchorState('B').done, false, 'Removal does not complete the receiving portal.');
 }
 {
   const { ap } = runtime(); portal(ap, 'A', 1); portal(ap, 'B', 2);
@@ -146,7 +146,7 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
 }
 {
   const { ap } = runtime(); portal(ap, 'A', 1); portal(ap, 'B', 2);
-  ap.runtime.stats.A.title = '<script>alert(1)</script>';
+  ap.runtime.stats.B.title = '<script>alert(1)</script>';
   const ab = link(ap, 'A', 'B'); direction(ap, ab, 'B');
   const exported = ap.exportData();
   assert.equal(exported.plannedLinks[0].from, 'B');
@@ -235,7 +235,8 @@ function assertDependencies(ap,plan){
   const base=ap.sortedStats(false).slice().sort((a,b)=>origin.distanceTo(point(a.lat,a.lng))-origin.distanceTo(point(b.lat,b.lng)));
   const old=ap.buildWorkPlanForOrder(base,origin,location,null),before=JSON.stringify(ap.state);
   const plan=ap.buildWorkPlan(location),cost=routeDistance(plan,origin),oldCost=routeDistance(old,origin);
-  assert.ok(cost<oldCost*.9,'Optimize the complete two-cluster route, rather than keeping the long target detour.');
+  assert.ok(cost<=oldCost,'Joint optimization never lengthens the route after redundant targets are removed.');
+  assert.ok(!plan.stops.some(s=>s.portal.guid==='B'),'The distant receiving-only target has no work stop.');
   assert.equal(plan.unscheduled.length,0);assert.equal(plan.unassigned.length,0);assertDependencies(ap,plan);
   assert.equal(JSON.stringify(ap.state),before,'Order and endpoint suggestions do not overwrite saved choices, directions or completion.');
   assert.deepEqual(ap.buildWorkPlan(location).stops.map(s=>s.portal.guid),plan.stops.map(s=>s.portal.guid),'Search is deterministic.');
@@ -245,10 +246,10 @@ function assertDependencies(ap,plan){
   assert.deepEqual(Array.from(frames.frames,f=>f.title),Array.from(plan.stops,s=>s.portal.title),'Walk Sim follows the same optimized route.');
   ap.state.workRouteMode='manual';
   const manual=ap.buildWorkPlan(location);
-  assert.deepEqual(Array.from(manual.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','B','C'],'Manual portal order remains authoritative.');
+  assert.deepEqual(Array.from(manual.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','C'],'Manual order among actionable portals remains authoritative.');
   assertDependencies(ap,manual);assert.equal(manual.optimization,undefined);
   ap.state.workRouteMode='location';
-  const noGPS=ap.buildWorkPlan(null);assert.deepEqual(Array.from(noGPS.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','B','C']);
+  const noGPS=ap.buildWorkPlan(null);assert.deepEqual(Array.from(noGPS.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','C']);
   const signature=ap.runtime.links.map(l=>l.id).sort().join(';');ap.state.blockerTasks.spring1={plan:signature,target:'X',done:false};
   const fixed=ap.buildWorkPlan(location);assert.equal(fixed.stops.find(s=>s.blockers.some(b=>b.id==='spring1')).portal.guid,'X','Optimization preserves explicit endpoints.');
   ap.state.blockerRoutePortals.Y=true;
@@ -267,7 +268,7 @@ function assertDependencies(ap,plan){
 {
   const {ap}=runtime();for(let i=0;i<41;i++)portal(ap,'P'+i,i/100);
   link(ap,'P0','P40');const plan=ap.buildWorkPlan({latlng:point(0,-1)});
-  assert.equal(plan.optimization,undefined,'Large plans use the valid bounded fallback.');assert.equal(plan.stops.length,41);
+  assert.equal(plan.optimization,undefined,'Large plans use the valid bounded fallback.');assert.equal(plan.stops.length,1,'Unused portals are skipped even in bounded fallback.');
 }
 {
   const {ap}=runtime();portal(ap,'A',1);portal(ap,'B',3);
@@ -320,4 +321,38 @@ function assertDependencies(ap,plan){
   ap.clearData();assert.equal(ap.state.workRouteStart,'');assert.equal(ap.state.workRouteMode,'location');
   assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys,'Clearing the portal origin does not clear Keys.');
 }
-console.log('Work-plan checks passed: fixed portal starts, GPS/manual switching, persistent GUID-only origin, preparation/return visits, preview/estimate alignment, joint optimization, dependency safety, bounded search, shared endpoints and preserved choices.');
+{
+  const {ap}=runtime();portal(ap,'A',0);portal(ap,'B',9);portal(ap,'C',1);
+  const ab=link(ap,'A','B'),cb=link(ap,'C','B');link(ap,'A','C',[],true);
+  direction(ap,ab,'A');direction(ap,cb,'C');
+  const before=JSON.stringify(ap.state);
+  for(const mode of ['manual','location']){
+    ap.state.workRouteMode=mode;ap.runtime.workPlan=null;
+    const plan=ap.getWorkPlan({latlng:point(0,-1)});
+    assert.ok(!plan.stops.some(s=>s.portal.guid==='B'),'Receiving-only portal is not a detour.');
+    assert.equal(plan.stops.flatMap(s=>s.links).length,2);
+    assert.ok(plan.stops.every(s=>s.links.length||s.blockers.length));
+    assertDependencies(ap,plan);
+    ap.getCurrentUserLocation=()=>({latlng:point(0,-1)});
+    assert.ok(!ap.createWalkSimulation().frames.some(f=>f.title==='B'));
+  }
+  ap.state.workRouteMode='location';assert.equal(JSON.stringify(ap.state),before,'Routing alone preserves plan state.');
+  ap.startWorkRouteAtPortal('B');
+  assert.equal(ap.getWorkPlan().stops.filter(s=>s.portal.guid==='B').length,1);
+  assert.equal(ap.getWorkPlan().stops[0].routeTargetType,'start');
+  assert.match(ap.taskListHtml(),/Route start/);
+  assert.equal(ap.createWalkSimulation().frames[0].routeTargetType,'start');
+  ap.state.workRouteMode='manual';ap.state.workRouteStart='';
+  ab.blockers=[blocker('atReceiver','B',9,'Z',20)];
+  ap.setBlockerTask('atReceiver','B',false);ap.runtime.workPlan=null;
+  const withRemoval=ap.getWorkPlan();
+  assert.equal(withRemoval.stops.filter(s=>s.portal.guid==='B').length,1,'Receiver remains when it carries actual removal work.');
+  assert.equal(withRemoval.stops.find(s=>s.portal.guid==='B').blockers.length,1);assertDependencies(ap,withRemoval);
+  ab.blockers=[];direction(ap,ab,'B');ap.runtime.workPlan=null;
+  assert.ok(ap.getWorkPlan().stops.some(s=>s.portal.guid==='B'&&s.links.includes(ab)),'Direction reversal makes receiver an actionable source.');
+  delete ap.state.linkDirections[ab.id];ap.runtime.workPlan=null;
+  assert.equal(ap.getWorkPlan().unassigned.length,0,'Unconfirmed directions remain visible as link tasks.');
+  ab.existing=true;cb.existing=true;ap.runtime.workPlan=null;
+  assert.equal(ap.getWorkPlan().stops.length,0,'A complete plan has no invented visits.');
+}
+console.log('Work-plan checks passed: actionable stops, explicit origins, direction changes, fixed portal starts, GPS/manual switching, joint optimization and dependency safety.');

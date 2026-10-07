@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.11
+# Bekannte Grenzen in 0.2.0-beta.12
 
 ## Portalzuordnung und Namen
 
@@ -237,3 +237,7 @@
 - Fester Startpunkt benötigt ein aufgelöstes Planportal mit Koordinaten. Bis zum Scan nach Refresh oder bei geändertem Plan kann es fehlen; Hinweis statt GPS-Ersatz.
 - Startbesuch bestätigt keine Eroberung oder sofortige Wurffähigkeit. Die Route kann für Blocker-Abbau und späteren Wurf zum Start zurückkehren. Vorschau bleibt geometrisch und verändert keine realen Keys/Erledigungen.
 - Die neue Bezeichnung ist Planvorschau. Startaktionen, fehlendes GPS, Reststrecke, Wiederbesuche und kompakte Darstellung sind automatisiert geprüft; Desktop-/Mobile-Praxistest ausstehend. Neue Portalstart-Texte außerhalb Deutsch/Englisch zunächst Englisch.
+
+Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
+
+- Empfangsportale werden ohne konkrete Aufgabe übersprungen. Keymangel erzeugt keine automatische Farmroute; Portalübernahme und Aufrüstung werden weiterhin nicht als Aufgaben erkannt. Für einen erforderlichen Aufenthalt muss ein konkreter Arbeitsauftrag künftig ausdrücklich modelliert werden.
