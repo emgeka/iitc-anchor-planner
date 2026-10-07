@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.15
+# Architekturübersicht 0.2.0-beta.16
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 284 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 310 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -441,3 +441,10 @@ createWalkSimulation ergänzt den gewählten Ursprung im ersten zusammenhängend
 
 ### Nächste Aufgabe
 nextTaskHtml leitet den ersten Stopp mit blockers/links aus demselben getWorkPlan ab; routeTargetType start ohne Aktionen bleibt nur Ursprungskontext. Navigation nutzt navigationLinks, Entfernung echtes IITC GPS. taskBlockerHtml/taskLinkHtml und wireTaskList teilen Richtungs-, Abbau-, Bestandsprüf- und Erledigungslogik mit der Tabelle. Keine zusätzliche Route, kein Fortschrittscursor oder persistenter Zustand. refreshTaskList aktualisiert zuerst refreshNextTask, unabhängig vom Tabellendialog. Vorhandene Scan-/Key-/Standort-/Aufgabenupdates erreichen beide Ansichten. Scrollposition und Routennotizen bleiben erhalten; Sessiontoken schützt neuen Dialog vor veraltetem closeCallback. Explizite Meldungen bleiben von Intel getrennt, Unscheduled/Readiness und fehlendes Keys-Plugin werden angezeigt.
+
+### Eigenständiger Fächer-Generator
+normalizeFanDesign validiert optionale anchors/assignments/areaKeys; load und JSONexport erhalten sie, clearData entfernt sie. fanAreaKey ist ein koordinatenbasierter Fingerprint der Auswahlpolygone. extractSegments ignoriert nur gespeicherte Auswahlflächen; alte Pläne behalten ihre Bedeutung.
+buildFanDesign weist jeden Nicht-Anker genau einem Anker zu (manuell, sonst nächste Luftlinie mit GUID-Tie-Break), reserviert alle Speichen und ergänzt längenpriorisierte kreuzungsfreie Blattlinks innerhalb der Gruppen. fanEdgesConflict erkennt echte Kreuzungen sowie kollineare Überlappung/T-Verbindung; GUID-identische Kanten sind kein Konflikt. Alle geschlossenen nicht-kollinearen Dreiergruppen werden als geometrische Felder gezählt. Keine Ingress-Bau-/Wurfreihenfolge, Key-Optimierung oder Verknüpfung zwischen Fächern.
+suggestFanAnchors bewahrt manuelle Anker und Zuordnungsziele. Deterministische greedy-Suche: Fehlerzahl, Feldzahl, Blocker, vorhandene Links, Gesamtlinklänge. Maximal 20 abgetastete Kandidaten; Budget min(100,max(8,floor(600/Portalzahl))) Geometrieprüfungen. Danach weitere gewünschte Anker per größtem Abstand ergänzen. Begrenzung schützt mobile Bedienung, garantiert kein Optimum.
+getFanCandidates liefert koordinierte Snapshots aus Plan, Kartenausschnitt oder einfachen Auswahlpolygonen (Rand inklusive). runtime.fanDraft hält Ausschlüsse, feste Anker, Zuordnungen und einen separaten LayerGroup. Dialogwechsel/Schließen bereinigt nur die eigene Vorschau; Quellenwechsel lädt neu und invalidiert sie. HTML-Inhalte werden escaped.
+applyFanDesign revalidiert Geometrie und vorhandene Zeichnungen, dedupliziert über Segmentkoordinaten, ergänzt geodesicPolyline/polyline in drawTools.drawnItems und ruft save auf. Bei Fehler neue Layer entfernen und Speicherung erneut versuchen; vorhandene Zeichnungen unverändert. Erst danach Metadaten speichern, Vorschau entfernen und regulär scan ausführen. Während Finalcheck/Planvorschau keine Übernahme. Richtungs-, Aufgaben-, Key- und Erledigungssemantik bleiben im bestehenden Scan/Arbeitsplan.

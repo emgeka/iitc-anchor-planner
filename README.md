@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.15
+### Beta testing: 0.2.0-beta.16
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -134,7 +134,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.15**
+- Development version: **0.2.0-beta.16**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -167,7 +167,7 @@ Before every handoff, commit, or publication, each change must be reconciled wit
 
 Translations are maintained separately under `src/locales/*.json`. Every file contains the same semantic keys and placeholders and provides its native name under `language.name`. `node src/build-locales.mjs` validates all files and bundles them into the single userscript; `node src/build-locales.mjs --check` also verifies that the bundle is current. No language files are loaded from the internet at runtime. English is the required fallback language.
 
-## Keys import draft (0.2.0-beta.15)
+## Keys import draft (0.2.0-beta.16)
 
 Enable the official IITC **Keys** plugin. Its inventory is the only stock source;
 Anchor Planner still calculates requirements. Old local counts are ignored, with
@@ -199,7 +199,7 @@ Practical test confirmed by the user on 2026-10-06: screenshot and video key rec
 
 Newly detected planned links automatically deduct one key at the confirmed direction target if that link was previously observed open. First-scan existing links are a baseline; persistent Intel link identities prevent duplicate deductions across scans, reloads, map coverage gaps and imports. A rebuilt link with a new Intel identity can consume a new key after an open observation. No confirmed direction, unavailable/zero stock or interrupted writes leave a review note in Tasks; correct/import stock and choose **Inventory checked**. Consumption does not replace the last import/reset undo backup. This rule also applies to links built by other agents; Intel cannot identify whose inventory was used.
 
-## Plan preview (0.2.0-beta.15)
+## Plan preview (0.2.0-beta.16)
 Open **Plan preview** in the panel or Tasks. Step through with Previous/Next or use Play/Pause; Start again replays the same frozen route. The map shows the visited trail, simulated outgoing links and geometric triangles, plus the current stop's blocker removal and throw actions. Virtual keys decrease only for confirmed, unblocked links with available stock; unknown directions/stock and shortages are labeled. Closing clears the overlay and restores the map view. The simulation writes no inventory, completion or Intel state. Scan again after closing to resume automatic observations: preview-induced map loads must never debit real Keys. Inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/), implemented against Anchor Planner's own work plan.
 
 Forward steps now retain existing geometry and pan smoothly for 2.5–5 seconds according to travel distance. Automatic playback waits another 1.2 seconds after the configured movement duration before advancing. Pause/resume does not redraw or move the camera; backward steps rebuild the earlier preview. Reduced-motion preferences disable panning animation.
@@ -213,5 +213,10 @@ Only stops with remaining link tasks or blocker removal enter the work route. Re
 
 The cyan travel trail grows progressively to the moving position marker over the same 2.5–5 seconds as the camera movement; Previous retracts the final segment. The route origin is included in the trail. Changing steps cancels old animation frames; closing removes the animation. Reduced motion disables trail and marker animation as well.
 
-## Next task (0.2.0-beta.15)
+## Next task (0.2.0-beta.16)
 Open **Next task** in the panel or Tasks for a compact live view of the first remaining work stop: portal, GPS distance, Waze/Google Maps, blocker removal before link tasks, direction controls and keys needed at each destination. Route origins are context, not extra work. Scan, GPS routing and the full task list remain directly available. Manual reports use the existing controls and do not confirm Intel or debit Keys. The view updates after scans, task/Keys changes and location updates. Unscheduled work and incomplete readiness remain visible. Additional explanations use English outside German/English.
+
+### Fan planning in beta.16
+Open **Fan fields** in the panel. Load 3–60 portals from the current plan, the visible map, or a simple Draw Tools selection polygon. Choose one, two or more anchors and request a suggestion. Set individual portals to Anchor (pinned), Fan portal, or Exclude; each fan portal is assigned to its nearest anchor unless you choose another. Separate fans never connect different anchor groups.
+
+Check **Preview**, then **Add to Draw Tools** to keep existing drawings and scan the added plan. Confirm link directions under Tasks before routing. Proposals do not change Keys or completion status. Anchor suggestions use geometry, loaded blockers, existing links and link length; the bounded search does not guarantee an optimum or a legal Ingress field-building sequence. Only loaded Intel data is evaluated. The fan-planning idea is inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/); this independent multi-anchor planner is implemented in Anchor Planner.

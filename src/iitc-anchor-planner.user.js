@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.15
+// @version        0.2.0-beta.16
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007123000';
+  plugin_info.dateTimeVersion = '20261007130000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.15';
+  ap.VERSION = '0.2.0-beta.16';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -330,7 +330,33 @@ function wrapper(plugin_info) {
       "next.title": "Nächste Aufgabe",
       "next.empty": "Zuerst einen Plan scannen.",
       "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
-      "next.targetKeys": "Keys für {title}: {owned}/{required}"
+      "next.targetKeys": "Keys für {title}: {owned}/{required}",
+      "fan.title": "Fächer planen",
+      "fan.help": "Getrennte Fächer: Jedes Fächerportal gehört zu einem Anker. Einen, zwei oder mehr Anker automatisch vorschlagen lassen oder Rollen und Zuordnung selbst wählen. Manuelle Anker (★) bleiben bei Vorschlägen fest. Erst Vorschau prüfen; Übernehmen ergänzt Draw Tools und erhält Zeichnungen. Wurfrichtungen bleiben unbestätigt. Nur geladene Intel-Daten; Feldzahlen sind geometrisch und garantieren keine Baureihenfolge.",
+      "fan.source": "Portale aus",
+      "fan.source.plan": "Aktueller Plan",
+      "fan.source.map": "Geladener Kartenausschnitt",
+      "fan.source.area": "Draw-Tools-Flächen",
+      "fan.load": "Portale laden",
+      "fan.count": "Ankeranzahl",
+      "fan.suggest": "Anker vorschlagen",
+      "fan.preview": "Vorschau",
+      "fan.apply": "In Draw Tools ergänzen",
+      "fan.summary": "{anchors} Anker · {links} Links · {fields} geometrische Felder · {blocked} blockierte Links · {existing} vorhandene Links",
+      "fan.role": "Rolle",
+      "fan.assignment": "Zugeordneter Anker",
+      "fan.leaf": "Fächerportal",
+      "fan.anchor": "Anker",
+      "fan.exclude": "Ausschließen",
+      "fan.limit": "3–60 Portale auswählen. Näher zoomen oder Portale ausschließen, um große Auswahlen zu verkleinern.",
+      "fan.invalid": "Doppelte Portale, identische Positionen oder fehlende Koordinaten. Auswahl prüfen.",
+      "fan.anchorsNeeded": "Mindestens einen Anker und mindestens ein Fächerportal auswählen.",
+      "fan.invalidAssignment": "Ein manuell zugeordneter Anker fehlt. Zuordnung prüfen.",
+      "fan.conflict": "Die zugeordneten Fächer enthalten kreuzende oder überlappende Ankerlinks. Anker oder Zuordnung ändern.",
+      "fan.noFields": "Mit dieser Auswahl lassen sich keine echten Dreiecke bilden.",
+      "fan.busy": "Planvorschau schließen oder Finalcheck pausieren, bevor Fächer geplant/übernommen werden.",
+      "fan.applyFailed": "Draw Tools konnte die ergänzten Linien nicht speichern. Neue Linien wurden aus der Ansicht entfernt; Draw-Tools-Speicherung vor Wiederholung prüfen.",
+      "fan.drawConflict": "Der Vorschlag kreuzt vorhandene Draw-Tools-Linien. Kreuzende Linien entfernen oder vor der Übernahme ein separates Draw-Tools-Projekt nutzen."
     },
     "en": {
       "language.label": "Language",
@@ -616,7 +642,33 @@ function wrapper(plugin_info) {
       "next.title": "Next task",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "es": {
       "language.label": "Idioma",
@@ -902,7 +954,33 @@ function wrapper(plugin_info) {
       "next.title": "Siguiente tarea",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "fr": {
       "language.label": "Langue",
@@ -1188,7 +1266,33 @@ function wrapper(plugin_info) {
       "next.title": "Prochaine tâche",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "it": {
       "language.label": "Lingua",
@@ -1474,7 +1578,33 @@ function wrapper(plugin_info) {
       "next.title": "Prossima attività",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "ja": {
       "language.label": "言語",
@@ -1760,7 +1890,33 @@ function wrapper(plugin_info) {
       "next.title": "次のタスク",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "pl": {
       "language.label": "Język",
@@ -2046,7 +2202,33 @@ function wrapper(plugin_info) {
       "next.title": "Następne zadanie",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2332,7 +2514,33 @@ function wrapper(plugin_info) {
       "next.title": "Próxima tarefa",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "ru": {
       "language.label": "Язык",
@@ -2618,7 +2826,33 @@ function wrapper(plugin_info) {
       "next.title": "Следующая задача",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2904,7 +3138,33 @@ function wrapper(plugin_info) {
       "next.title": "下一项任务",
       "next.empty": "Scan a plan first.",
       "next.review": "Review unscheduled work in the full task list.",
-      "next.targetKeys": "Keys for {title}: {owned}/{required}"
+      "next.targetKeys": "Keys for {title}: {owned}/{required}",
+      "fan.title": "Fan fields",
+      "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+      "fan.source": "Portals from",
+      "fan.source.plan": "Current plan",
+      "fan.source.map": "Loaded map view",
+      "fan.source.area": "Draw Tools polygons",
+      "fan.load": "Load portals",
+      "fan.count": "Anchor count",
+      "fan.suggest": "Suggest anchors",
+      "fan.preview": "Preview",
+      "fan.apply": "Add to Draw Tools",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.role": "Role",
+      "fan.assignment": "Assigned anchor",
+      "fan.leaf": "Fan portal",
+      "fan.anchor": "Anchor",
+      "fan.exclude": "Exclude",
+      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
+      "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
+      "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
+      "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
+      "fan.noFields": "No non-degenerate fields are possible with this selection.",
+      "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
+      "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
+      "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
     }
   };
   // AP_LOCALES_END
@@ -2924,6 +3184,7 @@ function wrapper(plugin_info) {
     blockerTasks: {},
     workRouteMode: 'location',
     workRouteStart: '',
+    fanDesign: null,
     language: 'auto',
     panelPosition: null
   };
@@ -3105,6 +3366,7 @@ function wrapper(plugin_info) {
           if (!ap.state[key] || typeof ap.state[key] !== 'object' || Array.isArray(ap.state[key])) ap.state[key] = {};
         });
         ap.state.workRouteStart = typeof ap.state.workRouteStart === 'string' ? ap.state.workRouteStart : '';
+        ap.state.fanDesign = ap.normalizeFanDesign(ap.state.fanDesign);
         ap.state.workRouteMode = ['manual', 'portal'].indexOf(ap.state.workRouteMode) >= 0 ? ap.state.workRouteMode : 'location';
         if (!ap.state.panelPosition || !isFinite(Number(ap.state.panelPosition.left)) || !isFinite(Number(ap.state.panelPosition.top))) {
           ap.state.panelPosition = null;
@@ -3838,6 +4100,7 @@ function wrapper(plugin_info) {
   };
 
   ap.extractSegments = function (layer) {
+    if (ap.state.fanDesign && ap.state.fanDesign.areaKeys && ap.isFanAreaLayer(layer) && ap.state.fanDesign.areaKeys.indexOf(ap.fanAreaKey(layer)) !== -1) return [];
     var latlngs;
     try { latlngs = layer.getLatLngs(); } catch (e) { return []; }
     var points = ap.flattenLatLngs(latlngs, []);
@@ -4468,6 +4731,284 @@ function wrapper(plugin_info) {
         routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
     return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
+  };
+  ap.normalizeFanDesign = function (value) {
+    if (!value || !Array.isArray(value.anchors) || !value.assignments || typeof value.assignments !== 'object' || Array.isArray(value.assignments)) return null;
+    var anchors = Array.from(new Set(value.anchors.filter(function (guid) { return typeof guid === 'string'; }))).slice(0, 60), assignments = {};
+    Object.keys(value.assignments).forEach(function (guid) { if (anchors.indexOf(value.assignments[guid]) !== -1) assignments[guid] = value.assignments[guid]; });
+    return { anchors: anchors, assignments: assignments, areaKeys: Array.isArray(value.areaKeys) ? value.areaKeys.filter(function (key) { return typeof key === 'string'; }).slice(0, 100) : [] };
+  };
+  ap.isFanAreaLayer = function (layer) {
+    return typeof L.Polygon === 'function' && layer instanceof L.Polygon || !!(layer.options && layer.options.fill === true && layer.getLatLngs);
+  };
+  ap.fanAreaKey = function (layer) { return ap.flattenLatLngs(layer.getLatLngs()).map(ap.latLngKey).sort().join('|'); };
+  ap.fanDrawingConflict = function (plan, area) {
+    return ap.collectDrawToolLayers().some(function (layer) {
+      if (area && ap.isFanAreaLayer(layer)) return false;
+      return ap.extractSegments(layer).some(function (segment) {
+        return plan.links.some(function (edge) { return ap.properSegmentsIntersect(edge.a, edge.b, segment[0], segment[1]); });
+      });
+    });
+  };
+  // Independent fan design: each leaf belongs to exactly one designated anchor.
+  ap.fanEdgesConflict = function (edge, other) {
+    var a = edge.a, b = edge.b, c = other.a, d = other.b;
+    if (ap.normalizedLinkId(a.guid, b.guid) === ap.normalizedLinkId(c.guid, d.guid)) return false;
+    if (ap.properSegmentsIntersect(a, b, c, d)) return true;
+    function inside(p, x, y) {
+      if (p.guid === x.guid || p.guid === y.guid) return false;
+      return Math.abs(ap.orientation(x, y, p)) < 1e-12 &&
+        (p.lat - x.lat) * (p.lat - y.lat) + (p.lng - x.lng) * (p.lng - y.lng) < 0;
+    }
+    return inside(a, c, d) || inside(b, c, d) || inside(c, a, b) || inside(d, a, b);
+  };
+  ap.buildFanDesign = function (portals, anchorGuids, assignments) {
+    var result = { anchors: [], assignments: {}, links: [], fields: [], errors: [], length: 0, existing: 0, blocked: 0 };
+    var byGuid = Object.create(null), coordinates = new Set();
+    if (portals.length < 3 || portals.length > 60) { result.errors.push('fan.limit'); return result; }
+    portals.forEach(function (portal) {
+      var point = ap.workPoint(portal);
+      if (!point || typeof portal.guid !== 'string' || !portal.guid || byGuid[portal.guid] || coordinates.has(ap.latLngKey(point))) result.errors.push('fan.invalid');
+      else { byGuid[portal.guid] = portal; coordinates.add(ap.latLngKey(point)); }
+    });
+    anchorGuids = Array.from(new Set(anchorGuids)).sort();
+    if (!anchorGuids.length || anchorGuids.length >= portals.length || anchorGuids.some(function (guid) { return !byGuid[guid]; })) result.errors.push('fan.anchorsNeeded');
+    if (result.errors.length) return result;
+    result.anchors = anchorGuids.map(function (guid) { return byGuid[guid]; });
+    var groups = Object.create(null), edges = Object.create(null);
+    result.anchors.forEach(function (anchor) { groups[anchor.guid] = []; });
+    portals.forEach(function (portal) {
+      if (groups[portal.guid]) return;
+      var fixed = assignments && assignments[portal.guid];
+      if (fixed && !groups[fixed]) { result.errors.push('fan.invalidAssignment'); return; }
+      var anchor = fixed ? byGuid[fixed] : result.anchors.slice().sort(function (a, b) {
+        return ap.workDistance(ap.workPoint(portal), ap.workPoint(a)) - ap.workDistance(ap.workPoint(portal), ap.workPoint(b)) || a.guid.localeCompare(b.guid);
+      })[0];
+      groups[anchor.guid].push(portal); result.assignments[portal.guid] = anchor.guid;
+    });
+    function add(a, b, anchor, spoke) {
+      var edge = { a: a, b: b, anchor: anchor.guid, spoke: spoke, id: ap.normalizedLinkId(a.guid, b.guid) };
+      if (edges[edge.id]) return;
+      if (result.links.some(function (other) { return ap.fanEdgesConflict(edge, other); })) {
+        if (spoke) result.errors.push('fan.conflict');
+        return;
+      }
+      edges[edge.id] = edge; result.links.push(edge);
+      result.length += ap.workDistance(ap.workPoint(a), ap.workPoint(b));
+    }
+    // Reserve all radial links first, including those in other independent fans.
+    result.anchors.forEach(function (anchor) { groups[anchor.guid].forEach(function (portal) { add(portal, anchor, anchor, true); }); });
+    result.anchors.forEach(function (anchor) {
+      var leaves = groups[anchor.guid].slice().sort(function (a, b) { return a.guid.localeCompare(b.guid); });
+      var candidates = [];
+      leaves.forEach(function (a, index) { leaves.slice(index + 1).forEach(function (b) {
+        if (Math.abs(ap.orientation(anchor, a, b)) > 1e-12) candidates.push({ a: a, b: b,
+          distance: ap.workDistance(ap.workPoint(a), ap.workPoint(b)) + ap.workDistance(ap.workPoint(anchor), ap.workPoint(a)) + ap.workDistance(ap.workPoint(anchor), ap.workPoint(b)) });
+      }); });
+      candidates.sort(function (a, b) { return b.distance - a.distance || ap.normalizedLinkId(a.a.guid, a.b.guid).localeCompare(ap.normalizedLinkId(b.a.guid, b.b.guid)); });
+      candidates.forEach(function (edge) { add(edge.a, edge.b, anchor, false); });
+      var vertices = [anchor].concat(leaves);
+      vertices.forEach(function (a, i) { vertices.slice(i + 1).forEach(function (b, j) {
+        vertices.slice(i + j + 2).forEach(function (c) {
+          if (Math.abs(ap.orientation(a, b, c)) > 1e-12 && edges[ap.normalizedLinkId(a.guid, b.guid)] && edges[ap.normalizedLinkId(a.guid, c.guid)] && edges[ap.normalizedLinkId(b.guid, c.guid)]) result.fields.push([a, b, c]);
+        });
+      }); });
+    });
+    if (!result.fields.length) result.errors.push('fan.noFields');
+    var existing = ap.collectExistingLinkIds(portals.map(function (p) { return Object.assign({}, p, { latlng: ap.workPoint(p) }); }));
+    result.links.forEach(function (edge) {
+      edge.existing = !!existing.map[edge.id];
+      edge.blockers = existing.list.filter(function (real) {
+        return ap.properSegmentsIntersect(edge.a, edge.b, real.latlngA, real.latlngB);
+      }).length;
+      if (edge.existing) result.existing++;
+      if (edge.blockers) result.blocked++;
+    });
+    result.errors = Array.from(new Set(result.errors));
+    return result;
+  };
+  ap.suggestFanAnchors = function (portals, count, pinned, assignments) {
+    var anchors = Array.from(new Set((pinned || []).concat(Object.values(assignments || {}).filter(function (guid) { return !!guid; })))), evaluations = 0;
+    var budget = Math.min(100, Math.max(8, Math.floor(600 / Math.max(1, portals.length))));
+    count = Math.max(anchors.length, Math.min(portals.length - 1, Math.max(1, Math.floor(Number(count) || 1))));
+    var candidates = portals.slice().sort(function (a, b) { return a.guid.localeCompare(b.guid); });
+    // Deterministic sampling and budget keep the search bounded on mobile.
+    if (candidates.length > 20) candidates = candidates.filter(function (_, index) { return index % Math.ceil(candidates.length / 20) === 0; });
+    function better(a, b) {
+      return !b || a.errors.length < b.errors.length || a.errors.length === b.errors.length &&
+        (a.fields.length > b.fields.length || a.fields.length === b.fields.length &&
+          (a.blocked < b.blocked || a.blocked === b.blocked &&
+            (a.existing > b.existing || a.existing === b.existing && a.length < b.length)));
+    }
+    while (anchors.length < count) {
+      if (evaluations >= budget) {
+        var remaining = portals.filter(function (p) { return anchors.indexOf(p.guid) === -1; });
+        remaining.sort(function (a, b) {
+          function nearest(p) { return Math.min.apply(null, anchors.map(function (guid) { return ap.workDistance(ap.workPoint(p), ap.workPoint(portals.find(function (q) { return q.guid === guid; }))); })); }
+          return nearest(b) - nearest(a) || a.guid.localeCompare(b.guid);
+        });
+        if (!remaining.length) break;
+        anchors.push(remaining[0].guid); continue;
+      }
+      var best = null, choice = null;
+      candidates.forEach(function (portal) {
+        if (anchors.indexOf(portal.guid) !== -1 || evaluations >= budget) return;
+        var plan = ap.buildFanDesign(portals, anchors.concat([portal.guid]), assignments || {}); evaluations++;
+        if (better(plan, best)) { best = plan; choice = portal.guid; }
+      });
+      if (!choice) break;
+      anchors.push(choice);
+    }
+    return { anchors: anchors, evaluations: evaluations };
+  };
+  ap.getFanCandidates = function (source) {
+    if (source === 'plan') return ap.sortedStats().filter(function (portal) { return !!ap.workPoint(portal); }).map(function (p) { return { guid: p.guid, title: p.title, lat: p.lat, lng: p.lng }; });
+    var polygons = source === 'area' ? ap.collectDrawToolLayers().filter(ap.isFanAreaLayer).map(function (layer) { return ap.flattenLatLngs(layer.getLatLngs()); }) : [];
+    function inRing(point, ring) {
+      var inside = false;
+      for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        var a = ring[i], b = ring[j];
+        if (Math.abs(ap.orientation(a, b, point)) < 1e-12 && point.lat >= Math.min(a.lat, b.lat) && point.lat <= Math.max(a.lat, b.lat) && point.lng >= Math.min(a.lng, b.lng) && point.lng <= Math.max(a.lng, b.lng)) return true;
+        if ((a.lat > point.lat) !== (b.lat > point.lat) && point.lng < (b.lng - a.lng) * (point.lat - a.lat) / (b.lat - a.lat) + a.lng) inside = !inside;
+      }
+      return inside;
+    }
+    var bounds = window.map && window.map.getBounds && window.map.getBounds();
+    return ap.getLoadedPortals().filter(function (portal) { return source === 'area' ? polygons.some(function (ring) { return inRing(portal.latlng, ring); }) : !bounds || bounds.contains(portal.latlng); }).map(function (portal) {
+      return { guid: portal.guid, title: portal.title, lat: portal.latlng.lat, lng: portal.latlng.lng };
+    }).sort(function (a, b) { return ap.displayPortalTitle(a.title).localeCompare(ap.displayPortalTitle(b.title)) || a.guid.localeCompare(b.guid); });
+  };
+  ap.clearFanPreview = function () {
+    var draft = ap.runtime.fanDraft;
+    if (draft && draft.layer) { draft.layer.clearLayers(); if (window.map && window.map.removeLayer) window.map.removeLayer(draft.layer); draft.layer = null; }
+  };
+  ap.previewFanDesign = function () {
+    var draft = ap.runtime.fanDraft;
+    if (!draft) return;
+    ap.clearFanPreview();
+    var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
+    draft.preview = ap.buildFanDesign(portals, draft.anchors, draft.assignments);
+    if (ap.fanDrawingConflict(draft.preview, draft.source === 'area')) draft.preview.errors.push('fan.drawConflict');
+    if (!draft.preview.errors.length && window.map && typeof L.LayerGroup === 'function') {
+      draft.layer = new L.LayerGroup().addTo(window.map);
+      var colors = ['#00e5ff', '#ffbf47', '#bb8bff', '#63dd85'];
+      if (L.polygon) draft.preview.fields.forEach(function (vertices) {
+        var guid = draft.anchors.indexOf(vertices[0].guid) !== -1 ? vertices[0].guid : draft.preview.assignments[vertices[0].guid];
+        L.polygon(vertices, { color: colors[draft.anchors.indexOf(guid) % colors.length], weight: 1, fillOpacity: .06, interactive: false }).addTo(draft.layer);
+      });
+      draft.preview.links.forEach(function (edge) { L.polyline([edge.a, edge.b], { color: colors[draft.anchors.indexOf(edge.anchor) % colors.length], weight: 3, interactive: false }).addTo(draft.layer); });
+      draft.preview.anchors.forEach(function (anchor) { L.circleMarker(anchor, { radius: 11, color: '#fff', weight: 3, fillOpacity: .7, interactive: false }).addTo(draft.layer); });
+    }
+    ap.refreshFanPlanner();
+  };
+  ap.applyFanDesign = function () {
+    var draft = ap.runtime.fanDraft, dt = window.plugin && window.plugin.drawTools;
+    if (!draft || !draft.preview || draft.preview.errors.length) return false;
+    if (!dt || !dt.drawnItems || !dt.drawnItems.addLayer || !dt.drawnItems.removeLayer || typeof dt.save !== 'function') { window.alert(ap.t('scan.drawToolsMissing')); return false; }
+    if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return false; }
+    // Re-evaluate the immutable input before applying; never replace existing drawings.
+    var plan = ap.buildFanDesign(draft.portals.filter(function (p) { return !draft.excluded[p.guid]; }), draft.anchors, draft.assignments);
+    if (plan.errors.length) return false;
+    if (ap.fanDrawingConflict(plan, draft.source === 'area')) { window.alert(ap.t('fan.drawConflict')); return false; }
+    var existing = new Set();
+    ap.collectDrawToolLayers().forEach(function (layer) {
+      if (draft.source === 'area' && ap.isFanAreaLayer(layer)) return;
+      ap.extractSegments(layer).forEach(function (segment) { existing.add([ap.latLngKey(segment[0]), ap.latLngKey(segment[1])].sort().join('|')); });
+    });
+    var added = [];
+    try {
+      plan.links.forEach(function (edge) {
+        var id = [ap.latLngKey(edge.a), ap.latLngKey(edge.b)].sort().join('|');
+        if (existing.has(id)) return;
+        var layer = (L.geodesicPolyline || L.polyline)([ap.workPoint(edge.a), ap.workPoint(edge.b)], Object.assign({}, dt.lineOptions || {}, { color: '#00c7e8' }));
+        dt.drawnItems.addLayer(layer); added.push(layer); existing.add(id);
+      });
+      dt.save();
+    } catch (error) {
+      added.forEach(function (layer) { dt.drawnItems.removeLayer(layer); });
+      try { dt.save(); } catch (_) {}
+      window.alert(ap.t('fan.applyFailed')); return false;
+    }
+    var areaKeys = (ap.state.fanDesign && ap.state.fanDesign.areaKeys || []).slice();
+    if (draft.source === 'area') ap.collectDrawToolLayers().filter(ap.isFanAreaLayer).forEach(function (layer) { areaKeys.push(ap.fanAreaKey(layer)); });
+    ap.state.fanDesign = { anchors: plan.anchors.map(function (p) { return p.guid; }), assignments: plan.assignments, areaKeys: Array.from(new Set(areaKeys)) };
+    ap.save(); ap.clearFanPreview(); draft.preview = null;
+    // Preserve explicit per-link directions; new links remain unconfirmed.
+    ap.scan(); ap.refreshFanPlanner(); return true;
+  };
+  ap.fanPlannerHtml = function () {
+    var draft = ap.runtime.fanDraft, html = '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
+    html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
+    var sourceKeys = { plan: 'fan.source.plan', map: 'fan.source.map', area: 'fan.source.area' };
+    ['plan', 'map', 'area'].forEach(function (source) { html += '<option value="' + source + '"' + (draft.source === source ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(sourceKeys[source])) + '</option>'; });
+    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="59" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
+    if (draft.preview) {
+      html += '<p><b>' + ap.escapeHtml(ap.t('fan.summary', { anchors: draft.preview.anchors.length, links: draft.preview.links.length, fields: draft.preview.fields.length, blocked: draft.preview.blocked, existing: draft.preview.existing })) + '</b></p>';
+      draft.preview.errors.forEach(function (error) { html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t(error)) + '</p>'; });
+    }
+    html += '<table><thead><tr><th>' + ap.escapeHtml(ap.t('tasks.columnPortal')) + '</th><th>' + ap.escapeHtml(ap.t('fan.role')) + '</th><th>' + ap.escapeHtml(ap.t('fan.assignment')) + '</th></tr></thead><tbody>';
+    draft.portals.forEach(function (portal) {
+      var roleKeys = { leaf: 'fan.leaf', anchor: 'fan.anchor', exclude: 'fan.exclude' };
+      var role = draft.anchors.indexOf(portal.guid) !== -1 ? 'anchor' : draft.excluded[portal.guid] ? 'exclude' : 'leaf';
+      html += '<tr><td>' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + (draft.pinned.indexOf(portal.guid) !== -1 ? ' ★' : '') + '</td><td><select class="ap-fan-role" data-guid="' + ap.escapeHtml(portal.guid) + '">';
+      ['leaf', 'anchor', 'exclude'].forEach(function (value) { html += '<option value="' + value + '"' + (role === value ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(roleKeys[value])) + '</option>'; });
+      html += '</select></td><td><select class="ap-fan-assignment" data-guid="' + ap.escapeHtml(portal.guid) + '"' + (role !== 'leaf' ? ' disabled' : '') + '><option value="">' + ap.escapeHtml(ap.t('tasks.automatic')) + '</option>';
+      draft.anchors.forEach(function (guid) {
+        var anchor = draft.portals.find(function (p) { return p.guid === guid; });
+        if (anchor) html += '<option value="' + ap.escapeHtml(guid) + '"' + (draft.assignments[portal.guid] === guid ? ' selected' : '') + '>' + ap.escapeHtml(ap.displayPortalTitle(anchor.title)) + '</option>';
+      });
+      var assigned = draft.preview && draft.preview.assignments[portal.guid];
+      var target = assigned && draft.portals.find(function (p) { return p.guid === assigned; });
+      html += '</select>' + (target ? '<small>' + ap.escapeHtml(ap.displayPortalTitle(target.title)) + '</small>' : '') + '</td></tr>';
+    });
+    return html + '</tbody></table>';
+  };
+  ap.refreshFanPlanner = function () {
+    var draft = ap.runtime.fanDraft, element = document.getElementById('ap-fan-planner');
+    if (!draft || !draft.open || !element) return;
+    var scroll = element.scrollTop; element.innerHTML = ap.fanPlannerHtml(); element.scrollTop = scroll;
+    element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
+    element.querySelector('#ap-fan-count').onchange = function () { draft.count = Math.max(1, Math.min(59, Math.floor(Number(this.value) || 1))); };
+    element.querySelector('#ap-fan-load').onclick = function () {
+      ap.clearFanPreview(); draft.portals = ap.getFanCandidates(draft.source); draft.excluded = {}; draft.assignments = {}; draft.anchors = []; draft.pinned = []; draft.preview = null; ap.refreshFanPlanner();
+    };
+    element.querySelector('#ap-fan-suggest').onclick = function () {
+      var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
+      if (portals.length < 3 || portals.length > 60) { window.alert(ap.t('fan.limit')); return; }
+      draft.anchors = ap.suggestFanAnchors(portals, draft.count, draft.pinned, draft.assignments).anchors; ap.previewFanDesign();
+    };
+    element.querySelector('#ap-fan-preview').onclick = ap.previewFanDesign;
+    element.querySelector('#ap-fan-apply').onclick = ap.applyFanDesign;
+    function invalidate() { ap.clearFanPreview(); draft.preview = null; ap.refreshFanPlanner(); }
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-fan-role'), function (select) {
+      select.onchange = function () {
+        var guid = this.getAttribute('data-guid');
+        draft.anchors = draft.anchors.filter(function (id) { return id !== guid; }); draft.pinned = draft.pinned.filter(function (id) { return id !== guid; });
+        delete draft.excluded[guid]; delete draft.assignments[guid];
+        if (this.value === 'anchor') { draft.anchors.push(guid); draft.pinned.push(guid); }
+        if (this.value === 'exclude') draft.excluded[guid] = true;
+        Object.keys(draft.assignments).forEach(function (id) { if (draft.anchors.indexOf(draft.assignments[id]) === -1) delete draft.assignments[id]; });
+        invalidate();
+      };
+    });
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-fan-assignment'), function (select) {
+      select.onchange = function () { draft.assignments[this.getAttribute('data-guid')] = this.value; invalidate(); };
+    });
+  };
+  ap.showFanPlanner = function () {
+    if (typeof window.dialog !== 'function') return;
+    if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return; }
+    var portals = ap.getFanCandidates('plan'), source = portals.length >= 3 ? 'plan' : 'map';
+    if (source === 'map') portals = ap.getFanCandidates(source);
+    var saved = ap.state.fanDesign || {}, anchors = Array.isArray(saved.anchors) ? saved.anchors.filter(function (guid) { return portals.some(function (p) { return p.guid === guid; }); }) : [];
+    ap.clearFanPreview();
+    var draft = { portals: portals, source: source, count: anchors.length || 1, anchors: anchors.slice(), pinned: anchors.slice(), excluded: {}, assignments: {}, preview: null, open: true };
+    Object.keys(saved.assignments || {}).forEach(function (guid) { if (anchors.indexOf(saved.assignments[guid]) !== -1) draft.assignments[guid] = saved.assignments[guid]; });
+    ap.runtime.fanDraft = draft;
+    if (!draft.anchors.length && portals.length >= 3 && portals.length <= 60) draft.anchors = ap.suggestFanAnchors(portals, draft.count, [], {}).anchors;
+    window.dialog({ id: 'anchor-planner-fan', title: ap.t('fan.title'), html: '<div id="ap-fan-planner"></div>', width: Math.min(640, (window.innerWidth || 660) - 20),
+      closeCallback: function () { if (ap.runtime.fanDraft === draft) { ap.clearFanPreview(); draft.open = false; } } });
+    ap.previewFanDesign();
   };
   ap.nextTaskHtml = function () {
     var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
@@ -6841,6 +7382,7 @@ function wrapper(plugin_info) {
       version: ap.VERSION,
       exportedAt: new Date().toISOString(),
       scan: ap.state.lastScan,
+      fanDesign: ap.normalizeFanDesign(ap.state.fanDesign),
       blockedPlanLinks: ap.buildBlockerExport(),
       plannedLinks: (ap.runtime.links || []).map(function (link) {
         var direction = ap.getLinkDirection(link);
@@ -7021,6 +7563,7 @@ function wrapper(plugin_info) {
       ap.runtime.finalScan = null;
     }
     ap.state.anchors = {};
+    ap.state.fanDesign = null; ap.clearFanPreview(); ap.runtime.fanDraft = null;
     ap.state.blockerRoutePortals = {};
     ap.state.linkDirections = {};
     ap.state.blockerTasks = {};
@@ -7118,7 +7661,7 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
-    html += '<div class="ap-next-entry"><button id="ap-next-task">' + ap.escapeHtml(ap.t('next.title')) + '</button></div>';
+    html += '<div class="ap-next-entry"><button id="ap-fan-open">' + ap.escapeHtml(ap.t('fan.title')) + '</button><button id="ap-next-task">' + ap.escapeHtml(ap.t('next.title')) + '</button></div>';
     html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (ap.runtime.suppressWalkObservations && !ap.runtime.walkSimulation) html += '<p>' + ap.escapeHtml(ap.t('walk.resumeScan')) + '</p>';
@@ -7235,6 +7778,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = true; ap.save(); ap.renderPanel(); };
     document.getElementById('ap-scan').onclick = ap.scan;
     document.getElementById('ap-tasks').onclick = ap.showTaskList;
+    if (document.getElementById('ap-fan-open')) document.getElementById('ap-fan-open').onclick = ap.showFanPlanner;
     if (document.getElementById('ap-next-task')) document.getElementById('ap-next-task').onclick = ap.showNextTask;
     document.getElementById('ap-final-scan').onclick = function () {
       if (ap.runtime.finalScan && ap.runtime.finalScan.running) ap.pauseFinalScan();
@@ -7321,6 +7865,7 @@ function wrapper(plugin_info) {
 
   ap.injectCss = function () {
     $('<style>').prop('type', 'text/css').html(`
+#ap-fan-planner{max-height:calc(100dvh - 160px);overflow:auto;overflow-wrap:anywhere;color:#eee;font:13px/1.4 Arial,sans-serif;padding:6px}#ap-fan-planner .ap-fan-controls{display:flex;flex-wrap:wrap;gap:6px}#ap-fan-planner button,#ap-fan-planner select,#ap-fan-planner input{box-sizing:border-box;max-width:100%;min-height:40px;background:#24364a;color:#eef5ff;border:1px solid #60758a;border-radius:4px;padding:5px}#ap-fan-planner input{width:65px}#ap-fan-planner table{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:8px}#ap-fan-planner td,#ap-fan-planner th{padding:4px;border-bottom:1px solid #344658;text-align:left}#ap-fan-planner td select{width:100%}#ap-fan-planner small{display:block;color:#b1c1d2}#ap-fan-planner .ap-task-warning{color:#ffc078}
 #ap-next-work{max-height:calc(100dvh - 160px);overflow:auto;overflow-wrap:anywhere;box-sizing:border-box;color:#eee;font:14px/1.45 Arial,sans-serif;padding:6px;background:#101923}
 #ap-next-work button,#ap-next-work a{display:inline-block;box-sizing:border-box;min-height:44px;max-width:100%;padding:9px;border:1px solid #60758a;border-radius:5px;background:#24364a;color:#eef5ff;overflow-wrap:anywhere;cursor:pointer}
 #ap-next-work h2{font-size:18px;margin:10px 0}#ap-next-work h2 button{width:100%;text-align:left;font:inherit;font-weight:bold}
