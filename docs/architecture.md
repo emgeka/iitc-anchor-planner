@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.14
+# Architekturübersicht 0.2.0-beta.15
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 280 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 284 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -438,3 +438,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 ### Animation der Weglinie
 createWalkSimulation ergänzt den gewählten Ursprung im ersten zusammenhängenden Pfad. animateWalkTravel aktualisiert vorhandene Polyline und Marker über requestAnimationFrame mit derselben Dauer und quadratischem Ease-out wie panTo. Vorwärts wächst das letzte Segment; bei benachbartem Rückschritt wird es zurückgenommen. Nur zusammenhängende Pfade interpolieren; bei fehlenden Punkten/Animations-API sofortige Fallbackdarstellung. cancelWalkTravel löscht den Handle und verwirft die Animationsidentität vor einem neuen Frame bzw. Schließen. Bei Stoppwechsel vorheriges Segment exakt abschließen; Schließen braucht keinen Abschluss. Pause unterbricht wie bei der Kamera die aktuelle Bewegung nicht, verhindert aber den nächsten Stopp. Frames, Keys und Planzustand bleiben unverändert.
+
+### Nächste Aufgabe
+nextTaskHtml leitet den ersten Stopp mit blockers/links aus demselben getWorkPlan ab; routeTargetType start ohne Aktionen bleibt nur Ursprungskontext. Navigation nutzt navigationLinks, Entfernung echtes IITC GPS. taskBlockerHtml/taskLinkHtml und wireTaskList teilen Richtungs-, Abbau-, Bestandsprüf- und Erledigungslogik mit der Tabelle. Keine zusätzliche Route, kein Fortschrittscursor oder persistenter Zustand. refreshTaskList aktualisiert zuerst refreshNextTask, unabhängig vom Tabellendialog. Vorhandene Scan-/Key-/Standort-/Aufgabenupdates erreichen beide Ansichten. Scrollposition und Routennotizen bleiben erhalten; Sessiontoken schützt neuen Dialog vor veraltetem closeCallback. Explizite Meldungen bleiben von Intel getrennt, Unscheduled/Readiness und fehlendes Keys-Plugin werden angezeigt.

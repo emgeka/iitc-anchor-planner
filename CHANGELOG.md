@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.15
+
+### English
+- Add Next task in the panel and Tasks: compact live view of the first actionable work stop, navigation, blocker/link controls and destination keys. Share existing routing and report semantics; expose unscheduled work and readiness gaps.
+
+### Deutsch
+- Nächste Aufgabe im Panel und unter Aufgaben ergänzen: kompakte Live-Ansicht des ersten Arbeitsstopps mit Navigation, Blocker-/Linkaktionen und Ziel-Keys. Bestehendes Routing und Meldungen wiederverwenden; ungelöste Arbeit und Einsatzcheck-Lücken sichtbar halten.
+
 ## 0.2.0-beta.14
 
 ### English
