@@ -188,7 +188,7 @@
   "tasks.routeNote": "Luftlinienvorschlag. Eroberung, ausgehende Linklimits und Linken unter Feldern weiterhin prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
   "tasks.modeManual": "Gespeicherte Portalreihenfolge mit Blocker-Stopps",
   "tasks.modeLocation": "Ab IITC-Standort; kleine GPS-Änderungen behalten die Reihenfolge",
-  "tasks.planVisit": "Portal vorbereiten / Links bauen",
+  "tasks.planVisit": "Linkaufgaben",
   "tasks.estimatedKeys": "Schätzung: Wurfrichtungen teilweise offen",
   "tasks.portalDone": "Portalarbeit manuell erledigt",
   "tasks.unresolved": "Nicht alle Aufgaben einplanbar: Koordinaten, Richtungen und erledigte Wurfportale prüfen.",
@@ -268,7 +268,6 @@
   "walk.blocked": "Blocker noch nicht abgebaut; nicht simuliert",
   "walk.unknownKeys": "Keybestand unbekannt; nicht simuliert",
   "walk.missingKeys": "Kein Key in der Vorschau übrig; nicht simuliert",
-  "walk.visit": "Portal besuchen und vorbereiten",
   "walk.unresolved": "{count} Aufgaben konnten nicht eingeplant werden. Aufgaben prüfen.",
   "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
   "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
@@ -278,5 +277,6 @@
   "tasks.startPortal": "Route ab diesem Portal",
   "tasks.modePortal": "Ab Portal: {title}",
   "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
-  "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein."
+  "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein.",
+  "walk.start": "Routenstart"
 }

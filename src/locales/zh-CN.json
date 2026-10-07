@@ -188,7 +188,7 @@
   "tasks.routeNote": "直线路线建议。仍需检查占领、出链上限及场内链接条件。手动完成不代表 Intel 确认。",
   "tasks.modeManual": "已保存的 Portal 顺序及阻挡停靠点",
   "tasks.modeLocation": "从 IITC 位置开始；轻微 GPS 变化保持顺序",
-  "tasks.planVisit": "准备 Portal / 建造链接",
+  "tasks.planVisit": "连线任务",
   "tasks.estimatedKeys": "估计：部分方向未设置",
   "tasks.portalDone": "Portal 工作已手动完成",
   "tasks.unresolved": "无法安排所有任务：请检查坐标、方向和已完成的发链 Portal。",
@@ -268,7 +268,6 @@
   "walk.blocked": "Blocker not cleared yet; not simulated",
   "walk.unknownKeys": "Key inventory unknown; not simulated",
   "walk.missingKeys": "No key remaining in preview; not simulated",
-  "walk.visit": "Visit and prepare portal",
   "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
   "walk.finalScan": "Pause the final check before starting Plan preview.",
   "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -278,5 +277,6 @@
   "tasks.startPortal": "Route from this portal",
   "tasks.modePortal": "From portal: {title}",
   "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-  "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+  "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+  "walk.start": "路线起点"
 }

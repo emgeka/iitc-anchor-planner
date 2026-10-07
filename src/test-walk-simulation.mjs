@@ -39,6 +39,14 @@ function runtime(){
   context.window.plugin.keys.keys.C=99;ap.runtime.stats.A.title='Changed';
   assert.equal(model.frames[1].title,'Rathaus','Frames stay frozen after real plan/name/stock changes.');
 }
+{
+  const {ap,plan}=runtime();
+  plan.stops.unshift({portal:ap.runtime.stats.C,routeTargetType:'start',planVisit:false,links:[],blockers:[]});
+  ap.showWalkSimulation();
+  const html=ap.runtime.walkSimulation.element.querySelector('.ap-walk-content').innerHTML;
+  assert.match(html,/Route start/);
+  assert.ok(!html.includes('prepare'),'An origin does not invent preparation work.');
+}
 for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   const {ap,context,plan,ab}=runtime();
   if(reason==='direction')delete ap.state.linkDirections[ab.id];

@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.11
+# Architekturübersicht 0.2.0-beta.12
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -431,5 +431,7 @@ Die Hauptsuche läuft höchstens vier Durchgänge und 8–160 Kandidaten, angepa
 
 ### Fester Portalstart und Planvorschau
 workRouteMode ergänzt portal; workRouteStart speichert ausschließlich eine Planportal-GUID. load validiert die Typen und erhält alte location/manual-Zustände. getWorkRouteLocation löst den Punkt aus runtime.stats auf: GPS im Portalmodus ignorieren, fehlendes Startportal liefert null statt Ersatzkoordinate. build/getWorkPlan, getRouteEstimate und createWalkSimulation verwenden denselben Ursprung. Die Cache-Signatur enthält Start-GUID; GPS-Bewegung verändert einen Portalursprung nicht.
-addWorkRouteStart ergänzt bei Bedarf einen ersten Vorbereitungsbesuch ohne Würfe/Abbau/Erledigung. Der reguläre Planbesuch bleibt nach erforderlichem Abbau erhalten; gleicher erster Portalstopp wird nicht dupliziert. Keine noch offenen Aufgaben erzeugt keinen künstlichen neuen Auftrag. start:<guid> unterscheidet den Vorbereitungsstopp von Plan-/Blockerbesuchen.
+addWorkRouteStart ergänzt bei Bedarf einen ersten Routenstart ohne Würfe/Abbau/Erledigung. Der reguläre Planbesuch mit Linkaufgaben bleibt nach erforderlichem Abbau erhalten; gleicher erster Portalstopp wird nicht dupliziert. Keine noch offenen Aufgaben erzeugt keinen künstlichen neuen Auftrag. start:<guid> unterscheidet den Routenstart von Plan-/Blockerbesuchen.
 startWorkRouteAtPortal validiert GUID/Koordinate und setzt den Modus; Aktionen in Planportal- und Aufgabenzeilen. rerouteWorkPlan(false) verlangt echtes GPS, meldet dessen Fehlen und setzt Standortmodus; true setzt gespeicherte Reihenfolge. Beide löschen den festen Ursprung. clearData löscht ihn ebenfalls. Der Panelbutton verwendet jetzt diese automatische Route statt einer gespeicherten Nearest-Neighbor-Sortierung. workRouteLabel zeigt Ursprung oder fehlendes Portal. Entfernung zum nächsten Ziel bleibt vom echten Standort, Reststrecke/Vorschau vom gewählten Routenursprung. UI-Name Planvorschau/Plan preview, interne walk.*-Schlüssel/Methoden bleiben kompatibel.
+
+Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.

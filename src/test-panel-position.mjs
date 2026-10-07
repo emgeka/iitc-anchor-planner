@@ -114,7 +114,7 @@ function createClassList() {
   const existingOnly = { guid: 'existingOnly', title: 'Existing only', openLinks: 0, requiredKeys: 0 };
   const unconfirmed = { guid: 'unconfirmed', title: 'Unconfirmed', openLinks: 1, requiredKeys: 1 };
   ap.runtime.stats = { existingOnly, unconfirmed };
-  ap.runtime.links = [];
+  ap.runtime.links = [{ id: 'existingOnly|unconfirmed', a: 'unconfirmed', b: 'existingOnly', existing: false, blockers: [] }];
   ap.state.listFilter = 'open';
   assert.equal(ap.matchesListFilter(existingOnly), false, 'A portal whose planned links already exist must not remain in the Open filter.');
   assert.equal(ap.matchesListFilter(unconfirmed), true);

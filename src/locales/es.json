@@ -188,7 +188,7 @@
   "tasks.routeNote": "Propuesta en línea recta. Comprobar captura, límites de salida y enlaces bajo campos. Completar manualmente no confirma Intel.",
   "tasks.modeManual": "Orden guardado con paradas de bloqueadores",
   "tasks.modeLocation": "Desde la ubicación IITC; pequeños cambios GPS mantienen el orden",
-  "tasks.planVisit": "Preparar portal / crear enlaces",
+  "tasks.planVisit": "Tareas de enlaces",
   "tasks.estimatedKeys": "Estimación: algunas direcciones sin definir",
   "tasks.portalDone": "Trabajo del portal completado manualmente",
   "tasks.unresolved": "No se pueden ordenar todas las tareas: comprobar coordenadas, direcciones y portales de origen completados.",
@@ -268,7 +268,6 @@
   "walk.blocked": "Blocker not cleared yet; not simulated",
   "walk.unknownKeys": "Key inventory unknown; not simulated",
   "walk.missingKeys": "No key remaining in preview; not simulated",
-  "walk.visit": "Visit and prepare portal",
   "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
   "walk.finalScan": "Pause the final check before starting Plan preview.",
   "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -278,5 +277,6 @@
   "tasks.startPortal": "Route from this portal",
   "tasks.modePortal": "From portal: {title}",
   "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-  "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
+  "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
+  "walk.start": "Inicio de la ruta"
 }

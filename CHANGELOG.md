@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0-beta.12
+
+- EN: Remove route stops without link or blocker tasks, including receiving-only portals and unused direction candidates. Preserve explicit origins as Route start; remove the generic preparation message.
+- DE: Stopps ohne Link- oder Blockeraufgaben entfallen, auch reine Empfangsportale. Gewählte Ursprünge heißen Routenstart; die pauschale Vorbereitungsmeldung entfällt.
+
 ## 0.2.0-beta.11 — explicit route origins and Plan preview
 
 ### English

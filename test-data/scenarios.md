@@ -373,7 +373,7 @@ Wurfauftrag benötigen. **Aufgaben** auf Desktop und IITC Mobile öffnen.
   seinem Wurfportal erscheinen. Manuelle Endportalwahl hat Vorrang.
 - Liegt das Abbauportal an einem passenden früheren Besuch, werden Aufgaben
   dort gebündelt. Muss ein Portal früher zum Abbau besucht werden, bleiben
-  seine späteren Link-/Vorbereitungsaufgaben bestehen.
+  seine späteren Linkaufgaben bestehen.
 - Manuelles Abhaken verschiebt die Aufgabe in die gemeldeten Aufgaben und zeigt
   ausstehende Intel-Bestätigung; es verändert keine Intel-Daten und erklärt den
   Einsatzcheck nicht für blockerfrei. Rücknehmen der Meldung plant den Abbau
@@ -502,9 +502,13 @@ Automatisiert: test-walk-simulation.mjs prüft Layer-Identitäten, nur neue Geom
 5. Aufgabenliste, nächstes Ziel, Reststrecke und neu geöffnete Walk Sim vergleichen; Desktop/Mobile Bedienbarkeit und Berechnungszeit prüfen.
 Automatisiert in test-work-plan.mjs: anonymisierter Zwei-Gruppen-Umweg, vollständige Strecke kürzer, gemeinsamer Stern-Endpunkt, Abhängigkeiten/Deduplizierung, explizite und vorgemerkte Ziele, Meldungen, manuelle/GPS-/Daten-/Größen-Fallbacks, Determinismus, Suchbudget und gemeinsame Walk-Sim-Route.
 
-## Portalstart und Planvorschau (0.2.0-beta.11)
+## Portalstart und Planvorschau (0.2.0-beta.12)
 1. Ohne GPS am aufgeklappten Planportal Route ab diesem Portal wählen: erstes Ziel/erster Vorschau-Stopp ist dieses Portal, Reststrecke zählt von dort. Blockierte Würfe bleiben später hinter dem Abbau; Rückbesuch nicht unterschlagen.
 2. GPS während Portalmodus bewegen: Ursprung/Reihenfolge bleiben fest. Ein anderes Startportal wählen: neuer erster Stopp. Standortbutton mit gültigem GPS: Ursprung wechselt zu GPS, feste GUID entfernt. Fehlendes GPS gibt Meldung und lässt bisherige Wahl erhalten. Gespeicherte Reihenfolge bewahrt manuelle Portalreihenfolge.
 3. Refresh/neuer Scan: GUID-Wahl restauriert, bis dahin fehlendes Portal anzeigen. Koordinate fehlt/Portal aus Plan entfernt: kein erfundener Ursprung/GPS-Ersatz. Erledigtes Portal als Start wählen ändert Erledigung nicht. Plan löschen entfernt die Startwahl.
 4. Panel und Aufgaben zeigen Route ab Standort, Portalzeilen Route ab diesem Portal, Vorschau heißt Planvorschau. Bei 360 px/touch alle Aktionen erreichbar; Reststrecke, nächstes Ziel und Vorschau vergleichen.
-Automatisiert in test-work-plan.mjs: GUID-basierte Persistenz/Reload, Ursprung ohne GPS, feste Reihenfolge bei GPS-Bewegung, Vorbereitungs-/Wurf-Wiederbesuch, Ortswechsel/fehlendes GPS, UI-Wiring, fehlende Daten, erledigtes Portal und Vorschau-/Streckenursprung. Bestehende UI-/Locale-/Vorschautests unverändert weiter ausführen.
+Automatisiert in test-work-plan.mjs: GUID-basierte Persistenz/Reload, Ursprung ohne GPS, feste Reihenfolge bei GPS-Bewegung, Routenstart-/Wurf-Wiederbesuch, Ortswechsel/fehlendes GPS, UI-Wiring, fehlende Daten, erledigtes Portal und Vorschau-/Streckenursprung. Bestehende UI-/Locale-/Vorschautests unverändert weiter ausführen.
+
+Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
+
+Regression: zwei bestätigte Würfe A → B und C → B, A–C bereits vorhanden. B ohne Abbauauftrag darf in Standort-/manueller Route und Vorschau nicht als Stopp vorkommen. Als gewählter Ursprung bleibt B genau einmal Routenstart. Mit Blocker-Abbau bei B bleibt dieser konkrete Abbaustopp erhalten. Richtungswechsel berechnet Quellen neu; Keys und Erledigung unverändert.

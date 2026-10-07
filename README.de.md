@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.11
+### Beta-Test: 0.2.0-beta.12
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -140,7 +140,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.11**
+- Entwicklungsversion: **0.2.0-beta.12**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -175,7 +175,7 @@ Vor jeder Übergabe, jedem Commit und jeder Veröffentlichung muss jede Änderun
 
 Übersetzungen liegen getrennt unter `src/locales/*.json`. Jede Datei enthält dieselben semantischen Schlüssel und Platzhalter sowie unter `language.name` den eigenen Sprachnamen. `node src/build-locales.mjs` prüft alle Dateien und bündelt sie in das einzelne Userscript; `node src/build-locales.mjs --check` prüft zusätzlich, dass das Bundle aktuell ist. Zur Laufzeit werden keine Sprachdateien aus dem Internet geladen. Englisch ist die verpflichtende Fallbacksprache.
 
-## Entwurf des Keyimports (0.2.0-beta.11)
+## Entwurf des Keyimports (0.2.0-beta.12)
 
 Das offizielle IITC-Plugin **Keys** aktivieren. Sein Bestand ist die einzige
 Bestandsquelle; Anchor Planner berechnet weiterhin den Bedarf. Alte lokale Mengen
@@ -210,7 +210,7 @@ Am 2026-10-06 vom Nutzer bestätigt: Keyerkennung aus Screenshot und Video, Übe
 
 Neu erkannte Planlinks ziehen automatisch einen Key am Ziel der bestätigten Wurfrichtung ab, wenn der Link zuvor als offen beobachtet wurde. Beim ersten Scan vorhandene Links bilden den Ausgangsstand; gespeicherte Intel-Linkidentitäten verhindern Doppelabzüge bei Scans, Refreshs, Kartenlücken und Imports. Ein neu gebauter Link mit neuer Intel-Identität kann nach einer offenen Beobachtung erneut einen Key verbrauchen. Ohne bestätigte Richtung, bei unbekanntem/leerem Bestand oder unterbrochenen Schreibvorgängen erscheint ein Prüfhinweis unter Aufgaben; Bestand korrigieren/importieren und **Bestand geprüft** wählen. Verbrauch ersetzt die Rücknahme des letzten Imports/Resets nicht. Auch Links anderer Spieler lösen diese Regel aus; Intel zeigt nicht, wessen Keys verbraucht wurden.
 
-## Planvorschau (0.2.0-beta.11)
+## Planvorschau (0.2.0-beta.12)
 **Planvorschau** im Panel oder unter Aufgaben öffnen. Mit Zurück/Weiter schrittweise oder Abspielen/Pause automatisch durchlaufen; Von vorn spielt denselben eingefrorenen Plan erneut ab. Die Karte zeigt besuchten Weg, simulierte Wurflinks und geometrische Dreiecke; am Stopp erscheinen Blocker-Abbau und Wurfaufträge. Virtuelle Keys sinken nur bei bestätigten, freigeräumten Links mit Bestand; offene Richtungen, unbekannte Bestände und Mangel bleiben gekennzeichnet. Schließen entfernt die Vorschau und stellt die Kartenansicht wieder her. Kein Schreiben von Bestand, Erledigung oder Intel-Daten. Danach erneut scannen, damit automatische Beobachtungen weiterlaufen: Kartenladungen aus der Vorschau dürfen keine echten Keys abbuchen. Vom Prinzip in [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert, mit dem eigenen Arbeitsplan umgesetzt.
 
 Vorwärtsschritte erhalten vorhandene Geometrie und bewegen die Karte innerhalb des 1,5-Sekunden-Schritttakts weich über 0,9 Sekunden, auch zu entfernten Stopps. Abspielen/Pause zeichnet nicht erneut und bewegt die Kamera nicht; Zurück rekonstruiert die frühere Vorschau. Die Systemeinstellung für reduzierte Bewegung deaktiviert die Kartenanimation.
@@ -218,4 +218,6 @@ Vorwärtsschritte erhalten vorhandene Geometrie und bewegen die Karte innerhalb 
 Die gemeinsame Routensuche verwendet das gewählte Startportal oder im GPS-Modus einen gültigen IITC-User-Location-Standort (**Aufgaben → Route ab Standort**). Gespeicherte Reihenfolge und ausdrücklich gewählte Abbau-Endportale bleiben maßgeblich; ohne GPS gilt im Standortmodus die gespeicherte Reihenfolge. Die begrenzte Suche verbessert einen Ausgangsvorschlag, ohne den kürzesten Weg zu garantieren. Bis 40 Planportale und 80 Blocker; größere Pläne behalten den Ausgangsvorschlag.
 
 ## Routenstart wählen
-**Route ab Standort** im Panel oder unter Aufgaben plant ab dem aktuellen IITC-User-Location-Standort und meldet fehlendes GPS. Die Aktion aktiviert automatische Planung, ohne die gespeicherte Portalreihenfolge zu überschreiben. **Route ab diesem Portal** in der aufgeklappten Planportal- oder Aufgabenzeile legt dieses Portal als ersten Stopp und Ursprung fest, auch ohne GPS. Das Startportal wird angezeigt; GPS-Bewegung verschiebt diesen Ursprung nicht. Müssen Blocker andernorts abgebaut werden, ist der erste Besuch Vorbereitung und die Route kehrt für den Wurf zurück. Gespeichert wird nur die Portal-GUID; nach Neuladen erneut scannen. Fehlende Startportale bleiben gekennzeichnet. Gespeicherte Reihenfolge oder Route ab Standort hebt den festen Start auf. **Planvorschau** ersetzt den Namen Walk Sim; Vorschau und Routenstrecke verwenden den gewählten Ursprung. Neue Startportal-Hinweise verwenden außerhalb Deutsch/Englisch zunächst Englisch.
+**Route ab Standort** im Panel oder unter Aufgaben plant ab dem aktuellen IITC-User-Location-Standort und meldet fehlendes GPS. Die Aktion aktiviert automatische Planung, ohne die gespeicherte Portalreihenfolge zu überschreiben. **Route ab diesem Portal** in der aufgeklappten Planportal- oder Aufgabenzeile legt dieses Portal als ersten Stopp und Ursprung fest, auch ohne GPS. Das Startportal wird angezeigt; GPS-Bewegung verschiebt diesen Ursprung nicht. Müssen Blocker andernorts abgebaut werden, markiert der erste Stopp den Routenstart und die Route kehrt für den Wurf zurück. Gespeichert wird nur die Portal-GUID; nach Neuladen erneut scannen. Fehlende Startportale bleiben gekennzeichnet. Gespeicherte Reihenfolge oder Route ab Standort hebt den festen Start auf. **Planvorschau** ersetzt den Namen Walk Sim; Vorschau und Routenstrecke verwenden den gewählten Ursprung. Neue Startportal-Hinweise verwenden außerhalb Deutsch/Englisch zunächst Englisch.
+
+Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
