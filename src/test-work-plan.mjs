@@ -215,4 +215,66 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
   assert.equal(reordered[1].row.hidden, true, 'A manually collapsed row stays collapsed.');
   assert.equal(element.scrollTop, 87);
 }
-console.log('Work-plan checks passed: directed keys, shared blockers, insertion deadlines, bundled work, repeat visits, manual/Intel separation, migration, GPS stability, missing data, direction suggestions, compact table refresh and localized UI.');
+function routeDistance(plan,origin){let from=origin,total=0;for(const stop of plan.stops){const to=point(stop.portal.lat,stop.portal.lng);total+=from.distanceTo(to);from=to;}return total;}
+function assertDependencies(ap,plan){
+  const removed=new Set(),links=new Set();
+  for(const stop of plan.stops){
+    for(const item of stop.blockers){assert.ok(!removed.has(item.id),'Each removal is scheduled once.');removed.add(item.id);}
+    for(const task of stop.links){assert.ok(!links.has(task.id),'Each throw is assigned once.');links.add(task.id);
+      for(const b of task.blockers)assert.ok(removed.has(b.guid)||ap.getWorkBlockers().find(i=>i.id===b.guid).manual,'Removal precedes the dependent throw.');}
+  }
+}
+{
+  // Anonymous translated geometry: two throw sources, a distant target, two blocker clusters.
+  const {ap}=runtime();portal(ap,'A',0,0);portal(ap,'B',.080,-.024);portal(ap,'C',.015,.019);
+  const coords={S:[.019,.008],X:[.027,.012],Y:[.026,.012],Z:[.020,.015],P:[.047,-.011],Q:[.043,-.018],U:[.048,-.014],V:[.047,-.015],N:[.047,-.013],M:[.047,-.0145]};
+  function edge(id,a,b){const [ax,ay]=coords[a],[bx,by]=coords[b];return {guid:id,a,b,titleA:a,titleB:b,latlngA:point(ay,ax),latlngB:point(by,bx)};}
+  const ab=link(ap,'A','B',[edge('wild1','P','Q'),edge('wild2','U','V'),edge('wild3','N','M')]);direction(ap,ab,'A');
+  const cb=link(ap,'C','B',[edge('spring1','S','X'),edge('spring2','S','Y'),edge('spring3','S','Z')]);direction(ap,cb,'C');link(ap,'A','C',[],true);
+  const origin=point(.054,.044),location={latlng:origin};
+  const base=ap.sortedStats(false).slice().sort((a,b)=>origin.distanceTo(point(a.lat,a.lng))-origin.distanceTo(point(b.lat,b.lng)));
+  const old=ap.buildWorkPlanForOrder(base,origin,location,null),before=JSON.stringify(ap.state);
+  const plan=ap.buildWorkPlan(location),cost=routeDistance(plan,origin),oldCost=routeDistance(old,origin);
+  assert.ok(cost<oldCost*.9,'Optimize the complete two-cluster route, rather than keeping the long target detour.');
+  assert.equal(plan.unscheduled.length,0);assert.equal(plan.unassigned.length,0);assertDependencies(ap,plan);
+  assert.equal(JSON.stringify(ap.state),before,'Order and endpoint suggestions do not overwrite saved choices, directions or completion.');
+  assert.deepEqual(ap.buildWorkPlan(location).stops.map(s=>s.portal.guid),plan.stops.map(s=>s.portal.guid),'Search is deterministic.');
+  assert.ok(plan.optimization.evaluations<=160);
+  ap.getCurrentUserLocation=()=>location;
+  const frames=ap.createWalkSimulation();
+  assert.deepEqual(Array.from(frames.frames,f=>f.title),Array.from(plan.stops,s=>s.portal.title),'Walk Sim follows the same optimized route.');
+  ap.state.workRouteMode='manual';
+  const manual=ap.buildWorkPlan(location);
+  assert.deepEqual(Array.from(manual.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','B','C'],'Manual portal order remains authoritative.');
+  assertDependencies(ap,manual);assert.equal(manual.optimization,undefined);
+  ap.state.workRouteMode='location';
+  const noGPS=ap.buildWorkPlan(null);assert.deepEqual(Array.from(noGPS.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','B','C']);
+  const signature=ap.runtime.links.map(l=>l.id).sort().join(';');ap.state.blockerTasks.spring1={plan:signature,target:'X',done:false};
+  const fixed=ap.buildWorkPlan(location);assert.equal(fixed.stops.find(s=>s.blockers.some(b=>b.id==='spring1')).portal.guid,'X','Optimization preserves explicit endpoints.');
+  ap.state.blockerRoutePortals.Y=true;
+  const selected=ap.buildWorkPlan(location);assert.equal(selected.stops.find(s=>s.blockers.some(b=>b.id==='spring2')).portal.guid,'Y','Legacy selected endpoints also remain authoritative.');
+  ap.state.blockerTasks.wild1={plan:signature,done:true};
+  const reported=ap.buildWorkPlan(location);assert.ok(!reported.stops.flatMap(s=>s.blockers).some(b=>b.id==='wild1'));assertDependencies(ap,reported);
+}
+{
+  const {ap}=runtime();portal(ap,'A',1);portal(ap,'B',2);
+  const edges=[['X',.25,-.1],['Y',.5,.1],['Z',.75,-.1]].map(([b,x,y],i)=>({guid:'star'+i,a:'S',b,titleA:'S',titleB:b,latlngA:point(.2,.5),latlngB:point(y,x)}));
+  const ab=link(ap,'A','B',edges);direction(ap,ab,'A');
+  const plan=ap.buildWorkPlan({latlng:point(0,0)}),removals=plan.stops.filter(s=>s.blockers.length);
+  assert.equal(removals.length,1,'Joint endpoint selection recognizes the cheaper shared removal portal.');
+  assert.equal(removals[0].portal.guid,'S');assert.equal(removals[0].blockers.length,3);assertDependencies(ap,plan);
+}
+{
+  const {ap}=runtime();for(let i=0;i<41;i++)portal(ap,'P'+i,i/100);
+  link(ap,'P0','P40');const plan=ap.buildWorkPlan({latlng:point(0,-1)});
+  assert.equal(plan.optimization,undefined,'Large plans use the valid bounded fallback.');assert.equal(plan.stops.length,41);
+}
+{
+  const {ap}=runtime();portal(ap,'A',1);portal(ap,'B',3);
+  const shared=blocker('shared','X',.5,'Y',8);const ab=link(ap,'A','B',[shared]);
+  const plan=ap.buildWorkPlan({latlng:point(0,0)});assertDependencies(ap,plan);
+  assert.equal(ap.getLinkDirection(ab),null,'Routing never silently confirms an unknown direction.');
+  ap.runtime.stats.B.lat=null;
+  assert.equal(ap.buildWorkPlan({latlng:point(0,0)}).optimization,undefined,'Missing coordinates do not create a falsely shorter route.');
+}
+console.log('Work-plan checks passed: joint route/endpoint optimization, dependency-safe removal refinement, bounded/deterministic search, manual/GPS fallback, explicit choices, two-cluster regression, directed keys, bundled work, repeat visits, missing data, direction suggestions and localized UI.');

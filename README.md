@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.9
+### Beta testing: 0.2.0-beta.10
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -44,6 +44,9 @@ Portal names open IITC details; missing keys and the next stop are highlighted.
 The view includes explicit per-link direction and directed key demand.
 Blocker removal stops are inserted before dependent link tasks, choosing an
 endpoint and insertion position with a small additional straight-line distance.
+Automatic routing now compares complete routes, jointly revisiting portal order,
+shared removal endpoints and earlier blocker detours. It accepts only shorter
+variants that retain the work and its removal-before-throw dependencies.
 Shared blockers occur once; work at the same portal is bundled where possible.
 
 **Tasks → Route from here** uses IITC User Location; **Saved order** preserves
@@ -131,7 +134,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.9**
+- Development version: **0.2.0-beta.10**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -164,7 +167,7 @@ Before every handoff, commit, or publication, each change must be reconciled wit
 
 Translations are maintained separately under `src/locales/*.json`. Every file contains the same semantic keys and placeholders and provides its native name under `language.name`. `node src/build-locales.mjs` validates all files and bundles them into the single userscript; `node src/build-locales.mjs --check` also verifies that the bundle is current. No language files are loaded from the internet at runtime. English is the required fallback language.
 
-## Keys import draft (0.2.0-beta.9)
+## Keys import draft (0.2.0-beta.10)
 
 Enable the official IITC **Keys** plugin. Its inventory is the only stock source;
 Anchor Planner still calculates requirements. Old local counts are ignored, with
@@ -196,7 +199,9 @@ Practical test confirmed by the user on 2026-10-06: screenshot and video key rec
 
 Newly detected planned links automatically deduct one key at the confirmed direction target if that link was previously observed open. First-scan existing links are a baseline; persistent Intel link identities prevent duplicate deductions across scans, reloads, map coverage gaps and imports. A rebuilt link with a new Intel identity can consume a new key after an open observation. No confirmed direction, unavailable/zero stock or interrupted writes leave a review note in Tasks; correct/import stock and choose **Inventory checked**. Consumption does not replace the last import/reset undo backup. This rule also applies to links built by other agents; Intel cannot identify whose inventory was used.
 
-## Walk Sim (0.2.0-beta.9)
+## Walk Sim (0.2.0-beta.10)
 Open **Walk Sim** in the panel or Tasks. Step through with Previous/Next or use Play/Pause; Start again replays the same frozen route. The map shows the visited trail, simulated outgoing links and geometric triangles, plus the current stop's blocker removal and throw actions. Virtual keys decrease only for confirmed, unblocked links with available stock; unknown directions/stock and shortages are labeled. Closing clears the overlay and restores the map view. The simulation writes no inventory, completion or Intel state. Scan again after closing to resume automatic observations: preview-induced map loads must never debit real Keys. Inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/), implemented against Anchor Planner's own work plan.
 
 Forward steps now retain existing geometry and pan smoothly for 0.9 seconds within the 1.5-second step interval, including distant stops. Pause/resume does not redraw or move the camera; backward steps rebuild the earlier preview. Reduced-motion preferences disable panning animation.
+
+Joint route search requires a valid IITC User Location and automatic mode (**Tasks → Route from here**). Saved order and explicit removal endpoints remain authoritative; without GPS the saved order is used. The bounded search improves a baseline without guaranteeing a shortest route. It runs for up to 40 plan portals and 80 blockers; larger plans retain the baseline.

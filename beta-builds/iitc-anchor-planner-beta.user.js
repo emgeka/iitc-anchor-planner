@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.9
+// @version        0.2.0-beta.10
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261006220100';
+  plugin_info.dateTimeVersion = '20261007074817';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.9';
+  ap.VERSION = '0.2.0-beta.10';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -3869,24 +3869,7 @@ function wrapper(plugin_info) {
     return true;
   };
 
-  ap.buildWorkPlan = function (location) {
-    var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat); });
-    var start = location && location.latlng || null;
-    if (start && ap.state.workRouteMode !== 'manual') {
-      var remaining = base.slice(), sorted = [], point = start;
-      while (remaining.length) {
-        var best = 0, shortest = Infinity;
-        remaining.forEach(function (portal, index) {
-          var next = ap.workPoint(portal);
-          var distance = next ? ap.workDistance(point, next) : Infinity;
-          if (distance < shortest) { shortest = distance; best = index; }
-        });
-        var portal = remaining.splice(best, 1)[0];
-        sorted.push(portal);
-        point = ap.workPoint(portal) || point;
-      }
-      base = sorted;
-    }
+  ap.buildWorkPlanForOrder = function (base, start, location, targets) {
     var stops = base.map(function (portal) {
       return { portal: portal, planVisit: true, blockers: [], links: [], routeTargetType: 'plan' };
     });
@@ -3920,6 +3903,8 @@ function wrapper(plugin_info) {
         var selected = endpoints.filter(function (portal) { return !!(ap.state.blockerRoutePortals || {})[portal.guid]; });
         if (selected.length === 1) explicit = selected[0].guid;
       }
+      // Search choices are ephemeral and may never override a user's choice.
+      if (!explicit && targets && targets[item.id]) explicit = targets[item.id];
       if (explicit) endpoints = endpoints.filter(function (portal) { return portal.guid === explicit; });
       var choice = null;
       endpoints.forEach(function (portal) {
@@ -3944,6 +3929,7 @@ function wrapper(plugin_info) {
       if (index < 0) unassigned.push(link);
       else stops[index].links.push(link);
     });
+    if (targets) stops = ap.refineBlockerStops(stops, start);
     // Explicit legacy work targets remain visits even if they clear no current blocker.
     ap.getBlockerWorklist(location).filter(function (portal) {
       return portal.selected && blocked.some(function (item) {
@@ -3955,6 +3941,136 @@ function wrapper(plugin_info) {
       }
     });
     return { stops: stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned };
+  };
+
+  ap.refineBlockerStops = function (stops, start) {
+    function distance(route) {
+      var from = start, total = 0;
+      for (var i = 0; i < route.length; i++) {
+        var to = ap.workPoint(route[i].portal);
+        if (!to) return Infinity;
+        total += ap.workDistance(from, to); from = to;
+      }
+      return total;
+    }
+    var bestDistance = distance(stops), attempts = 0;
+    for (var pass = 0; pass < 2 && attempts < 256; pass++) {
+      var before = bestDistance;
+      stops.filter(function (stop) { return !stop.planVisit && stop.blockers.length; }).forEach(function (stop) {
+        var source = stops.indexOf(stop);
+        if (source < 0) return;
+        var remaining = stops.slice(); remaining.splice(source, 1);
+        var deadline = remaining.length;
+        stop.blockers.forEach(function (item) {
+          item.links.forEach(function (link) {
+            var index = remaining.findIndex(function (visit) { return visit.links.some(function (task) { return task.id === link.id; }); });
+            if (index >= 0) deadline = Math.min(deadline, index);
+          });
+        });
+        for (var index = 0; index <= deadline && attempts < 256; index++) {
+          attempts++;
+          var candidate = remaining.slice(), visit = candidate[index];
+          if (visit && visit.portal.guid === stop.portal.guid) {
+            candidate[index] = Object.assign({}, visit, { blockers: visit.blockers.concat(stop.blockers) });
+          } else candidate.splice(index, 0, stop);
+          var nextDistance = distance(candidate);
+          if (nextDistance < bestDistance - 0.001) { stops = candidate; bestDistance = nextDistance; }
+        }
+      });
+      if (bestDistance >= before - 0.001) break;
+    }
+    return stops;
+  };
+
+  ap.buildWorkPlan = function (location) {
+    var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat); });
+    var start = location && location.latlng || null;
+    if (start && ap.state.workRouteMode !== 'manual') {
+      var remaining = base.slice(), sorted = [], point = start;
+      while (remaining.length) {
+        var nearest = 0, shortest = Infinity;
+        remaining.forEach(function (portal, index) {
+          var next = ap.workPoint(portal), distance = next ? ap.workDistance(point, next) : Infinity;
+          if (distance < shortest) { shortest = distance; nearest = index; }
+        });
+        var portal = remaining.splice(nearest, 1)[0];
+        sorted.push(portal); point = ap.workPoint(portal) || point;
+      }
+      base = sorted;
+    }
+    var baseline = ap.buildWorkPlanForOrder(base, start, location, null);
+    // Without GPS keep the saved order; large/invalid plans retain the valid baseline.
+    if (!start || ap.state.workRouteMode === 'manual' || !base.length || base.length > 40 || baseline.blockers.length > 80 ||
+        base.some(function (portal) { return !ap.workPoint(portal); })) return baseline;
+    function routeDistance(plan) {
+      var from = start, total = 0;
+      for (var i = 0; i < plan.stops.length; i++) {
+        var to = ap.workPoint(plan.stops[i].portal);
+        if (!to) return Infinity;
+        total += ap.workDistance(from, to); from = to;
+      }
+      return total;
+    }
+    var initialDistance = routeDistance(baseline);
+    if (!isFinite(initialDistance)) return baseline;
+    var best = { order: base, targets: {}, plan: baseline, distance: initialDistance };
+    var budget = Math.min(160, Math.max(8, Math.floor(100000 / ((base.length + baseline.blockers.length + 1) * (baseline.blockers.length + 1)))));
+    var evaluations = 0, seen = Object.create(null), groups = Object.create(null);
+    // Explore shared removal endpoints together, rather than greedily per link.
+    baseline.blockers.forEach(function (item) {
+      if (item.manual || item.target) return;
+      var blocker = item.blocker;
+      var selectedA = !!(ap.state.blockerRoutePortals || {})[blocker.a];
+      var selectedB = !!(ap.state.blockerRoutePortals || {})[blocker.b];
+      if (selectedA !== selectedB) return;
+      [[blocker.a, blocker.latlngA], [blocker.b, blocker.latlngB]].forEach(function (endpoint) {
+        if (!ap.workPoint(endpoint[1])) return;
+        if (!groups[endpoint[0]]) groups[endpoint[0]] = [];
+        groups[endpoint[0]].push(item.id);
+      });
+    });
+    var groupGuids = Object.keys(groups).sort(function (a, b) { return groups[b].length - groups[a].length || a.localeCompare(b); });
+    function evaluate(order, targets) {
+      if (evaluations >= budget) return;
+      var key = JSON.stringify([order.map(function (portal) { return portal.guid; }), Object.keys(targets).sort().map(function (id) { return [id, targets[id]]; })]);
+      if (seen[key]) return;
+      seen[key] = true; evaluations++;
+      var plan = ap.buildWorkPlanForOrder(order, start, location, targets);
+      // A shorter route must not obtain its saving by dropping unresolved work.
+      if (plan.unscheduled.length > baseline.unscheduled.length || plan.unassigned.length > baseline.unassigned.length) return;
+      var distance = routeDistance(plan);
+      if (distance < best.distance - 0.001) best = { order: order, targets: targets, plan: plan, distance: distance };
+    }
+    for (var pass = 0; pass < 4 && evaluations < budget; pass++) {
+      var before = best.distance;
+      evaluate(best.order, best.targets);
+      groupGuids.forEach(function (guid) {
+        var targets = Object.assign({}, best.targets);
+        groups[guid].forEach(function (id) { targets[id] = guid; });
+        evaluate(best.order, targets);
+      });
+      var order = best.order.slice();
+      for (var from = 0; from < order.length && evaluations < budget; from++) {
+        for (var to = 0; to < order.length && evaluations < budget; to++) {
+          if (from === to) continue;
+          var candidate = order.slice(), moved = candidate.splice(from, 1)[0];
+          candidate.splice(to, 0, moved);
+          evaluate(candidate, best.targets);
+          // Re-evaluate automatic endpoint choice after changing the portal order.
+          evaluate(candidate, {});
+          // A shared endpoint may only pay off together with a different order.
+          groupGuids.forEach(function (guid) {
+            if (groups[guid].length < 2) return;
+            var targets = Object.assign({}, best.targets);
+            groups[guid].forEach(function (id) { targets[id] = guid; });
+            evaluate(candidate, targets);
+          });
+        }
+      }
+      if (best.distance >= before - 0.001) break;
+    }
+    best.plan.optimization = { evaluations: evaluations, improved: best.distance < initialDistance - 0.001 };
+    return best.plan;
   };
 
   ap.getWorkPlan = function (location) {

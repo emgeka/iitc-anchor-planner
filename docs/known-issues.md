@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.9
+# Bekannte Grenzen in 0.2.0-beta.10
 
 ## Portalzuordnung und Namen
 
@@ -73,7 +73,7 @@
   gespeicherte Liste nicht automatisch neu. Der Aufgabenmodus verwendet
   entweder diese Reihenfolge oder einen eigenen Standortvorschlag mit
   100-m-Neuberechnungsschwelle; es gibt keine automatische Ankunftserkennung.
-- Blocker-Einfügung ist eine gierige Luftlinienheuristik und garantiert keinen
+- Die automatische Route nutzt eine begrenzte gemeinsame Luftliniensuche und garantiert keinen
   kürzesten Weg. Sie prüft geometrische Blocker-Abhängigkeiten, aber keine
   Eroberung, Erreichbarkeit über Straßen, Linklimits oder das Linken unter
   bereits gebauten Feldern. Offene Wurfrichtungen benötigen weiterhin eine
@@ -226,3 +226,9 @@
 - Automatisierte Simulation-/Timer-/Layerprüfungen; echter IITC-Desktop-/Mobile-Praxistest steht aus. Neue Texte verwenden außerhalb Deutsch/Englisch zunächst Englisch.
 
 - Nutzer meldet ruckartige Animation bei einem großen Plan in beta.8. beta.9 ersetzt die bisherigen direkten Sprünge durch weiche Kartenbewegung und vermeidet den vollständigen Layer-Neuaufbau vorwärts. Die Wirkung bei großen Plänen und auf Mobilgeräten muss noch praktisch geprüft werden; Kartenladung und Gerätegeschwindigkeit beeinflussen weiterhin die Darstellung.
+
+## Gemeinsame Routenverbesserung
+- Der Nutzerplan in beta.9 bestätigte Gedenkstein → Ratskellersaal als Stopps 4/5 mit rund 9,2 km zusätzlicher Luftlinie und anschließendem Rückweg. beta.10 vergleicht vollständige Varianten; anonymisierte Geometrie als automatisierter Regressionstest, reale Portaldaten nur lokal für die Nachstellung.
+- Nur automatischer Modus mit gültigem Standort: Aufgaben → Route ab hier. Manuelle Reihenfolge bleibt auch dann erhalten, wenn sie einen längeren Weg erzeugt. Explizite Endportalwahlen können gemeinsame Abbauorte verhindern.
+- Begrenzte lokale Verbesserung, kein globales Optimum. Höchstens 40 Planportale/80 Blocker, darüber bleibt der Ausgangsvorschlag. Keine Straßen-/Zugangsprüfung oder Eroberungs-/Linklimit-/Feldprüfung. Abbauportalwahl minimiert Strecke, nicht Besuchszahl.
+- Reale Standortkoordinaten waren im Export nicht enthalten; verglichene Testursprünge sind Annahmen. Tatsächliche neue Reihenfolge/Strecke hängen vom Standort und gespeicherten Vorgaben ab. IITC-Desktop-/Mobile-Praxistest von beta.10 steht aus.
