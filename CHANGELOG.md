@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.19
+
+### English
+- Draw fan proposals directly and save accepted geometry as the native active plan without Draw Tools. Persist portal snapshots, links and fields for reload, integrate with existing scans/tasks/Keys/routing, preserve external drawings and allow removing the native plan.
+
+### Deutsch
+- Fächervorschläge direkt zeichnen und ohne Draw Tools als eigenen aktiven Plan speichern. Portalnamen, Links und Felder für Refresh erhalten, bestehende Scans/Aufgaben/Keys/Routing verwenden, fremde Zeichnungen erhalten und eigenen Plan entfernbar machen.
+
 ## 0.2.0-beta.18
 
 ### English

@@ -535,3 +535,6 @@ Gültiges Dreieck mit vorhandener kreuzender Draw-Tools-Linie: farbige Feldfläc
 
 ## Vorschlag nach Portale laden (0.2.0-beta.18)
 Drei nicht kollineare Planportale laden: ohne weiteren Klick mindestens ein Anker, Feldzahl und sichtbares Overlay. Erneut laden bzw. Quelle wechseln: neuer berechneter Vorschlag statt leerem Zustand. Nur zwei Portale oder über 60: Fehler sichtbar, Übernahme gesperrt, keine alten Vorschlagslayer. Ankerzahl beachten; Draw Tools/Keys durch Laden unverändert. Echter IITC-Praxistest ausstehend.
+
+## Eigenständiger Fächerplan (0.2.0-beta.19)
+Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt zeichnen, Plan übernehmen, Scannen/Keys/Richtungen/Aufgaben/Route prüfen. Refresh mit inzwischen ungeladenen Portalen: gespeicherte Namen und GUIDs, Links/Felder und Aufgaben erhalten. Alte kreuzende Draw-Tools-Zeichnung unverändert; nicht im nativen Arbeitsplan enthalten. Erneute Übernahme ersetzt eigenen Plan ohne Duplikate, Keys unverändert. Speicherfehler erhält vorigen Plan. Eigenen Fächerplan entfernen stellt externe Planquelle wieder her, Richtungen/Keys bleiben. Echter Desktop-/Mobile-Praxistest ausstehend.

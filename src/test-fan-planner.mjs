@@ -34,10 +34,11 @@ function runtime() {
   ap.state.language = 'en';
   context.window.plugin.drawTools = { drawnItems: drawn, save() { saves++; } };
   context.window.plugin.keys = { keys: { A: 7 }, addKey() { throw new Error('Planning must not change keys'); } };
+  const realScan = ap.scan;
   ap.scan = () => { scans++; };
   ap.renderPanel = ap.renderOverlays = ap.refreshTaskList = () => {};
   ap.collectExistingLinkIds = () => ({ map: {}, list: [] });
-  return { ap, context, drawn, storage, alerts, saves: () => saves, scans: () => scans };
+  return { ap, context, drawn, storage, alerts, realScan, saves: () => saves, scans: () => scans };
 }
 const p = (guid, x, y) => ({ guid, title: guid, lat: y, lng: x });
 const triangle = [p('A', 0, 0), p('B', 2, 0), p('C', 1, 1)];
@@ -117,21 +118,22 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(drawn.layers.length, 1, 'Preview is separate from Draw Tools');
   assert.equal(storage.size, 0);
   assert.equal(ap.applyFanDesign(), true);
-  assert.equal(drawn.layers.length, 4);
+  assert.equal(drawn.layers.length, 1);
   assert.ok(drawn.layers.includes(old));
-  assert.equal(saves(), 1);
+  assert.equal(saves(), 0, 'Native planning never saves Draw Tools');
   assert.equal(scans(), 1);
   assert.deepEqual(json(ap.state.linkDirections), { keep: 'X' });
   assert.equal(context.window.plugin.keys.keys.A, 7);
   draft(ap); assert.equal(ap.applyFanDesign(), true);
-  assert.equal(drawn.layers.length, 4, 'Repeated acceptance does not duplicate lines');
+  assert.equal(drawn.layers.length, 1, 'Repeated acceptance leaves drawings untouched');
+  assert.equal(ap.getNativeFanPlan().links.length, 3);
   ap.load(); assert.deepEqual(json(ap.state.fanDesign.anchors), ['A']);
 }
 {
   const { ap, drawn, context, alerts } = runtime();
   const old = new Line([point(5, 5), point(6, 6)]); drawn.addLayer(old);
   draft(ap);
-  context.window.plugin.drawTools.save = () => { throw new Error('storage full'); };
+  context.localStorage.setItem = () => { throw new Error('storage full'); };
   assert.equal(ap.applyFanDesign(), false);
   assert.deepEqual(drawn.layers, [old]);
   assert.equal(ap.state.fanDesign, null);
@@ -144,13 +146,13 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(ap.applyFanDesign(), false);
   ap.runtime.finalScan = null;
   drawn.addLayer(new Line([point(-1, .5), point(2, .5)]));
-  assert.equal(ap.applyFanDesign(), false, 'New conflicting drawings invalidate a previously valid preview');
+  assert.equal(ap.applyFanDesign(), true, 'Old drawings are separate from the active native plan');
   assert.equal(drawn.layers.length, 1);
   ap.previewFanDesign();
-  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.drawConflict'));
+  assert.equal(ap.runtime.fanDraft.preview.errors.length, 0);
   assert.ok(ap.runtime.fanDraft.layer, 'Conflicting old drawings must not hide a geometrically valid proposal');
   assert.equal(ap.runtime.fanDraft.layer.layers.filter(layer => layer instanceof Polygon).length, 1);
-  assert.equal(ap.applyFanDesign(), false, 'Visible conflict preview still cannot be applied');
+  assert.equal(ap.applyFanDesign(), true);
   assert.equal(drawn.layers.length, 1);
 }
 {
@@ -165,8 +167,8 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   draft(ap, triangle, ['A'], 'area');
   assert.equal(ap.applyFanDesign(), true);
   assert.ok(drawn.layers.includes(area));
-  assert.equal(ap.extractSegments(area).length, 0, 'Selection outline is not a generated plan link');
-  ap.load(); assert.equal(ap.extractSegments(area).length, 0);
+  assert.equal(ap.extractSegments(area).length, 4, 'Native acceptance does not reinterpret selection drawings');
+  ap.load(); assert.equal(ap.extractSegments(area).length, 4);
   assert.equal(ap.normalizeFanDesign({ anchors: ['A', 'A'], assignments: { B: 'A', C: 'missing' } }).anchors.length, 1);
   assert.equal(ap.normalizeFanDesign({ anchors: ['A'], assignments: [] }), null);
 }
@@ -210,4 +212,32 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(ap.runtime.fanDraft.layer, null);
   assert.equal(ap.runtime.fanDraft.open, false);
 }
-console.log('Fan planner: independent anchors, assignment, geometry, bounded suggestions, preview isolation, Draw Tools preservation/rollback, selection areas and persistence passed.');
+{
+  const { ap, context, realScan, drawn } = runtime();
+  draft(ap); delete context.window.plugin.drawTools;
+  assert.equal(ap.applyFanDesign(), true, 'Draw Tools is not required');
+  ap.load();
+  ap.getLoadedPortals = () => [];
+  ap.queueMissingNameRefresh = () => {};
+  realScan();
+  assert.equal(ap.runtime.links.length, 3, 'Accepted native plan feeds the regular scan');
+  assert.equal(Object.keys(ap.runtime.stats).length, 3);
+  assert.equal(ap.runtime.stats.A.title, 'A', 'Saved portal names survive unloaded Intel');
+  assert.equal(ap.runtime.unresolvedEndpoints.length, 0);
+  assert.equal(ap.state.lastScan.drawLayers, 0);
+  assert.equal(Object.keys(ap.state.linkDirections).length, 0);
+  assert.equal(ap.runtime.stats.A.requiredKeys, 2);
+  const group = new Group(); ap.renderNativeFanPlan(group);
+  assert.equal(group.layers.length, 4, 'Accepted plan draws its fields and links after reload');
+  assert.equal(drawn.layers.length, 0);
+  ap.getLoadedPortals = () => [{ guid: 'neighbor', title: 'Wrong neighbor', latlng: point(0, 0) }];
+  realScan();
+  assert.equal(ap.runtime.stats.neighbor, undefined, 'Native GUIDs cannot be replaced by a coincident loaded neighbor');
+  assert.equal(ap.runtime.stats.A.title, 'A');
+  assert.equal(ap.clearNativeFanPlan(), true);
+  assert.equal(ap.getNativeFanPlan(), null);
+  assert.equal(ap.runtime.links.length, 0);
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+  ap.load(); assert.equal(ap.getNativeFanPlan(), null, 'Removal survives reload');
+}
+console.log('Fan planner: independent anchors, bounded suggestions, native persistence/scan/render without Draw Tools, immutable preview, preserved drawings and storage rollback passed.');

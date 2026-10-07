@@ -284,7 +284,7 @@
   "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
   "next.targetKeys": "Keys für {title}: {owned}/{required}",
   "fan.title": "Fächer planen",
-  "fan.help": "Getrennte Fächer: Jedes Fächerportal gehört zu einem Anker. Einen, zwei oder mehr Anker automatisch vorschlagen lassen oder Rollen und Zuordnung selbst wählen. Manuelle Anker (★) bleiben bei Vorschlägen fest. Erst Vorschau prüfen; Übernehmen ergänzt Draw Tools und erhält Zeichnungen. Wurfrichtungen bleiben unbestätigt. Nur geladene Intel-Daten; Feldzahlen sind geometrisch und garantieren keine Baureihenfolge.",
+  "fan.help": "Jedes Fächerportal gehört zu einem Anker. Anker automatisch vorschlagen oder Rollen und Zuordnung selbst wählen. Manuelle Anker (★) bleiben bei Vorschlägen fest. Der Vorschlag wird direkt gezeichnet. Plan übernehmen speichert ihn in Anchor Planner für Aufgaben, Keys und Routing. Wurfrichtungen bleiben unbestätigt. Nur geladene Intel-Daten; geometrische Feldzahl ohne garantierte Baureihenfolge.",
   "fan.source": "Portale aus",
   "fan.source.plan": "Aktueller Plan",
   "fan.source.map": "Geladener Kartenausschnitt",
@@ -293,7 +293,7 @@
   "fan.count": "Ankeranzahl",
   "fan.suggest": "Anker vorschlagen",
   "fan.preview": "Vorschau",
-  "fan.apply": "In Draw Tools ergänzen",
+  "fan.apply": "Plan übernehmen",
   "fan.summary": "{anchors} Anker · {links} Links · {fields} geometrische Felder · {blocked} blockierte Links · {existing} vorhandene Links",
   "fan.role": "Rolle",
   "fan.assignment": "Zugeordneter Anker",
@@ -307,6 +307,6 @@
   "fan.conflict": "Die zugeordneten Fächer enthalten kreuzende oder überlappende Ankerlinks. Anker oder Zuordnung ändern.",
   "fan.noFields": "Mit dieser Auswahl lassen sich keine echten Dreiecke bilden.",
   "fan.busy": "Planvorschau schließen oder Finalcheck pausieren, bevor Fächer geplant/übernommen werden.",
-  "fan.applyFailed": "Draw Tools konnte die ergänzten Linien nicht speichern. Neue Linien wurden aus der Ansicht entfernt; Draw-Tools-Speicherung vor Wiederholung prüfen.",
-  "fan.drawConflict": "Der Vorschlag kreuzt vorhandene Draw-Tools-Linien. Kreuzende Linien entfernen oder vor der Übernahme ein separates Draw-Tools-Projekt nutzen."
+  "fan.applyFailed": "Der Fächerplan konnte nicht gespeichert werden. Der bisherige Plan bleibt erhalten.",
+  "fan.clear": "Eigenen Fächerplan entfernen"
 }
