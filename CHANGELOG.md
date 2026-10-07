@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.18
+
+### English
+- Automatically suggest anchors and show the fan preview after loading portals or changing their source. Invalid selections show an explanation instead of a blank proposal.
+
+### Deutsch
+- Nach Portale laden und Quellenwechsel automatisch Anker vorschlagen und die Fächervorschau anzeigen. Ungültige Auswahlen zeigen eine Erklärung statt eines leeren Vorschlags.
+
 ## 0.2.0-beta.17
 
 ### English

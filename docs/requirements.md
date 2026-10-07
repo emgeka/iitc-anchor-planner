@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.17
+# Anforderungen für Entwicklungsstand 0.2.0-beta.18
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -303,3 +303,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 ## Sichtbare Fächervorschau (0.2.0-beta.17)
 - Konflikte mit vorhandenen Draw-Tools-Linien sperren nur die Übernahme; geometrisch gültige Felder bleiben als Vorschlag sichtbar. Flächen und Umrisse deutlich einfärben. Ungültige Fächergeometrie weiterhin nicht anzeigen.
+
+## Automatischer Vorschlag nach Laden (0.2.0-beta.18)
+Portale laden und Quellenwechsel dürfen bei gültiger Auswahl keinen leeren Dialog mit ausschließlich Fächerportalen hinterlassen: Anker gemäß gewählter Anzahl vorschlagen und Vorschau berechnen. Zu kleine/große oder ungültige Auswahl mit Erklärung anzeigen, Übernahme weiter sperren.

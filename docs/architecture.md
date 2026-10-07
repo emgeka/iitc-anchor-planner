@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.17
+# Architekturübersicht 0.2.0-beta.18
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -451,3 +451,6 @@ applyFanDesign revalidiert Geometrie und vorhandene Zeichnungen, dedupliziert ü
 
 ### Fächervorschau beta.17
 previewFanDesign trennt Geometrie und Übernahmekonflikte: ausschließlich fan.drawConflict in errors verhindert das separate Overlay nicht. Andere Fehler verhindern es weiterhin. Feldfüllung 0,18 und Umrissgewicht 2/Deckkraft 0,9; keine Änderung am Plan oder Keys. applyFanDesign und Button bleiben bei jedem Fehler gesperrt.
+
+### Laden mit Vorschlag beta.18
+Der ap-fan-load-Handler lädt wie bisher einen frischen Portal-Snapshot und setzt Entwurfsrollen zurück; bei 3–60 Portalen ruft er suggestFanAnchors mit draft.count auf. previewFanDesign läuft anschließend immer, auch für fehlgeschlagene Auswahl, damit Fehler statt eines leeren Vorschlags sichtbar sind. Quellenwechsel nutzt denselben Handler. Keine neue Persistenz, Draw-Tools-/Key-/Routensemantik unverändert.
