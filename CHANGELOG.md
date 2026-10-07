@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.11 — explicit route origins and Plan preview
+
+### English
+- Separate Route from location from Route from this portal. Fix the selected plan portal as first stop/origin without GPS; retain required return visits after blocker removal. Persist only its GUID and label missing origins.
+- Keep saved portal order intact when choosing automatic GPS routing; show feedback without GPS. Rename Walk Sim to Plan preview and align preview/distance with the selected origin.
+
+### Deutsch
+- Route ab Standort von Route ab diesem Portal trennen. Gewähltes Planportal auch ohne GPS als ersten Stopp/Ursprung festlegen; nötige Rückbesuche nach Blocker-Abbau erhalten. Nur GUID speichern, fehlenden Ursprung kennzeichnen.
+- Gespeicherte Portalreihenfolge beim Wechsel zur automatischen GPS-Route erhalten; fehlendes GPS melden. Walk Sim heißt Planvorschau, Vorschau/Strecke verwenden denselben Ursprung.
+
 ## 0.2.0-beta.10 — joint work-route optimization
 
 ### English

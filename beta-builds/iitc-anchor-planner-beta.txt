@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.10
+// @version        0.2.0-beta.11
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007074817';
+  plugin_info.dateTimeVersion = '20261007081000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.10';
+  ap.VERSION = '0.2.0-beta.11';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -149,8 +149,8 @@ function wrapper(plugin_info) {
       "action.more": "Mehr",
       "action.loadNames": "Namen laden",
       "action.exportShare": "Export / Teilen",
-      "action.sortLocation": "Ab Standort sortieren",
-      "action.sortLocationTitle": "Luftlinien-Näherungsroute ab dem zuletzt von IITC gemeldeten Standort",
+      "action.sortLocation": "Route ab Standort",
+      "action.sortLocationTitle": "Automatische Aufgabenroute ab dem aktuellen IITC-Standort planen",
       "action.clearData": "Daten löschen",
       "settings.tolerance": "Toleranz",
       "settings.standard": "Standard",
@@ -231,7 +231,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Abbauportal",
       "tasks.automatic": "Automatisch",
       "tasks.manualDone": "Manuell als erledigt melden",
-      "tasks.reroute": "Route ab hier",
+      "tasks.reroute": "Route ab Standort",
       "tasks.manualOrder": "Gespeicherte Reihenfolge",
       "tasks.routeNote": "Luftlinienvorschlag. Eroberung, ausgehende Linklimits und Linken unter Feldern weiterhin prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
       "tasks.modeManual": "Gespeicherte Portalreihenfolge mit Blocker-Stopps",
@@ -298,7 +298,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Keybestand prüfen: Automatische Buchung war nicht möglich oder wurde unterbrochen. Richtung prüfen und aktuellen Bestand korrigieren/importieren, bevor er als geprüft markiert wird.",
       "keys.usageReviewed": "Bestand geprüft",
       "keys.usageBooked": "1 Key bei {portal} abgezogen",
-      "walk.title": "Walk Sim",
+      "walk.title": "Planvorschau",
       "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau.",
       "walk.previous": "Zurück",
       "walk.next": "Weiter",
@@ -318,11 +318,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "Kein Key in der Vorschau übrig; nicht simuliert",
       "walk.visit": "Portal besuchen und vorbereiten",
       "walk.unresolved": "{count} Aufgaben konnten nicht eingeplant werden. Aufgaben prüfen.",
-      "walk.finalScan": "Vor Walk Sim den Finalcheck pausieren.",
-      "walk.resumeScan": "Nach Walk Sim die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
-      "walk.stopped": "Vorschau beendet. Zum Neustart Walk Sim erneut öffnen.",
+      "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
+      "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
+      "walk.stopped": "Planvorschau beendet. Zum Neustart erneut öffnen.",
       "walk.notes": "Vorschau: Hinweise",
-      "walk.keysLeft": "Virtuell übrig: {count} Keys"
+      "walk.keysLeft": "Virtuell übrig: {count} Keys",
+      "tasks.startPortal": "Route ab diesem Portal",
+      "tasks.modePortal": "Ab Portal: {title}",
+      "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
+      "tasks.portalStartNote": "Der Startbesuch ist zur Vorbereitung. Blockierte Würfe erfolgen erst nach dem Abbau; dafür kann ein erneuter Portalbesuch nötig sein."
     },
     "en": {
       "language.label": "Language",
@@ -427,8 +431,8 @@ function wrapper(plugin_info) {
       "action.more": "More",
       "action.loadNames": "Load names",
       "action.exportShare": "Export / Share",
-      "action.sortLocation": "Sort from location",
-      "action.sortLocationTitle": "Straight-line approximate route from the last location reported by IITC",
+      "action.sortLocation": "Route from location",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Delete data",
       "settings.tolerance": "Tolerance",
       "settings.standard": "Default",
@@ -509,7 +513,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Removal portal",
       "tasks.automatic": "Automatic",
       "tasks.manualDone": "Report manually completed",
-      "tasks.reroute": "Route from here",
+      "tasks.reroute": "Route from location",
       "tasks.manualOrder": "Saved order",
       "tasks.routeNote": "Straight-line suggestion. Capture, outgoing-link limits and linking under fields still need checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Saved portal order with blocker stops",
@@ -576,7 +580,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Plan preview",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -584,7 +588,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -596,11 +600,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "es": {
       "language.label": "Idioma",
@@ -705,8 +713,8 @@ function wrapper(plugin_info) {
       "action.more": "Más",
       "action.loadNames": "Cargar nombres",
       "action.exportShare": "Exportar / compartir",
-      "action.sortLocation": "Ordenar desde aquí",
-      "action.sortLocationTitle": "Ruta aproximada en línea recta desde la última ubicación IITC",
+      "action.sortLocation": "Ruta desde mi ubicación",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Borrar datos",
       "settings.tolerance": "Tolerancia",
       "settings.standard": "Predet.",
@@ -787,7 +795,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Portal de eliminación",
       "tasks.automatic": "Automático",
       "tasks.manualDone": "Marcar como completado manualmente",
-      "tasks.reroute": "Ruta desde aquí",
+      "tasks.reroute": "Ruta desde mi ubicación",
       "tasks.manualOrder": "Orden guardado",
       "tasks.routeNote": "Propuesta en línea recta. Comprobar captura, límites de salida y enlaces bajo campos. Completar manualmente no confirma Intel.",
       "tasks.modeManual": "Orden guardado con paradas de bloqueadores",
@@ -854,7 +862,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Vista previa del plan",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -862,7 +870,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -874,11 +882,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "fr": {
       "language.label": "Langue",
@@ -983,8 +995,8 @@ function wrapper(plugin_info) {
       "action.more": "Plus",
       "action.loadNames": "Charger les noms",
       "action.exportShare": "Exporter / partager",
-      "action.sortLocation": "Trier depuis ici",
-      "action.sortLocationTitle": "Trajet approximatif à vol d’oiseau depuis la dernière position IITC",
+      "action.sortLocation": "Itinéraire depuis ma position",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Effacer les données",
       "settings.tolerance": "Tolérance",
       "settings.standard": "Défaut",
@@ -1065,7 +1077,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Portail de destruction",
       "tasks.automatic": "Automatique",
       "tasks.manualDone": "Signaler terminé manuellement",
-      "tasks.reroute": "Trajet depuis ici",
+      "tasks.reroute": "Itinéraire depuis ma position",
       "tasks.manualOrder": "Ordre enregistré",
       "tasks.routeNote": "Suggestion à vol d’oiseau. Vérifier capture, limites des liens sortants et liens sous champs. Une validation manuelle ne confirme pas Intel.",
       "tasks.modeManual": "Ordre enregistré avec arrêts pour les obstacles",
@@ -1132,7 +1144,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Aperçu du plan",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -1140,7 +1152,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1152,11 +1164,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "it": {
       "language.label": "Lingua",
@@ -1261,8 +1277,8 @@ function wrapper(plugin_info) {
       "action.more": "Altro",
       "action.loadNames": "Carica nomi",
       "action.exportShare": "Esporta / condividi",
-      "action.sortLocation": "Ordina da qui",
-      "action.sortLocationTitle": "Percorso approssimativo in linea d’aria dall’ultima posizione IITC",
+      "action.sortLocation": "Percorso dalla posizione",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Elimina dati",
       "settings.tolerance": "Tolleranza",
       "settings.standard": "Predef.",
@@ -1343,7 +1359,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Portale di rimozione",
       "tasks.automatic": "Automatico",
       "tasks.manualDone": "Segnala completamento manuale",
-      "tasks.reroute": "Percorso da qui",
+      "tasks.reroute": "Percorso dalla posizione",
       "tasks.manualOrder": "Ordine salvato",
       "tasks.routeNote": "Proposta in linea d’aria. Verificare cattura, limiti dei link in uscita e link sotto i campi. Il completamento manuale non conferma Intel.",
       "tasks.modeManual": "Ordine salvato con soste per i blocchi",
@@ -1410,7 +1426,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Anteprima del piano",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -1418,7 +1434,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1430,11 +1446,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "ja": {
       "language.label": "言語",
@@ -1539,8 +1559,8 @@ function wrapper(plugin_info) {
       "action.more": "その他",
       "action.loadNames": "名前を読込",
       "action.exportShare": "出力 / 共有",
-      "action.sortLocation": "現在地順",
-      "action.sortLocationTitle": "IITCの最終現在地から直線距離で近似したルート",
+      "action.sortLocation": "現在地からルート",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "データ削除",
       "settings.tolerance": "許容距離",
       "settings.standard": "標準",
@@ -1621,7 +1641,7 @@ function wrapper(plugin_info) {
       "tasks.target": "除去するポータル",
       "tasks.automatic": "自動",
       "tasks.manualDone": "手動で完了を報告",
-      "tasks.reroute": "現在地から経路作成",
+      "tasks.reroute": "現在地からルート",
       "tasks.manualOrder": "保存された順序",
       "tasks.routeNote": "直線経路の提案です。キャプチャ、出力リンク数、フィールド内からのリンク条件を確認してください。手動完了はIntel確認ではありません。",
       "tasks.modeManual": "保存されたポータル順序とブロッカー停止地点",
@@ -1688,7 +1708,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "計画プレビュー",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -1696,7 +1716,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1708,11 +1728,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "pl": {
       "language.label": "Język",
@@ -1817,8 +1841,8 @@ function wrapper(plugin_info) {
       "action.more": "Więcej",
       "action.loadNames": "Wczytaj nazwy",
       "action.exportShare": "Eksport / wyślij",
-      "action.sortLocation": "Sortuj stąd",
-      "action.sortLocationTitle": "Przybliżona trasa w linii prostej od ostatniej pozycji IITC",
+      "action.sortLocation": "Trasa od bieżącej pozycji",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Usuń dane",
       "settings.tolerance": "Tolerancja",
       "settings.standard": "Domyślna",
@@ -1899,7 +1923,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Portal do usunięcia linku",
       "tasks.automatic": "Automatycznie",
       "tasks.manualDone": "Zgłoś ręczne wykonanie",
-      "tasks.reroute": "Trasa stąd",
+      "tasks.reroute": "Trasa od bieżącej pozycji",
       "tasks.manualOrder": "Zapisana kolejność",
       "tasks.routeNote": "Propozycja w linii prostej. Sprawdź przejęcie, limity linków wychodzących i linkowanie pod polami. Ręczne wykonanie nie potwierdza Intel.",
       "tasks.modeManual": "Zapisana kolejność z przystankami blokad",
@@ -1966,7 +1990,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Podgląd planu",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -1974,7 +1998,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1986,11 +2010,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2095,8 +2123,8 @@ function wrapper(plugin_info) {
       "action.more": "Mais",
       "action.loadNames": "Carregar nomes",
       "action.exportShare": "Exportar / enviar",
-      "action.sortLocation": "Ordenar daqui",
-      "action.sortLocationTitle": "Rota aproximada em linha reta da última localização IITC",
+      "action.sortLocation": "Rota a partir da localização",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Excluir dados",
       "settings.tolerance": "Tolerância",
       "settings.standard": "Padrão",
@@ -2177,7 +2205,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Portal de remoção",
       "tasks.automatic": "Automático",
       "tasks.manualDone": "Informar conclusão manual",
-      "tasks.reroute": "Rota daqui",
+      "tasks.reroute": "Rota a partir da localização",
       "tasks.manualOrder": "Ordem salva",
       "tasks.routeNote": "Sugestão em linha reta. Verifique captura, limites de links de saída e links sob campos. Conclusão manual não confirma o Intel.",
       "tasks.modeManual": "Ordem salva com paradas para bloqueadores",
@@ -2244,7 +2272,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Prévia do plano",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -2252,7 +2280,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2264,11 +2292,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "ru": {
       "language.label": "Язык",
@@ -2373,8 +2405,8 @@ function wrapper(plugin_info) {
       "action.more": "Ещё",
       "action.loadNames": "Загрузить имена",
       "action.exportShare": "Экспорт / отправка",
-      "action.sortLocation": "Сортировать отсюда",
-      "action.sortLocationTitle": "Приблизительный маршрут по прямой от последней позиции IITC",
+      "action.sortLocation": "Маршрут от текущей позиции",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "Удалить данные",
       "settings.tolerance": "Допуск",
       "settings.standard": "Стандарт",
@@ -2455,7 +2487,7 @@ function wrapper(plugin_info) {
       "tasks.target": "Портал для устранения",
       "tasks.automatic": "Автоматически",
       "tasks.manualDone": "Отметить ручное выполнение",
-      "tasks.reroute": "Маршрут отсюда",
+      "tasks.reroute": "Маршрут от текущей позиции",
       "tasks.manualOrder": "Сохранённый порядок",
       "tasks.routeNote": "Маршрут по прямой. Проверьте захват, лимиты исходящих линков и линкование под полями. Ручная отметка не подтверждает Intel.",
       "tasks.modeManual": "Сохранённый порядок с остановками для блокировок",
@@ -2522,7 +2554,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "Предпросмотр плана",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -2530,7 +2562,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2542,11 +2574,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2651,8 +2687,8 @@ function wrapper(plugin_info) {
       "action.more": "更多",
       "action.loadNames": "加载名称",
       "action.exportShare": "导出 / 分享",
-      "action.sortLocation": "按当前位置排序",
-      "action.sortLocationTitle": "从 IITC 最后位置开始的近似直线路线",
+      "action.sortLocation": "从当前位置规划路线",
+      "action.sortLocationTitle": "Plan the automatic work route from the current IITC location",
       "action.clearData": "删除数据",
       "settings.tolerance": "容差",
       "settings.standard": "默认",
@@ -2733,7 +2769,7 @@ function wrapper(plugin_info) {
       "tasks.target": "拆除 Portal",
       "tasks.automatic": "自动",
       "tasks.manualDone": "手动报告完成",
-      "tasks.reroute": "从当前位置规划",
+      "tasks.reroute": "从当前位置规划路线",
       "tasks.manualOrder": "已保存顺序",
       "tasks.routeNote": "直线路线建议。仍需检查占领、出链上限及场内链接条件。手动完成不代表 Intel 确认。",
       "tasks.modeManual": "已保存的 Portal 顺序及阻挡停靠点",
@@ -2800,7 +2836,7 @@ function wrapper(plugin_info) {
       "keys.usageCheck": "Check key inventory: automatic consumption was unavailable or interrupted. Confirm the direction and correct/import the current count before marking it checked.",
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
-      "walk.title": "Walk Sim",
+      "walk.title": "计划预览",
       "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
       "walk.previous": "Previous",
       "walk.next": "Next",
@@ -2808,7 +2844,7 @@ function wrapper(plugin_info) {
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line walk",
+      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2820,11 +2856,15 @@ function wrapper(plugin_info) {
       "walk.missingKeys": "No key remaining in preview; not simulated",
       "walk.visit": "Visit and prepare portal",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
-      "walk.finalScan": "Pause the final check before starting Walk Sim.",
-      "walk.resumeScan": "After Walk Sim, scan the real map again to resume automatic link and key observations.",
-      "walk.stopped": "Preview stopped. Reopen Walk Sim to start again.",
+      "walk.finalScan": "Pause the final check before starting Plan preview.",
+      "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
+      "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
       "walk.notes": "Preview notes",
-      "walk.keysLeft": "Virtual stock left: {count} keys"
+      "walk.keysLeft": "Virtual stock left: {count} keys",
+      "tasks.startPortal": "Route from this portal",
+      "tasks.modePortal": "From portal: {title}",
+      "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
+      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
     }
   };
   // AP_LOCALES_END
@@ -2843,6 +2883,7 @@ function wrapper(plugin_info) {
     linkDirections: {},
     blockerTasks: {},
     workRouteMode: 'location',
+    workRouteStart: '',
     language: 'auto',
     panelPosition: null
   };
@@ -3023,7 +3064,8 @@ function wrapper(plugin_info) {
         ['linkDirections', 'blockerTasks'].forEach(function (key) {
           if (!ap.state[key] || typeof ap.state[key] !== 'object' || Array.isArray(ap.state[key])) ap.state[key] = {};
         });
-        ap.state.workRouteMode = ap.state.workRouteMode === 'manual' ? 'manual' : 'location';
+        ap.state.workRouteStart = typeof ap.state.workRouteStart === 'string' ? ap.state.workRouteStart : '';
+        ap.state.workRouteMode = ['manual', 'portal'].indexOf(ap.state.workRouteMode) >= 0 ? ap.state.workRouteMode : 'location';
         if (!ap.state.panelPosition || !isFinite(Number(ap.state.panelPosition.left)) || !isFinite(Number(ap.state.panelPosition.top))) {
           ap.state.panelPosition = null;
         } else {
@@ -3869,6 +3911,23 @@ function wrapper(plugin_info) {
     return true;
   };
 
+  ap.getWorkRouteLocation = function (location) {
+    if (ap.state.workRouteMode !== 'portal') return location || null;
+    var portal = ap.runtime.stats[ap.state.workRouteStart];
+    var point = ap.workPoint(portal);
+    return point ? { latlng: point } : null;
+  };
+
+  ap.addWorkRouteStart = function (plan) {
+    if (ap.state.workRouteMode !== 'portal' || !plan.stops.length) return plan;
+    var portal = ap.runtime.stats[ap.state.workRouteStart];
+    if (ap.workPoint(portal) && plan.stops[0].portal.guid !== portal.guid) {
+      // Starting here is a preparation visit, not permission to throw blocked links.
+      plan.stops.unshift({ portal: portal, planVisit: false, blockers: [], links: [], routeTargetType: 'start' });
+    }
+    return plan;
+  };
+
   ap.buildWorkPlanForOrder = function (base, start, location, targets) {
     var stops = base.map(function (portal) {
       return { portal: portal, planVisit: true, blockers: [], links: [], routeTargetType: 'plan' };
@@ -3983,6 +4042,7 @@ function wrapper(plugin_info) {
   };
 
   ap.buildWorkPlan = function (location) {
+    location = ap.getWorkRouteLocation(location);
     var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat); });
     var start = location && location.latlng || null;
     if (start && ap.state.workRouteMode !== 'manual') {
@@ -4001,7 +4061,7 @@ function wrapper(plugin_info) {
     var baseline = ap.buildWorkPlanForOrder(base, start, location, null);
     // Without GPS keep the saved order; large/invalid plans retain the valid baseline.
     if (!start || ap.state.workRouteMode === 'manual' || !base.length || base.length > 40 || baseline.blockers.length > 80 ||
-        base.some(function (portal) { return !ap.workPoint(portal); })) return baseline;
+        base.some(function (portal) { return !ap.workPoint(portal); })) return ap.addWorkRouteStart(baseline);
     function routeDistance(plan) {
       var from = start, total = 0;
       for (var i = 0; i < plan.stops.length; i++) {
@@ -4012,7 +4072,7 @@ function wrapper(plugin_info) {
       return total;
     }
     var initialDistance = routeDistance(baseline);
-    if (!isFinite(initialDistance)) return baseline;
+    if (!isFinite(initialDistance)) return ap.addWorkRouteStart(baseline);
     var best = { order: base, targets: {}, plan: baseline, distance: initialDistance };
     var budget = Math.min(160, Math.max(8, Math.floor(100000 / ((base.length + baseline.blockers.length + 1) * (baseline.blockers.length + 1)))));
     var evaluations = 0, seen = Object.create(null), groups = Object.create(null);
@@ -4070,17 +4130,18 @@ function wrapper(plugin_info) {
       if (best.distance >= before - 0.001) break;
     }
     best.plan.optimization = { evaluations: evaluations, improved: best.distance < initialDistance - 0.001 };
-    return best.plan;
+    return ap.addWorkRouteStart(best.plan);
   };
 
   ap.getWorkPlan = function (location) {
     if (!arguments.length) location = ap.getCurrentUserLocation();
+    location = ap.getWorkRouteLocation(location);
     var signature = JSON.stringify({
       links: (ap.runtime.links || []).map(function (link) { return [link.id, link.existing, ap.getLinkDirection(link), (link.blockers || []).map(function (b) { return [b.guid, b.a, b.b, b.latlngA, b.latlngB]; })]; }),
       portals: ap.sortedStats(false).map(function (stat) { return [stat.guid, stat.lat, stat.lng, ap.ensureAnchorState(stat.guid).done]; }),
       selections: ap.state.blockerRoutePortals,
       tasks: ap.state.blockerTasks,
-      mode: ap.state.workRouteMode
+      mode: ap.state.workRouteMode, start: ap.state.workRouteStart
     });
     var cached = ap.runtime.workPlan;
     var point = location && location.latlng || null;
@@ -4100,12 +4161,31 @@ function wrapper(plugin_info) {
   };
 
   ap.rerouteWorkPlan = function (manual) {
+    if (!manual && !ap.getCurrentUserLocation()) { window.alert(ap.t('route.noLocation')); return false; }
     ap.state.workRouteMode = manual ? 'manual' : 'location';
+    ap.state.workRouteStart = '';
     ap.runtime.workPlan = null;
     ap.save();
     ap.renderOverlays();
     ap.renderPanel();
     ap.refreshTaskList();
+    return true;
+  };
+
+  ap.startWorkRouteAtPortal = function (guid) {
+    if (!ap.workPoint(ap.runtime.stats[guid])) return false;
+    ap.state.workRouteMode = 'portal'; ap.state.workRouteStart = guid;
+    ap.runtime.workPlan = null;
+    ap.save(); ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList();
+    return true;
+  };
+
+  ap.workRouteLabel = function (location) {
+    if (ap.state.workRouteMode === 'portal') {
+      var portal = ap.runtime.stats[ap.state.workRouteStart];
+      return ap.workPoint(portal) ? ap.t('tasks.modePortal', { title: ap.displayPortalTitle(portal.title) }) : ap.t('tasks.startUnavailable');
+    }
+    return ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation');
   };
 
   ap.getSuggestedLinkDirection = function (link) {
@@ -4164,7 +4244,8 @@ function wrapper(plugin_info) {
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
-    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation')) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
+    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
+    if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
     if (plan.stops.length) {
       html += '<table class="ap-task-table" aria-label="' + ap.escapeHtml(ap.t('tasks.title')) + '"><colgroup><col class="ap-task-col-number"><col><col class="ap-task-col-keys"><col class="ap-task-col-count"><col class="ap-task-col-blockers"></colgroup><thead><tr><th scope="col">#</th>';
@@ -4173,7 +4254,7 @@ function wrapper(plugin_info) {
     }
     plan.stops.forEach(function (stop, index) {
       var portal = stop.portal;
-      var stopId = stop.planVisit ? 'plan:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
+      var stopId = stop.routeTargetType === 'start' ? 'start:' + portal.guid : stop.planVisit ? 'plan:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
       var local = ap.ensureAnchorState(portal.guid);
       var title = ap.displayPortalTitle(portal.title);
       var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
@@ -4190,7 +4271,9 @@ function wrapper(plugin_info) {
         stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
         html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
-      html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div></div></td></tr></tbody>';
+      html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button>';
+      if (ap.workPoint(ap.runtime.stats[portal.guid])) html += '<button class="ap-task-start" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('tasks.startPortal')) + '</button>';
+      html += '</div></div></td></tr></tbody>';
     });
     if (plan.stops.length) html += '</table>';
     if (plan.unscheduled.length || plan.unassigned.length) {
@@ -4254,6 +4337,9 @@ function wrapper(plugin_info) {
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-details'), function (button) {
       button.onclick = function () { ap.showPortalDetails(this.getAttribute('data-guid')); };
     });
+    Array.prototype.forEach.call(element.querySelectorAll('.ap-task-start'), function (button) {
+      button.onclick = function () { ap.startWorkRouteAtPortal(this.getAttribute('data-guid')); };
+    });
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-actions-button'), function (button) {
       button.onclick = function () { var stop = plan.stops[Number(this.getAttribute('data-stop-index'))]; if (stop) ap.showPortalActions(stop.portal); };
     });
@@ -4280,7 +4366,7 @@ function wrapper(plugin_info) {
   };
 
   ap.createWalkSimulation = function () {
-    var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
+    var location = ap.getWorkRouteLocation(ap.getCurrentUserLocation()), plan = ap.getWorkPlan(location);
     var points = Object.create(null), keys = Object.create(null), edges = Object.create(null), formed = new Set();
     var built = [], fields = [], cleared = new Set(), trail = [], paths = [[]], distance = 0;
     (ap.runtime.links || []).forEach(function (link) {
@@ -5717,6 +5803,7 @@ function wrapper(plugin_info) {
   };
 
   ap.getRouteEstimate = function (location) {
+    location = ap.getWorkRouteLocation(location);
     if (!location || !location.latlng) return null;
     var tasks = ap.getRouteTasks(location);
     if (!tasks.length) return null;
@@ -5742,7 +5829,7 @@ function wrapper(plugin_info) {
     var distanceLabel = location ? ap.formatDistance(ap.distanceToPortal(location, target)) : '';
     var estimateLabel = estimate ? ap.formatDistance(estimate.distance) : '';
     var nav = ap.navigationLinks(target);
-    return '<span><b>' + ap.escapeHtml(ap.routeTargetLabel(target, !!location)) + '</b> ' + ap.escapeHtml(ap.displayPortalTitle(target.title)) + (distanceLabel ? ' <span class="ap-next-distance" title="' + ap.escapeHtml(ap.t('route.distanceTitle')) + '">· ' + ap.escapeHtml(distanceLabel) + '</span>' : '') + (estimateLabel ? ' <span class="ap-route-remaining" title="' + ap.escapeHtml(ap.t('route.remainingTitle')) + '">· ' + ap.escapeHtml(ap.t('route.remaining', { distance: estimateLabel })) + ' · ' + ap.escapeHtml(ap.tp('route.target', estimate.targetCount)) + '</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
+    return '<span><b>' + ap.escapeHtml(ap.routeTargetLabel(target, !!location && ap.state.workRouteMode !== 'portal')) + '</b> ' + ap.escapeHtml(ap.displayPortalTitle(target.title)) + (distanceLabel ? ' <span class="ap-next-distance" title="' + ap.escapeHtml(ap.t('route.distanceTitle')) + '">· ' + ap.escapeHtml(distanceLabel) + '</span>' : '') + (estimateLabel ? ' <span class="ap-route-remaining" title="' + ap.escapeHtml(ap.t('route.remainingTitle')) + '">· ' + ap.escapeHtml(ap.t('route.remaining', { distance: estimateLabel })) + ' · ' + ap.escapeHtml(ap.tp('route.target', estimate.targetCount)) + '</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
   };
 
   ap.updateBlockerWorklistDistances = function (location) {
@@ -5762,7 +5849,7 @@ function wrapper(plugin_info) {
     var nextPortal = ap.getNextRouteTarget(location);
     var usesLocation = !!location;
     var distanceLabel = usesLocation && nextPortal ? ap.formatDistance(ap.distanceToPortal(location, nextPortal)) : '';
-    var estimate = usesLocation ? ap.getRouteEstimate(location) : null;
+    var estimate = ap.getRouteEstimate(location);
     var estimateLabel = estimate ? ap.formatDistance(estimate.distance) + ':' + estimate.targetCount : '';
     var key = (usesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid + ':' + nextPortal.routeTargetType : 'complete') + ':' + distanceLabel + ':' + estimateLabel;
     var changed = key !== ap.runtime.nextTargetKey;
@@ -6788,6 +6875,7 @@ function wrapper(plugin_info) {
     ap.state.linkDirections = {};
     ap.state.blockerTasks = {};
     ap.state.workRouteMode = 'location';
+    ap.state.workRouteStart = '';
     ap.runtime.workPlan = null;
     ap.state.lastScan = null;
     ap.state.finalScanProgress = null;
@@ -6865,7 +6953,7 @@ function wrapper(plugin_info) {
     var nextPortal = ap.getNextRouteTarget(nextLocation);
     var nextUsesLocation = !!nextLocation;
     var nextDistanceLabel = nextUsesLocation && nextPortal ? ap.formatDistance(ap.distanceToPortal(nextLocation, nextPortal)) : '';
-    var routeEstimate = nextUsesLocation ? ap.getRouteEstimate(nextLocation) : null;
+    var routeEstimate = ap.getRouteEstimate(nextLocation);
     var routeEstimateLabel = routeEstimate ? ap.formatDistance(routeEstimate.distance) + ':' + routeEstimate.targetCount : '';
     ap.runtime.nextTargetKey = (nextUsesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid + ':' + nextPortal.routeTargetType : 'complete') + ':' + nextDistanceLabel + ':' + routeEstimateLabel;
 
@@ -6883,6 +6971,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (ap.runtime.suppressWalkObservations && !ap.runtime.walkSimulation) html += '<p>' + ap.escapeHtml(ap.t('walk.resumeScan')) + '</p>';
+    if (ap.state.workRouteMode === 'portal') html += '<p>' + ap.escapeHtml(ap.workRouteLabel(nextLocation)) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p>' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     if (readiness) {
       html += '<details class="ap-readiness ap-readiness-' + ap.escapeHtml(readiness.key) + '"' + (readinessOpen ? ' open' : '') + '><summary><b>' + ap.escapeHtml(ap.t('readiness.title')) + '</b> ' + ap.escapeHtml(readiness.label);
@@ -6981,6 +7070,7 @@ function wrapper(plugin_info) {
       if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
       html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + (ap.getOwnedKeys(stat.guid) === null ? '' : ap.getOwnedKeys(stat.guid)) + '"' + (ap.getOwnedKeys(stat.guid) === null ? ' disabled placeholder="?"' : '') + '> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
       html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
+      if (ap.workPoint(stat)) html += '<button class="ap-start-route">' + ap.escapeHtml(ap.t('tasks.startPortal')) + '</button>';
       html += '<input class="ap-note" type="hidden" value="' + ap.escapeHtml(local.note || '') + '">';
       html += '</details>';
     });
@@ -7006,7 +7096,7 @@ function wrapper(plugin_info) {
     };
     document.getElementById('ap-loadnames').onclick = ap.refreshMissingNames;
     document.getElementById('ap-export').onclick = ap.showExport;
-    document.getElementById('ap-sort-location').onclick = ap.sortRouteFromUserLocation;
+    document.getElementById('ap-sort-location').onclick = function () { ap.rerouteWorkPlan(false); };
     document.getElementById('ap-walk').onclick = ap.showWalkSimulation;
     document.getElementById('ap-key-list').onclick = ap.showKeyList;
     document.getElementById('ap-key-import').onclick = ap.showKeyImport;
@@ -7066,6 +7156,8 @@ function wrapper(plugin_info) {
       row.querySelector('.ap-move-down').onclick = function () { ap.movePortal(guid, 1); };
       row.querySelector('.ap-show-details').onclick = function () { ap.showPortalDetails(guid); };
       row.querySelector('.ap-share').onclick = function () { ap.showPortalActions(guid); };
+      var startButton = row.querySelector('.ap-start-route');
+      if (startButton) startButton.onclick = function () { ap.startWorkRouteAtPortal(guid); };
     });
     Array.prototype.forEach.call(panel.querySelectorAll('.ap-readiness, .ap-blocker-section, .ap-row'), function (details) {
       details.addEventListener('toggle', function () { ap.schedulePanelPositionCorrection(); });
