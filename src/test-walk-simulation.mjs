@@ -47,6 +47,36 @@ function runtime(){
   assert.match(html,/Route start/);
   assert.ok(!html.includes('prepare'),'An origin does not invent preparation work.');
 }
+{
+  const {ap,context,mapEvents,storage}=runtime(),requests=new Map();let requestId=0;
+  context.window.requestAnimationFrame=fn=>{requests.set(++requestId,fn);return requestId;};
+  context.window.cancelAnimationFrame=id=>requests.delete(id);
+  function tick(time){const [id,fn]=requests.entries().next().value;requests.delete(id);fn(time);}
+  const before=JSON.stringify(ap.state),keys=JSON.stringify(context.window.plugin.keys.keys);
+  ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  assert.equal(session.head.coords.lng,-2,'Initial travel starts at the real route origin.');
+  tick(0);tick(2500);
+  assert.equal(session.head.coords.lng,-1.25,'Marker moves along the segment rather than jumping to the stop.');
+  assert.equal(session.pathLayers[0].coords.at(-1).lng,-1.25,'The trail ends at the moving marker.');
+  tick(5000);assert.equal(session.travel,null);assert.equal(session.head.coords.lng,-1);
+  const path=session.pathLayers[0];ap.seekWalkSimulation(1);
+  assert.equal(session.head.coords.lng,-1,'Forward travel retains the departure point initially.');
+  assert.equal(session.pathLayers[0],path,'Animate the existing trail in place.');
+  tick(6000);tick(7500);assert.equal(session.head.coords.lng,-.25);assert.equal(path.coords.at(-1).lng,-.25);
+  tick(9000);assert.equal(session.head.coords.lng,0);assert.equal(path.coords.at(-1).lng,0);
+  ap.seekWalkSimulation(0);assert.equal(session.head.coords.lng,0,'Backward travel starts at the previous stop.');
+  tick(10000);tick(11500);assert.equal(session.head.coords.lng,-.75);assert.equal(session.pathLayers[0].coords.at(-1).lng,-.75);
+  tick(13000);assert.equal(session.head.coords.lng,-1);
+  ap.seekWalkSimulation(1);const stale=requests.values().next().value;
+  ap.seekWalkSimulation(2);const active=session.travel,head=JSON.stringify(session.head.coords);
+  stale(20000);assert.equal(session.travel,active);assert.equal(JSON.stringify(session.head.coords),head,'Cancelled travel cannot overwrite a newer step.');
+  context.dialog.closeCallback();assert.equal(requests.size,0);assert.equal(session.travel,null);
+  assert.ok(mapEvents.some(e=>e[0]==='restore'));
+  stale(30000);assert.equal(requests.size,0,'Late frames cannot revive a closed preview.');
+  context.window.matchMedia=()=>({matches:true});ap.showWalkSimulation();assert.equal(requests.size,0,'Reduced motion also disables trail/marker interpolation.');
+  assert.equal(ap.runtime.walkSimulation.head.coords.lng,-1);context.dialog.closeCallback();
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(storage.size,0);
+}
 for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   const {ap,context,plan,ab}=runtime();
   if(reason==='direction')delete ap.state.linkDirections[ab.id];

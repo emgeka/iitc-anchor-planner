@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.13
+# Architekturübersicht 0.2.0-beta.14
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -435,3 +435,6 @@ addWorkRouteStart ergänzt bei Bedarf einen ersten Routenstart ohne Würfe/Abbau
 startWorkRouteAtPortal validiert GUID/Koordinate und setzt den Modus; Aktionen in Planportal- und Aufgabenzeilen. rerouteWorkPlan(false) verlangt echtes GPS, meldet dessen Fehlen und setzt Standortmodus; true setzt gespeicherte Reihenfolge. Beide löschen den festen Ursprung. clearData löscht ihn ebenfalls. Der Panelbutton verwendet jetzt diese automatische Route statt einer gespeicherten Nearest-Neighbor-Sortierung. workRouteLabel zeigt Ursprung oder fehlendes Portal. Entfernung zum nächsten Ziel bleibt vom echten Standort, Reststrecke/Vorschau vom gewählten Routenursprung. UI-Name Planvorschau/Plan preview, interne walk.*-Schlüssel/Methoden bleiben kompatibel.
 
 Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocker-Abbau. Reine Empfangsportale und ungenutzte Richtungskandidaten bleiben im Plan sichtbar, werden aber nicht angefahren. Offene Richtungen bleiben als unbestätigte Linkaufgabe sichtbar. Ein ausdrücklich gewähltes Startportal bleibt als **Routenstart** erhalten, ohne erfundene Vorbereitung.
+
+### Animation der Weglinie
+createWalkSimulation ergänzt den gewählten Ursprung im ersten zusammenhängenden Pfad. animateWalkTravel aktualisiert vorhandene Polyline und Marker über requestAnimationFrame mit derselben Dauer und quadratischem Ease-out wie panTo. Vorwärts wächst das letzte Segment; bei benachbartem Rückschritt wird es zurückgenommen. Nur zusammenhängende Pfade interpolieren; bei fehlenden Punkten/Animations-API sofortige Fallbackdarstellung. cancelWalkTravel löscht den Handle und verwirft die Animationsidentität vor einem neuen Frame bzw. Schließen. Bei Stoppwechsel vorheriges Segment exakt abschließen; Schließen braucht keinen Abschluss. Pause unterbricht wie bei der Kamera die aktuelle Bewegung nicht, verhindert aber den nächsten Stopp. Frames, Keys und Planzustand bleiben unverändert.

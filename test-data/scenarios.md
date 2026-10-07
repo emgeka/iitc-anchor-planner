@@ -502,7 +502,7 @@ Automatisiert: test-walk-simulation.mjs prüft Layer-Identitäten, nur neue Geom
 5. Aufgabenliste, nächstes Ziel, Reststrecke und neu geöffnete Walk Sim vergleichen; Desktop/Mobile Bedienbarkeit und Berechnungszeit prüfen.
 Automatisiert in test-work-plan.mjs: anonymisierter Zwei-Gruppen-Umweg, vollständige Strecke kürzer, gemeinsamer Stern-Endpunkt, Abhängigkeiten/Deduplizierung, explizite und vorgemerkte Ziele, Meldungen, manuelle/GPS-/Daten-/Größen-Fallbacks, Determinismus, Suchbudget und gemeinsame Walk-Sim-Route.
 
-## Portalstart und Planvorschau (0.2.0-beta.13)
+## Portalstart und Planvorschau (0.2.0-beta.14)
 1. Ohne GPS am aufgeklappten Planportal Route ab diesem Portal wählen: erstes Ziel/erster Vorschau-Stopp ist dieses Portal, Reststrecke zählt von dort. Blockierte Würfe bleiben später hinter dem Abbau; Rückbesuch nicht unterschlagen.
 2. GPS während Portalmodus bewegen: Ursprung/Reihenfolge bleiben fest. Ein anderes Startportal wählen: neuer erster Stopp. Standortbutton mit gültigem GPS: Ursprung wechselt zu GPS, feste GUID entfernt. Fehlendes GPS gibt Meldung und lässt bisherige Wahl erhalten. Gespeicherte Reihenfolge bewahrt manuelle Portalreihenfolge.
 3. Refresh/neuer Scan: GUID-Wahl restauriert, bis dahin fehlendes Portal anzeigen. Koordinate fehlt/Portal aus Plan entfernt: kein erfundener Ursprung/GPS-Ersatz. Erledigtes Portal als Start wählen ändert Erledigung nicht. Plan löschen entfernt die Startwahl.
@@ -513,5 +513,8 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 Regression: zwei bestätigte Würfe A → B und C → B, A–C bereits vorhanden. B ohne Abbauauftrag darf in Standort-/manueller Route und Vorschau nicht als Stopp vorkommen. Als gewählter Ursprung bleibt B genau einmal Routenstart. Mit Blocker-Abbau bei B bleibt dieser konkrete Abbaustopp erhalten. Richtungswechsel berechnet Quellen neu; Keys und Erledigung unverändert.
 
-## Langsamere Planvorschau (0.2.0-beta.13)
+## Langsamere Planvorschau (0.2.0-beta.14)
 Kurze und mehrere Kilometer lange Strecken vorwärts/rückwärts prüfen: Bewegung mindestens 2,5 Sekunden, längere Strecken bis 5 Sekunden. Abspielen beginnt den nächsten Stopp erst nach weiterer Lesepause (1,2 Sekunden). Pause/Weiterlaufen bewegt denselben Frame nicht erneut. Schließen während der Bewegung restauriert die Karte und verwirft Timer. Gleiche/fehlende Koordinaten und reduzierte Bewegung bleiben korrekt; Keys/Erledigung unverändert. Automatisiert: test-walk-simulation.mjs prüft Dauergrenzen, langsamere lange Strecke und anfänglichen/wiederholten Playback-Delay.
+
+## Hellblaue Weglinie (0.2.0-beta.14)
+Vorschau öffnen und lange Strecke vorwärts/rückwärts abspielen: Linie endet stets am wandernden Marker und ist erst am Ziel vollständig. Start am GPS-/Portalursprung prüfen. Schnell Weiter/Zurück klicken und während einer Bewegung schließen: alte Frames dürfen keine neueren Linien überschreiben und keinen Layer wiederbeleben. Pause lässt den laufenden Abschnitt auslaufen; nächster Stopp bleibt aus. Reduzierte Bewegung, gleiche Positionen und fehlende Koordinaten prüfen. Automatisiert mit kontrollierten Animationsframes: Anfang, Mitte, Ende, Rücknahme, bestehende Layeridentität, Stoppwechsel, Cleanup, keine realen Key-/Erledigungsänderungen.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.14
+
+### English
+- Animate the cyan travel trail and position marker progressively over the same duration as the camera. Include the route origin, retract the final segment backward, and cancel stale animation frames on step changes/close. Respect reduced motion.
+
+### Deutsch
+- Hellblaue Weglinie und Positionsmarker schrittweise mit derselben Dauer wie die Kamera animieren. Routenursprung einbeziehen, letztes Wegstück rückwärts zurücknehmen und alte Animationsframes bei Stoppwechsel/Schließen verwerfen. Reduzierte Bewegung respektieren.
+
 ## 0.2.0-beta.13
 
 ### English

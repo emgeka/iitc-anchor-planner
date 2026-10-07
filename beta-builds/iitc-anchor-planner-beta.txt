@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.13
+// @version        0.2.0-beta.14
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007113000';
+  plugin_info.dateTimeVersion = '20261007120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.13';
+  ap.VERSION = '0.2.0-beta.14';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4391,6 +4391,7 @@ function wrapper(plugin_info) {
     Object.keys(edges).forEach(function (id) { closeTriangles(edges[id][0], edges[id][1], false); });
     plan.blockers.filter(function (item) { return item.manual; }).forEach(function (item) { cleared.add(item.id); });
     var previous = location && location.latlng;
+    if (previous) paths[0].push({ lat: previous.lat, lng: previous.lng });
     var frames = plan.stops.map(function (stop, index) {
       var point = ap.workPoint(stop.portal), actions = [];
       if (point) {
@@ -4426,10 +4427,41 @@ function wrapper(plugin_info) {
     });
     return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
   };
+  ap.cancelWalkTravel = function (session, finish) {
+    var travel = session.travel;
+    if (!travel) return;
+    session.travel = null;
+    if (window.cancelAnimationFrame) window.cancelAnimationFrame(travel.request);
+    if (finish) travel.finish();
+  };
+  ap.animateWalkTravel = function (session, from, frame, index, prefix, duration) {
+    var layer = session.pathLayers[index], head = session.head;
+    if (!layer || !head || !window.requestAnimationFrame) return;
+    var travel = { started: null, request: null, finish: function () {
+      layer.setLatLngs(frame.paths[index]); head.setLatLng(frame.point);
+    } };
+    session.travel = travel;
+    function draw(progress) {
+      var eased = 1 - Math.pow(1 - progress, 2);
+      var point = { lat: from.lat + (frame.point.lat - from.lat) * eased,
+        lng: from.lng + (frame.point.lng - from.lng) * eased };
+      layer.setLatLngs(prefix.concat([point])); head.setLatLng(point);
+    }
+    function advance(timestamp) {
+      if (ap.runtime.walkSimulation !== session || session.travel !== travel) return;
+      if (travel.started === null) travel.started = timestamp;
+      var progress = Math.min(1, Math.max(0, (timestamp - travel.started) / (duration * 1000)));
+      draw(progress);
+      if (progress < 1) travel.request = window.requestAnimationFrame(advance);
+      else { session.travel = null; travel.finish(); }
+    }
+    draw(0); travel.request = window.requestAnimationFrame(advance);
+  };
   ap.stopWalkSimulation = function () {
     var session = ap.runtime.walkSimulation;
     if (!session) return;
     ap.runtime.walkSimulation = null; clearTimeout(session.timer);
+    ap.cancelWalkTravel(session, false);
     if (window.map && window.map.stop) window.map.stop();
     session.element.querySelector('.ap-walk-content').textContent = ap.t('walk.stopped');
     ['.ap-walk-previous', '.ap-walk-next', '.ap-walk-play', '.ap-walk-restart'].forEach(function (selector) { session.element.querySelector(selector).disabled = true; });
@@ -4464,8 +4496,21 @@ function wrapper(plugin_info) {
     if (!session.layer || !frame) return;
     // Pause/resume only changes controls; preserve geometry and camera position.
     if (session.renderedIndex === session.index) return;
+    ap.cancelWalkTravel(session, true);
     var previous = session.model.frames[session.renderedIndex];
     var panFrom = previous && previous.point || session.view && session.view.center;
+    var travelFrom = previous ? previous.point : session.model.origin;
+    var travelIndex = frame.paths.length - 1, travelPrefix = null;
+    var targetPath = frame.paths[travelIndex] || [];
+    if (travelFrom && frame.point && (travelFrom.lat !== frame.point.lat || travelFrom.lng !== frame.point.lng)) {
+      if (!previous || session.index > session.renderedIndex) {
+        var prefix = targetPath.slice(0, -1), last = prefix[prefix.length - 1];
+        if (last && last.lat === travelFrom.lat && last.lng === travelFrom.lng) travelPrefix = prefix;
+      } else if (session.index === session.renderedIndex - 1 && previous.paths.length === frame.paths.length) {
+        var previousPath = previous.paths[travelIndex] || [], before = previousPath[previousPath.length - 2];
+        if (before && before.lat === frame.point.lat && before.lng === frame.point.lng) travelPrefix = targetPath.slice();
+      }
+    }
     session.stepDelay = 3700;
     if (!previous || session.index < session.renderedIndex) {
       session.layer.clearLayers(); session.pathLayers = []; session.head = null;
@@ -4493,6 +4538,10 @@ function wrapper(plugin_info) {
         var duration = 2.5 + Math.min(2.5, isFinite(distance) ? distance / 2000 : 0);
         session.stepDelay = Math.ceil(duration * 1000) + 1200;
         if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: !reduceMotion, duration: duration, easeLinearity: 0.5 });
+        if (!reduceMotion && travelPrefix) {
+          if (!session.pathLayers[travelIndex]) session.pathLayers[travelIndex] = L.polyline(targetPath, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer);
+          ap.animateWalkTravel(session, travelFrom, frame, travelIndex, travelPrefix, duration);
+        }
       }
     } else if (session.head) {
       session.layer.removeLayer(session.head); session.head = null;
