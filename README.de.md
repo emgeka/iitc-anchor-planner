@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.18
+### Beta-Test: 0.2.0-beta.19
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -235,3 +235,6 @@ Die hellblaue Weglinie wächst schrittweise bis zum mitwandernden Positionsmarke
 Beta.17 zeigt gültige Fächervorschläge auch dann, wenn vorhandene Draw-Tools-Linien die Übernahme verhindern. Feldflächen und Umrisse sind deutlicher; Konfliktmeldung und gesperrter Übernahmebutton bleiben erhalten.
 
 Beta.18 schlägt nach Portale laden und Quellenwechsel automatisch Anker vor und zeigt die Fächervorschau. Ungültige Auswahlen zeigen eine Erklärung. Nach manuellen Rollen-/Zuordnungsänderungen Vorschau prüfen; Laden und Vorschläge speichern keine Zeichnungen.
+
+### Eigener Fächerplan in beta.19
+Anchor Planner zeichnet Vorschläge direkt. **Plan übernehmen** speichert den eigenen Fächerplan als aktiven Plan für Scans, Aufgaben, Ziel-Keys, Routing und Planvorschau. Draw Tools ist optional; Portale aus der geladenen Karte sind ohne Draw Tools verfügbar, Auswahlpolygone bleiben optional. Der eigene Plan hat Vorrang vor vorhandenen Draw-Tools-Zeichnungen und verändert sie nicht. Portalnamen und Link-/Feldgeometrie bleiben nach Refresh erhalten; neue Wurfrichtungen bleiben unbestätigt. **Eigenen Fächerplan entfernen** kehrt zu Draw Tools zurück, sofern verfügbar, ohne Keys oder vorhandene Linkeinstellungen zu löschen. Dieser Ablauf ersetzt die obigen Übernahmebeschreibungen aus beta.16–18.

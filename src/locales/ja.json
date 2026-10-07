@@ -284,7 +284,7 @@
   "next.review": "Review unscheduled work in the full task list.",
   "next.targetKeys": "Keys for {title}: {owned}/{required}",
   "fan.title": "Fan fields",
-  "fan.help": "Create separate fans. Each leaf belongs to one anchor. Choose 1, 2 or more anchors, suggest them automatically, or set roles and assignments manually. Manual anchors (★) stay pinned during suggestions. Preview first; Apply adds lines to Draw Tools and preserves drawings. Directions remain unconfirmed. Loaded Intel only; field counts are geometric, not guaranteed build order.",
+  "fan.help": "Each fan portal belongs to one anchor. Suggest anchors or set roles and assignments manually. Manual anchors (★) remain pinned. The proposal is drawn directly. Use plan saves it in Anchor Planner for tasks, keys and routing. Directions remain unconfirmed. Loaded Intel only; geometric field counts do not guarantee build order.",
   "fan.source": "Portals from",
   "fan.source.plan": "Current plan",
   "fan.source.map": "Loaded map view",
@@ -293,7 +293,7 @@
   "fan.count": "Anchor count",
   "fan.suggest": "Suggest anchors",
   "fan.preview": "Preview",
-  "fan.apply": "Add to Draw Tools",
+  "fan.apply": "Use plan",
   "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
   "fan.role": "Role",
   "fan.assignment": "Assigned anchor",
@@ -307,6 +307,6 @@
   "fan.conflict": "Assigned fans contain crossing or overlapping radial links. Change anchors or assignments.",
   "fan.noFields": "No non-degenerate fields are possible with this selection.",
   "fan.busy": "Close Plan preview or pause Final check before designing/applying fans.",
-  "fan.applyFailed": "Draw Tools could not save the added lines. New in-memory lines were removed; check Draw Tools storage before retrying.",
-  "fan.drawConflict": "The proposal crosses existing Draw Tools lines. Remove conflicting lines or use a separate Draw Tools project before applying."
+  "fan.applyFailed": "Could not save the fan plan. The previous plan is preserved.",
+  "fan.clear": "Remove native fan plan"
 }

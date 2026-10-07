@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.18
+# Architekturübersicht 0.2.0-beta.19
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -454,3 +454,7 @@ previewFanDesign trennt Geometrie und Übernahmekonflikte: ausschließlich fan.d
 
 ### Laden mit Vorschlag beta.18
 Der ap-fan-load-Handler lädt wie bisher einen frischen Portal-Snapshot und setzt Entwurfsrollen zurück; bei 3–60 Portalen ruft er suggestFanAnchors mit draft.count auf. previewFanDesign läuft anschließend immer, auch für fehlgeschlagene Auswahl, damit Fehler statt eines leeren Vorschlags sichtbar sind. Quellenwechsel nutzt denselben Handler. Keine neue Persistenz, Draw-Tools-/Key-/Routensemantik unverändert.
+
+### Native Fächerpläne beta.19
+fanDesign ergänzt validierte portals (maximal 60), links (GUID-Paare, dedupliziert) und fields (geschlossene GUID-Dreiergruppen). Legacy-Metadaten ohne Geometrie bleiben kompatibel und aktivieren keinen nativen Plan. applyFanDesign speichert allein Anchor-Planner-Zustand mit überprüfter localStorage-Schreiboperation und Rücknahme bei Fehler, ohne Draw Tools zu prüfen oder zu verändern. clearNativeFanPlan entfernt nur eigene Geometrie, erhält Richtungen/Keys und kehrt zum externen Scan zurück.
+getNativeFanPlan aktiviert eigene Geometrie als ausschließliche Scanquelle. scan ergänzt ungeladene Portale aus Snapshots, verwendet GUID-genaue apFanEndpoints und durchläuft sonst vorhandene Blocker-/Keys-/Routenpipeline. drawLayers zählt dann 0. renderNativeFanPlan zeichnet gespeicherte Flächen und Links im normalen Plugin-Layer, zusätzlich zu Blocker-/Statusoverlays. Setup plant einen nativen Scan nach Initialisierung ein. Dialog-Vorschau bleibt getrennt; alte Draw-Tools-Konflikte blockieren native Entwürfe nicht. Neue Wurfrichtungen weiterhin ausdrücklich bestätigen.

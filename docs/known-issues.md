@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.18
+# Bekannte Grenzen in 0.2.0-beta.19
 
 ## Portalzuordnung und Namen
 
@@ -261,3 +261,6 @@ Nutzer meldet keine sichtbaren vorgeschlagenen Felder in beta.16; genaue Dialogm
 
 ## Leerer Fächerentwurf beta.18
 Nutzerscreenshot zeigt drei Fächerportale ohne Anker und ohne Vorschlagszusammenfassung. In beta.17 löscht Portale laden den berechneten Entwurf; manuelles Anker vorschlagen wäre danach erforderlich. Beta.18 berechnet ihn automatisch nach Laden/Quellenwechsel, mit Fehleranzeige bei ungültiger Auswahl. Automatisierter Dialogtest bestanden; Praxistest ausstehend. Nach manueller Rollenänderung weiterhin Vorschau erforderlich.
+
+## Native Fächerplanung beta.19
+Draw Tools ist für Vorschlag/Übernahme nicht mehr nötig. Der eigene gespeicherte Plan hat Vorrang vor externen Zeichnungen; eigene Geometrie über Eigenen Fächerplan entfernen löschen, um Draw Tools wieder zu scannen. Alte in beta.16–18 ergänzte Linien bleiben dort erhalten. Stable kennt native Plangeometrie nicht; vor Rückwechsel exportieren. Maximal 60 Portale/heuristische Geometrie und ungeladene Intel-Lücken unverändert. Automatische Keybuchung verwendet weiterhin nur beobachtete Intel-Links; Übernahme verändert keine Keys. Echte IITC-/Mobile-Bestätigung steht aus.

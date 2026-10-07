@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.18
+# Anforderungen für Entwicklungsstand 0.2.0-beta.19
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -306,3 +306,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 ## Automatischer Vorschlag nach Laden (0.2.0-beta.18)
 Portale laden und Quellenwechsel dürfen bei gültiger Auswahl keinen leeren Dialog mit ausschließlich Fächerportalen hinterlassen: Anker gemäß gewählter Anzahl vorschlagen und Vorschau berechnen. Zu kleine/große oder ungültige Auswahl mit Erklärung anzeigen, Übernahme weiter sperren.
+
+## Eigenständiger Fächerplan (0.2.0-beta.19)
+Vorschläge direkt zeichnen und ohne Draw Tools übernehmen. Optionalen eigenen aktiven Plan mit Portalsnapshots/Links/Feldern speichern, nach Refresh scannen/zeichnen und für bestehende Aufgaben-/Key-/Routinglogik verwenden. GUID-Zuordnung exakt statt Koordinatennähe. Native Planquelle hat Vorrang; Draw Tools unverändert und nicht zusätzlich einscannen. Neuer Vorschlag ersetzt bei ausdrücklicher Übernahme den bisherigen nativen Plan, bei Speicherfehler bleibt dieser erhalten. Entfernen kehrt zur externen Planquelle zurück. Frühere Draw-Tools-Übernahmeanforderungen gelten nur für beta.16–18.

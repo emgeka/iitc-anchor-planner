@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.18
+### Beta testing: 0.2.0-beta.19
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -224,3 +224,6 @@ Check **Preview**, then **Add to Draw Tools** to keep existing drawings and scan
 Beta.17 keeps valid fan proposals visible even when existing Draw Tools lines prevent applying them. Field fills and outlines are more visible; conflict warnings and the disabled apply button remain.
 
 Beta.18 automatically suggests anchors and displays the fan preview after Load portals or a source change. Invalid selections show an explanation. Editing roles/assignments still requires Preview before acceptance; suggestions and loads do not save drawings.
+
+### Native fan plan in beta.19
+Fan proposals are drawn directly by Anchor Planner. **Use plan** saves the accepted fan as the active plan for scans, tasks, destination Keys, routing and Plan preview; Draw Tools is optional. Loaded map portals are available without Draw Tools; polygons remain an optional selection source. The native plan takes precedence over Draw Tools drawings without modifying them. Portal snapshots and link/field geometry survive refresh; new directions remain unconfirmed. **Remove native fan plan** returns to scanning Draw Tools when available, without clearing Keys or existing per-link settings. Earlier beta.16–18 Draw Tools acceptance descriptions above are superseded by this workflow.

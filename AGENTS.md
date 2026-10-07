@@ -110,7 +110,7 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
 
 ## Fachliche Leitplanken
 
-- Draw-Tools-Linien einschließlich Auto-Draw-Plänen sind die primäre
+- Ohne aktiven eigenen Fächerplan sind Draw-Tools-Linien einschließlich Auto-Draw-Plänen die primäre
   Plangeometrie.
 - Bookmarks und geladene `window.portals` ergänzen die Portalauflösung.
 - Ein nicht vollständig ausgebautes oder gegnerisches Portal bleibt ein
@@ -172,4 +172,4 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Der 0.2.0-Entwurf braucht einen echten Screenshot-/Video-Praxistest vor Stable.
 
 ## Fächerplanung
-- Bei Generator-/Anker-/Zuordnungsänderungen zusätzlich `node src/test-fan-planner.mjs` ausführen. Vorschläge verändern weder Draw Tools noch Keys/Erledigung; erst der explizite Übernahmebutton ergänzt Linien. Bestehende Zeichnungen erhalten, selbst kreuzende Ankerlinks nicht übernehmen. Wurfrichtungen bleiben pro Link ausdrücklich zu bestätigen.
+- Bei Generator-/Anker-/Zuordnungsänderungen zusätzlich `node src/test-fan-planner.mjs` ausführen. Vorschläge verändern weder Draw Tools noch Keys/Erledigung; erst der explizite Übernahmebutton speichert den eigenen aktiven Plan in Anchor Planner. Draw Tools ist optional und bleibt unverändert; native Geometrie hat Vorrang beim Scan. Bestehende Zeichnungen erhalten, selbst kreuzende Ankerlinks nicht übernehmen. Wurfrichtungen bleiben pro Link ausdrücklich zu bestätigen.
