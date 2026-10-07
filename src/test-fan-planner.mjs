@@ -181,8 +181,15 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   ap.refreshFanPlanner();
   controls.get('#ap-fan-source').onchange.call({ value: 'area' });
   assert.equal(ap.runtime.fanDraft.portals.length, 2);
-  assert.equal(ap.runtime.fanDraft.preview, null, 'Changing source discards stale geometry');
+  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.limit'), 'Invalid selection shows a reason instead of leaving a blank preview');
   assert.ok(ap.fanPlannerHtml().includes('id="ap-fan-apply" disabled'));
+  controls.get('#ap-fan-source').onchange.call({ value: 'plan' });
+  assert.equal(ap.runtime.fanDraft.anchors.length, 1, 'Loading portals automatically suggests an anchor');
+  assert.equal(ap.runtime.fanDraft.preview.fields.length, 1);
+  assert.ok(ap.runtime.fanDraft.layer);
+  controls.get('#ap-fan-load').onclick();
+  assert.equal(ap.runtime.fanDraft.preview.fields.length, 1, 'Repeated Load portals retains a computed proposal');
+  assert.ok(ap.fanPlannerHtml().includes('geometric fields'));
   ap.runtime.fanDraft = null; ap.previewFanDesign();
 }
 {

@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.17
+### Beta testing: 0.2.0-beta.18
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -222,3 +222,5 @@ Open **Fan fields** in the panel. Load 3–60 portals from the current plan, the
 Check **Preview**, then **Add to Draw Tools** to keep existing drawings and scan the added plan. Confirm link directions under Tasks before routing. Proposals do not change Keys or completion status. Anchor suggestions use geometry, loaded blockers, existing links and link length; the bounded search does not guarantee an optimum or a legal Ingress field-building sequence. Only loaded Intel data is evaluated. The fan-planning idea is inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/); this independent multi-anchor planner is implemented in Anchor Planner.
 
 Beta.17 keeps valid fan proposals visible even when existing Draw Tools lines prevent applying them. Field fills and outlines are more visible; conflict warnings and the disabled apply button remain.
+
+Beta.18 automatically suggests anchors and displays the fan preview after Load portals or a source change. Invalid selections show an explanation. Editing roles/assignments still requires Preview before acceptance; suggestions and loads do not save drawings.

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.17
+# Bekannte Grenzen in 0.2.0-beta.18
 
 ## Portalzuordnung und Namen
 
@@ -258,3 +258,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 
 ## Fächervorschau beta.17
 Nutzer meldet keine sichtbaren vorgeschlagenen Felder in beta.16; genaue Dialogmeldung/Plattform noch nicht bekannt. Codeprüfung zeigt komplette Ausblendung bei Konflikten mit alten Zeichnungen sowie sehr schwache Feldfüllung. Beta.17 behebt beide Darstellungsprobleme; automatisierte Konflikt-/Übernahmesperrentests bestanden, Nutzerbestätigung ausstehend. Ein Entwurf ohne geometrische Felder oder mit ungültiger Geometrie bleibt mit Meldung unsichtbar.
+
+## Leerer Fächerentwurf beta.18
+Nutzerscreenshot zeigt drei Fächerportale ohne Anker und ohne Vorschlagszusammenfassung. In beta.17 löscht Portale laden den berechneten Entwurf; manuelles Anker vorschlagen wäre danach erforderlich. Beta.18 berechnet ihn automatisch nach Laden/Quellenwechsel, mit Fehleranzeige bei ungültiger Auswahl. Automatisierter Dialogtest bestanden; Praxistest ausstehend. Nach manueller Rollenänderung weiterhin Vorschau erforderlich.

@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.17
+// @version        0.2.0-beta.18
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007133000';
+  plugin_info.dateTimeVersion = '20261007140000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.17';
+  ap.VERSION = '0.2.0-beta.18';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -4972,7 +4972,9 @@ function wrapper(plugin_info) {
     element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
     element.querySelector('#ap-fan-count').onchange = function () { draft.count = Math.max(1, Math.min(59, Math.floor(Number(this.value) || 1))); };
     element.querySelector('#ap-fan-load').onclick = function () {
-      ap.clearFanPreview(); draft.portals = ap.getFanCandidates(draft.source); draft.excluded = {}; draft.assignments = {}; draft.anchors = []; draft.pinned = []; draft.preview = null; ap.refreshFanPlanner();
+      ap.clearFanPreview(); draft.portals = ap.getFanCandidates(draft.source); draft.excluded = {}; draft.assignments = {}; draft.anchors = []; draft.pinned = []; draft.preview = null;
+      if (draft.portals.length >= 3 && draft.portals.length <= 60) draft.anchors = ap.suggestFanAnchors(draft.portals, draft.count, [], {}).anchors;
+      ap.previewFanDesign();
     };
     element.querySelector('#ap-fan-suggest').onclick = function () {
       var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });

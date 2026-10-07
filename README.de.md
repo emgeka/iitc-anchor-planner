@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.17
+### Beta-Test: 0.2.0-beta.18
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -233,3 +233,5 @@ Die hellblaue Weglinie wächst schrittweise bis zum mitwandernden Positionsmarke
 **Vorschau** prüfen und anschließend **In Draw Tools ergänzen**. Bestehende Zeichnungen bleiben erhalten, hinzugefügte Links werden gescannt. Wurfrichtungen unter Aufgaben bestätigen. Vorschläge ändern weder Keys noch Erledigungen. Die begrenzte Ankersuche bewertet Geometrie, geladene Blocker, vorhandene Links und Linklänge; sie garantiert weder das Optimum noch eine gültige Ingress-Baureihenfolge. Nur geladene Intel-Daten zählen. Die Idee ist von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert; der eigenständige Mehranker-Planer entsteht in Anchor Planner.
 
 Beta.17 zeigt gültige Fächervorschläge auch dann, wenn vorhandene Draw-Tools-Linien die Übernahme verhindern. Feldflächen und Umrisse sind deutlicher; Konfliktmeldung und gesperrter Übernahmebutton bleiben erhalten.
+
+Beta.18 schlägt nach Portale laden und Quellenwechsel automatisch Anker vor und zeigt die Fächervorschau. Ungültige Auswahlen zeigen eine Erklärung. Nach manuellen Rollen-/Zuordnungsänderungen Vorschau prüfen; Laden und Vorschläge speichern keine Zeichnungen.

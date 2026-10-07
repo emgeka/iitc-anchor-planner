@@ -532,3 +532,6 @@ Panel-/Aufgabenbutton öffnen, mit der ersten konkreten Aufgabenzeile vergleiche
 
 ## Fächervorschau (0.2.0-beta.17)
 Gültiges Dreieck mit vorhandener kreuzender Draw-Tools-Linie: farbige Feldfläche/Umriss/Links trotzdem sichtbar, Konfliktmeldung sichtbar, Ergänzen gesperrt, alte Zeichnung erhalten. Ohne Konflikt sichtbar und übernehmbar. Fehlerhafte Speichen/feldloser Entwurf weiterhin abweisen. Im echten IITC auf Satelliten-/Kartenhintergrund Sichtbarkeit prüfen; Bestätigung ausstehend.
+
+## Vorschlag nach Portale laden (0.2.0-beta.18)
+Drei nicht kollineare Planportale laden: ohne weiteren Klick mindestens ein Anker, Feldzahl und sichtbares Overlay. Erneut laden bzw. Quelle wechseln: neuer berechneter Vorschlag statt leerem Zustand. Nur zwei Portale oder über 60: Fehler sichtbar, Übernahme gesperrt, keine alten Vorschlagslayer. Ankerzahl beachten; Draw Tools/Keys durch Laden unverändert. Echter IITC-Praxistest ausstehend.
