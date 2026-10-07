@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.14
+# Bekannte Grenzen in 0.2.0-beta.15
 
 ## Portalzuordnung und Namen
 
@@ -245,3 +245,6 @@ Die Aufgabenroute enthält nur Stopps mit verbleibenden Linkaufgaben oder Blocke
 - Nutzer bestätigt in beta.12 die verbesserte Route, empfindet die Animation aber als zu schnell. beta.13 verlängert die Bewegung auf 2,5–5 Sekunden und passt den automatischen Schritttakt an. Praktische Wirkung auf Desktop/Mobile noch bestätigen; langsame Kartenladung kann weiterhin die Darstellung beeinflussen.
 
 - beta.13 verlangsamte nur die Kamera. beta.14 animiert zusätzlich Weglinie/Marker. Tests prüfen Anfang, Zwischenstand, Ziel, Rückschritt und verworfene Frames; die visuelle Wirkung auf Desktop/Mobile bleibt praktisch zu prüfen. Die Vorschau zeigt Luftlinie, keine echte Straße.
+
+- Nächste Aufgabe ist die erste konkrete Arbeit der Luftlinienroute, keine automatisch erkannte Ankunft. Manuell erledigte Wurfportale mit offenen Intel-Links erzeugen weiterhin Prüfaufgaben; Rücknahme über vollständige Aufgabenliste. Bei bewegtem GPS kann die Route nach bestehender 100-m-Regel wechseln. Desktop-/Mobile-Praxistest der neuen Ansicht ausstehend.
+- Nutzer bestätigt die Weglinien-/Markeranimation in beta.14 als gelungen; Plattform nicht angegeben, keine getrennte Mobile-Abdeckung.

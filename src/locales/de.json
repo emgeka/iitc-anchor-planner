@@ -278,5 +278,9 @@
   "tasks.modePortal": "Ab Portal: {title}",
   "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
   "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein.",
-  "walk.start": "Routenstart"
+  "walk.start": "Routenstart",
+  "next.title": "Nächste Aufgabe",
+  "next.empty": "Zuerst einen Plan scannen.",
+  "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
+  "next.targetKeys": "Keys für {title}: {owned}/{required}"
 }

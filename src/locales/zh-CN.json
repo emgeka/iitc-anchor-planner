@@ -278,5 +278,9 @@
   "tasks.modePortal": "From portal: {title}",
   "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
   "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-  "walk.start": "路线起点"
+  "walk.start": "路线起点",
+  "next.title": "下一项任务",
+  "next.empty": "Scan a plan first.",
+  "next.review": "Review unscheduled work in the full task list.",
+  "next.targetKeys": "Keys for {title}: {owned}/{required}"
 }

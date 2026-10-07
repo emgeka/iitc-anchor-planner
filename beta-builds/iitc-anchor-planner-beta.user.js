@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.14
+// @version        0.2.0-beta.15
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261007120000';
+  plugin_info.dateTimeVersion = '20261007123000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.14';
+  ap.VERSION = '0.2.0-beta.15';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -326,7 +326,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "Ab Portal: {title}",
       "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
       "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein.",
-      "walk.start": "Routenstart"
+      "walk.start": "Routenstart",
+      "next.title": "Nächste Aufgabe",
+      "next.empty": "Zuerst einen Plan scannen.",
+      "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
+      "next.targetKeys": "Keys für {title}: {owned}/{required}"
     },
     "en": {
       "language.label": "Language",
@@ -608,7 +612,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Route start"
+      "walk.start": "Route start",
+      "next.title": "Next task",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "es": {
       "language.label": "Idioma",
@@ -890,7 +898,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Inicio de la ruta"
+      "walk.start": "Inicio de la ruta",
+      "next.title": "Siguiente tarea",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "fr": {
       "language.label": "Langue",
@@ -1172,7 +1184,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Départ de l’itinéraire"
+      "walk.start": "Départ de l’itinéraire",
+      "next.title": "Prochaine tâche",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "it": {
       "language.label": "Lingua",
@@ -1454,7 +1470,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Partenza del percorso"
+      "walk.start": "Partenza del percorso",
+      "next.title": "Prossima attività",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "ja": {
       "language.label": "言語",
@@ -1736,7 +1756,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "ルートの開始地点"
+      "walk.start": "ルートの開始地点",
+      "next.title": "次のタスク",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "pl": {
       "language.label": "Język",
@@ -2018,7 +2042,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Początek trasy"
+      "walk.start": "Początek trasy",
+      "next.title": "Następne zadanie",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2300,7 +2328,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Início da rota"
+      "walk.start": "Início da rota",
+      "next.title": "Próxima tarefa",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "ru": {
       "language.label": "Язык",
@@ -2582,7 +2614,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "Начало маршрута"
+      "walk.start": "Начало маршрута",
+      "next.title": "Следующая задача",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2864,7 +2900,11 @@ function wrapper(plugin_info) {
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
       "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit.",
-      "walk.start": "路线起点"
+      "walk.start": "路线起点",
+      "next.title": "下一项任务",
+      "next.empty": "Scan a plan first.",
+      "next.review": "Review unscheduled work in the full task list.",
+      "next.targetKeys": "Keys for {title}: {owned}/{required}"
     }
   };
   // AP_LOCALES_END
@@ -4238,7 +4278,7 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
     var estimate = ap.getRouteEstimate(location);
-    var html = '<div class="ap-task-toolbar"><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
+    var html = '<div class="ap-task-toolbar"><button id="ap-task-next">' + ap.escapeHtml(ap.t('next.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
@@ -4307,14 +4347,15 @@ function wrapper(plugin_info) {
     Array.prototype.forEach.call(element.querySelectorAll('.ap-task-expand'), function (button) {
       button.onclick = function () { ap.setTaskStopExpanded(this, this.getAttribute('aria-expanded') !== 'true'); };
     });
-    element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
-    element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
+    if (element.querySelector('#ap-task-reroute')) element.querySelector('#ap-task-reroute').onclick = function () { ap.rerouteWorkPlan(false); };
+    if (element.querySelector('#ap-task-manual')) element.querySelector('#ap-task-manual').onclick = function () { ap.rerouteWorkPlan(true); };
+    if (element.querySelector('#ap-task-next')) element.querySelector('#ap-task-next').onclick = ap.showNextTask;
     if (element.querySelector('#ap-task-walk')) element.querySelector('#ap-task-walk').onclick = ap.showWalkSimulation;
     if (element.querySelector('#ap-task-key-list')) element.querySelector('#ap-task-key-list').onclick = ap.showKeyList;
     if (element.querySelector('#ap-task-key-import')) element.querySelector('#ap-task-key-import').onclick = ap.showKeyImport;
     if (element.querySelector('#ap-task-key-reset')) element.querySelector('#ap-task-key-reset').onclick = ap.showKeyReset;
     if (element.querySelector('#ap-task-key-undo')) element.querySelector('#ap-task-key-undo').onclick = ap.showKeyUndo;
-    element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
+    if (element.querySelector('#ap-task-check')) element.querySelector('#ap-task-check').onclick = function () { ap.startFinalScan(); };
     Array.prototype.forEach.call(element.querySelectorAll('.ap-key-usage-review'), function (button) {
       button.onclick = function () { try { ap.markKeyUsageReviewed(this.getAttribute('data-link')); } catch (error) { window.alert(error.message); } };
     });
@@ -4348,6 +4389,7 @@ function wrapper(plugin_info) {
   };
 
   ap.refreshTaskList = function () {
+    ap.refreshNextTask();
     var element = document.getElementById('ap-task-list');
     if (!element || !ap.runtime.taskListOpen) return;
     var scroll = element.scrollTop, expanded = {};
@@ -4426,6 +4468,61 @@ function wrapper(plugin_info) {
         routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
     return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
+  };
+  ap.nextTaskHtml = function () {
+    var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
+    // A route origin is orientation, not an executable task.
+    var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length; });
+    var stop = plan.stops[index];
+    var html = '<div class="ap-next-toolbar"><button id="ap-next-all">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-next-scan"' + (ap.runtime.finalScan && ap.runtime.finalScan.running ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button></div>';
+    html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + '</p>';
+    if (!ap.getKeysPlugin()) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
+    if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
+    var readiness = ap.getReadiness(ap.sortedStats(false));
+    if (readiness && readiness.key !== 'ready') html += '<p class="ap-task-warning">' + ap.escapeHtml(readiness.label + ' · ' + readiness.summary.join(' · ')) + '</p>';
+    if (plan.unscheduled.length || plan.unassigned.length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
+    if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
+    var portal = stop.portal, nav = ap.navigationLinks(portal);
+    html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + '</button></h2>';
+    if (location) html += '<p>' + ap.escapeHtml(ap.formatDistance(ap.distanceToPortal(location, portal))) + ' · ' + ap.escapeHtml(ap.t('route.aerial')) + '</p>';
+    html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
+    html += '<p>' + ap.escapeHtml(ap.t('tasks.columnBlockers')) + ': ' + stop.blockers.length + ' · ' + ap.escapeHtml(ap.t('tasks.columnLinks')) + ': ' + stop.links.length + '</p>';
+    stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
+    stop.links.forEach(function (link) {
+      var direction = ap.getLinkDirection(link), target = direction && ap.runtime.stats[direction.to];
+      html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link));
+      if (target) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>';
+    });
+    if (stop.planVisit) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
+    html += '<details data-next-id="notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p></details>';
+    return html;
+  };
+  ap.wireNextTask = function (element) {
+    ap.wireTaskList(element);
+    element.querySelector('#ap-next-all').onclick = ap.showTaskList;
+    element.querySelector('#ap-next-scan').onclick = ap.scan;
+  };
+  ap.refreshNextTask = function () {
+    if (!ap.runtime.nextTaskOpen) return;
+    var element = document.getElementById('ap-next-work');
+    if (!element) return;
+    var scroll = element.scrollTop, notes = element.querySelector('details[data-next-id="notes"]');
+    var open = notes && notes.open;
+    element.innerHTML = ap.nextTaskHtml();
+    notes = element.querySelector('details[data-next-id="notes"]');
+    if (notes) notes.open = !!open;
+    ap.wireNextTask(element); element.scrollTop = scroll;
+  };
+  ap.showNextTask = function () {
+    if (typeof window.dialog !== 'function') return;
+    var token = {};
+    ap.runtime.nextTaskToken = token;
+    ap.runtime.nextTaskOpen = true;
+    window.dialog({ id: 'anchor-planner-next-task', title: ap.t('next.title'),
+      html: '<div id="ap-next-work">' + ap.nextTaskHtml() + '</div>', width: Math.min(460, (window.innerWidth || 480) - 20),
+      closeCallback: function () { if (ap.runtime.nextTaskToken === token) ap.runtime.nextTaskOpen = false; } });
+    var element = document.getElementById('ap-next-work');
+    if (element) ap.wireNextTask(element);
   };
   ap.cancelWalkTravel = function (session, finish) {
     var travel = session.travel;
@@ -7021,6 +7118,7 @@ function wrapper(plugin_info) {
     }
 
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
+    html += '<div class="ap-next-entry"><button id="ap-next-task">' + ap.escapeHtml(ap.t('next.title')) + '</button></div>';
     html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button><button id="ap-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div>';
     html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label><label>' + ap.escapeHtml(ap.t('language.label')) + ' <select id="ap-language">' + ap.languageOptionsHtml() + '</select></label></div>';
     if (ap.runtime.suppressWalkObservations && !ap.runtime.walkSimulation) html += '<p>' + ap.escapeHtml(ap.t('walk.resumeScan')) + '</p>';
@@ -7137,6 +7235,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = true; ap.save(); ap.renderPanel(); };
     document.getElementById('ap-scan').onclick = ap.scan;
     document.getElementById('ap-tasks').onclick = ap.showTaskList;
+    if (document.getElementById('ap-next-task')) document.getElementById('ap-next-task').onclick = ap.showNextTask;
     document.getElementById('ap-final-scan').onclick = function () {
       if (ap.runtime.finalScan && ap.runtime.finalScan.running) ap.pauseFinalScan();
       else ap.startFinalScan();
@@ -7222,6 +7321,13 @@ function wrapper(plugin_info) {
 
   ap.injectCss = function () {
     $('<style>').prop('type', 'text/css').html(`
+#ap-next-work{max-height:calc(100dvh - 160px);overflow:auto;overflow-wrap:anywhere;box-sizing:border-box;color:#eee;font:14px/1.45 Arial,sans-serif;padding:6px;background:#101923}
+#ap-next-work button,#ap-next-work a{display:inline-block;box-sizing:border-box;min-height:44px;max-width:100%;padding:9px;border:1px solid #60758a;border-radius:5px;background:#24364a;color:#eef5ff;overflow-wrap:anywhere;cursor:pointer}
+#ap-next-work h2{font-size:18px;margin:10px 0}#ap-next-work h2 button{width:100%;text-align:left;font:inherit;font-weight:bold}
+#ap-next-work .ap-next-toolbar,#ap-next-work .ap-task-actions{display:flex;gap:6px;flex-wrap:wrap}#ap-next-work .ap-next-toolbar button{flex:1}
+#ap-next-work label{display:block;margin:7px 0}#ap-next-work select{box-sizing:border-box;max-width:100%;width:100%;min-height:44px;background:#0e1720;color:#eee;border:1px solid #617489}#ap-next-work input[type=checkbox]{width:20px;height:20px;vertical-align:middle}
+#ap-next-work .ap-task-muted{color:#b1c1d2;font-size:12px}#ap-next-work .ap-task-warning,#ap-next-work .ap-task-blocker b{color:#ffc078}#ap-next-work .ap-task-status{color:#a3ddff;font-size:12px}#ap-next-work .ap-task-blocker,#ap-next-work .ap-task-link{padding-top:8px;margin-top:8px;border-top:1px solid #344658}
+#iitc-anchor-planner .ap-next-entry{padding:4px 8px}#iitc-anchor-planner .ap-next-entry button{width:100%;min-height:36px}
 #ap-task-list{max-height:calc(100dvh - 180px);overflow:auto;color:#eee;font:13px/1.45 Arial,sans-serif;padding:4px;box-sizing:border-box;overflow-wrap:anywhere}
 #ap-task-list .ap-task-toolbar{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:6px;background:#101923;padding:8px 0;z-index:1}
 #ap-task-list .ap-task-toolbar button{overflow-wrap:normal;padding:5px 6px}

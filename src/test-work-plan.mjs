@@ -355,4 +355,39 @@ function assertDependencies(ap,plan){
   ab.existing=true;cb.existing=true;ap.runtime.workPlan=null;
   assert.equal(ap.getWorkPlan().stops.length,0,'A complete plan has no invented visits.');
 }
-console.log('Work-plan checks passed: actionable stops, explicit origins, direction changes, fixed portal starts, GPS/manual switching, joint optimization and dependency safety.');
+{
+  const {ap,context,refreshTaskList}=runtime();portal(ap,'A',1);portal(ap,'B',3);
+  const ab=link(ap,'A','B',[blocker('nextBlock','X',0,'Y',8)]);direction(ap,ab,'A');
+  context.window.plugin.keys={keys:{B:2},addKey(){throw new Error('Manual reporting must not debit Keys');}};
+  ap.recalculateDirectedKeys();ap.startWorkRouteAtPortal('B');
+  const plan=ap.getWorkPlan(),firstWork=plan.stops.find(s=>s.links.length||s.blockers.length);
+  assert.equal(plan.stops[0].routeTargetType,'start');
+  const before=JSON.stringify(ap.state);
+  const html=ap.nextTaskHtml();assert.equal(JSON.stringify(ap.state),before);
+  assert.ok(html.includes('data-guid="'+firstWork.portal.guid+'"'),'Next task follows the first concrete work stop rather than a synthetic origin.');
+  assert.ok(html.includes('Remove blocker link'));assert.ok(html.includes('waze.com'));assert.ok(html.includes('google.com/maps'));
+  assert.ok(ap.taskListHtml().includes('Next task'));
+  const controls={},notes={open:true};
+  const checkbox={checked:true,getAttribute:()=> '0'};
+  const done={checked:true,getAttribute:()=> 'A'};
+  const element={scrollTop:41,innerHTML:'',querySelector(s){return s==='details[data-next-id="notes"]'?notes:(s.startsWith('#')?(controls[s]||(controls[s]={})):null);},
+    querySelectorAll(s){return s==='.ap-task-blocker-done'?[checkbox]:s==='.ap-task-portal-done'?[done]:[];}};
+  context.document.getElementById=id=>id==='ap-next-work'?element:null;
+  context.window.innerWidth=360;context.window.dialog=options=>context.dialog=options;
+  ap.showNextTask();assert.equal(context.dialog.width,340);assert.equal(ap.runtime.nextTaskOpen,true);
+  assert.equal(typeof controls['#ap-next-all'].onclick,'function');assert.equal(typeof controls['#ap-task-reroute'].onclick,'function');
+  const alerts=[];context.window.alert=message=>alerts.push(message);
+  controls['#ap-task-reroute'].onclick();assert.equal(alerts.length,1);assert.equal(ap.state.workRouteStart,'B','Missing GPS preserves a fixed portal origin in the compact view.');
+  checkbox.onchange();assert.equal(ap.runtime.links[0].blocked,true,'Manual blocker report leaves observed Intel data intact.');
+  assert.ok(ap.nextTaskHtml().includes('Keys for B: 2/1'),'Stock belongs to the destination.');
+  assert.ok(ap.nextTaskHtml().includes('confirmation pending'));
+  refreshTaskList();assert.ok(element.innerHTML.includes('data-guid="A"'));assert.equal(element.scrollTop,41);assert.equal(notes.open,true);
+  done.onchange();assert.equal(context.window.plugin.keys.keys.B,2);assert.equal(ap.getWorkPlan().unassigned.length,1);
+  refreshTaskList();assert.ok(element.innerHTML.includes('Review unscheduled work'),'Manual completion cannot masquerade as Intel confirmation.');
+  ab.existing=true;ap.runtime.workPlan=null;refreshTaskList();assert.ok(element.innerHTML.includes(ap.t('route.complete')));
+  ap.runtime.stats={};ap.runtime.links=[];ap.runtime.workPlan=null;refreshTaskList();assert.ok(element.innerHTML.includes('Scan a plan first'));
+  const close=context.dialog.closeCallback;ap.showNextTask();close();assert.equal(ap.runtime.nextTaskOpen,true,'Old close callback cannot disable a newly opened view.');
+  context.dialog.closeCallback();assert.equal(ap.runtime.nextTaskOpen,false);
+  for(const locale of Object.keys(ap.LOCALES)){ap.state.language=locale;assert.ok(!ap.nextTaskHtml().includes('{title}'));}
+}
+console.log('Work-plan checks passed: next-task navigation, live refresh, shared reports, actionable stops, explicit origins, fixed portal starts, GPS/manual switching and dependency safety.');
