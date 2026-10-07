@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.10
+# Bekannte Grenzen in 0.2.0-beta.11
 
 ## Portalzuordnung und Namen
 
@@ -219,7 +219,7 @@
 - Buchungen sind lokale Beobachtungen; Keys-Sync überträgt Mengen, aber nicht das Buchungsjournal. Mehrere aktive Geräte/Tabs können daher dieselbe Beobachtung separat verarbeiten. Nach Browserdatenlöschung beginnt eine neue Basisaufnahme.
 - Automatisierte Tests decken Übergänge und Doppelbuchungen ab; IITC-Praxistest des Verbrauchs bleibt offen.
 
-## Walk Sim
+## Planvorschau (vormals Walk Sim)
 - Vorschau nur für die verbleibende Aufgabenroute. Änderungen/GPS während des Laufs werden erst beim erneuten Öffnen berücksichtigt. Nicht aufgelöste Aufgaben werden gezählt, ohne erfundene Stopps.
 - Dreiecke sind geometrische Vorschauen; Eroberung, Feldüberlagerungen, Linklimits und Bauen unter Feldern werden nicht validiert. Unbestätigte Richtung, fehlende Koordinaten/Keys oder noch aktive Blocker verhindern den simulierten Wurf.
 - Nach Schließen ist ein neuer Scan/Finalcheck erforderlich, um passive Link-/Keybeobachtungen wieder zu aktivieren. Dadurch können verspätete Kartenladungen aus der Vorschau keinen Bestand ändern.
@@ -229,6 +229,11 @@
 
 ## Gemeinsame Routenverbesserung
 - Der Nutzerplan in beta.9 bestätigte Gedenkstein → Ratskellersaal als Stopps 4/5 mit rund 9,2 km zusätzlicher Luftlinie und anschließendem Rückweg. beta.10 vergleicht vollständige Varianten; anonymisierte Geometrie als automatisierter Regressionstest, reale Portaldaten nur lokal für die Nachstellung.
-- Nur automatischer Modus mit gültigem Standort: Aufgaben → Route ab hier. Manuelle Reihenfolge bleibt auch dann erhalten, wenn sie einen längeren Weg erzeugt. Explizite Endportalwahlen können gemeinsame Abbauorte verhindern.
+- Automatischer Modus ab gültigem GPS- oder Portalursprung. Aufgaben → Route ab Standort verwendet GPS. Manuelle Reihenfolge bleibt auch dann erhalten, wenn sie einen längeren Weg erzeugt. Explizite Endportalwahlen können gemeinsame Abbauorte verhindern.
 - Begrenzte lokale Verbesserung, kein globales Optimum. Höchstens 40 Planportale/80 Blocker, darüber bleibt der Ausgangsvorschlag. Keine Straßen-/Zugangsprüfung oder Eroberungs-/Linklimit-/Feldprüfung. Abbauportalwahl minimiert Strecke, nicht Besuchszahl.
 - Reale Standortkoordinaten waren im Export nicht enthalten; verglichene Testursprünge sind Annahmen. Tatsächliche neue Reihenfolge/Strecke hängen vom Standort und gespeicherten Vorgaben ab. IITC-Desktop-/Mobile-Praxistest von beta.10 steht aus.
+
+## Portalstart / Planvorschau
+- Fester Startpunkt benötigt ein aufgelöstes Planportal mit Koordinaten. Bis zum Scan nach Refresh oder bei geändertem Plan kann es fehlen; Hinweis statt GPS-Ersatz.
+- Startbesuch bestätigt keine Eroberung oder sofortige Wurffähigkeit. Die Route kann für Blocker-Abbau und späteren Wurf zum Start zurückkehren. Vorschau bleibt geometrisch und verändert keine realen Keys/Erledigungen.
+- Die neue Bezeichnung ist Planvorschau. Startaktionen, fehlendes GPS, Reststrecke, Wiederbesuche und kompakte Darstellung sind automatisiert geprüft; Desktop-/Mobile-Praxistest ausstehend. Neue Portalstart-Texte außerhalb Deutsch/Englisch zunächst Englisch.

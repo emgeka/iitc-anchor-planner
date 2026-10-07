@@ -277,4 +277,47 @@ function assertDependencies(ap,plan){
   ap.runtime.stats.B.lat=null;
   assert.equal(ap.buildWorkPlan({latlng:point(0,0)}).optimization,undefined,'Missing coordinates do not create a falsely shorter route.');
 }
-console.log('Work-plan checks passed: joint route/endpoint optimization, dependency-safe removal refinement, bounded/deterministic search, manual/GPS fallback, explicit choices, two-cluster regression, directed keys, bundled work, repeat visits, missing data, direction suggestions and localized UI.');
+{
+  const {ap,context,storage}=runtime();portal(ap,'A',0);portal(ap,'B',1);
+  const ab=link(ap,'A','B',[blocker('early','B',1,'Z',20)]);direction(ap,ab,'A');
+  ap.setBlockerTask('early','B',false);ap.getCurrentUserLocation=()=>null;
+  const directions=JSON.stringify(ap.state.linkDirections);
+  assert.equal(ap.startWorkRouteAtPortal('A'),true,'A plan portal can start the route without GPS.');
+  const plan=ap.getWorkPlan();assert.equal(plan.stops[0].portal.guid,'A');
+  assert.equal(plan.stops[0].routeTargetType,'start');assert.equal(plan.stops[0].links.length,0,'The first visit cannot throw through uncleared blockers.');
+  assert.ok(plan.stops.slice(1).some(s=>s.portal.guid==='A'&&s.planVisit&&s.links.includes(ab)),'Return to the source for its throw.');
+  assertDependencies(ap,plan);
+  assert.equal(ap.getNextRouteTarget(null).guid,'A');
+  assert.equal(ap.getRouteEstimate(null).distance,routeDistance(plan,point(0,0)),'Estimate starts at the portal, not at GPS.');
+  const frames=ap.createWalkSimulation();assert.equal(frames.origin.lng,0);assert.equal(frames.frames[0].title,'A');assert.equal(frames.frames[0].distance,0);
+  assert.ok(ap.taskListHtml().includes('From portal: A'));assert.ok(ap.taskListHtml().includes('Route from this portal'));assert.ok(ap.taskListHtml().includes('Plan preview'));
+  ap.getCurrentUserLocation=()=>({latlng:point(0,10)});
+  assert.equal(ap.getWorkPlan(),plan,'Live GPS cannot move a fixed portal origin.');
+  assert.equal(ap.getRouteEstimate(ap.getCurrentUserLocation()).distance,routeDistance(plan,point(0,0)));
+  const saved=JSON.parse(storage.get(ap.STORAGE_KEY));assert.equal(saved.workRouteStart,'A');assert.equal(saved.workRouteMode,'portal');assert.equal(Object.hasOwn(saved,'location'),false);
+  const resumed=runtime(saved).ap;resumed.load();assert.equal(resumed.state.workRouteMode,'portal');assert.equal(resumed.state.workRouteStart,'A');
+  assert.match(resumed.workRouteLabel(null),/Start portal unavailable/,'Missing portal is labeled rather than silently substituting GPS.');
+  resumed.runtime.stats=ap.runtime.stats;resumed.runtime.links=ap.runtime.links;resumed.getCurrentUserLocation=()=>null;
+  assert.equal(resumed.getWorkPlan().stops[0].portal.guid,'A','The stored origin becomes active again once the plan is scanned.');
+  const startButton={getAttribute:()=> 'A'},controls={};
+  ap.wireTaskList({querySelector:s=>controls[s]||(controls[s]={}),querySelectorAll:s=>s==='.ap-task-start'?[startButton]:[]});
+  controls['#ap-task-reroute'].onclick();assert.equal(ap.state.workRouteMode,'location');
+  startButton.onclick();assert.equal(ap.state.workRouteMode,'portal');assert.equal(ap.state.workRouteStart,'A','Portal-row action is wired to its own GUID.');
+  assert.equal(ap.startWorkRouteAtPortal('unknown'),false);assert.equal(ap.state.workRouteStart,'A');
+  delete ap.runtime.stats.A.lat;
+  assert.equal(ap.startWorkRouteAtPortal('A'),false);assert.equal(ap.getRouteEstimate(ap.getCurrentUserLocation()),null);
+  ap.runtime.stats.A.lat=0;
+  ap.startWorkRouteAtPortal('B');assert.equal(ap.getWorkPlan().stops[0].portal.guid,'B','A second selection replaces the fixed start.');
+  ap.ensureAnchorState('B').done=true;ap.runtime.workPlan=null;ap.getWorkPlan();assert.equal(ap.ensureAnchorState('B').done,true,'Starting at a completed portal does not undo completion.');
+  ap.rerouteWorkPlan(false);assert.equal(ap.state.workRouteMode,'location');assert.equal(ap.state.workRouteStart,'');
+  const gpsPlan=ap.getWorkPlan();assert.equal(gpsPlan.origin.lng,10,'Route from location explicitly resumes GPS routing.');
+  const alerts=[];context.window.alert=m=>alerts.push(m);ap.getCurrentUserLocation=()=>null;
+  assert.equal(ap.rerouteWorkPlan(false),false);assert.equal(alerts.length,1,'Missing GPS gives feedback instead of inventing a location.');
+  ap.startWorkRouteAtPortal('A');ap.rerouteWorkPlan(true);assert.equal(ap.state.workRouteMode,'manual');assert.equal(ap.state.workRouteStart,'');
+  assert.equal(JSON.stringify(ap.state.linkDirections),directions);assert.equal(ap.ensureAnchorState('A').done,false);
+  ap.startWorkRouteAtPortal('A');context.confirm=()=>true;
+  context.window.plugin.keys={keys:{A:7,B:10}};const keys=JSON.stringify(context.window.plugin.keys.keys);
+  ap.clearData();assert.equal(ap.state.workRouteStart,'');assert.equal(ap.state.workRouteMode,'location');
+  assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys,'Clearing the portal origin does not clear Keys.');
+}
+console.log('Work-plan checks passed: fixed portal starts, GPS/manual switching, persistent GUID-only origin, preparation/return visits, preview/estimate alignment, joint optimization, dependency safety, bounded search, shared endpoints and preserved choices.');

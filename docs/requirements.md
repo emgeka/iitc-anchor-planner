@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.10
+# Anforderungen für Entwicklungsstand 0.2.0-beta.11
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -262,14 +262,21 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 - Persistente Intel-Linkidentität verhindert Doppelbuchungen bei Scan, Finalcheck, Refresh, Kartenlücken, Planreset und Keyimport. Neubau mit neuer Identität nach offenem Zustand ist neuer Verbrauch.
 - Keine negativen oder erfundenen Bestände. Fehlende Richtung, Keys, Menge oder Schreibfehler als Prüfhinweis am Link; keine verspätete automatische Nachbuchung nach Import. Verbrauch verändert keine Intel-Daten und überschreibt die Import-/Reset-Sicherung nicht.
 
-- Walk Sim als Vorschau der verbleibenden Aufgabenroute mit Blocker-Abbau vor Wurfaufträgen; Zurück/Weiter, Abspielen/Pause und Neustart. Bestehende Reihenfolge und Wiederbesuche übernehmen.
+- Planvorschau der verbleibenden Aufgabenroute mit Blocker-Abbau vor Wurfaufträgen; Zurück/Weiter, Abspielen/Pause und Neustart. Bestehende Reihenfolge und Wiederbesuche übernehmen.
 - Virtuellen Keyverbrauch, Richtungs-/Bestandslücken und nicht eingeplante Aufgaben sichtbar machen. Weg, simulierte Links und geometrische Dreiecke auf separatem Layer zeigen. Keine Ingress-Ausführbarkeitsgarantie.
 - Vorschau niemals als reale Erledigung oder Keybuchung behandeln; auch eigene Kartenladungen dürfen keine Verbrauchsbuchungen auslösen. Originalansicht beim Schließen restaurieren, reale Beobachtungen erst nach neuem Scan/Finalcheck fortsetzen.
 
-- Walk Sim soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.
+- Die Planvorschau soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.
 
-## Gemeinsame Routenverbesserung (0.2.0-beta.10)
+## Gemeinsame Routenverbesserung (0.2.0-beta.11)
 - Im automatischen Standortmodus die vollständige Luftlinienstrecke ab Standort bewerten: Portalreihenfolge, gemeinsame Abbau-Endportale und nachträgliche Position bestehender Blocker-Stopps zusammen verbessern. Nur strikt kürzere Varianten bei erhaltenen Aufgaben übernehmen.
 - Jeder Abbau bleibt spätestens vor dem frühesten abhängigen Wurf; offene Richtungen konservativ vor dem ersten Planendportalbesuch. Getrennte Wiederbesuche erhalten.
-- Explizite Abbauziele, vorgemerkte Endportale und manuelle Abbau-Meldungen respektieren; keine Speicherung von Vorschlagsentscheidungen oder GPS, keine Key-/Erledigungsänderung. Aufgaben, nächstes Ziel, Reststrecke und Walk Sim verwenden dieselbe Route.
+- Explizite Abbauziele, vorgemerkte Endportale und manuelle Abbau-Meldungen respektieren; keine Speicherung von Vorschlagsentscheidungen oder GPS, keine Key-/Erledigungsänderung. Aufgaben, nächstes Ziel, Reststrecke und Planvorschau verwenden dieselbe Route.
 - Manuelle Portalreihenfolge und Reihenfolge ohne gültigen Standort nicht optimierend überschreiben. Begrenzte deterministische Suche; bei großen/fehlenden Daten den bisherigen gültigen Vorschlag behalten. Keine Optimalitäts- oder Erreichbarkeitsgarantie.
+
+## Eindeutige Routenstarts und Planvorschau (0.2.0-beta.11)
+- Route ab Standort plant die automatische Route ab echtem IITC User Location und meldet fehlendes GPS; gespeicherte Reihenfolge nicht überschreiben.
+- Route ab diesem Portal beim Planportal/zugehörigen Aufgabenstopp setzt festen ersten Stopp und Ursprung, auch ohne GPS. Titel anzeigen, GPS-Bewegung ignorieren; nur GUID speichern. Fehlenden Ursprung klar kennzeichnen, keine erfundenen Koordinaten oder stilles GPS-Substitut.
+- Falls Blocker einen sofortigen Wurf verhindern: erster Besuch nur Vorbereitung, späterer Wurfbesuch nach Abbau bleibt erhalten. Keine Key-/Erledigungs-/Inteländerung durch den Start. Aufgaben, Ziel, Reststrecke und Vorschau konsistent.
+- Standort-/manuelle Route hebt Portalstart auf. Plan löschen entfernt die Wahl, Refresh erhält die GUID und neuer Scan löst sie auf.
+- Walk Sim in der aktuellen Oberfläche als Planvorschau bezeichnen, unabhängig von Fortbewegungsart.
