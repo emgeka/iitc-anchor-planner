@@ -278,5 +278,5 @@
   "tasks.startPortal": "Route ab diesem Portal",
   "tasks.modePortal": "Ab Portal: {title}",
   "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
-  "tasks.portalStartNote": "Der Startbesuch ist zur Vorbereitung. Blockierte Würfe erfolgen erst nach dem Abbau; dafür kann ein erneuter Portalbesuch nötig sein."
+  "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein."
 }

@@ -326,7 +326,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route ab diesem Portal",
       "tasks.modePortal": "Ab Portal: {title}",
       "tasks.startUnavailable": "Startportal nicht verfügbar. Plan erneut scannen oder einen anderen Routenstart wählen.",
-      "tasks.portalStartNote": "Der Startbesuch ist zur Vorbereitung. Blockierte Würfe erfolgen erst nach dem Abbau; dafür kann ein erneuter Portalbesuch nötig sein."
+      "tasks.portalStartNote": "Würfe am Startportal werden erst nach dem nötigen Blocker-Abbau eingeplant; dafür kann ein erneuter Besuch nötig sein."
     },
     "en": {
       "language.label": "Language",
@@ -608,7 +608,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "es": {
       "language.label": "Idioma",
@@ -890,7 +890,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "fr": {
       "language.label": "Langue",
@@ -1172,7 +1172,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "it": {
       "language.label": "Lingua",
@@ -1454,7 +1454,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "ja": {
       "language.label": "言語",
@@ -1736,7 +1736,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "pl": {
       "language.label": "Język",
@@ -2018,7 +2018,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2300,7 +2300,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "ru": {
       "language.label": "Язык",
@@ -2582,7 +2582,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -2864,7 +2864,7 @@ function wrapper(plugin_info) {
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
       "tasks.startUnavailable": "Start portal unavailable. Scan the plan again or choose another route start.",
-      "tasks.portalStartNote": "The first visit is for preparation. Blocked throws wait until removal; this can require a return visit."
+      "tasks.portalStartNote": "Throws at the start portal are scheduled after required blocker removal; this can require a return visit."
     }
   };
   // AP_LOCALES_END
