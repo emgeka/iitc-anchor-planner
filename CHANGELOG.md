@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.16
+
+### English
+- Add separate fans with one or more suggested or manually pinned anchors, exclusive portal assignments, geometric preview and explicit addition to Draw Tools. Preserve drawings and Keys, reject conflicting spokes, persist selection metadata and leave new link directions unconfirmed.
+
+### Deutsch
+- Getrennte Fächer mit einem oder mehreren vorgeschlagenen oder manuell festgelegten Ankern, eindeutiger Portalzuordnung, geometrischer Vorschau und ausdrücklicher Draw-Tools-Ergänzung. Zeichnungen und Keys erhalten, kreuzende Speichen ablehnen, Auswahlmetadaten speichern und neue Wurfrichtungen unbestätigt lassen.
+
 ## 0.2.0-beta.15
 
 ### English
