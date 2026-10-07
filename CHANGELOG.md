@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.10 — joint work-route optimization
+
+### English
+- Improve the automatic route by jointly comparing portal orders and shared blocker endpoints over the full distance from IITC User Location. Revisit earlier removal detours while preserving every removal-before-throw dependency.
+- Preserve manual order, explicit endpoint choices, repeat visits and real inventory/completion. Bound the search and retain the valid baseline for large or incomplete plans. Add two-cluster and shared-endpoint regression checks.
+
+### Deutsch
+- Automatische Route anhand der Gesamtstrecke ab IITC-Standort verbessern: Portalreihenfolge und gemeinsame Blocker-Endportale zusammen vergleichen, frühere Abbau-Abstecher erneut prüfen. Abbau-vor-Wurf-Abhängigkeiten erhalten.
+- Manuelle Reihenfolge, ausdrückliche Endportalwahl, Wiederbesuche und echten Bestand/Erledigung erhalten. Suche begrenzen und gültigen Ausgangsvorschlag bei großen/unvollständigen Plänen behalten. Regressionstests für zwei Blockergruppen und gemeinsamen Abbauort ergänzen.
+
 ## 0.2.0-beta.9 — smoother Walk Sim
 
 ### English

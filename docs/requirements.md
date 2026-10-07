@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.9
+# Anforderungen für Entwicklungsstand 0.2.0-beta.10
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -267,3 +267,9 @@ bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 - Vorschau niemals als reale Erledigung oder Keybuchung behandeln; auch eigene Kartenladungen dürfen keine Verbrauchsbuchungen auslösen. Originalansicht beim Schließen restaurieren, reale Beobachtungen erst nach neuem Scan/Finalcheck fortsetzen.
 
 - Walk Sim soll auch entfernte Stopps mit weicher Kartenbewegung verbinden und vorhandene Geometrie bei Vorwärtsschritten erhalten. Pause/Weiterlaufen ohne erneutes Zeichnen oder Zentrieren; reduzierte Bewegung respektieren und Kartenanimation vor Ansichtsrestaurierung stoppen.
+
+## Gemeinsame Routenverbesserung (0.2.0-beta.10)
+- Im automatischen Standortmodus die vollständige Luftlinienstrecke ab Standort bewerten: Portalreihenfolge, gemeinsame Abbau-Endportale und nachträgliche Position bestehender Blocker-Stopps zusammen verbessern. Nur strikt kürzere Varianten bei erhaltenen Aufgaben übernehmen.
+- Jeder Abbau bleibt spätestens vor dem frühesten abhängigen Wurf; offene Richtungen konservativ vor dem ersten Planendportalbesuch. Getrennte Wiederbesuche erhalten.
+- Explizite Abbauziele, vorgemerkte Endportale und manuelle Abbau-Meldungen respektieren; keine Speicherung von Vorschlagsentscheidungen oder GPS, keine Key-/Erledigungsänderung. Aufgaben, nächstes Ziel, Reststrecke und Walk Sim verwenden dieselbe Route.
+- Manuelle Portalreihenfolge und Reihenfolge ohne gültigen Standort nicht optimierend überschreiben. Begrenzte deterministische Suche; bei großen/fehlenden Daten den bisherigen gültigen Vorschlag behalten. Keine Optimalitäts- oder Erreichbarkeitsgarantie.

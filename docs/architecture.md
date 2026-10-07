@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.9
+# Architekturübersicht 0.2.0-beta.10
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -169,8 +169,9 @@ Planportale sind automatisch Arbeitsziele. `getWorkBlockers` verdichtet
 Blocklinks anhand ihrer GUID beziehungsweise normalisierten Endpunkte und
 behält ihre abhängigen Planlinks bei.
 
-`buildWorkPlan` erzeugt eine Nearest-Neighbor-Reihenfolge der Planportale ab
+`buildWorkPlan` erzeugt zunächst eine Nearest-Neighbor-Reihenfolge der Planportale ab
 Standort beziehungsweise deren gespeicherte Reihenfolge im manuellen Modus.
+`buildWorkPlanForOrder` erzeugt daraus einen vollständigen Arbeitsplan.
 Für jeden Blocker gilt der früheste Besuch seines betroffenen Wurfportals als
 Einfügegrenze; bei offener Richtung konservativ der erste Endportalbesuch.
 Vor dieser Grenze werden beide Endportale und alle Einfügepositionen anhand
@@ -422,3 +423,8 @@ updateKeyConsumption verarbeitet normale Scanergebnisse und applyExistingLinkCov
 createWalkSimulation erzeugt eingefrorene Frames aus getWorkPlan. Blocker werden vor den Links eines Stopps virtuell freigegeben; bestätigte Links mit bekannten positiven Keys verbrauchen ausschließlich lokale virtuelle Mengen. Planlinks mit existing bilden die Ausgangskanten. Ein abschließender simulierter Dreiecksrand erzeugt ein geometrisches Polygon; keine Feld-/Linklimitprüfung. showWalkSimulation verwaltet nur Laufzeitzustand und separaten Leaflet-Layer. seek/play rekonstruieren Frames deterministisch; Timer prüfen die Sessionidentität. stop entfernt Timer/Layer und restauriert die Kartenansicht. suppressWalkObservations schützt passive Intel-Erkennung und updateKeyConsumption bis zum nächsten expliziten Scan/Finalcheck, auch vor verspäteten Kartenereignissen der Vorschau. Keine direkte Übernahme von Fan-Fields-Quellcode.
 
 renderWalkSimulation hält renderedIndex, pathLayers und head nur in der Session. Vorwärts aktualisiert es Weg/Marker und ergänzt nur neue Links/Dreiecke; gleiche Frames lassen den Layer und die Kamera unangetastet. Rückwärts wird der korrekte Präfix neu aufgebaut. Leaflet panTo erzwingt Animation auch außerhalb des Viewports (0,9 s, easeLinearity 0,5), außer bei prefers-reduced-motion. stop beendet auch laufende Kartenbewegung vor der Ansichtsrestaurierung. Der Schritttakt bleibt 1,5 s.
+
+### Gemeinsame Routenverbesserung
+Im automatischen Modus mit gültigem Standort bewertet buildWorkPlan die komplette Luftlinie ab Standort. Der ursprüngliche buildWorkPlanForOrder-Lauf ohne Suchziele bleibt Baseline. Kandidaten verändern Portalbesuchsreihenfolge durch Relokation und wählen automatische Blocker-Endpunkte auch gemeinsam für mehrere Blocker. Geteilte Endpunkte werden zusätzlich mit anderen Portalreihenfolgen kombiniert, damit eine Verbesserung nicht an getrennten lokalen Entscheidungen scheitert. Explizite Ziele/einzelne Vormerkungen bleiben geschützt.
+refineBlockerStops verschiebt reine Abbau-Stopps innerhalb ihrer Abhängigkeiten und bündelt gleiche Portale, wenn die Gesamtstrecke sinkt; Planbesuche bleiben eigene Aktionen, Abbau am Wurfstopp erfolgt vor seinen Links. Höchstens zwei Durchgänge und 256 Positionsversuche je Kandidat. Linkaufträge werden für jede Portalreihenfolge neu zugewiesen; offene Richtung bindet Abbau konservativ an den frühesten Planbesuch.
+Die Hauptsuche läuft höchstens vier Durchgänge und 8–160 Kandidaten, angepasst an Portal-/Blockerzahl. Nur Verbesserungen über 1 mm, keine höhere Zahl nicht eingeplanter Aufgaben; Cache identischer Kandidaten, deterministische Reihenfolge. Über 40 Planportale/80 Blocker, ohne GPS, im manuellen Modus oder bei fehlender Plankoordinate keine gemeinsame Suche. Ausgangsvorschlag bleibt erhalten, wenn die Suche keinen besseren gültigen Kandidaten findet. optimization ist reine Laufzeitdiagnose mit evaluations/improved; keine Migration, gespeicherte Reihenfolge/Ziele unverändert.
