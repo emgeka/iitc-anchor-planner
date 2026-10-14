@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.23
+
+### English
+- Always generate a fresh fan from the current polygon instead of silently resuming saved plans or copying old anchors/assignments. Isolate design diagnostics from previous blocker checks. Support 3–200 portals using bounded angular fans for large selections and adjacency-based triangle counting; preserve complete accepted geometry across reload.
+
+### Deutsch
+- Stets frischen Fächer aus dem aktuellen Polygon generieren statt gespeicherte Pläne still fortzusetzen oder alte Anker/Zuordnungen zu kopieren. Entwurfsdiagnosen von vorherigen Blockerchecks trennen. 3–200 Portale mit begrenzten Winkelfächern für große Auswahlen und Nachbarschafts-Dreieckzählung unterstützen; komplette übernommene Geometrie über Refresh erhalten.
+
 ## 0.2.0-beta.22
 
 ### English

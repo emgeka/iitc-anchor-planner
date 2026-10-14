@@ -183,3 +183,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 ## Oberflächen-Trennung
 - Startansicht darf keine Arbeitsaktionen mischen. Ankerportale und Fächerplaner getrennt navigieren; globale Sprache/Datenlöschung nur in Settings. Home erhält Geometrie/Keys und beendet alten Dialogkontext.
 - Nach Änderungen an Panelnavigation/Workspace-Controls node src/test-workspaces-ui.mjs zusätzlich ausführen; CI muss denselben Check enthalten.
+
+- Ein neuer Fächerentwurf darf weder gespeicherte Pins/Zuordnungen/Flächenauswahl noch alte Arbeitsdiagnosen übernehmen. Wiederaufnahme ausschließlich ausdrücklich. Generator-/Persistenzgrenzen gemeinsam pflegen und große Auswahl durch echte Generierung, Übernahme, Reload, Scan und Zeichnung testen.

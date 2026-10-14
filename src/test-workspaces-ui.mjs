@@ -26,11 +26,12 @@ function runtime() {
         const handle = { options, closed: false, dialog(action) { if (action === 'close') { this.closed = true; options.closeCallback?.(); } } }; dialogs.push(handle); return handle; } } };
   vm.runInNewContext(wrapper + '\nwrapper({});', context);
   const ap = context.window.plugin.anchorPlanner;
+  const realOverlays = ap.renderOverlays;
   ap.runtime.panel = panel; ap.state.language = 'en';
   ap.correctPanelPosition = ap.renderOverlays = ap.queueMissingNameRefresh = () => {};
   ap.wireTaskList = () => {};
   ap.scan = () => {};
-  return { ap, panel, context, stored, dialogs, node: id => panelNodes.get(id) || null };
+  return { ap, panel, context, stored, dialogs, realOverlays, node: id => panelNodes.get(id) || null };
 }
 function savedFan(ap) {
   ap.state.fanDesign = { anchors: ['A'], assignments: { B: 'A', C: 'A' },
@@ -60,8 +61,18 @@ function savedFan(ap) {
   const saved = JSON.stringify(ap.state.fanDesign);
   node('ap-home').onclick();
   assert.equal(ap.runtime.workspaceView, 'home');
+  let opened = 0; ap.showFanPlanner = () => { opened++; };
+  ap.runtime.keyUsageError = 'OLD BLOCKER ERROR';
+  ap.state.lastScan = { finalScanTimedOut: true, finalScanComplete: false };
   node('ap-home-fan').onclick();
-  assert.equal(ap.runtime.workspaceView, 'fan'); assert.equal(ap.state.planSource, 'fan');
+  assert.equal(opened, 1, 'Entering fan planning always starts a fresh design');
+  assert.equal(ap.runtime.workspaceView, 'fan'); assert.equal(ap.state.planSource, 'external');
+  assert.equal(node('ap-tasks'), null, 'Old anchor tasks cannot appear in the fresh fan design');
+  assert.ok(!panel.innerHTML.includes('OLD BLOCKER ERROR'));
+  assert.equal(node('ap-final-scan'), null, 'Old blocker-check controls cannot enter the design view');
+  assert.ok(node('ap-fan-use-saved'), 'Stored plans require an explicit action');
+  node('ap-fan-use-saved').onclick();
+  assert.equal(ap.state.planSource, 'fan');
   assert.equal(JSON.stringify(ap.state.fanDesign), saved);
   for (const id of ['ap-fan-design', 'ap-fan-remove-plan', 'ap-scan', 'ap-tasks', 'ap-home']) assert.ok(node(id), id);
   assert.equal(node('ap-tolerance'), null, 'Coordinate matching tolerance does not belong in native fan controls');
@@ -92,7 +103,7 @@ function savedFan(ap) {
   savedFan(ap); ap.renderPanel(); node('ap-home-anchors').onclick();
   const before = ap.runtime.workspaceView;
   context.localStorage.setItem = () => { throw Error('full'); };
-  assert.equal(ap.openWorkspace('fan'), false);
+  assert.equal(ap.switchPlanSource('fan'), false);
   assert.equal(ap.runtime.workspaceView, before);
   assert.equal(ap.state.planSource, 'external');
   ap.showPluginSettings();
@@ -112,4 +123,18 @@ function savedFan(ap) {
   assert.equal(node('ap-home-fan'), null);
   node('ap-collapse').onclick(); assert.ok(node('ap-home-fan'));
 }
-console.log('Workspace UI: pure home choice, isolated anchor/fan controls, empty fan workflow, settings scope, contextual tasks, dialog cleanup, preserved plans and failed navigation passed.');
+{
+  const { ap, realOverlays } = runtime();
+  let cleared = false, htmlCleared = false;
+  ap.runtime.layerGroup = { clearLayers() { cleared = true; } };
+  ap.clearHtmlOverlay = () => { htmlCleared = true; };
+  ap.ensureOverlayLayerVisible = () => { throw Error('Old working overlays cannot be rendered while designing'); };
+  ap.runtime.fanDesigning = true;
+  realOverlays();
+  assert.equal(cleared, true); assert.equal(htmlCleared, true);
+  ap.runtime.stats = { old: { guid: 'old', title: ap.MISSING_TITLE } };
+  ap.runtime.links = [{ blockers: [{ a: 'oldBlockerA', b: 'oldBlockerB', titleA: ap.MISSING_TITLE, titleB: ap.MISSING_TITLE }] }];
+  ap.runtime.fanDraft = { open: true, excluded: {}, portals: [{ guid: 'new', title: ap.MISSING_TITLE }] };
+  assert.deepEqual(Array.from(ap.collectMissingPortalNameGuids()), ['new'], 'Fresh design name loading cannot include old anchor/blocker diagnostics');
+}
+console.log('Workspace UI: pure home choice, isolated anchor/fan controls, fresh design without stale diagnostics/overlays, settings, dialog cleanup and preserved plans passed.');
