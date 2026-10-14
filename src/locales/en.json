@@ -284,12 +284,12 @@
   "next.review": "Review unscheduled work in the full task list.",
   "next.targetKeys": "Keys for {title}: {owned}/{required}",
   "fan.title": "Fan planner",
-  "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+  "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
   "fan.source": "Portals from",
   "fan.source.map": "Loaded map view",
   "fan.source.area": "Draw Tools polygons",
   "fan.load": "Load portals",
-  "fan.count": "Anchor count",
+  "fan.count": "Desired anchor count",
   "fan.suggest": "Suggest anchors",
   "fan.preview": "Preview",
   "fan.apply": "Use plan",
@@ -334,5 +334,10 @@
   "faction.ownHint": "Coordinate removal or flipping with your faction.",
   "faction.enemyHint": "Plan removal at the selected endpoint.",
   "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-  "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+  "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+  "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+  "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+  "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+  "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+  "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
 }

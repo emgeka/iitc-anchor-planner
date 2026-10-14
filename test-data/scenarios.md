@@ -395,9 +395,12 @@ Beispieldaten ersetzt nicht den noch ausstehenden IITC-Praxistest.
 
 ### Vorausgewählte Wurfrichtung
 
-- Bei offener Richtung ist der Vorschlag vom zuerst besuchten Planendportal
-  zum anderen Endportal vorausgewählt und als Vorschlag erkennbar. Reine
-  Blockerbesuche zählen nicht. Ohne Endportalbesuch bleibt die Richtung offen.
+- Bei offener Richtung berücksichtigt der gekennzeichnete Vorschlag den
+  Ziel-Keybestand und reservierten Bedarf bestätigter Würfe im gemeinsamen Plan.
+  Bei gleichwertigen Beständen entscheidet die reguläre Planbesuchsreihenfolge;
+  reine Blockerbesuche zählen nicht. Offene nicht erledigte Planportale bleiben
+  alternative Quellen, auch wenn sie aus der bisherigen Route gefiltert wurden.
+  Ohne gültige offene Quelle bleibt die Richtung offen.
 - Vor Übernahme bleiben Schätzung und Export unverändert. **Vorschlag
   übernehmen** speichert die Richtung und berechnet den Keybedarf am Ziel.
 - Eine andere Richtung wählen, neu laden und neu routen: Die bestätigte
@@ -569,3 +572,20 @@ Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt
 2. Eigener vorhandener Planlink erfüllt; identischer Gegnerlink bleibt offen und erzeugt Entfernungsaufgabe. Keine Keybuchung für Gegner. Neuer eigener Intel-Link danach verbraucht gemäß bestehender Regel genau einen Ziel-Key, kein doppelter Verbrauch. Alte Checkpoint-Entität überschreibt neuere Live-Daten nicht.
 3. Finalcheck pausieren/Reload/Resume: Fraktionsdaten erhalten, ältere Zustände ohne Team unknown. Export faction/relation sprachneutral.
 4. Planvorschau vor/zurück/abspielen, Pan/Zoom und Layer aus/ein: Keybadges bleiben am Portal und im Plugin-Layer, Next-Markierung/Status erhalten, keine Touch-Blockade, keine echten Keys durch Simulation. HTML-Fallback bei Bewegung nachpositionieren. Echte IITC-/Mobile-Bestätigung ausstehend.
+
+## Gewünschte Ankeranzahl (0.2.0-beta.25)
+1. Frisches Polygon mit mehreren räumlichen Gruppen öffnen: eigener Bereich Anker vorschlagen mit gewünschter Ankeranzahl. 1, 2 und mehr eingeben; Feld verlassen bzw. Vorschlagsbutton drücken: neue Auswahl mit genau der gewünschten Gesamtzahl soweit gültig. Geometriefehler bei zu vielen Ankern erklären statt ein Feld zu erfinden.
+2. Bei vorhandener Vorschau nur im Zahlenfeld tippen, noch nicht bestätigen: alte Vorschlagslayer verschwinden, Plan übernehmen gesperrt. Vorschau mit geänderter Zahl muss zuerst frisch vorschlagen; ein direkter Übernahmeversuch darf keine alte Geometrie speichern. Gültige Neuberechnung schaltet nur bei geometrisch gültigem Ergebnis frei.
+3. Leere Eingabe, 0, negatives/gebrochenes N, mehr als aktive Portale minus 1 und über 199: Erklärung, keine stille Korrektur oder Übernahme. Durch Ausschluss dynamische Obergrenze verkleinern. Drei Portale erlauben höchstens zwei Anker als Zahlenwahl, ein feldloser Entwurf bleibt dennoch ungültig.
+4. Zwei Anker manuell festlegen, dritten per manueller Blattzuordnung als Ziel binden: alle Festlegungen dedupliziert mitzählen. Gewünschte Zahl darunter erzeugt Konflikt, keine stille Erhöhung. Größere Anzahl erhält diese Festlegungen und ergänzt nur fehlende automatische Anker. Neues Polygon/neuer Einstieg übernimmt weiterhin keine alten Rollen.
+5. Nach Übernahme/Refresh Geometrie und Ankerzahl erhalten; abgespeicherter Plan bleibt bei ungültigen neuen Zahlen unberührt. Desktop und 360-px-Mobile: Hilfetext, Zahlfeld, Vorschlags-/Vorschau-/Übernahmebuttons, lange Namen und Scrollen erreichbar. Echte IITC-/Mobile-Bestätigung ausstehend.
+
+## Keybewusste Wurfrichtung (0.2.0-beta.25)
+1. Offener Link A–B, Route bevorzugt A → B, Bestand A=1/B=0: B → A vorschlagen, weil der Key am Ziel verbraucht wird. Mit gleichen positiven Beständen Routenpräferenz, reine Blockerbesuche nicht als Planbesuche. Ohne Keys unbekannte Mengen und nachvollziehbarer Fallback, kein erfundener Bestand.
+2. Bestätigten offenen Link C → B mit genau einem vorhandenen B-Key plus unbestätigten A–B verwenden: B-Key zuerst reserviert, bestätigte Richtung erhalten; neuer Vorschlag möglichst nach A. Bereits vorhandene Links reservieren keinen weiteren Key. Wiederholtes Anzeigen/Refresh verändert keinen Bestand.
+3. Zwei unbestätigte Links A–B/A–C bei A=1/B=1/C=0: gemeinsam beide durch bekannte Keys decken, gegebenenfalls früheren Zielvorschlag von A nach B umverteilen. Keine doppelte Reservierung des einzelnen A-Keys. Nach Bestätigung eines Vorschlags neue Gesamtverteilung prüfen.
+4. Unbekannter Zielbestand vs bekannt null/erschöpft: unbekannten Fallback bevorzugen, ohne ihn als verfügbar zu zählen. Sind beide erschöpft/gleichwertig, Route nutzen und Mangel sichtbar lassen. Quelle manuell erledigt oder ohne gültige Koordinaten: nicht vorschlagen; offene nicht erledigte koordinierte Quelle aus runtime.stats zulassen, auch wenn bisher aus Route gefiltert. Ohne geeignete Quelle bleibt Richtung offen.
+5. Bestand ändern/importieren, bestätigte Richtung ändern, Link als bestehend erkennen oder Plan-/Routenquelle wechseln: Cache erneuert Vorschläge. Vor Bestätigung bleibt Keybedarf geschätzt/JSONrichtung null; Vorschlag übernehmen speichert nur Richtung und verändert keine Keys oder Erledigung. Bestätigte Würfe werden nicht automatisch umgedreht.
+6. Über 600 unbestätigte Links bzw. ausgeschöpftes 200.000er-Budget: begrenzter Fallback, keine unendliche Suche/Bestandsdeckungsgarantie. Planvorschau nutzt danach bestehende Bestätigungs-/virtuelle Keyregeln, keine realen Buchungen. Ankerwahl/Fächergeometrie trotz anderer Bestände unverändert. Echte Desktop-/Mobile-Prüfung nach Planübernahme, in Aufgaben und Nächste Aufgabe ausstehend.
+
+Automatisiert über die erweiterten src/test-fan-planner.mjs und src/test-work-plan.mjs sowie bestehende UI-/Keys-/Vorschau-/Locale-/Beta-Buildprüfungen. Die Szenarien verwenden synthetische Geometrie und Bestände; sie belegen keinen echten IITC-Praxistest.

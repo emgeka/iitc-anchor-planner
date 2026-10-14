@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.24
+// @version        0.2.0-beta.25
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261014130000';
+  plugin_info.dateTimeVersion = '20261014140000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.24';
+  ap.VERSION = '0.2.0-beta.25';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -332,12 +332,12 @@ function wrapper(plugin_info) {
       "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
       "next.targetKeys": "Keys für {title}: {owned}/{required}",
       "fan.title": "Fächerplaner",
-      "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Wurfrichtungen bleiben unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
+      "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Unter Aufgaben berücksichtigen Richtungsvorschläge die vorhandenen Keys, bleiben aber unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
       "fan.source": "Portale aus",
       "fan.source.map": "Geladener Kartenausschnitt",
       "fan.source.area": "Draw-Tools-Flächen",
       "fan.load": "Portale laden",
-      "fan.count": "Ankeranzahl",
+      "fan.count": "Gewünschte Ankeranzahl",
       "fan.suggest": "Anker vorschlagen",
       "fan.preview": "Vorschau",
       "fan.apply": "Plan übernehmen",
@@ -382,7 +382,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Entfernung oder Umfärben mit der eigenen Fraktion abstimmen.",
       "faction.enemyHint": "Abbau am gewählten Endportal einplanen.",
       "faction.unknownHint": "Fraktion vor Ort oder mit aktualisierten Intel-Daten prüfen.",
-      "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}"
+      "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}",
+      "fan.countHelp": "1 schlägt einen Anker vor; 2 oder mehr ergeben getrennte Fächer. Manuelle Anker (★) und fest zugeordnete Anker zählen zur Gesamtzahl.",
+      "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
+      "fan.countPinned": "{count} Anker sind manuell oder durch Zuordnungen festgelegt. Gesamtzahl erhöhen oder diese Festlegungen lösen.",
+      "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
+      "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen."
     },
     "en": {
       "language.label": "Language",
@@ -670,12 +675,12 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
       "fan.load": "Load portals",
-      "fan.count": "Anchor count",
+      "fan.count": "Desired anchor count",
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
@@ -720,7 +725,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "es": {
       "language.label": "Idioma",
@@ -1008,7 +1018,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -1058,7 +1068,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "fr": {
       "language.label": "Langue",
@@ -1346,7 +1361,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -1396,7 +1411,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "it": {
       "language.label": "Lingua",
@@ -1684,7 +1704,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -1734,7 +1754,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "ja": {
       "language.label": "言語",
@@ -2022,7 +2047,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -2072,7 +2097,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "pl": {
       "language.label": "Język",
@@ -2360,7 +2390,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -2410,7 +2440,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2698,7 +2733,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -2748,7 +2783,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "ru": {
       "language.label": "Язык",
@@ -3036,7 +3076,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -3086,7 +3126,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3374,7 +3419,7 @@ function wrapper(plugin_info) {
       "next.review": "Review unscheduled work in the full task list.",
       "next.targetKeys": "Keys for {title}: {owned}/{required}",
       "fan.title": "Fan planner",
-      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
+      "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Direction suggestions in Tasks consider available keys but remain unconfirmed. Geometric field counts do not guarantee build order.",
       "fan.source": "Portals from",
       "fan.source.map": "Loaded map view",
       "fan.source.area": "Draw Tools polygons",
@@ -3424,7 +3469,12 @@ function wrapper(plugin_info) {
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
+      "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
+      "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
+      "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
     }
   };
   // AP_LOCALES_END
@@ -4753,19 +4803,99 @@ function wrapper(plugin_info) {
     return ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation');
   };
 
-  ap.getSuggestedLinkDirection = function (link) {
-    if (link.existing) return null;
-    var stop = ap.getWorkPlan().stops.filter(function (item) {
-      return item.planVisit && (item.portal.guid === link.a || item.portal.guid === link.b);
-    })[0];
-    if (!stop) return null;
-    var from = stop.portal.guid;
-    return { from: from, to: from === link.a ? link.b : link.a };
+  ap.getSuggestedLinkDirections = function () {
+    var links = (ap.runtime.links || []).filter(function (link) { return link && !link.existing; });
+    var ranks = Object.create(null), owned = Object.create(null), available = Object.create(null), sources = Object.create(null);
+    var plugin = ap.getKeysPlugin();
+    ap.getWorkPlan().stops.forEach(function (stop, index) {
+      if (stop.planVisit && ranks[stop.portal.guid] === undefined) ranks[stop.portal.guid] = index;
+    });
+    links.forEach(function (link) {
+      [link.a, link.b].forEach(function (guid) {
+        if (Object.prototype.hasOwnProperty.call(owned, guid)) return;
+        owned[guid] = plugin ? ap.getOwnedKeys(guid) : null;
+        available[guid] = owned[guid];
+        var stat = (ap.runtime.stats || {})[guid];
+        sources[guid] = ap.isOpenPlanPortal(stat) && !!ap.workPoint(stat);
+      });
+    });
+    // Explicit open throws have first claim on inventory, even if their source was marked done.
+    links.forEach(function (link) {
+      var direction = ap.getLinkDirection(link);
+      if (direction && available[direction.to] !== null) available[direction.to] = Math.max(0, available[direction.to] - 1);
+    });
+    var signature = JSON.stringify({
+      links: links.map(function (link) { var direction = ap.getLinkDirection(link); return [link.id, link.a, link.b, direction && direction.from]; }).sort(function (a, b) { return String(a[0]).localeCompare(String(b[0])); }),
+      keys: Object.keys(owned).sort().map(function (guid) { return [guid, owned[guid], sources[guid]]; }),
+      route: Object.keys(ranks).sort(function (a, b) { return ranks[a] - ranks[b]; })
+    });
+    var cached = ap.runtime.directionSuggestions;
+    if (cached && cached.signature === signature) return cached.directions;
+    function rank(guid) { return ranks[guid] === undefined ? Infinity : ranks[guid]; }
+    var pending = links.filter(function (link) { return !ap.getLinkDirection(link); }).map(function (link) {
+      var choices = [link.a, link.b].filter(function (from) { return sources[from]; }).map(function (from) {
+        return { from: from, to: from === link.a ? link.b : link.a };
+      }).sort(function (a, b) { return rank(a.from) - rank(b.from) || a.from.localeCompare(b.from); });
+      return { id: link.id, choices: choices };
+    }).sort(function (a, b) {
+      return rank(a.choices[0] && a.choices[0].from) - rank(b.choices[0] && b.choices[0].from) || a.id.localeCompare(b.id);
+    });
+    var assigned = Object.create(null), residents = Object.create(null), directions = Object.create(null), evaluations = 0;
+    var limit = 200000, matching = pending.slice(0, 600);
+    matching.forEach(function (item) {
+      item.candidates = item.choices.filter(function (choice) { return available[choice.to] !== null && available[choice.to] > 0; });
+    });
+    // Capacity matching may move an earlier proposal to its other target, preserving scarce keys.
+    function assign(item, seenItems, seenTargets) {
+      if (seenItems[item.id]) return false;
+      seenItems[item.id] = true;
+      // Take a free alternative before changing another link's preferred route direction.
+      for (var i = 0; i < item.candidates.length; i++) {
+        if (evaluations >= limit) return false;
+        evaluations++;
+        var choice = item.candidates[i], target = choice.to;
+        if (seenTargets[target]) continue;
+        var atTarget = residents[target] || (residents[target] = []);
+        if (atTarget.length < available[target]) {
+          atTarget.push(item); assigned[item.id] = choice; return true;
+        }
+      }
+      for (var k = 0; k < item.candidates.length; k++) {
+        if (evaluations >= limit) return false;
+        evaluations++;
+        var alternate = item.candidates[k], alternateTarget = alternate.to;
+        if (seenTargets[alternateTarget]) continue;
+        seenTargets[alternateTarget] = true;
+        var occupied = residents[alternateTarget];
+        // Prefer preserving earlier route proposals when several assignments can move.
+        for (var j = occupied.length - 1; j >= 0; j--) {
+          if (evaluations >= limit) return false;
+          evaluations++;
+          if (assign(occupied[j], seenItems, seenTargets)) {
+            occupied.splice(j, 1); occupied.push(item); assigned[item.id] = alternate; return true;
+          }
+        }
+      }
+      return false;
+    }
+    matching.forEach(function (item) { assign(item, Object.create(null), Object.create(null)); });
+    pending.forEach(function (item) {
+      // Unknown stock is an uncertain fallback, never an invented zero or covered throw.
+      var fallback = item.choices.filter(function (choice) { return owned[choice.to] === null; })[0] || item.choices[0];
+      if (assigned[item.id] || fallback) directions[item.id] = assigned[item.id] || fallback;
+    });
+    ap.runtime.directionSuggestions = { signature: signature, directions: directions, evaluations: evaluations, limited: pending.length > 600 || evaluations >= limit };
+    return directions;
   };
 
-  ap.taskLinkHtml = function (link, index) {
+  ap.getSuggestedLinkDirection = function (link) {
+    if (!link || link.existing || ap.getLinkDirection(link)) return null;
+    return ap.getSuggestedLinkDirections()[link.id] || null;
+  };
+
+  ap.taskLinkHtml = function (link, index, suggestions) {
     var direction = ap.getLinkDirection(link);
-    var suggestion = !direction && ap.getSuggestedLinkDirection(link);
+    var suggestion = !direction && !link.existing && (suggestions ? suggestions[link.id] || null : ap.getSuggestedLinkDirection(link));
     var titleA = ap.displayPortalTitle(link.titleA), titleB = ap.displayPortalTitle(link.titleB);
     var blockers = ap.getWorkBlockers().filter(function (item) {
       return item.links.some(function (candidate) { return candidate.id === link.id; });
@@ -4805,11 +4935,12 @@ function wrapper(plugin_info) {
   ap.taskListHtml = function () {
     var location = ap.getCurrentUserLocation();
     var plan = ap.getWorkPlan(location);
+    var suggestions = ap.getSuggestedLinkDirections();
     var estimate = ap.getRouteEstimate(location);
     var html = '<div class="ap-task-toolbar"><button id="ap-task-next">' + ap.escapeHtml(ap.t('next.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
-    html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div></details>';
+    html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
@@ -4835,7 +4966,7 @@ function wrapper(plugin_info) {
       if (stop.planVisit) {
         html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
         html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (ap.getOwnedKeys(portal.guid) === null ? '' : ap.getOwnedKeys(portal.guid)) + '"' + (ap.getOwnedKeys(portal.guid) === null ? ' disabled placeholder="?"' : '') + '></label>';
-        stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
+        stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
         html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
       html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button>';
@@ -4846,7 +4977,7 @@ function wrapper(plugin_info) {
     if (plan.unscheduled.length || plan.unassigned.length) {
       html += '<div class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</div>';
       plan.unscheduled.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
-      plan.unassigned.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
+      plan.unassigned.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
     }
     var completed = ap.sortedStats(false).filter(function (portal) { return ap.ensureAnchorState(portal.guid).done; });
     var existing = (ap.runtime.links || []).filter(function (link) { return link.existing; });
@@ -4854,7 +4985,7 @@ function wrapper(plugin_info) {
     if (completed.length || existing.length || manualBlockers.length) {
       html += '<details class="ap-task-history" data-stop="history"><summary>' + ap.escapeHtml(ap.t('tasks.completed')) + '</summary>';
       manualBlockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
-      existing.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link)); });
+      existing.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
       completed.forEach(function (portal) {
         html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '" checked> ' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + ' · ' + ap.escapeHtml(ap.t('tasks.manualDone')) + '</label>';
       });
@@ -5151,6 +5282,26 @@ function wrapper(plugin_info) {
     }
     return { anchors: anchors, evaluations: evaluations };
   };
+  ap.suggestFanDraft = function () {
+    var draft = ap.runtime.fanDraft;
+    if (!draft) return false;
+    var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
+    draft.countError = '';
+    if (portals.length < 3 || portals.length > 200) {
+      ap.previewFanDesign(); return false;
+    }
+    var count = Number(draft.count), max = portals.length - 1;
+    var ids = new Set(portals.map(function (p) { return p.guid; }));
+    var fixed = new Set(draft.pinned.concat(Object.values(draft.assignments).filter(function (guid) { return !!guid; })).filter(function (guid) { return ids.has(guid); }));
+    if (!isFinite(count) || Math.floor(count) !== count || count < 1 || count > max) draft.countError = ap.t('fan.countInvalid', { max: max });
+    else if (count < fixed.size) draft.countError = ap.t('fan.countPinned', { count: fixed.size });
+    if (draft.countError) {
+      ap.clearFanPreview(); draft.preview = null; ap.refreshFanPlanner(); return false;
+    }
+    draft.count = count; draft.countDirty = false;
+    draft.anchors = ap.suggestFanAnchors(portals, count, draft.pinned, draft.assignments).anchors;
+    ap.previewFanDesign(); return true;
+  };
   ap.getFanAreas = function () {
     var seen = new Set();
     return ap.collectDrawToolLayers().filter(ap.isFanAreaLayer).filter(function (layer) {
@@ -5213,7 +5364,7 @@ function wrapper(plugin_info) {
   };
   ap.applyFanDesign = function () {
     var draft = ap.runtime.fanDraft;
-    if (!draft || !draft.preview || draft.preview.errors.length) return false;
+    if (!draft || draft.countDirty || draft.countError || !draft.preview || draft.preview.errors.length) return false;
     if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return false; }
     var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
     var plan = ap.buildFanDesign(portals, draft.anchors, draft.assignments);
@@ -5282,12 +5433,15 @@ function wrapper(plugin_info) {
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
     var sourceKeys = { map: 'fan.source.map', area: 'fan.source.area' };
     ['area', 'map'].forEach(function (source) { html += '<option value="' + source + '"' + (draft.source === source ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(sourceKeys[source])) + '</option>'; });
-    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="199" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
+    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><button id="ap-fan-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button></div>';
     if (draft.source === 'area') {
       html += '<label>' + ap.escapeHtml(ap.t('fan.area')) + ' <select id="ap-fan-area">';
       ap.getFanAreas().forEach(function (area, index) { html += '<option value="' + ap.escapeHtml(area.key) + '"' + (draft.areaKey === area.key ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('fan.areaOption', { index: index + 1, count: ap.getFanCandidates('area', area.key).length })) + '</option>'; });
       html += '</select></label>';
     }
+    var maxAnchors = Math.max(1, Math.min(199, draft.portals.filter(function (p) { return !draft.excluded[p.guid]; }).length - 1));
+    html += '<fieldset class="ap-fan-anchor-options"><legend>' + ap.escapeHtml(ap.t('fan.suggest')) + '</legend><div class="ap-fan-controls"><label for="ap-fan-count">' + ap.escapeHtml(ap.t('fan.count')) + '</label><input id="ap-fan-count" type="number" inputmode="numeric" min="1" max="' + maxAnchors + '" step="1" value="' + ap.escapeHtml(draft.count) + '" aria-describedby="ap-fan-count-help ap-fan-count-feedback"><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button></div><small id="ap-fan-count-help">' + ap.escapeHtml(ap.t('fan.countHelp')) + '</small><p id="ap-fan-count-feedback" class="ap-task-warning">' + ap.escapeHtml(draft.countError || (draft.countDirty ? ap.t('fan.countChanged') : '')) + '</p></fieldset>';
+    html += '<div class="ap-fan-controls"><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-use-saved">' + ap.escapeHtml(ap.t('fan.useSaved')) + '</button>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-clear">' + ap.escapeHtml(ap.t('fan.clear')) + '</button>';
     if (draft.preview) {
@@ -5316,21 +5470,27 @@ function wrapper(plugin_info) {
     if (!draft || !draft.open || !element) return;
     var scroll = element.scrollTop; element.innerHTML = ap.fanPlannerHtml(); element.scrollTop = scroll;
     element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
-    element.querySelector('#ap-fan-count').onchange = function () { draft.count = Math.max(1, Math.min(199, Math.floor(Number(this.value) || 1))); };
+    var countInput = element.querySelector('#ap-fan-count');
+    countInput.value = draft.count;
+    countInput.oninput = function () {
+      draft.count = this.value; draft.countDirty = true; draft.countError = '';
+      ap.clearFanPreview(); draft.preview = null;
+      element.querySelector('#ap-fan-apply').disabled = true;
+      element.querySelector('#ap-fan-count-feedback').textContent = ap.t('fan.countChanged');
+    };
+    countInput.onchange = function () { draft.count = this.value; ap.suggestFanDraft(); };
     element.querySelector('#ap-fan-load').onclick = function () {
       ap.clearFanPreview(); var areas = ap.getFanAreas();
       if (!areas.some(function (area) { return area.key === draft.areaKey; })) draft.areaKey = areas.length ? areas[areas.length - 1].key : '';
       draft.portals = ap.getFanCandidates(draft.source, draft.areaKey); draft.excluded = {}; draft.assignments = {}; draft.anchors = []; draft.pinned = []; draft.preview = null;
-      if (draft.portals.length >= 3 && draft.portals.length <= 200) draft.anchors = ap.suggestFanAnchors(draft.portals, draft.count, [], {}).anchors;
-      ap.previewFanDesign();
+      ap.suggestFanDraft();
     };
     element.querySelector('#ap-fan-suggest').onclick = function () {
-      var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
-      if (portals.length < 3 || portals.length > 200) { window.alert(ap.t('fan.limit')); return; }
-      draft.anchors = ap.suggestFanAnchors(portals, draft.count, draft.pinned, draft.assignments).anchors; ap.previewFanDesign();
+      draft.count = element.querySelector('#ap-fan-count').value;
+      ap.suggestFanDraft();
     };
     element.querySelector('#ap-fan-loadnames').onclick = function () { ap.refreshMissingNames(false); };
-    element.querySelector('#ap-fan-preview').onclick = ap.previewFanDesign;
+    element.querySelector('#ap-fan-preview').onclick = function () { if (draft.countDirty || draft.countError) ap.suggestFanDraft(); else ap.previewFanDesign(); };
     element.querySelector('#ap-fan-apply').onclick = ap.applyFanDesign;
     var areaSelect = element.querySelector('#ap-fan-area');
     if (areaSelect) areaSelect.onchange = function () { draft.areaKey = this.value; element.querySelector('#ap-fan-load').onclick(); };
@@ -5371,6 +5531,7 @@ function wrapper(plugin_info) {
   };
   ap.nextTaskHtml = function () {
     var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
+    var suggestions = ap.getSuggestedLinkDirections();
     // A route origin is orientation, not an executable task.
     var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length; });
     var stop = plan.stops[index];
@@ -5390,7 +5551,7 @@ function wrapper(plugin_info) {
     stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
     stop.links.forEach(function (link) {
       var direction = ap.getLinkDirection(link), target = direction && ap.runtime.stats[direction.to];
-      html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link));
+      html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions);
       if (target) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>';
     });
     if (stop.planVisit) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
@@ -8391,6 +8552,7 @@ function wrapper(plugin_info) {
 #ap-task-list{max-height:calc(100dvh - 180px);overflow:auto;color:#eee;font:13px/1.45 Arial,sans-serif;padding:4px;box-sizing:border-box;overflow-wrap:anywhere}
 #ap-task-list .ap-task-toolbar{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:6px;background:#101923;padding:8px 0;z-index:1}
 #ap-task-list .ap-task-toolbar button{overflow-wrap:normal;padding:5px 6px}
+#ap-fan-planner .ap-fan-anchor-options{min-width:0;box-sizing:border-box;margin:12px 0;padding:10px;border:1px solid #7f9bb6;border-radius:5px}#ap-fan-planner .ap-fan-anchor-options legend{max-width:100%;font-weight:bold;padding:0 5px;color:#eef5ff}#ap-fan-planner .ap-fan-anchor-options .ap-fan-controls{align-items:center}#ap-fan-planner #ap-fan-count{width:80px}#ap-fan-planner #ap-fan-count-help{margin-top:6px}#ap-fan-planner #ap-fan-count-feedback:empty{display:none}
 .ap-blocker-faction{font-weight:bold;margin:4px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}
 #ap-task-list button{min-height:34px;border:1px solid #60758a;border-radius:5px;background:#24364a;color:#eef5ff;padding:5px 9px;cursor:pointer}
 #ap-task-list .ap-task-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;margin-top:8px}

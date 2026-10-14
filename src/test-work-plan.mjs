@@ -195,6 +195,154 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
   assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'An early blocker visit must not become the suggested throwing visit.');
 }
 {
+  const { ap, context } = runtime(); portal(ap, 'A', 0); portal(ap, 'B', 1);
+  const ab = link(ap, 'A', 'B');
+  context.window.plugin.keys = { keys: { A: 3, B: 0 }, addKey() { throw new Error('A proposal must never write inventory'); } };
+  assert.equal(ap.getWorkPlan().stops.map(stop => stop.portal.guid).join(','), 'A');
+  const before = JSON.stringify(ap.state), inventory = JSON.stringify(context.window.plugin.keys.keys);
+  assert.equal(ap.getOwnedKeys('A'), 3);
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'B', 'An available target key can select a source omitted from the current route.');
+  assert.equal(ap.getSuggestedLinkDirection(ab).to, 'A');
+  assert.match(ap.taskLinkHtml(ab, 0), /value="B" selected>Suggested: B → A/);
+  assert.equal(ap.getLinkDirection(ab), null);
+  assert.equal(JSON.stringify(ap.state), before, 'Key-aware preselection never confirms or saves a direction.');
+  assert.equal(JSON.stringify(context.window.plugin.keys.keys), inventory);
+  const cached = ap.runtime.directionSuggestions;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'B');
+  assert.equal(ap.runtime.directionSuggestions, cached, 'Identical snapshots reuse the joint assignment.');
+  context.window.plugin.keys.keys.B = 1;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'When both directions are covered the route remains the tie-break.');
+  assert.notEqual(ap.runtime.directionSuggestions, cached, 'Keys changes invalidate the snapshot without an extra scan.');
+  const routeCache = ap.runtime.directionSuggestions;
+  ap.state.anchors.B.routeOrder = -1; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'B');
+  assert.notEqual(ap.runtime.directionSuggestions, routeCache, 'A changed visit order invalidates direction proposals.');
+  ap.state.anchors.B.done = true; ap.runtime.workPlan = null;
+  context.window.plugin.keys.keys.B = 0;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'A manually completed portal cannot be proposed as a new throwing source.');
+  ap.state.anchors.A.done = true; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab), null);
+}
+{
+  const { ap, context } = runtime(); portal(ap, 'A', 0); portal(ap, 'B', 1);
+  const ab = link(ap, 'A', 'B');
+  context.window.plugin.keys = { keys: { A: 1, B: 0 }, addKey() {} };
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'B');
+  const cache = ap.runtime.directionSuggestions;
+  ap.runtime.stats.B.lat = null; ap.runtime.stats.B.lng = null; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'An omitted alternative source without valid coordinates cannot be suggested despite target keys.');
+  assert.notEqual(ap.runtime.directionSuggestions, cache, 'Coordinate availability changes invalidate source eligibility.');
+  ap.runtime.stats.A.lat = 91; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab), null, 'No valid throwing source leaves the direction open.');
+}
+{
+  const { ap, context } = runtime(); ['A', 'B', 'C', 'D', 'E'].forEach((guid, index) => portal(ap, guid, index));
+  const ab = link(ap, 'A', 'B'); link(ap, 'A', 'C'); link(ap, 'D', 'E'); link(ap, 'B', 'C', [], true);
+  ap.state.anchors.D.done = true; ap.state.anchors.E.done = true;
+  context.window.plugin.keys = { keys: { A: 5, B: 5, C: 5, D: 5, E: 5 }, addKey() {} };
+  const joint = ap.getSuggestedLinkDirections;
+  let jointCalls = 0;
+  ap.getSuggestedLinkDirections = function () { jointCalls++; return joint(); };
+  const table = ap.taskListHtml();
+  assert.equal(jointCalls, 1, 'The entire table shares one inventory/route snapshot, including unresolved and history rows.');
+  assert.ok(table.includes(ap.t('tasks.unresolved')));
+  jointCalls = 0;
+  const next = ap.nextTaskHtml();
+  assert.equal(ap.getWorkPlan().stops[0].links.length, 2);
+  assert.equal(jointCalls, 1, 'A multi-link next task shares one joint proposal snapshot.');
+  assert.ok(next.includes('Suggested: A → B'));
+  jointCalls = 0;
+  assert.ok(ap.taskLinkHtml(ab, 0).includes('Suggested: A → B'));
+  assert.equal(jointCalls, 1, 'The existing two-argument API still computes a current proposal.');
+  jointCalls = 0;
+  ap.taskLinkHtml(ab, 0, {});
+  assert.equal(jointCalls, 0, 'An explicitly prepared empty snapshot does not trigger per-link recomputation.');
+}
+{
+  const { ap, context } = runtime(); ['A', 'C', 'D', 'B'].forEach((guid, index) => portal(ap, guid, index));
+  const links = ['A', 'C', 'D'].map(guid => link(ap, guid, 'B'));
+  context.window.plugin.keys = { keys: { A: 1, B: 1, C: 1, D: 1 }, addKey() {} };
+  const proposals = links.map(item => ap.getSuggestedLinkDirection(item));
+  assert.equal(proposals.filter(item => item.to === 'B').length, 1, 'A common destination key is reserved once across all proposals.');
+  assert.equal(new Set(proposals.map(item => item.to)).size, 3);
+  assert.equal(proposals[0].from, 'A', 'A free alternative preserves an earlier route preference.');
+  const before = JSON.stringify(ap.getSuggestedLinkDirections()), cached = ap.runtime.directionSuggestions;
+  ap.runtime.links.reverse(); ap.runtime.workPlan = null;
+  assert.equal(JSON.stringify(ap.getSuggestedLinkDirections()), before, 'Joint suggestions are independent of drawing/list order.');
+  assert.equal(ap.runtime.directionSuggestions, cached);
+}
+{
+  const { ap, context } = runtime(); ['B', 'A', 'C'].forEach((guid, index) => portal(ap, guid, index));
+  const ab = link(ap, 'A', 'B'), ac = link(ap, 'A', 'C');
+  context.window.plugin.keys = { keys: { A: 1, B: 1, C: 0 }, addKey() {} };
+  assert.equal(ap.getSuggestedLinkDirection(ab).to, 'B', 'Matching can reassign the earlier flexible link instead of consuming the only key for another link.');
+  assert.equal(ap.getSuggestedLinkDirection(ac).to, 'A');
+}
+{
+  const { ap, context } = runtime(); ['A', 'C', 'B', 'D'].forEach((guid, index) => portal(ap, guid, index));
+  const ab = link(ap, 'A', 'B'), cb = link(ap, 'C', 'B'), db = link(ap, 'D', 'B', [], true);
+  direction(ap, ab, 'A'); direction(ap, db, 'D');
+  context.window.plugin.keys = { keys: { A: 0, B: 1, C: 1, D: 0 }, addKey() {} };
+  assert.equal(ap.getSuggestedLinkDirection(cb).to, 'C', 'Explicit open throws reserve their target keys before unconfirmed links.');
+  assert.equal(ap.getSuggestedLinkDirection(ab), null, 'A confirmed direction has no replacement suggestion.');
+  assert.equal(ap.getLinkDirection(ab).from, 'A');
+  ap.state.anchors.A.done = true; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(cb).to, 'C', 'A manually completed source does not release an explicit open link reservation.');
+  ab.existing = true; ap.runtime.workPlan = null;
+  assert.equal(ap.getSuggestedLinkDirection(cb).to, 'B', 'Existing links consume no additional reservation from current inventory.');
+  assert.equal(ap.getSuggestedLinkDirection(db), null);
+}
+{
+  const { ap, context } = runtime(); portal(ap, 'A', 0); portal(ap, 'B', 1);
+  const ab = link(ap, 'A', 'B');
+  context.window.plugin.keys = { keys: { A: null, B: 0 }, addKey() {} };
+  assert.equal(ap.getOwnedKeys('A'), null);
+  assert.equal(ap.getSuggestedLinkDirection(ab).to, 'A', 'An unknown target is an uncertain fallback ahead of a known empty target.');
+  context.window.plugin.keys.keys.B = 1;
+  assert.equal(ap.getSuggestedLinkDirection(ab).to, 'B', 'A covered known target is preferred ahead of uncertain inventory.');
+  context.window.plugin.keys.keys.B = 0;
+  context.window.plugin.keys.keys.A = 0;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'Known shortages on both sides retain the route fallback.');
+  context.window.plugin.keys.keys.A = null; context.window.plugin.keys.keys.B = null;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'Both unknown inventories retain the route fallback.');
+  delete context.window.plugin.keys;
+  assert.equal(ap.getSuggestedLinkDirection(ab).from, 'A', 'Missing Keys integration preserves existing route suggestions.');
+}
+{
+  const pairs = [['A', 'B'], ['B', 'C'], ['C', 'D'], ['D', 'E'], ['E', 'A'], ['A', 'C'], ['B', 'D'], ['C', 'E']];
+  for (let fixture = 0; fixture < 9; fixture++) {
+    const { ap, context } = runtime();
+    const counts = Object.fromEntries(['A', 'B', 'C', 'D', 'E'].map((guid, index) => {
+      portal(ap, guid, index); return [guid, (index * (fixture + 1) + fixture) % 3];
+    }));
+    const links = pairs.map(([a, b]) => link(ap, a, b));
+    context.window.plugin.keys = { keys: counts, addKey() {} };
+    const coverage = targets => {
+      const required = Object.create(null);
+      targets.forEach(guid => { required[guid] = (required[guid] || 0) + 1; });
+      return Object.keys(required).reduce((sum, guid) => sum + Math.min(required[guid], counts[guid]), 0);
+    };
+    let maximum = 0;
+    for (let orientation = 0; orientation < 2 ** pairs.length; orientation++) {
+      maximum = Math.max(maximum, coverage(pairs.map((pair, index) => pair[(orientation >> index) & 1])));
+    }
+    const targets = links.map(item => ap.getSuggestedLinkDirection(item).to);
+    assert.equal(coverage(targets), maximum, 'Joint assignment matches an exhaustive independent capacity oracle on shared cyclic link graphs.');
+  }
+}
+{
+  const { ap, context } = runtime(); portal(ap, 'B', 0);
+  const links = Array.from({ length: 601 }, (_, index) => {
+    const guid = 'A' + String(index).padStart(3, '0'); portal(ap, guid, index / 1000 + 1); return link(ap, guid, 'B');
+  });
+  context.window.plugin.keys = { keys: { B: 601 }, addKey() {} };
+  const suggestions = ap.getSuggestedLinkDirections();
+  assert.equal(Object.keys(suggestions).length, links.length);
+  assert.equal(ap.runtime.directionSuggestions.limited, true, 'Very large external plans retain a bounded joint search and a route fallback.');
+  assert.ok(ap.runtime.directionSuggestions.evaluations <= 200000);
+  assert.equal(context.window.plugin.keys.keys.B, 601);
+}
+{
   const { ap, context, refreshTaskList } = runtime();
   function button(id, open) {
     const row = { hidden: !open }, icon = { textContent: '' };

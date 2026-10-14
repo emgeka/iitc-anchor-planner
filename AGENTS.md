@@ -189,3 +189,8 @@ maßgeblichen Projektsatzes gilt trotzdem.
 ## Blockerfraktionen und Marker
 - Alle physischen Kreuzblocker berücksichtigen, Fraktionen nicht still ausfiltern. Eigene/gegnerische/unbekannte Hinweise aus Intel/PLAYER ableiten; Gegnerverbindungen nicht als eigene erfüllte Würfe oder eigenen Keyverbrauch werten.
 - Key-Statusmarker geographisch verankern und mit Plugin-Layer aufräumen; Vorschau bleibt ohne echte Bestandswirkung. Nach entsprechenden Änderungen node src/test-blockers-overlays.mjs plus relevante Routing-/Verbrauchs-/Vorschautests ausführen.
+
+## Ankeranzahl und keybewusste Richtungen
+- Gewünschte Ankeranzahl als ausdrückliche Ganzzahl behandeln: feste Anker und manuelle Zuordnungsziele mitzählen, Konflikte erklären statt die Anzahl still zu erhöhen. Eingaben invalidieren alte Vorschau/Übernahme; neue Suche bleibt auf den aktuellen Entwurf begrenzt.
+- Richtungsvorschläge bekannte Zielbestände gemeinsam verteilen lassen, bestätigte offene Würfe zuerst reservieren und unbekannt/erschöpft unterscheiden. Vorschläge buchen keine Keys und bestätigen keine Richtung. Offene nicht erledigte Planendportale als mögliche Quelle erhalten; reine Blockerbesuche nicht als Planbesuche werten.
+- Bei Änderungen hierzu test-fan-planner und test-work-plan sowie relevante Keys-/Vorschau-/UI-Prüfungen ausführen. Suchbudgets, Fallbacks und fehlende Baubarkeitsgarantie in Anforderungen, Architektur und bekannten Grenzen gemeinsam pflegen.

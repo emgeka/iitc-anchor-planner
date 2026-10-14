@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.25
+
+### English
+- Make the desired anchor count explicit in the fan planner, regenerate for one or more anchors, and invalidate stale previews on input. Count pinned and assigned anchor targets without silently overriding the requested total. Make open direction suggestions account jointly for Keys stock and confirmed demand, with route order as a tie-break; keep unknown stock distinct and every proposal unconfirmed.
+
+### Deutsch
+- Gewünschte Ankeranzahl im Fächerplaner deutlich anbieten, für einen oder mehrere Anker neu berechnen und alte Vorschauen bei Eingabe verwerfen. Feste und manuell zugeordnete Ankerziele mitzählen, ohne die gewünschte Anzahl still zu überschreiben. Offene Wurfrichtungen gemeinsam anhand von Keybestand und bestätigtem Bedarf vorschlagen; Route entscheidet bei Gleichstand, unbekannter Bestand bleibt unterscheidbar und Vorschläge bleiben unbestätigt.
+
 ## 0.2.0-beta.24
 
 ### English

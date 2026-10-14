@@ -406,4 +406,76 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(result.links.length, 398);
   assert.equal(new Set(result.fields.map(field => field.map(p => p.guid).sort().join('|'))).size, 199);
 }
-console.log('Fan planner: fresh polygon generation with stale saved state, 76/200 portals, persistence/scan/render, name loading, separate workspaces and preserved inventory passed.');
+{
+  const { ap, context, storage } = runtime();
+  const portals = [...triangle, p('D', 10, 0), p('E', 12, 0), p('F', 11, 1), p('G', 20, 0), p('H', 22, 0), p('I', 21, 1)];
+  draft(ap, portals);
+  const before = JSON.stringify(ap.state);
+  let controls = new Map(), markup = '';
+  const element = { scrollTop: 0,
+    get innerHTML() { return markup; },
+    set innerHTML(html) {
+      markup = html;
+      controls = new Map([...html.matchAll(/<[^>]*\bid="([^"]+)"[^>]*>/g)].map(match => [
+        '#' + match[1], { value: match[0].match(/\bvalue="([^"]*)"/)?.[1] || '', disabled: /\bdisabled\b/.test(match[0]), textContent: '' }
+      ]));
+    },
+    querySelector(key) { return controls.get(key) || null; }, querySelectorAll() { return []; }
+  };
+  context.document.getElementById = id => id === 'ap-fan-planner' ? element : null;
+  ap.getFanCandidates = () => portals;
+  ap.refreshFanPlanner();
+  assert.ok(markup.includes('<fieldset class="ap-fan-anchor-options">'));
+  assert.equal(controls.get('#ap-fan-count').value, 1);
+  for (const count of [2, 3, 1]) {
+    const input = controls.get('#ap-fan-count');
+    input.value = String(count); input.oninput();
+    assert.equal(ap.runtime.fanDraft.preview, null, 'Editing count invalidates old geometry immediately');
+    assert.ok(!ap.runtime.fanDraft.layer);
+    assert.equal(controls.get('#ap-fan-apply').disabled, true);
+    assert.equal(ap.applyFanDesign(), false);
+    controls.get('#ap-fan-suggest').onclick(); // No change/blur event required.
+    assert.equal(ap.runtime.fanDraft.anchors.length, count, 'Use the exact freshly entered count');
+    assert.equal(ap.runtime.fanDraft.preview.anchors.length, count);
+    assert.deepEqual(json(ap.runtime.fanDraft.preview.errors), []);
+    assert.ok(ap.runtime.fanDraft.preview.fields.length);
+  }
+  ap.runtime.fanDraft.pinned = ['D']; ap.runtime.fanDraft.assignments = { B: 'A' };
+  let input = controls.get('#ap-fan-count'); input.value = '1'; input.onchange();
+  assert.ok(ap.runtime.fanDraft.countError.includes('2 anchors'));
+  assert.equal(ap.runtime.fanDraft.preview, null);
+  assert.deepEqual(json(ap.runtime.fanDraft.pinned), ['D']);
+  assert.deepEqual(json(ap.runtime.fanDraft.assignments), { B: 'A' });
+  input = controls.get('#ap-fan-count'); input.value = '2'; input.onchange();
+  assert.equal(ap.runtime.fanDraft.anchors.length, 2);
+  assert.ok(ap.runtime.fanDraft.anchors.includes('D') && ap.runtime.fanDraft.anchors.includes('A'));
+  for (const value of ['', '0', '-1', '1.5', '9', 'Infinity']) {
+    input = controls.get('#ap-fan-count'); input.value = value; input.oninput();
+    controls.get('#ap-fan-suggest').onclick();
+    assert.ok(ap.runtime.fanDraft.countError.includes('between 1 and 8'));
+    assert.equal(ap.runtime.fanDraft.preview, null);
+    assert.ok(controls.get('#ap-fan-apply').disabled);
+    controls.get('#ap-fan-preview').onclick();
+    assert.equal(ap.applyFanDesign(), false, 'Invalid count cannot accept an older preview');
+  }
+  ap.runtime.fanDraft.excluded.I = true;
+  input = controls.get('#ap-fan-count'); input.value = '8'; input.onchange();
+  assert.ok(ap.runtime.fanDraft.countError.includes('between 1 and 7'), 'Range follows included portals');
+  input = controls.get('#ap-fan-count'); input.value = '3'; input.oninput();
+  controls.get('#ap-fan-load').onclick();
+  assert.equal(ap.runtime.fanDraft.anchors.length, 3, 'Portal reload retains requested count while clearing manual choices');
+  assert.equal(JSON.stringify(ap.state), before, 'Anchor proposals never persist geometry or directions');
+  assert.equal(storage.size, 0);
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+  for (const language of Object.keys(ap.LOCALES)) {
+    ap.state.language = language;
+    assert.ok(!ap.fanPlannerHtml().includes('{max}'));
+    assert.ok(!ap.fanPlannerHtml().includes('{count}'));
+  }
+  assert.equal(ap.applyFanDesign(), true);
+  assert.equal(ap.state.fanDesign.anchors.length, 3, 'Explicit acceptance preserves the selected anchor count');
+  ap.load();
+  assert.equal(ap.getNativeFanPlan().anchors.length, 3, 'Multiple selected anchors survive refresh');
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+}
+console.log('Fan planner: user-selected anchor counts, manual constraints, fresh polygon generation, 76/200 portals, persistence/scan/render and preserved inventory passed.');
