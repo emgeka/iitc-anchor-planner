@@ -179,3 +179,7 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Fächerplaner startet mit einfacher Polygon-Auswahl; fehlende Fläche erklären, mehrere Flächen explizit auswählen. Nur übernommene Auswahlränder im externen Scan ausschließen. Polygon-/Modusänderungen mit test-fan-planner und Export-/Locale-Prüfungen abdecken.
 
 - Namensauflösung muss offene Fächerentwürfe unabhängig vom aktiven Arbeitsplan berücksichtigen; Requests deduplizieren, gespeicherte Portalnamen erhalten und fehlende Daten ehrlich kennzeichnen.
+
+## Oberflächen-Trennung
+- Startansicht darf keine Arbeitsaktionen mischen. Ankerportale und Fächerplaner getrennt navigieren; globale Sprache/Datenlöschung nur in Settings. Home erhält Geometrie/Keys und beendet alten Dialogkontext.
+- Nach Änderungen an Panelnavigation/Workspace-Controls node src/test-workspaces-ui.mjs zusätzlich ausführen; CI muss denselben Check enthalten.

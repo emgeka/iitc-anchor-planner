@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.21
+# Bekannte Grenzen in 0.2.0-beta.22
 
 ## Portalzuordnung und Namen
 
@@ -272,3 +272,7 @@ Bestand und Portal-/Linkeinstellungen werden beim Planwechsel geteilt, nicht kop
 ## Fächernamen beta.21
 Nutzer meldet zahlreiche unbekannte Namen; Screenshot aus beta.20 zeigt Polygon mit 76 Portalen, wenige aus vorheriger Planung benannt, übrige unbekannt. Ursache: Namensloader erfasste nur aktiven Arbeitsplan/Blocker, nicht den noch offenen Entwurf; Snapshots wurden nicht aktualisiert. Beta.21 deckt Entwürfe und persistente Namen ab. Alle 76 Namen können angefragt werden, auch wenn Geometrie wegen Grenze 60 nicht berechnet wird. Kleineres Polygon oder Ausschließen nötig; näher zoomen verkleinert ein festes Polygon nicht.
 Detailanfragen bleiben sequentiell mit 900-ms-Pause und können für viele Portale dauern. Nicht verfügbare Intel-Namen bleiben ehrlich unbekannt, manuell erneut laden. Keine Garantie vollständiger Intel-/Netzwerkantworten. Automatisierte 76-GUID-/Persistenz-/Dedup-Tests bestanden, Nutzer-/Mobile-Bestätigung ausstehend.
+
+## Oberfläche beta.22
+Start zeigt jetzt nur zwei Funktionskarten plus globale Einstellungen; nach Refresh muss die gewünschte Arbeitsansicht geöffnet werden. Gespeicherte aktive Quelle/Geometrie bleibt erhalten, die zuletzt geöffnete Seite wird nicht gespeichert. Globale Datenlöschung entfernt beide lokalen Kontexte; ausdrücklich separater Einstellungsdialog, Draw Tools und Keys unverändert.
+Return Home pausiert Finalcheck und beendet Vorschau/Importdialoge. Nur einmal geöffnete aktuelle Dialoghandles werden geschlossen; IITC-Varianten ohne JQuery-Dialoghandle verwenden defensive Fallbacks. Bestehende Bestand-/Routen-/Key-Logik bleibt gemeinsam. Kein echter Screenshot-/Mobile-Praxistest der neuen Oberfläche; automatisierte DOM-/Navigations-/Kontexttests und bestehende Verhaltensprüfungen erforderlich.

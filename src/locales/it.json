@@ -286,7 +286,6 @@
   "fan.title": "Fan planner",
   "fan.help": "First draw a Draw Tools polygon around the desired portals. The fan planner evaluates loaded portals inside it. Select the desired polygon if there are several. Each fan portal belongs to one anchor; manual anchors (★) remain pinned. Proposals are drawn directly. Use plan activates the native plan for tasks and routing; the anchor-portal plan is preserved. Directions remain unconfirmed. Geometric field counts do not guarantee build order.",
   "fan.source": "Portals from",
-  "fan.source.plan": "Current plan",
   "fan.source.map": "Loaded map view",
   "fan.source.area": "Draw Tools polygons",
   "fan.load": "Load portals",
@@ -314,6 +313,15 @@
   "fan.areaRequired": "First draw a simple selection polygon with Draw Tools, then load portals. Polygons with holes are unsupported.",
   "fan.useSaved": "Use saved fan plan",
   "workspace.anchors": "Anchor portals",
-  "workspace.activeAnchors": "Active plan: Anchor portals (Draw Tools)",
-  "workspace.activeFan": "Active plan: Fan plan"
+  "ui.choose": "Choose a function",
+  "ui.home": "Home",
+  "ui.settings": "Settings",
+  "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
+  "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
+  "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+  "ui.design": "Design fans",
+  "ui.editFan": "Edit fan plan",
+  "ui.refreshFan": "Refresh plan",
+  "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
+  "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
 }

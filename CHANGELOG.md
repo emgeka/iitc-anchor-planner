@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.22
+
+### English
+- Replace the mixed panel with a function chooser and separate Anchor portals/Fan planner working views. Scope actions to their plan, move language/global clearing to Settings, close stale working dialogs on Home, and identify task/preview/export context. Preserve both geometries and Keys.
+
+### Deutsch
+- Gemischtes Panel durch Funktionsauswahl und getrennte Arbeitsansichten Ankerportale/Fächerplaner ersetzen. Aktionen dem Plan zuordnen, Sprache/globale Löschung in Einstellungen verschieben, alte Arbeitsdialoge bei Start schließen und Kontext in Aufgaben/Vorschau/Export zeigen. Beide Geometrien und Keys erhalten.
+
 ## 0.2.0-beta.21
 
 ### English
