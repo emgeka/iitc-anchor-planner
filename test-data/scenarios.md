@@ -563,3 +563,9 @@ Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt
 2. Alte Anchor-Blockercheck-/Keyfehler und paused Finalcheck im Zustand: Entwurf zeigt ausschließlich eigene Auswahl-/Generierungsdiagnosen, keine alten Arbeitsaufgaben oder Fehler. Gespeicherten Fächer verwenden nur ausdrücklich; dann dessen Arbeitsplan sichtbar.
 3. 76-Portale übernehmen, Refresh, Scan ohne geladene Marker, Links/Felder erneut zeichnen: keine Trunkierung nach 60. Bis 200 gültige Portale unterstützen, 201 korrekt abweisen. Große Winkel-Fächer auf Kreuzungen und doppelte Dreiecke prüfen.
 4. Manueller Anker-/Zuordnungswechsel gilt nur im aktuellen Entwurf. Abbrechen/Start erhält alte Pläne; nächstes Öffnen beginnt neu. Namen wiederverwenden ohne Rollenübernahme. Echter IITC-/Mobile-Test mit Nutzerpolygon ausstehend.
+
+## Fraktionen und Portalmarker (0.2.0-beta.24)
+1. Spieler RES/ENL, Kreuzlinks eigene/gegnerische/Machina/ohne Team: Tasks/Next/Blockerliste/Farben/Kurzsummen richtig, alle weiterhin blockiert. Eigene Hinweise zur Abstimmung; unbekannt nie als sicher eigene/gegnerische klassifizieren.
+2. Eigener vorhandener Planlink erfüllt; identischer Gegnerlink bleibt offen und erzeugt Entfernungsaufgabe. Keine Keybuchung für Gegner. Neuer eigener Intel-Link danach verbraucht gemäß bestehender Regel genau einen Ziel-Key, kein doppelter Verbrauch. Alte Checkpoint-Entität überschreibt neuere Live-Daten nicht.
+3. Finalcheck pausieren/Reload/Resume: Fraktionsdaten erhalten, ältere Zustände ohne Team unknown. Export faction/relation sprachneutral.
+4. Planvorschau vor/zurück/abspielen, Pan/Zoom und Layer aus/ein: Keybadges bleiben am Portal und im Plugin-Layer, Next-Markierung/Status erhalten, keine Touch-Blockade, keine echten Keys durch Simulation. HTML-Fallback bei Bewegung nachpositionieren. Echte IITC-/Mobile-Bestätigung ausstehend.

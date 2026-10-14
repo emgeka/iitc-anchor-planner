@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.23
+### Beta-Test: 0.2.0-beta.24
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -241,3 +241,7 @@ Fehlende Portalnamen werden automatisch vor Übernahme geladen, auch bei großer
 Start pausiert den Finalcheck, beendet die Planvorschau und schließt Arbeitsdialoge einschließlich laufender Importe, damit kein alter Kontext stehen bleibt. Aufgaben, Nächste Aufgabe, Planvorschau und Export nennen die aktive Funktion. Bestand und Portal-/Linkeinstellungen bleiben gemeinsam. Vor Rückwechsel zu Stable exportieren; Stable ignoriert eigene Geometrie und Planquellen-Metadaten. Von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert, eigenständig implementiert.
 
 Beta.23 behebt die ungewollte Übernahme alter Anker/Zuordnungen und Flächenauswahl. Frische Entwürfe zeigen keine alten Einsatz-/Blockercheck-Fehler des Ankerplans. Über 60 Portalen nutzt der Generator einen begrenzten Winkel-Fächer statt aller Blattpaare; Dreiecke werden über Nachbarschaften gezählt. Der Vorschlag ersetzt den gespeicherten Plan erst bei ausdrücklicher Übernahme.
+
+### Blocker-Fraktionen und verankerte Portalmarker (beta.24)
+Blockeraufgaben zeigen eigene/gegnerische/unbekannte Zugehörigkeit und Resistance/Enlightened/Machina. Eigene Entfernung/Umfärbung abstimmen; gegnerischen Abbau am gewählten Endportal einplanen. Farben: eigene gelb, gegnerische rot, unbekannte grau. Alle kreuzenden Fraktionen bleiben Blocker, keine wird still ignoriert. Ein bekannter gegnerischer Link auf der geplanten Verbindung wird zur Entfernungsaufgabe statt als eigener fertiger Wurf zu zählen und zieht keine eigenen Keys ab. Zähler stehen im Blockerbereich; Fraktionsdaten bleiben nach pausiertem Finalcheck und im JSONexport erhalten. Fehlende Daten bleiben unbekannt; bei unbekannter Zugehörigkeit bleibt die bisherige Existenzwertung erhalten.
+Key-Statusmarker sind jetzt geografisch verankerte Leaflet-Marker statt fixer Pixelpositionen im Kartencontainer. Sie bleiben während animierter Strecke, Verschieben und Zoom am Portal. Sichtbarkeit und Statusaktualisierung bleiben erhalten; der Fallback für eingeschränkte Laufzeiten folgt move-Ereignissen. Grundlage ist die reguläre [Leaflet Marker-/DivIcon-API](https://leafletjs.com/reference.html#divicon).

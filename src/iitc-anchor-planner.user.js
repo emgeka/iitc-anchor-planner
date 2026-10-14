@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.23
+// @version        0.2.0-beta.24
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261014120000';
+  plugin_info.dateTimeVersion = '20261014130000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.23';
+  ap.VERSION = '0.2.0-beta.24';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -186,7 +186,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpunkt von {count} Blocklinks",
       "blocker.openPlanPortal": "bereits offenes Planportal",
       "blocker.donePlanPortal": "Planportal erledigt",
-      "blocker.mapLegend": "Karte: Plan pink · Blocker türkis · Kreuzung gelb",
+      "blocker.mapLegend": "Magenta: blockierter Planlink. Blocker: eigene gelb, gegnerische rot, unbekannte grau. Schnittpunkte gelb. Alle Blocker bleiben vor den abhängigen Würfen zu entfernen.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "vorhanden: {count}",
@@ -371,7 +371,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Neuen Fächer entwerfen",
       "ui.refreshFan": "Plan aktualisieren",
       "ui.settingsHelp": "Diese Einstellungen gelten für das gesamte Plugin. Daten löschen entfernt den gespeicherten Fächerplan sowie Portal- und Linkeinstellungen. Draw-Tools-Zeichnungen und der Bestand im Keys-Plugin bleiben erhalten.",
-      "ui.fanScanHelp": "Plan aktualisieren, um den übernommenen Fächerplan und seine Aufgaben zu prüfen."
+      "ui.fanScanHelp": "Plan aktualisieren, um den übernommenen Fächerplan und seine Aufgaben zu prüfen.",
+      "faction.own": "Eigener Blocker",
+      "faction.enemy": "Gegnerischer Blocker",
+      "faction.unknown": "Fraktion/Bezug unbekannt",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "Keine Fraktionsdaten",
+      "faction.ownHint": "Entfernung oder Umfärben mit der eigenen Fraktion abstimmen.",
+      "faction.enemyHint": "Abbau am gewählten Endportal einplanen.",
+      "faction.unknownHint": "Fraktion vor Ort oder mit aktualisierten Intel-Daten prüfen.",
+      "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}"
     },
     "en": {
       "language.label": "Language",
@@ -513,7 +524,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpoint of {count} blocking links",
       "blocker.openPlanPortal": "already an open plan portal",
       "blocker.donePlanPortal": "plan portal completed",
-      "blocker.mapLegend": "Map: plan pink · blockers cyan · intersections yellow",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "existing: {count}",
@@ -698,7 +709,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "es": {
       "language.label": "Idioma",
@@ -840,7 +862,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extremo de {count} enlaces bloqueadores",
       "blocker.openPlanPortal": "ya es un portal abierto del plan",
       "blocker.donePlanPortal": "portal del plan completado",
-      "blocker.mapLegend": "Mapa: plan rosa · bloqueadores cian · cruces amarillos",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Llaves {owned}/{required}",
       "row.links": "Enlaces: {count}",
       "row.existing": "existentes: {count}",
@@ -1025,7 +1047,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "fr": {
       "language.label": "Langue",
@@ -1167,7 +1200,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extrémité de {count} liens bloqueurs",
       "blocker.openPlanPortal": "déjà un portail ouvert du plan",
       "blocker.donePlanPortal": "portail du plan terminé",
-      "blocker.mapLegend": "Carte : plan rose · bloqueurs cyan · croisements jaunes",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Clés {owned}/{required}",
       "row.links": "Liens : {count}",
       "row.existing": "existants : {count}",
@@ -1352,7 +1385,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "it": {
       "language.label": "Lingua",
@@ -1494,7 +1538,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Estremo di {count} link blocker",
       "blocker.openPlanPortal": "già portale aperto del piano",
       "blocker.donePlanPortal": "portale del piano completato",
-      "blocker.mapLegend": "Mappa: piano rosa · blocker ciano · incroci gialli",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Chiavi {owned}/{required}",
       "row.links": "Link: {count}",
       "row.existing": "esistenti: {count}",
@@ -1679,7 +1723,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "ja": {
       "language.label": "言語",
@@ -1821,7 +1876,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "ブロックリンク {count}本の端点",
       "blocker.openPlanPortal": "未完了の計画ポータル",
       "blocker.donePlanPortal": "完了済み計画ポータル",
-      "blocker.mapLegend": "地図: 計画=桃 · ブロッカー=水色 · 交点=黄",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "キー {owned}/{required}",
       "row.links": "リンク: {count}",
       "row.existing": "既存: {count}",
@@ -2006,7 +2061,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "pl": {
       "language.label": "Język",
@@ -2148,7 +2214,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Koniec {count} linków blokujących",
       "blocker.openPlanPortal": "już otwarty portal planu",
       "blocker.donePlanPortal": "ukończony portal planu",
-      "blocker.mapLegend": "Mapa: plan różowy · blokery turkusowe · przecięcia żółte",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Klucze {owned}/{required}",
       "row.links": "Linki: {count}",
       "row.existing": "istniejące: {count}",
@@ -2333,7 +2399,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2475,7 +2552,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Ponta de {count} links bloqueadores",
       "blocker.openPlanPortal": "já é portal aberto do plano",
       "blocker.donePlanPortal": "portal do plano concluído",
-      "blocker.mapLegend": "Mapa: plano rosa · bloqueadores ciano · cruzamentos amarelos",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Chaves {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "existentes: {count}",
@@ -2660,7 +2737,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "ru": {
       "language.label": "Язык",
@@ -2802,7 +2890,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Конец {count} блокирующих линков",
       "blocker.openPlanPortal": "уже открытый портал плана",
       "blocker.donePlanPortal": "портал плана выполнен",
-      "blocker.mapLegend": "Карта: план розовый · блокеры голубые · пересечения жёлтые",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "Ключи {owned}/{required}",
       "row.links": "Линки: {count}",
       "row.existing": "есть: {count}",
@@ -2987,7 +3075,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3129,7 +3228,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "{count} 条阻挡 Link 的端点",
       "blocker.openPlanPortal": "已是未完成计划 Portal",
       "blocker.donePlanPortal": "已完成计划 Portal",
-      "blocker.mapLegend": "地图：计划粉色 · 阻挡青色 · 交点黄色",
+      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
       "row.keys": "钥匙 {owned}/{required}",
       "row.links": "Link：{count}",
       "row.existing": "已有：{count}",
@@ -3314,7 +3413,18 @@ function wrapper(plugin_info) {
       "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+      "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+      "faction.own": "Friendly blocker",
+      "faction.enemy": "Enemy blocker",
+      "faction.unknown": "Faction/relation unknown",
+      "faction.res": "Resistance",
+      "faction.enl": "Enlightened",
+      "faction.mac": "Machina",
+      "faction.noData": "No faction data",
+      "faction.ownHint": "Coordinate removal or flipping with your faction.",
+      "faction.enemyHint": "Plan removal at the selected endpoint.",
+      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
     }
   };
   // AP_LOCALES_END
@@ -4682,6 +4792,7 @@ function wrapper(plugin_info) {
     var titleA = ap.portalDisplayLabel(blocker.a, blocker.titleA, blocker.latlngA);
     var titleB = ap.portalDisplayLabel(blocker.b, blocker.titleB, blocker.latlngB);
     var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + ap.escapeHtml(titleA + ' ↔ ' + titleB) + '</div><div class="ap-task-muted">' + ap.escapeHtml(ap.t(item.manual ? 'tasks.manualCheck' : 'tasks.observed')) + '</div>';
+    html += ap.blockerFactionHtml(blocker, true);
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.frees', { count: item.links.length })) + ': ' + item.links.map(function (link) { return ap.escapeHtml(ap.displayPortalTitle(link.titleA) + ' ↔ ' + ap.displayPortalTitle(link.titleB)); }).join(', ') + '</div>';
     html += '<label>' + ap.escapeHtml(ap.t('tasks.target')) + ' <select class="ap-task-target" aria-label="' + ap.escapeHtml(ap.t('tasks.target')) + '" data-blocker="' + index + '">';
     [['', ap.t('tasks.automatic')], [blocker.a, titleA], [blocker.b, titleB]].forEach(function (option) {
@@ -4995,9 +5106,10 @@ function wrapper(plugin_info) {
     if (!result.fields.length) result.errors.push('fan.noFields');
     var existing = ap.collectExistingLinkIds(portals.map(function (p) { return Object.assign({}, p, { latlng: ap.workPoint(p) }); }));
     result.links.forEach(function (edge) {
-      edge.existing = !!existing.map[edge.id];
+      edge.existing = ap.isUsableExistingLink(existing.map[edge.id]);
       edge.blockers = existing.list.filter(function (real) {
-        return ap.properSegmentsIntersect(edge.a, edge.b, real.latlngA, real.latlngB);
+        if (!real.latlngA || !real.latlngB) return false;
+        return ap.factionRelation(real) === 'enemy' && edge.id === ap.normalizedLinkId(real.a, real.b) || ap.properSegmentsIntersect(edge.a, edge.b, real.latlngA, real.latlngB);
       }).length;
       if (edge.existing) result.existing++;
       if (edge.blockers) result.blocked++;
@@ -5548,6 +5660,44 @@ function wrapper(plugin_info) {
     return a && b ? { a: a, b: b, source: 'data-e6' } : null;
   };
 
+  ap.normalizeFaction = function (value) {
+    if (value == null || value === '') return 'unknown';
+    var text = String(value).toUpperCase();
+    if (['R', 'RES', 'RESISTANCE'].indexOf(text) !== -1) return 'res';
+    if (['E', 'ENL', 'ENLIGHTENED'].indexOf(text) !== -1) return 'enl';
+    if (['M', 'MAC', 'MACHINA'].indexOf(text) !== -1) return 'mac';
+    var keys = [['TEAM_RES', 'res'], ['TEAM_ENL', 'enl'], ['TEAM_MAC', 'mac']];
+    for (var i = 0; i < keys.length; i++) if (window[keys[i][0]] != null && String(value) === String(window[keys[i][0]])) return keys[i][1];
+    return 'unknown';
+  };
+  ap.linkFaction = function (link) {
+    var options = link && link.options || {}, data = options.data || {};
+    var faction = ap.normalizeFaction(options.team);
+    return faction === 'unknown' ? ap.normalizeFaction(data.team) : faction;
+  };
+  ap.factionRelation = function (link) {
+    var faction = ap.normalizeFaction(link && link.faction), own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
+    if (faction === 'unknown' || ['res', 'enl'].indexOf(own) === -1) return 'unknown';
+    return faction === own ? 'own' : 'enemy';
+  };
+  ap.isUsableExistingLink = function (link) { return !!link && ap.factionRelation(link) !== 'enemy'; };
+  ap.blockerColor = function (link) { return { own: '#ffbf47', enemy: '#ff5b68', unknown: '#9faebc' }[ap.factionRelation(link)]; };
+  ap.blockerFactionHtml = function (link, hint) {
+    var relation = ap.factionRelation(link), faction = ap.normalizeFaction(link && link.faction);
+    var relations = { own: 'faction.own', enemy: 'faction.enemy', unknown: 'faction.unknown' };
+    var labels = { res: 'faction.res', enl: 'faction.enl', mac: 'faction.mac', unknown: 'faction.noData' };
+    var hints = { own: 'faction.ownHint', enemy: 'faction.enemyHint', unknown: 'faction.unknownHint' };
+    return '<div class="ap-blocker-faction ap-blocker-faction-' + relation + '">' + ap.escapeHtml(ap.t(relations[relation]) + ' · ' + ap.t(labels[faction])) +
+      (hint ? '<small>' + ap.escapeHtml(ap.t(hints[relation])) + '</small>' : '') + '</div>';
+  };
+  ap.blockerFactionSummary = function (blockers) {
+    var counts = { own: 0, enemy: 0, unknown: 0 }, seen = new Set();
+    (blockers || []).forEach(function (blocker) {
+      var id = blocker.guid || ap.normalizedLinkId(blocker.a, blocker.b); if (seen.has(id)) return;
+      seen.add(id); counts[ap.factionRelation(blocker)]++;
+    });
+    return ap.t('faction.summary', counts);
+  };
   ap.collectExistingLinkIds = function (portals) {
     var map = {};
     var list = [];
@@ -5577,6 +5727,8 @@ function wrapper(plugin_info) {
         a: pair.a,
         b: pair.b,
         source: pair.source,
+        faction: ap.linkFaction(link),
+        timestamp: Number(link.options && (link.options.timestamp || link.options.data && link.options.data.timestamp)) || 0,
         titleA: portalA.title || '',
         titleB: portalB.title || '',
         latlngA: coords && coords.a || portalA.latlng || null,
@@ -5601,13 +5753,19 @@ function wrapper(plugin_info) {
       if (!link || !link.a || !link.b) return;
       var id = ap.normalizedLinkId(link.a, link.b);
       var seenKey = link.guid || id;
-      if (!seenKey || target.seen[seenKey]) return;
+      if (!seenKey) return;
+      if (target.seen[seenKey]) {
+        var prior = target.list.find(function (entry) { return (entry.guid || ap.normalizedLinkId(entry.a, entry.b)) === seenKey; });
+        if (prior && ap.normalizeFaction(link.faction) !== 'unknown') prior.faction = ap.normalizeFaction(link.faction);
+        return;
+      }
       target.seen[seenKey] = true;
       target.list.push(link);
       if (!target.map[id]) {
         target.map[id] = link;
         target.count++;
       }
+      else if ((Number(link.timestamp) || 0) >= (Number(target.map[id].timestamp) || 0)) target.map[id] = link;
     });
     // collectExistingLinkIds does not expose the GUIDs it could not parse, so
     // overlapping views cannot deduplicate that subset reliably. Keep the
@@ -5694,6 +5852,8 @@ function wrapper(plugin_info) {
           a: link.a,
           b: link.b,
           source: link.source,
+          faction: ap.normalizeFaction(link.faction),
+          timestamp: Number(link.timestamp) || 0,
           titleA: link.titleA || '',
           titleB: link.titleB || '',
           latlngA: link.latlngA ? { lat: Number(link.latlngA.lat), lng: Number(link.latlngA.lng) } : null,
@@ -5726,7 +5886,7 @@ function wrapper(plugin_info) {
     var existingPlannedLinks = 0;
     var blockedPlannedLinks = 0;
     links.forEach(function (link) {
-      var existing = !!existingInfo.map[link.id];
+      var existing = ap.isUsableExistingLink(existingInfo.map[link.id]);
       link.existing = existing;
       link.existingGuid = existing ? existingInfo.map[link.id].guid : '';
       link.blockers = ap.findBlockersForPlannedLink(link, existingInfo.list || []);
@@ -5997,18 +6157,11 @@ function wrapper(plugin_info) {
     var blockers = [];
     (existingLinks || []).forEach(function (real) {
       if (!real || !real.latlngA || !real.latlngB) return;
-      // Links mit gemeinsamem Portal dürfen sich am Portal treffen und sind keine Crosslinks.
-      if (real.a === planned.a || real.a === planned.b || real.b === planned.a || real.b === planned.b) return;
-      if (ap.properSegmentsIntersect(planned.latlngA, planned.latlngB, real.latlngA, real.latlngB)) {
-        blockers.push({
-          guid: real.guid,
-          a: real.a,
-          b: real.b,
-          titleA: real.titleA || '',
-          titleB: real.titleB || '',
-          latlngA: real.latlngA || null,
-          latlngB: real.latlngB || null
-        });
+      var same = ap.normalizedLinkId(real.a, real.b) === (planned.id || ap.normalizedLinkId(planned.a, planned.b));
+      var shared = real.a === planned.a || real.a === planned.b || real.b === planned.a || real.b === planned.b;
+      if (same && ap.factionRelation(real) === 'enemy' || !shared && ap.properSegmentsIntersect(planned.latlngA, planned.latlngB, real.latlngA, real.latlngB)) {
+        blockers.push({ guid: real.guid, a: real.a, b: real.b, faction: ap.normalizeFaction(real.faction),
+          titleA: real.titleA || '', titleB: real.titleB || '', latlngA: real.latlngA, latlngB: real.latlngB });
       }
     });
     return blockers;
@@ -6682,7 +6835,7 @@ function wrapper(plugin_info) {
     var candidates = {};
     var selections = ap.state.blockerRoutePortals || {};
 
-    function addEndpoint(guid, fallbackTitle, latlng, blockerId) {
+    function addEndpoint(guid, fallbackTitle, latlng, blockerId, blocker) {
       if (!guid || !latlng || !isFinite(Number(latlng.lat)) || !isFinite(Number(latlng.lng))) return;
       if (!candidates[guid]) {
         candidates[guid] = {
@@ -6691,21 +6844,22 @@ function wrapper(plugin_info) {
           lat: Number(latlng.lat),
           lng: Number(latlng.lng),
           blockerIds: {},
+          blockersById: {},
           isPlanPortal: !!(ap.runtime.stats && ap.runtime.stats[guid]),
           isOpenPlanPortal: ap.isOpenPlanPortal(ap.runtime.stats && ap.runtime.stats[guid]),
           selected: false,
           distance: null
         };
       }
-      candidates[guid].blockerIds[blockerId] = true;
+      candidates[guid].blockerIds[blockerId] = true; candidates[guid].blockersById[blockerId] = blocker;
     }
 
     (ap.runtime.links || []).forEach(function (plannedLink) {
       if (!plannedLink || plannedLink.existing || !plannedLink.blocked) return;
       (plannedLink.blockers || []).forEach(function (blocker, blockerIndex) {
         var blockerId = blocker.guid || ap.normalizedLinkId(blocker.a, blocker.b) || (plannedLink.id + ':' + blockerIndex);
-        addEndpoint(blocker.a, blocker.titleA, blocker.latlngA, blockerId);
-        addEndpoint(blocker.b, blocker.titleB, blocker.latlngB, blockerId);
+        addEndpoint(blocker.a, blocker.titleA, blocker.latlngA, blockerId, blocker);
+        addEndpoint(blocker.b, blocker.titleB, blocker.latlngB, blockerId, blocker);
       });
     });
 
@@ -6909,7 +7063,7 @@ function wrapper(plugin_info) {
         var linkId = ap.normalizedLinkId(a.guid, b.guid);
         if (seenLinks[linkId]) { duplicateLinks++; continue; }
         seenLinks[linkId] = true;
-        var existing = !!existingLinkIds[linkId];
+        var existing = ap.isUsableExistingLink(existingLinkIds[linkId]);
         if (existing) existingPlannedLinks++;
         var plannedLink = {
           id: linkId,
@@ -7207,6 +7361,7 @@ function wrapper(plugin_info) {
   ap.clearHtmlOverlay = function () {
     var overlay = ap.runtime.htmlOverlay;
     if (overlay) overlay.innerHTML = '';
+    ap.runtime.htmlBadgeLocations = [];
   };
 
   ap.statusText = function (status) {
@@ -7219,7 +7374,22 @@ function wrapper(plugin_info) {
     return 'KEY';
   };
 
+  ap.positionHtmlStatusMarkers = function () {
+    if (!window.map || !window.map.latLngToContainerPoint) return;
+    (ap.runtime.htmlBadgeLocations || []).forEach(function (item) {
+      var point = window.map.latLngToContainerPoint(item.latlng);
+      item.badge.style.left = Math.round(point.x) + 'px'; item.badge.style.top = Math.round(point.y) + 'px';
+    });
+  };
   ap.addHtmlStatusMarker = function (stat, status, title, isNext) {
+    if (typeof L.marker === 'function' && typeof L.divIcon === 'function' && ap.runtime.layerGroup) {
+      var color = ap.statusColor(status), classes = 'ap-map-badge ap-map-badge-' + (status && status.key || 'missing') + (isNext ? ' ap-map-badge-next' : '');
+      var icon = L.divIcon({ className: 'ap-map-status-icon', iconSize: [32, 32], iconAnchor: [16, 16],
+        html: '<div class="' + ap.escapeHtml(classes) + '" style="left:16px;top:16px;border-color:' + color + '!important">' + ap.escapeHtml(ap.statusText(status)) + '</div>' });
+      L.marker(L.latLng(stat.lat, stat.lng), ap.withOverlayPane({ icon: icon, interactive: false, clickable: false, keyboard: false,
+        title: String(title || '').replace(/<br\s*\/?>/gi, ' · ').replace(/<[^>]+>/g, '') })).addTo(ap.runtime.layerGroup);
+      ap.runtime.overlayCount++; return;
+    }
     var overlay = ap.ensureHtmlOverlay();
     if (!overlay || !window.map || !window.map.latLngToContainerPoint) return;
     var point = window.map.latLngToContainerPoint(L.latLng(stat.lat, stat.lng));
@@ -7228,11 +7398,13 @@ function wrapper(plugin_info) {
     badge.className = 'ap-map-badge ap-map-badge-' + (status && status.key ? status.key : 'missing') + (isNext ? ' ap-map-badge-next' : '');
     badge.style.left = Math.round(point.x) + 'px';
     badge.style.top = Math.round(point.y) + 'px';
-    badge.style.borderColor = color;
+    if (badge.style.setProperty) badge.style.setProperty('border-color', color, 'important');
+    else badge.style.borderColor = color;
     badge.style.boxShadow = '0 0 0 2px rgba(0,0,0,.95), 0 0 8px rgba(0,0,0,.95)';
     badge.title = String(title || '').replace(/<br\s*\/?>/gi, ' · ').replace(/<[^>]+>/g, '');
     badge.textContent = ap.statusText(status);
     overlay.appendChild(badge);
+    (ap.runtime.htmlBadgeLocations || (ap.runtime.htmlBadgeLocations = [])).push({ badge: badge, latlng: L.latLng(stat.lat, stat.lng) });
     ap.runtime.overlayCount++;
   };
 
@@ -7270,7 +7442,7 @@ function wrapper(plugin_info) {
           renderedBlockers[blockerId] = true;
           try {
             var blockerPath = L.polyline([blocker.latlngA, blocker.latlngB], {
-              color: '#00e5ff', weight: 5, opacity: 0.95, interactive: false
+              color: ap.blockerColor(blocker), weight: 5, opacity: 0.95, interactive: false
             });
             blockerPath.options = ap.withOverlayPane(blockerPath.options);
             blockerPath.addTo(ap.runtime.layerGroup);
@@ -7300,7 +7472,7 @@ function wrapper(plugin_info) {
         selectedPlannedPath.options = ap.withOverlayPane(selectedPlannedPath.options);
         selectedPlannedPath.addTo(ap.runtime.layerGroup);
         var selectedBlockerPath = L.polyline([blocker.latlngA, blocker.latlngB], {
-          color: '#00e5ff', weight: 7, opacity: 1, interactive: false
+          color: ap.blockerColor(blocker), weight: 7, opacity: 1, interactive: false
         });
         selectedBlockerPath.options = ap.withOverlayPane(selectedBlockerPath.options);
         selectedBlockerPath.addTo(ap.runtime.layerGroup);
@@ -7644,6 +7816,8 @@ function wrapper(plugin_info) {
         },
         blockingLinks: link.blockers.map(function (blocker) {
           return {
+            faction: ap.normalizeFaction(blocker.faction),
+            relation: ap.factionRelation(blocker),
             a: ap.blockerEndpointExport(blocker.a, blocker.titleA, blocker.latlngA),
             b: ap.blockerEndpointExport(blocker.b, blocker.titleB, blocker.latlngB)
           };
@@ -8082,6 +8256,7 @@ function wrapper(plugin_info) {
     if (blockerWorklist.length || blockedLinks.length) {
       var selectedBlockerPortals = blockerWorklist.filter(function (candidate) { return candidate.selected; }).length;
       html += '<details class="ap-blocker-section"' + (blockerSectionOpen ? ' open' : '') + '><summary>' + ap.escapeHtml(ap.t('blocker.title')) + ' (' + ap.escapeHtml(ap.tp('blocker.blockLink', blockingLinkCount)) + (blockerWorklist.length ? ' · ' + ap.escapeHtml(ap.tp('blocker.endPortal', blockerWorklist.length)) : '') + (selectedBlockerPortals ? ' · ' + ap.escapeHtml(ap.t('blocker.selected', { count: selectedBlockerPortals })) : '') + ')</summary>';
+      html += '<div class="ap-blocker-hint">' + ap.escapeHtml(ap.blockerFactionSummary(blockedLinks.reduce(function (out, link) { return out.concat(link.blockers); }, []))) + '</div>';
       if (blockerWorklist.length) {
         blockerWorklist.forEach(function (candidate) {
           var blockerDistance = ap.formatDistance(candidate.distance);
@@ -8091,6 +8266,7 @@ function wrapper(plugin_info) {
           else html += '<label class="ap-blocker-work-select"><input type="checkbox" class="ap-blocker-route-check" data-guid="' + ap.escapeHtml(candidate.guid) + '"' + (candidate.selected ? ' checked' : '') + '> <b>' + ap.escapeHtml(candidate.title) + '</b></label>';
           html += '</div>';
           html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.tp('blocker.endpointOf', candidate.blockerCount)) + (candidate.isOpenPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.openPlanPortal')) : (candidate.isPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.donePlanPortal')) : '')) + '<span class="ap-blocker-work-distance">' + (blockerDistance ? ' · ' + ap.escapeHtml(blockerDistance) + ' ' + ap.escapeHtml(ap.t('route.aerial')) : '') + '</span></div>';
+          html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.blockerFactionSummary(Object.values(candidate.blockersById))) + '</div>';
           html += '<div class="ap-blocker-work-actions"><button class="ap-blocker-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-blocker-actions">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div></div>';
         });
       }
@@ -8215,6 +8391,7 @@ function wrapper(plugin_info) {
 #ap-task-list{max-height:calc(100dvh - 180px);overflow:auto;color:#eee;font:13px/1.45 Arial,sans-serif;padding:4px;box-sizing:border-box;overflow-wrap:anywhere}
 #ap-task-list .ap-task-toolbar{position:sticky;top:0;display:flex;flex-wrap:wrap;gap:6px;background:#101923;padding:8px 0;z-index:1}
 #ap-task-list .ap-task-toolbar button{overflow-wrap:normal;padding:5px 6px}
+.ap-blocker-faction{font-weight:bold;margin:4px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}
 #ap-task-list button{min-height:34px;border:1px solid #60758a;border-radius:5px;background:#24364a;color:#eef5ff;padding:5px 9px;cursor:pointer}
 #ap-task-list .ap-task-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:12px;margin-top:8px}
 #ap-task-list .ap-task-col-number{width:42px}
@@ -8269,7 +8446,7 @@ function wrapper(plugin_info) {
 .ap-missing{color:#ff9f43}.ap-partial{color:#f5d76e}.ap-ready{color:#ff6ad5}.ap-existing{color:#bdbdbd}.ap-done{color:#eee}.ap-badge.ap-missing{border-color:#ff9f43}.ap-badge.ap-partial{border-color:#f5d76e}.ap-badge.ap-ready{border-color:#ff6ad5}.ap-badge.ap-existing{border-color:#bdbdbd}.ap-badge.ap-done{border-color:#eee}.ap-next-target{display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid #444;background:#1c2530;color:#fff}.ap-next-target span{flex:1}.ap-next-target .ap-next-distance,.ap-next-target .ap-route-remaining{color:#9fd0ff}.ap-next-target .ap-route-remaining{font-size:11px}.ap-next-target a{padding:4px 7px;background:#333;color:#f0d16b;border:1px solid #777;border-radius:3px;text-decoration:none}.ap-next-complete{color:#ddd}.ap-route-number{display:inline-block;min-width:22px;color:#aaa}.ap-map-badge-next{box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.95),0 0 12px rgba(255,255,255,.9)!important}.ap-move-up,.ap-move-down{min-width:28px}\
 .ap-action-label{margin-top:10px;font-weight:bold;color:#ddd}.ap-share-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}.ap-share-grid-single{grid-template-columns:1fr}.ap-share-grid a,.ap-share-grid button{display:block;padding:6px;background:#222;color:#f0d16b;border:1px solid #666;border-radius:4px;text-align:center;text-decoration:none}.ap-share-grid .ap-share-main{color:#fff;font-weight:bold;border-color:#aaa}\
 .ap-export-tabs{display:flex;gap:6px;margin-bottom:8px}.ap-export-tab{padding:6px 10px!important}.ap-export-tab-active{background:#555!important;color:#fff!important}.ap-export-text,.ap-export-json{width:100%;height:320px;box-sizing:border-box;font-family:monospace;font-size:12px;background:#111;color:#eee;border:1px solid #666}.ap-export-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.ap-export-actions button{padding:6px 10px;background:#222;color:#f0d16b;border:1px solid #666;border-radius:4px}\
-.ap-map-html-overlay{position:absolute!important;left:0!important;top:0!important;right:0!important;bottom:0!important;z-index:2500!important;pointer-events:none!important;overflow:visible!important}.ap-map-badge{position:absolute!important;transform:translate(-50%,-50%)!important;min-width:24px!important;height:24px!important;padding:0 3px!important;border-radius:13px!important;border:3px solid #ff9f43!important;background:rgba(0,0,0,.88)!important;color:#fff!important;font:bold 10px/24px Arial,sans-serif!important;text-align:center!important;white-space:nowrap!important;box-sizing:border-box!important;text-shadow:0 1px 2px #000!important;z-index:2501!important}.ap-map-badge-done{font-size:14px!important}.ap-map-badge-ready{font-size:14px!important}.ap-map-badge-partial{font-size:13px!important}\
+.ap-map-status-icon{background:transparent!important;border:0!important;pointer-events:none!important}.ap-map-html-overlay{position:absolute!important;left:0!important;top:0!important;right:0!important;bottom:0!important;z-index:2500!important;pointer-events:none!important;overflow:visible!important}.ap-map-badge{position:absolute!important;transform:translate(-50%,-50%)!important;min-width:24px!important;height:24px!important;padding:0 3px!important;border-radius:13px!important;border:3px solid #ff9f43!important;background:rgba(0,0,0,.88)!important;color:#fff!important;font:bold 10px/24px Arial,sans-serif!important;text-align:center!important;white-space:nowrap!important;box-sizing:border-box!important;text-shadow:0 1px 2px #000!important;z-index:2501!important}.ap-map-badge-done{font-size:14px!important}.ap-map-badge-ready{font-size:14px!important}.ap-map-badge-partial{font-size:13px!important}\
 @media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);font-size:12px}#iitc-anchor-planner.ap-positioned{right:auto;width:calc(100vw - 10px)}}\
 ').appendTo('head');
   };
@@ -8315,6 +8492,7 @@ function wrapper(plugin_info) {
           ap.renderPanel();
         }
       });
+      window.map.on('move', ap.positionHtmlStatusMarkers);
       window.map.on('zoomend moveend resize', function () {
         if (!ap.runtime.enabled) return;
         ap.renderOverlays();

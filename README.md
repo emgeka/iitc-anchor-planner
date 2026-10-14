@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.23
+### Beta testing: 0.2.0-beta.24
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -230,3 +230,7 @@ Missing portal names load automatically before acceptance, including oversized s
 Returning Home pauses Final check, stops Plan preview and closes working dialogs (including imports) to prevent stale context. Tasks, Next task, Plan preview and exports identify their active function. Inventory and per-portal/per-link settings remain shared. Export before switching to stable, which ignores native geometry and plan-source metadata. Inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/), implemented independently.
 
 Beta.23 fixes unintended restoration of previous fan anchors/assignments and polygon selection. Fresh drafts do not display old anchor-plan readiness or blocker-check errors. Above 60 portals, a bounded angular fan avoids all leaf pairs; geometric triangle counting uses adjacency. A generated proposal remains separate from the saved plan until explicit acceptance.
+
+### Blocker factions and fixed portal badges (beta.24)
+Blocker tasks show friendly/enemy/unknown relation and Resistance/Enlightened/Machina faction. Friendly removal/flipping needs coordination; enemy removal is planned at the chosen endpoint. Colours: friendly amber, enemy red, unknown grey. All crossing factions remain blockers; no team is silently ignored. A known enemy link on the planned pair is a removal task, not an already-completed friendly throw, and never debits your Keys. Counts appear in the blocker panel; faction metadata survives paused Final check and JSON export. Missing data stays unknown; legacy existing-link handling remains when relation cannot be determined.
+Portal key-status badges now use geographic Leaflet markers instead of fixed container pixels, so they remain attached during animated travel, pan and zoom. Group visibility and status updates are preserved; an unsupported-runtime HTML fallback follows move events. Native marker placement uses the standard [Leaflet Marker/DivIcon API](https://leafletjs.com/reference.html#divicon).

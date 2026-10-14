@@ -138,7 +138,7 @@
   "blocker.endpointOf.other": "{count} 条阻挡 Link 的端点",
   "blocker.openPlanPortal": "已是未完成计划 Portal",
   "blocker.donePlanPortal": "已完成计划 Portal",
-  "blocker.mapLegend": "地图：计划粉色 · 阻挡青色 · 交点黄色",
+  "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
   "row.keys": "钥匙 {owned}/{required}",
   "row.links": "Link：{count}",
   "row.existing": "已有：{count}",
@@ -323,5 +323,16 @@
   "ui.editFan": "Design a new fan",
   "ui.refreshFan": "Refresh plan",
   "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
-  "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
+  "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
+  "faction.own": "Friendly blocker",
+  "faction.enemy": "Enemy blocker",
+  "faction.unknown": "Faction/relation unknown",
+  "faction.res": "Resistance",
+  "faction.enl": "Enlightened",
+  "faction.mac": "Machina",
+  "faction.noData": "No faction data",
+  "faction.ownHint": "Coordinate removal or flipping with your faction.",
+  "faction.enemyHint": "Plan removal at the selected endpoint.",
+  "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+  "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}"
 }

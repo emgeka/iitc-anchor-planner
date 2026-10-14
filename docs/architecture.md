@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.23
+# Architekturübersicht 0.2.0-beta.24
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 325 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 336 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -477,3 +477,8 @@ showWorkspaceHome pausiert Finalcheck, closeWorkspaceDialogs stoppt Walk/entfern
 openWorkspace(fan) setzt runtime.fanDesigning und öffnet immer showFanPlanner. Gespeicherter Fächer wird nur über switchPlanSource(fan) ausdrücklich wieder aktiv; Übernahme und Quellenwechsel beenden fanDesigning. showFanPlanner nutzt neuesten gültigen Ring statt selectionAreaKey, beginnt count=1/pinned=[]/assignments={}, berechnet automatisch Anker und Vorschau. Bekannte Namen bleiben GUID-genau wiederverwendbar, keine alten Rollen/Portale/Geometrien werden kopiert.
 renderPanel delegiert fanDesigning an Entwurfs-Landing statt Anzeige des alten aktiven Plans. Alte state.lastScan/finalScanProgress/Keydiagnosen bleiben gespeichert, werden dort nicht ausgegeben. collectMissingPortalNameGuids beschränkt einen frischen Entwurf auf dessen nicht ausgeschlossene Portale. Home beendet fanDesigning; nächster Entwurf beginnt frisch.
 Build-/Load-/UI-Grenze 200. normalizeFanDesign erhält maximal 200 Portale/Anker, 600 Kanten und 1200 Dreiecke (erzeugtes geradlinig planares Netz liegt darunter). Bis 60 Portale bleibt längenpriorisierte Blattpaar-Kandidatensuche; darüber sortieren Blätter nach Winkel zum Anker und versuchen nur benachbarte Paare inklusive Ringschluss, weiterhin globaler Kreuzungs-/Überlappungsschutz. Dreiecke aus gemeinsamen Nachbarn akzeptierter Kanten zählen statt kubischer Vertex-Schleifen. Greedy-Ankersuche Budget min(100,max(3,floor(600/n))); Sampling und Distanz-Fallback unverändert. Kein Feldmaximum/Ingress-Bauordnungsversprechen.
+
+### Fraktionen und native Statusmarker beta.24
+normalizeFaction verarbeitet kanonische res/enl/mac, Intel-Codes R/E/M, volle Namen und verfügbare IITC-TEAM-Konstanten; nicht numerisch raten. linkFaction priorisiert options.team, fällt auf data.team zurück. factionRelation wertet PLAYER.team aus; ohne bekannte Spieler-/Linkfraktion unknown. collectExistingLinkIds erfasst faction/timestamp, persistFinalScanProgress behält beide, mergeExistingLinkInfo ergänzt bekannte Metadaten und bevorzugt jüngere Entität desselben Portalpaars.
+isUsableExistingLink verwirft bekannte Gegnerlinks, erhält unbekannte Legacy-Existenzwertung. Scan, Coverage und Fächervorschlag teilen Regel. findBlockersForPlannedLink nimmt neben echten Kreuzungen auch identische Gegnerverbindungen als Blocker auf; andere gemeinsam endende Links weiterhin keine Kreuzung. Die bestehende Verbrauchslogik sieht Gegnerlinks nicht als bestehende eigene Würfe. Blockermetadaten werden in Tasks, Next, Panel-Zählern und farbiger Linie gezeigt; Export ergänzt faction/relation. Routenwahl/Abhängigkeiten bleiben geometrisch und zählen alle Fraktionen.
+addHtmlStatusMarker verwendet L.marker/L.divIcon am LatLng mit iconAnchor [16,16], passiven Optionen und Plugin-Pane; LayerGroup übernimmt Move/Zoom/Hide/Cleanup. Statusbadge liegt im Icon zentriert, dynamische Borderfarbe mit inline !important gegen alte CSS-Shorthand-Regel. Alte HTML-Container nur als Fallback; htmlBadgeLocations wird bei clear geleert, move-Event berechnet deren Position laufend neu statt nur bei moveend. Normaler Status-Refresh bleibt bei bestehenden Daten-/Endereignissen.
