@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.21
+# Architekturübersicht 0.2.0-beta.22
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 317 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 325 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -467,3 +467,8 @@ Panel bietet getrennte Workspace-Buttons mit aktivem Status, gespeicherter Fäch
 ### Namensauflösung beta.21
 getFanCandidates ergänzt nur fehlende Titel geladener ausgewählter GUIDs aus gespeicherter Geometrie, letztem Entwurf, Stats und Bookmarks; keine zusätzlichen Auswahlportale oder Koordinatenzuordnung. previewFanDesign plant queueMissingNameRefresh auch bei ungültiger/zu großer Auswahl. collectMissingPortalNameGuids betrachtet offene, nicht ausgeschlossene Entwurfsportale und aktiven nativen Plan zusätzlich zu Stats/Blockern.
 updatePortalTitle aktualisiert Entwurf, gespeicherte Snapshots und geplante/Blocker-Linktitel; persistente Änderungen werden gespeichert, Routencache invalidiert. Native Scan ergänzt bekannte gespeicherte Namen bei titelarmen geladenen Markern. nameRefreshQueued verhindert doppelte Timer, nameLoader bündelt GUIDs mit seen-Set in einer dynamischen sequentiellen Queue. Während eines Laufs neu benötigte GUIDs ergänzen; nicht mehr relevante oder inzwischen bekannte GUIDs überspringen. Fehlgeschlagene GUIDs nicht endlos neu anfordern, manueller Namen-laden-Button kann später neu versuchen. Pause 900 ms nach jeder Detailantwort; Dialog/Tasks schrittweise aktualisieren, Panel/Overlays am Ende.
+
+### Getrennte Start-/Arbeitsansichten beta.22
+runtime.workspaceView (home/anchors/fan) ist Sessionzustand, getrennt von persistentem planSource. renderPanel delegiert Home und leeren Fächerbereich vor der Routenberechnung an renderWorkspaceLanding; die Startseite rendert keine aktiven Planaktionen. openWorkspace aktiviert externe bzw. gespeicherte native Quelle über switchPlanSource. Ohne gespeicherten Fächer öffnet es die leere Fächeransicht mit Entwurf. Übernahme setzt fan und schließt Arbeitsdialoge; fehlgeschlagene Speicherung verändert keine Ansicht.
+Die vorhandene Plan-/Aufgabenanzeige wird erst im gewählten Kontext verwendet. Externe Ansicht enthält Toleranz, native Ansicht Design/Entfernen und Plan aktualisieren. Gegenbereich-Aktionen entfallen; Fächerquelle aktueller Plan aus Dropdown entfernt, loaded-map/Polygon bleiben. Globale Sprache/Datenlöschung liegen in showPluginSettings. Neue CSS-Karten, Rücknavigation und 40-px-Mindesthöhe für Navigation.
+showWorkspaceHome pausiert Finalcheck, closeWorkspaceDialogs stoppt Walk/entfernt Vorschau und schließt gespeicherte JQuery-Dialoghandles für Entwurf/Aufgaben/Next/Walk/Export/Keys/Portalaktionen defensiv. Import-closeCallback cancelt Verarbeitung wie bisher. Kontextdialogtitel nennen Quelle; stale Task-closeCallback zusätzlich token-gesichert. Geometrie/Keys werden nicht durch Home gelöscht; planSource bleibt persistent.

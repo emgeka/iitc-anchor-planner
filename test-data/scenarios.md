@@ -550,3 +550,10 @@ Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt
 2. Source/Polygon wechseln oder Portal ausschließen/schließen während Ladefolge: nicht mehr relevante GUIDs überspringen; neues Polygon ergänzt benötigte GUIDs. Detailfehler bleiben unbekannt ohne endlose automatische Wiederholung.
 3. GUID-genaue Bookmarks, gespeicherte und gerade erkannte Namen wiederverwenden; keine zusätzlichen ungeladenen Bookmark-Portale in Auswahl. Übernahme/Refresh bei namenarmem Intel erhält Titel; geplante Linktitel, Aufgaben und Export stimmen überein. Keys/Geometrie/Erledigung unverändert.
 4. Bei 76 bleibt Grenze 60: kleinere Fläche oder gezielt ausschließen. Echtes IITC mit großer Auswahl und mobilem Scrollen prüfen; Nutzerbestätigung ausstehend.
+
+## Startseite und getrennte Oberfläche (0.2.0-beta.22)
+1. Refresh mit gespeichertem Fächer: Startseite mit zwei Karten; kein Scan/Finalcheck/Aufgaben/Keys/Routing/Entwurf. Einstellungen separat: Sprache und allgemeine Datenlöschung, Erklärung der globalen Wirkung.
+2. Ankerportale wählen: nur externe Planaktionen, Toleranz/Tasks/Keys/Route; kein Fächerentwurf/-Entfernen. Start → Fächerplaner: eigener gespeicherter Plan ohne Neuberechnung, Kontextkopf und Bearbeiten/Aktualisieren/Entfernen; keine Toleranz oder Ankerplan-Quelle. Beide Geometrien und Bestand erhalten.
+3. Ohne nativen Plan: leere Fächeransicht/Entwurf, keine externen Aufgaben. Übernahme aktiviert Arbeitsansicht, Abbrechen/Home erhalten ursprünglichen Plan. Speicherung scheitert: Quelle/Seite erhalten.
+4. Aufgaben/Next/Vorschau/Export nennen Quelle. Start mit offenem Arbeitsdialog schließt ihn; laufender Import cancelt, Vorschau stoppt, Finalcheck pausiert mit erhaltenem Fortschritt. Kein alter Dialog bei Wechsel in anderen Bereich.
+5. 360-px-Mobile: Karten, Rücknavigation, Collapse/Expand, Popup-Scroll und eigene Arbeitsaktionen prüfen. Alle 10 Sprachen ohne rohe Platzhalter. Echte IITC-/Mobile-Bestätigung ausstehend.

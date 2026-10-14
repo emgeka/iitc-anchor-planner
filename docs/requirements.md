@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.21
+# Anforderungen für Entwicklungsstand 0.2.0-beta.22
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -317,3 +317,8 @@ Vorschläge direkt zeichnen und ohne Draw Tools übernehmen. Optionalen eigenen 
 
 ## Fächerportal-Namen (0.2.0-beta.21)
 Alle enthaltenen nicht ausgeschlossenen Fächerportale in die automatische Namensauflösung aufnehmen, unabhängig vom aktiven Ankerplan und unabhängig von der 60-Portal-Geometriegrenze. Bekannte GUID-genaue Titel aus Bookmarks/Entwurf/Plan nutzen, keine ungeladenen Bookmarks zur Auswahl hinzufügen. Dialog schrittweise aktualisieren, Retry erreichbar halten, doppelte parallele Requests vermeiden. Übernommene Namen speichern; unvollständiges Intel darf sie nicht verdrängen. Keine Änderung an Keys, Geometrie oder Erledigungen durch Namensauflösung.
+
+## Eindeutig getrennte Oberfläche (0.2.0-beta.22)
+- Startansicht ausschließlich Funktionswahl Ankerportale/Fächerplaner sowie globale Einstellungen; keine vermischten Scan-/Aufgaben-/Bestands-/Routing-/Entwurfsoptionen. Getrennte Arbeitsansichten mit Überschrift und Start-Navigation.
+- Ankerportalbereich ohne Fächeraktionen. Fächerbereich ohne externe Planquelle oder Koordinatentoleranz; ohne akzeptierten nativen Plan keine externen Arbeitsaufgaben anzeigen. Sprache und allgemeine Datenlöschung nur globaler Einstellungsdialog. Bestand bleibt gemeinsam.
+- Eintritt aktiviert passende Quelle bei erhaltenen Geometrien. Home darf Pläne nicht löschen; Preview stoppen/Finalcheck pausieren und alte Arbeitsdialoge schließen. Aufgaben/Vorschau/Export mit Kontexttitel. Refresh startet in Funktionswahl, unabhängig von gespeichertem Plan. Fehlgeschlagener Quellenwechsel erhält vorherige Ansicht. Touch-taugliche Karten und Rücknavigation.

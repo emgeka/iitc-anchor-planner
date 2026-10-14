@@ -286,7 +286,6 @@
   "fan.title": "Fächerplaner",
   "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Wurfrichtungen bleiben unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
   "fan.source": "Portale aus",
-  "fan.source.plan": "Aktueller Plan",
   "fan.source.map": "Geladener Kartenausschnitt",
   "fan.source.area": "Draw-Tools-Flächen",
   "fan.load": "Portale laden",
@@ -314,6 +313,15 @@
   "fan.areaRequired": "Zeichne zuerst ein einfaches Auswahlpolygon mit Draw Tools und lade anschließend die Portale. Polygone mit Löchern werden nicht unterstützt.",
   "fan.useSaved": "Gespeicherten Fächerplan verwenden",
   "workspace.anchors": "Ankerportale",
-  "workspace.activeAnchors": "Aktiver Plan: Ankerportale (Draw Tools)",
-  "workspace.activeFan": "Aktiver Plan: Fächerplan"
+  "ui.choose": "Funktion wählen",
+  "ui.home": "Start",
+  "ui.settings": "Einstellungen",
+  "ui.anchorsHelp": "Vorhandenen Linkplan aus Draw Tools auswerten und abarbeiten.",
+  "ui.fanHelp": "Aus einem Auswahlpolygon einen eigenen Fächerplan entwerfen und abarbeiten.",
+  "ui.fanEmpty": "Noch kein Fächerplan übernommen. Zeichne ein Auswahlpolygon und öffne den Entwurf. Dein Ankerportal-Plan bleibt erhalten.",
+  "ui.design": "Fächer entwerfen",
+  "ui.editFan": "Fächerplan bearbeiten",
+  "ui.refreshFan": "Plan aktualisieren",
+  "ui.settingsHelp": "Diese Einstellungen gelten für das gesamte Plugin. Daten löschen entfernt den gespeicherten Fächerplan sowie Portal- und Linkeinstellungen. Draw-Tools-Zeichnungen und der Bestand im Keys-Plugin bleiben erhalten.",
+  "ui.fanScanHelp": "Plan aktualisieren, um den übernommenen Fächerplan und seine Aufgaben zu prüfen."
 }
