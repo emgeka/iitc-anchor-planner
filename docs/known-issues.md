@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.22
+# Bekannte Grenzen in 0.2.0-beta.23
 
 ## Portalzuordnung und Namen
 
@@ -276,3 +276,7 @@ Detailanfragen bleiben sequentiell mit 900-ms-Pause und können für viele Porta
 ## Oberfläche beta.22
 Start zeigt jetzt nur zwei Funktionskarten plus globale Einstellungen; nach Refresh muss die gewünschte Arbeitsansicht geöffnet werden. Gespeicherte aktive Quelle/Geometrie bleibt erhalten, die zuletzt geöffnete Seite wird nicht gespeichert. Globale Datenlöschung entfernt beide lokalen Kontexte; ausdrücklich separater Einstellungsdialog, Draw Tools und Keys unverändert.
 Return Home pausiert Finalcheck und beendet Vorschau/Importdialoge. Nur einmal geöffnete aktuelle Dialoghandles werden geschlossen; IITC-Varianten ohne JQuery-Dialoghandle verwenden defensive Fallbacks. Bestehende Bestand-/Routen-/Key-Logik bleibt gemeinsam. Kein echter Screenshot-/Mobile-Praxistest der neuen Oberfläche; automatisierte DOM-/Navigations-/Kontexttests und bestehende Verhaltensprüfungen erforderlich.
+
+## Nicht generierender Fächerplaner beta.23
+Nutzer bestätigt korrekte Polygonportale, meldet aber fehlende Fächerplanung, automatisch geladene alte Zustände und eine alte Blockercheck-Meldung. Ursachen im Code: Einstieg übersprang Generierung bei gespeichertem Plan; showFanPlanner kopierte alte Pins/Zuordnungen/Flächenauswahl; 60er-Grenze blockierte bekannte 76er-Auswahl. Beta.23 entfernt diese automatische Wiederaufnahme, isoliert Entwurfsdiagnosen und unterstützt bis 200 Portale.
+End-to-end Regression mit 76 synthetischen Portalen und alter gespeicherter Geometrie: neue Fläche, keine alten Pins, generierte Felder, Übernahme, Refresh, Scan und Zeichnung vollständig. 200er-Fächer separat geprüft. Nutzerpolygon selbst liegt nicht als Koordinatendatei vor; tatsächlicher IITC-/Mobile-Praxistest weiterhin erforderlich. Winkel-Fächer über 60 ist bewusst begrenzt und liefert kein optimales Mehrlagennetz. Alte Pläne bleiben per ausdrücklicher Aktion abrufbar.

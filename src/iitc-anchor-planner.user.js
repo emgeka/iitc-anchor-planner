@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.22
+// @version        0.2.0-beta.23
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261014110000';
+  plugin_info.dateTimeVersion = '20261014120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.22';
+  ap.VERSION = '0.2.0-beta.23';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -347,7 +347,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fächerportal",
       "fan.anchor": "Anker",
       "fan.exclude": "Ausschließen",
-      "fan.limit": "3–60 Portale auswählen. Zeichne ein kleineres Auswahlpolygon oder schließe Portale aus, um die Auswahl zu verkleinern.",
+      "fan.limit": "3–200 Portale auswählen. Bei größerer Auswahl das Polygon verkleinern oder Portale ausschließen.",
       "fan.invalid": "Doppelte Portale, identische Positionen oder fehlende Koordinaten. Auswahl prüfen.",
       "fan.anchorsNeeded": "Mindestens einen Anker und mindestens ein Fächerportal auswählen.",
       "fan.invalidAssignment": "Ein manuell zugeordneter Anker fehlt. Zuordnung prüfen.",
@@ -366,9 +366,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Einstellungen",
       "ui.anchorsHelp": "Vorhandenen Linkplan aus Draw Tools auswerten und abarbeiten.",
       "ui.fanHelp": "Aus einem Auswahlpolygon einen eigenen Fächerplan entwerfen und abarbeiten.",
-      "ui.fanEmpty": "Noch kein Fächerplan übernommen. Zeichne ein Auswahlpolygon und öffne den Entwurf. Dein Ankerportal-Plan bleibt erhalten.",
+      "ui.fanEmpty": "Neuen Fächer aus dem aktuellen Auswahlpolygon entwerfen. Frühere Pläne und deren Anker/Zuordnungen werden nicht übernommen. Einen gespeicherten Fächer kannst du ausdrücklich separat öffnen.",
       "ui.design": "Fächer entwerfen",
-      "ui.editFan": "Fächerplan bearbeiten",
+      "ui.editFan": "Neuen Fächer entwerfen",
       "ui.refreshFan": "Plan aktualisieren",
       "ui.settingsHelp": "Diese Einstellungen gelten für das gesamte Plugin. Daten löschen entfernt den gespeicherten Fächerplan sowie Portal- und Linkeinstellungen. Draw-Tools-Zeichnungen und der Bestand im Keys-Plugin bleiben erhalten.",
       "ui.fanScanHelp": "Plan aktualisieren, um den übernommenen Fächerplan und seine Aufgaben zu prüfen."
@@ -674,7 +674,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -693,9 +693,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -1001,7 +1001,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1020,9 +1020,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -1328,7 +1328,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1347,9 +1347,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -1655,7 +1655,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1674,9 +1674,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -1982,7 +1982,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2001,9 +2001,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -2309,7 +2309,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2328,9 +2328,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -2636,7 +2636,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2655,9 +2655,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -2963,7 +2963,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2982,9 +2982,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -3290,7 +3290,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
+      "fan.limit": "Select 3–200 portals. Reduce the polygon or exclude portals for larger selections.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -3309,9 +3309,9 @@ function wrapper(plugin_info) {
       "ui.settings": "Settings",
       "ui.anchorsHelp": "Review and execute an existing Draw Tools link plan.",
       "ui.fanHelp": "Design and execute a native fan plan from a selection polygon.",
-      "ui.fanEmpty": "No accepted fan plan yet. Draw a selection polygon and open the design. Your anchor-portal plan is preserved.",
+      "ui.fanEmpty": "Design a new fan from the current selection polygon. Previous plans, anchors and assignments are not reused. You can explicitly open a saved fan separately.",
       "ui.design": "Design fans",
-      "ui.editFan": "Edit fan plan",
+      "ui.editFan": "Design a new fan",
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks."
@@ -3344,6 +3344,7 @@ function wrapper(plugin_info) {
     layerGroup: null,
     panel: null,
     workspaceView: 'home',
+    fanDesigning: false,
     enabled: true,
     stats: {},
     links: [],
@@ -4887,21 +4888,21 @@ function wrapper(plugin_info) {
   };
   ap.normalizeFanDesign = function (value) {
     if (!value || !Array.isArray(value.anchors) || !value.assignments || typeof value.assignments !== 'object' || Array.isArray(value.assignments)) return null;
-    var anchors = Array.from(new Set(value.anchors.filter(function (guid) { return typeof guid === 'string'; }))).slice(0, 60), assignments = {};
+    var anchors = Array.from(new Set(value.anchors.filter(function (guid) { return typeof guid === 'string'; }))).slice(0, 200), assignments = {};
     Object.keys(value.assignments).forEach(function (guid) { if (anchors.indexOf(value.assignments[guid]) !== -1) assignments[guid] = value.assignments[guid]; });
     var portals = [], byGuid = Object.create(null);
-    (Array.isArray(value.portals) ? value.portals.slice(0, 60) : []).forEach(function (p) {
+    (Array.isArray(value.portals) ? value.portals.slice(0, 200) : []).forEach(function (p) {
       if (!p || typeof p.guid !== 'string' || !p.guid || byGuid[p.guid] || !ap.workPoint(p)) return;
       var portal = { guid: p.guid, title: ap.cleanTitle(p.title), lat: Number(p.lat), lng: Number(p.lng) };
       portals.push(portal); byGuid[p.guid] = portal;
     });
     var seen = new Set(), links = [];
-    (Array.isArray(value.links) ? value.links.slice(0, 1770) : []).forEach(function (edge) {
+    (Array.isArray(value.links) ? value.links.slice(0, 600) : []).forEach(function (edge) {
       if (!Array.isArray(edge) || edge.length !== 2 || !byGuid[edge[0]] || !byGuid[edge[1]] || edge[0] === edge[1]) return;
       var id = ap.normalizedLinkId(edge[0], edge[1]); if (seen.has(id)) return;
       seen.add(id); links.push(edge.slice());
     });
-    var fields = (Array.isArray(value.fields) ? value.fields.slice(0, 34220) : []).filter(function (field) {
+    var fields = (Array.isArray(value.fields) ? value.fields.slice(0, 1200) : []).filter(function (field) {
       return Array.isArray(field) && field.length === 3 && new Set(field).size === 3 && field.every(function (guid) { return !!byGuid[guid]; }) &&
         seen.has(ap.normalizedLinkId(field[0], field[1])) && seen.has(ap.normalizedLinkId(field[0], field[2])) && seen.has(ap.normalizedLinkId(field[1], field[2]));
     }).map(function (field) { return field.slice(); });
@@ -4926,7 +4927,7 @@ function wrapper(plugin_info) {
   ap.buildFanDesign = function (portals, anchorGuids, assignments) {
     var result = { anchors: [], assignments: {}, links: [], fields: [], errors: [], length: 0, existing: 0, blocked: 0 };
     var byGuid = Object.create(null), coordinates = new Set();
-    if (portals.length < 3 || portals.length > 60) { result.errors.push('fan.limit'); return result; }
+    if (portals.length < 3 || portals.length > 200) { result.errors.push('fan.limit'); return result; }
     portals.forEach(function (portal) {
       var point = ap.workPoint(portal);
       if (!point || typeof portal.guid !== 'string' || !portal.guid || byGuid[portal.guid] || coordinates.has(ap.latLngKey(point))) result.errors.push('fan.invalid');
@@ -4962,18 +4963,34 @@ function wrapper(plugin_info) {
     result.anchors.forEach(function (anchor) {
       var leaves = groups[anchor.guid].slice().sort(function (a, b) { return a.guid.localeCompare(b.guid); });
       var candidates = [];
-      leaves.forEach(function (a, index) { leaves.slice(index + 1).forEach(function (b) {
-        if (Math.abs(ap.orientation(anchor, a, b)) > 1e-12) candidates.push({ a: a, b: b,
+      function candidate(a, b) {
+        if (a.guid !== b.guid && Math.abs(ap.orientation(anchor, a, b)) > 1e-12) candidates.push({ a: a, b: b,
           distance: ap.workDistance(ap.workPoint(a), ap.workPoint(b)) + ap.workDistance(ap.workPoint(anchor), ap.workPoint(a)) + ap.workDistance(ap.workPoint(anchor), ap.workPoint(b)) });
-      }); });
+      }
+      if (portals.length > 60) {
+        // A bounded angular fan instead of all leaf pairs for larger selections.
+        var scale = Math.cos(anchor.lat * Math.PI / 180);
+        var ordered = leaves.slice().sort(function (a, b) {
+          return Math.atan2(a.lat - anchor.lat, (a.lng - anchor.lng) * scale) - Math.atan2(b.lat - anchor.lat, (b.lng - anchor.lng) * scale) || a.guid.localeCompare(b.guid);
+        });
+        ordered.forEach(function (a, index) { candidate(a, ordered[(index + 1) % ordered.length]); });
+      } else leaves.forEach(function (a, index) { leaves.slice(index + 1).forEach(function (b) { candidate(a, b); }); });
       candidates.sort(function (a, b) { return b.distance - a.distance || ap.normalizedLinkId(a.a.guid, a.b.guid).localeCompare(ap.normalizedLinkId(b.a.guid, b.b.guid)); });
       candidates.forEach(function (edge) { add(edge.a, edge.b, anchor, false); });
-      var vertices = [anchor].concat(leaves);
-      vertices.forEach(function (a, i) { vertices.slice(i + 1).forEach(function (b, j) {
-        vertices.slice(i + j + 2).forEach(function (c) {
-          if (Math.abs(ap.orientation(a, b, c)) > 1e-12 && edges[ap.normalizedLinkId(a.guid, b.guid)] && edges[ap.normalizedLinkId(a.guid, c.guid)] && edges[ap.normalizedLinkId(b.guid, c.guid)]) result.fields.push([a, b, c]);
-        });
-      }); });
+    });
+    // Enumerate triangles from adjacency, avoiding cubic scans of large vertex sets.
+    var adjacency = Object.create(null);
+    result.links.forEach(function (edge) {
+      (adjacency[edge.a.guid] || (adjacency[edge.a.guid] = new Set())).add(edge.b.guid);
+      (adjacency[edge.b.guid] || (adjacency[edge.b.guid] = new Set())).add(edge.a.guid);
+    });
+    result.links.forEach(function (edge) {
+      var a = edge.a.guid < edge.b.guid ? edge.a : edge.b, b = a === edge.a ? edge.b : edge.a;
+      adjacency[a.guid].forEach(function (guid) {
+        if (guid <= b.guid || !adjacency[b.guid].has(guid)) return;
+        var c = byGuid[guid];
+        if (Math.abs(ap.orientation(a, b, c)) > 1e-12) result.fields.push([a, b, c]);
+      });
     });
     if (!result.fields.length) result.errors.push('fan.noFields');
     var existing = ap.collectExistingLinkIds(portals.map(function (p) { return Object.assign({}, p, { latlng: ap.workPoint(p) }); }));
@@ -4990,7 +5007,7 @@ function wrapper(plugin_info) {
   };
   ap.suggestFanAnchors = function (portals, count, pinned, assignments) {
     var anchors = Array.from(new Set((pinned || []).concat(Object.values(assignments || {}).filter(function (guid) { return !!guid; })))), evaluations = 0;
-    var budget = Math.min(100, Math.max(8, Math.floor(600 / Math.max(1, portals.length))));
+    var budget = Math.min(100, Math.max(3, Math.floor(600 / Math.max(1, portals.length))));
     count = Math.max(anchors.length, Math.min(portals.length - 1, Math.max(1, Math.floor(Number(count) || 1))));
     var candidates = portals.slice().sort(function (a, b) { return a.guid.localeCompare(b.guid); });
     // Deterministic sampling and budget keep the search bounded on mobile.
@@ -5098,6 +5115,7 @@ function wrapper(plugin_info) {
     try { localStorage.setItem(ap.STORAGE_KEY, JSON.stringify(ap.state, function (key, value) { return key === 'ownedKeys' ? undefined : value; })); }
     catch (error) { ap.state.fanDesign = previous; if (previousSource !== undefined) ap.state.planSource = previousSource; window.alert(ap.t('fan.applyFailed')); return false; }
     ap.closeWorkspaceDialogs();
+    ap.runtime.fanDesigning = false;
     ap.runtime.workspaceView = 'fan';
     ap.clearFanPreview(); draft.preview = null;
     ap.scan(); ap.refreshFanPlanner(); return true;
@@ -5116,6 +5134,7 @@ function wrapper(plugin_info) {
     try { localStorage.setItem(ap.STORAGE_KEY, JSON.stringify(ap.state, function (key, value) { return key === 'ownedKeys' ? undefined : value; })); }
     catch (error) { ap.state.planSource = previousSource; window.alert(ap.t('fan.applyFailed')); return false; }
     ap.closeWorkspaceDialogs();
+    ap.runtime.fanDesigning = false;
     ap.runtime.workspaceView = source === 'fan' ? 'fan' : 'anchors';
     ap.clearFanPreview();
     ap.runtime.links = []; ap.runtime.stats = {}; ap.runtime.unresolvedEndpoints = []; ap.runtime.workPlan = null;
@@ -5151,7 +5170,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
     var sourceKeys = { map: 'fan.source.map', area: 'fan.source.area' };
     ['area', 'map'].forEach(function (source) { html += '<option value="' + source + '"' + (draft.source === source ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(sourceKeys[source])) + '</option>'; });
-    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="59" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
+    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="199" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
     if (draft.source === 'area') {
       html += '<label>' + ap.escapeHtml(ap.t('fan.area')) + ' <select id="ap-fan-area">';
       ap.getFanAreas().forEach(function (area, index) { html += '<option value="' + ap.escapeHtml(area.key) + '"' + (draft.areaKey === area.key ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('fan.areaOption', { index: index + 1, count: ap.getFanCandidates('area', area.key).length })) + '</option>'; });
@@ -5185,17 +5204,17 @@ function wrapper(plugin_info) {
     if (!draft || !draft.open || !element) return;
     var scroll = element.scrollTop; element.innerHTML = ap.fanPlannerHtml(); element.scrollTop = scroll;
     element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
-    element.querySelector('#ap-fan-count').onchange = function () { draft.count = Math.max(1, Math.min(59, Math.floor(Number(this.value) || 1))); };
+    element.querySelector('#ap-fan-count').onchange = function () { draft.count = Math.max(1, Math.min(199, Math.floor(Number(this.value) || 1))); };
     element.querySelector('#ap-fan-load').onclick = function () {
       ap.clearFanPreview(); var areas = ap.getFanAreas();
       if (!areas.some(function (area) { return area.key === draft.areaKey; })) draft.areaKey = areas.length ? areas[areas.length - 1].key : '';
       draft.portals = ap.getFanCandidates(draft.source, draft.areaKey); draft.excluded = {}; draft.assignments = {}; draft.anchors = []; draft.pinned = []; draft.preview = null;
-      if (draft.portals.length >= 3 && draft.portals.length <= 60) draft.anchors = ap.suggestFanAnchors(draft.portals, draft.count, [], {}).anchors;
+      if (draft.portals.length >= 3 && draft.portals.length <= 200) draft.anchors = ap.suggestFanAnchors(draft.portals, draft.count, [], {}).anchors;
       ap.previewFanDesign();
     };
     element.querySelector('#ap-fan-suggest').onclick = function () {
       var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
-      if (portals.length < 3 || portals.length > 60) { window.alert(ap.t('fan.limit')); return; }
+      if (portals.length < 3 || portals.length > 200) { window.alert(ap.t('fan.limit')); return; }
       draft.anchors = ap.suggestFanAnchors(portals, draft.count, draft.pinned, draft.assignments).anchors; ap.previewFanDesign();
     };
     element.querySelector('#ap-fan-loadnames').onclick = function () { ap.refreshMissingNames(false); };
@@ -5224,15 +5243,16 @@ function wrapper(plugin_info) {
   ap.showFanPlanner = function () {
     if (typeof window.dialog !== 'function') return;
     if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return; }
-    var source = 'area', areas = ap.getFanAreas(), savedArea = ap.state.fanDesign && ap.state.fanDesign.selectionAreaKey;
-    var areaKey = areas.some(function (area) { return area.key === savedArea; }) ? savedArea : areas.length ? areas[areas.length - 1].key : '';
+    var source = 'area', areas = ap.getFanAreas();
+    var areaKey = areas.length ? areas[areas.length - 1].key : '';
     var portals = ap.getFanCandidates(source, areaKey);
-    var saved = ap.state.fanDesign || {}, anchors = Array.isArray(saved.anchors) ? saved.anchors.filter(function (guid) { return portals.some(function (p) { return p.guid === guid; }); }) : [];
     ap.clearFanPreview();
-    var draft = { portals: portals, source: source, areaKey: areaKey, count: anchors.length || 1, anchors: anchors.slice(), pinned: anchors.slice(), excluded: {}, assignments: {}, preview: null, open: true };
-    Object.keys(saved.assignments || {}).forEach(function (guid) { if (anchors.indexOf(saved.assignments[guid]) !== -1) draft.assignments[guid] = saved.assignments[guid]; });
+    ap.runtime.fanDesigning = true;
+    ap.renderOverlays();
+    var draft = { portals: portals, source: source, areaKey: areaKey, count: 1, anchors: [], pinned: [], excluded: {}, assignments: {}, preview: null, open: true };
     ap.runtime.fanDraft = draft;
-    if (!draft.anchors.length && portals.length >= 3 && portals.length <= 60) draft.anchors = ap.suggestFanAnchors(portals, draft.count, [], {}).anchors;
+    if (portals.length >= 3 && portals.length <= 200) draft.anchors = ap.suggestFanAnchors(portals, draft.count, [], {}).anchors;
+    ap.renderPanel();
     ap.runtime.fanDialog = window.dialog({ id: 'anchor-planner-fan', title: ap.t('fan.title'), html: '<div id="ap-fan-planner"></div>', width: Math.min(640, (window.innerWidth || 660) - 20),
       closeCallback: function () { if (ap.runtime.fanDraft === draft) { ap.clearFanPreview(); draft.open = false; } } });
     ap.previewFanDesign();
@@ -7230,7 +7250,7 @@ function wrapper(plugin_info) {
     ap.runtime.layerGroup.clearLayers();
     ap.clearHtmlOverlay();
     ap.runtime.overlayCount = 0;
-    if (!ap.runtime.enabled) return;
+    if (!ap.runtime.enabled || ap.runtime.fanDesigning) return;
     ap.ensureOverlayLayerVisible();
     ap.renderNativeFanPlan(ap.runtime.layerGroup);
     var renderedBlockers = {};
@@ -7544,10 +7564,11 @@ function wrapper(plugin_info) {
       missing[guid] = true;
     }
 
-    Object.keys(ap.runtime.stats || {}).forEach(function (guid) {
+    var designOnly = !!ap.runtime.fanDesigning;
+    Object.keys(designOnly ? {} : ap.runtime.stats || {}).forEach(function (guid) {
       consider(guid, ap.runtime.stats[guid] && ap.runtime.stats[guid].title);
     });
-    (ap.runtime.links || []).forEach(function (plannedLink) {
+    (designOnly ? [] : ap.runtime.links || []).forEach(function (plannedLink) {
       (plannedLink && plannedLink.blockers || []).forEach(function (blocker) {
         consider(blocker.a, blocker.titleA);
         consider(blocker.b, blocker.titleB);
@@ -7555,7 +7576,7 @@ function wrapper(plugin_info) {
     });
     var draft = ap.runtime.fanDraft;
     (draft && draft.open ? draft.portals : []).forEach(function (p) { if (!draft.excluded[p.guid]) consider(p.guid, p.title); });
-    (ap.getActiveFanPlan() && ap.state.fanDesign.portals || []).forEach(function (p) { consider(p.guid, p.title); });
+    (!designOnly && ap.getActiveFanPlan() && ap.state.fanDesign.portals || []).forEach(function (p) { consider(p.guid, p.title); });
     return Object.keys(missing);
   };
 
@@ -7877,14 +7898,16 @@ function wrapper(plugin_info) {
     if (['anchors', 'fan'].indexOf(view) === -1) return false;
     if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return false; }
     if (view === 'anchors') return ap.switchPlanSource('external');
-    if (ap.getNativeFanPlan()) return ap.switchPlanSource('fan');
     ap.closeWorkspaceDialogs();
+    ap.runtime.fanDesigning = true;
     ap.runtime.workspaceView = 'fan'; ap.renderPanel(); ap.showFanPlanner(); return true;
   };
   ap.showWorkspaceHome = function () {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) ap.pauseFinalScan();
     ap.closeWorkspaceDialogs();
+    ap.runtime.fanDesigning = false;
     ap.runtime.workspaceView = 'home';
+    ap.renderOverlays();
     ap.renderPanel();
   };
   ap.showPluginSettings = function () {
@@ -7906,7 +7929,11 @@ function wrapper(plugin_info) {
     if (ap.state.panelCollapsed) html += '<div class="ap-mini">' + ap.escapeHtml(ap.t(fan ? 'fan.title' : 'ui.choose')) + '</div>';
     else {
       html += '<div class="ap-view-nav">' + (fan ? '<button id="ap-home">' + ap.escapeHtml(ap.t('ui.home')) + '</button><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b>' : '<b>' + ap.escapeHtml(ap.t('ui.choose')) + '</b>') + '<button id="ap-settings">' + ap.escapeHtml(ap.t('ui.settings')) + '</button></div>';
-      if (fan) html += '<div class="ap-workspace-empty"><p>' + ap.escapeHtml(ap.t('ui.fanEmpty')) + '</p><button id="ap-fan-design">' + ap.escapeHtml(ap.t('ui.design')) + '</button></div>';
+      if (fan) {
+        html += '<div class="ap-workspace-empty"><p>' + ap.escapeHtml(ap.t('ui.fanEmpty')) + '</p><button id="ap-fan-design">' + ap.escapeHtml(ap.t('ui.design')) + '</button>';
+        if (ap.getNativeFanPlan()) html += '<button id="ap-fan-use-saved">' + ap.escapeHtml(ap.t('fan.useSaved')) + '</button>';
+        html += '</div>';
+      }
       else html += '<div class="ap-home-cards"><button id="ap-home-anchors"><b>' + ap.escapeHtml(ap.t('workspace.anchors')) + '</b><span>' + ap.escapeHtml(ap.t('ui.anchorsHelp')) + '</span></button><button id="ap-home-fan"><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b><span>' + ap.escapeHtml(ap.t('ui.fanHelp')) + '</span></button></div>';
     }
     panel.innerHTML = html; panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
@@ -7916,6 +7943,7 @@ function wrapper(plugin_info) {
     var anchors = document.getElementById('ap-home-anchors'); if (anchors) anchors.onclick = function () { ap.openWorkspace('anchors'); };
     var fans = document.getElementById('ap-home-fan'); if (fans) fans.onclick = function () { ap.openWorkspace('fan'); };
     var design = document.getElementById('ap-fan-design'); if (design) design.onclick = ap.showFanPlanner;
+    var saved = panel.querySelector('#ap-fan-use-saved'); if (saved) saved.onclick = function () { ap.switchPlanSource('fan'); };
   };
   ap.renderPanel = function () {
     var panel = ap.runtime.panel;
@@ -7930,7 +7958,7 @@ function wrapper(plugin_info) {
     panel.style.display = ap.runtime.enabled ? '' : 'none';
     if (!ap.runtime.enabled) return;
     var view = ap.runtime.workspaceView || 'home', fanView = view === 'fan';
-    if (view === 'home' || fanView && !ap.getActiveFanPlan()) { ap.renderWorkspaceLanding(panel, view); return; }
+    if (view === 'home' || fanView && (ap.runtime.fanDesigning || !ap.getActiveFanPlan())) { ap.renderWorkspaceLanding(panel, view); return; }
 
     var stats = ap.sortedStats();
     var filterCounts = ap.filterCounts(stats);

@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.22
+# Anforderungen für Entwicklungsstand 0.2.0-beta.23
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -322,3 +322,7 @@ Alle enthaltenen nicht ausgeschlossenen Fächerportale in die automatische Namen
 - Startansicht ausschließlich Funktionswahl Ankerportale/Fächerplaner sowie globale Einstellungen; keine vermischten Scan-/Aufgaben-/Bestands-/Routing-/Entwurfsoptionen. Getrennte Arbeitsansichten mit Überschrift und Start-Navigation.
 - Ankerportalbereich ohne Fächeraktionen. Fächerbereich ohne externe Planquelle oder Koordinatentoleranz; ohne akzeptierten nativen Plan keine externen Arbeitsaufgaben anzeigen. Sprache und allgemeine Datenlöschung nur globaler Einstellungsdialog. Bestand bleibt gemeinsam.
 - Eintritt aktiviert passende Quelle bei erhaltenen Geometrien. Home darf Pläne nicht löschen; Preview stoppen/Finalcheck pausieren und alte Arbeitsdialoge schließen. Aufgaben/Vorschau/Export mit Kontexttitel. Refresh startet in Funktionswahl, unabhängig von gespeichertem Plan. Fehlgeschlagener Quellenwechsel erhält vorherige Ansicht. Touch-taugliche Karten und Rücknavigation.
+
+## Frische, tatsächlich generierte Fächer (0.2.0-beta.23)
+Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch aktivieren. Neuer Entwurf: aktuelles/neuestes Polygon, ein automatischer Anker als Ausgangspunkt, keine übernommenen Pins/Zuordnungen/Ausschlüsse. Alte Pläne bleiben ausdrücklich abrufbar, aber beeinflussen die Generierung nicht. Entwurfsansicht zeigt keine alten Readiness-/Blockercheck-/Keyfehler und lädt Namen nur für ihre Auswahl.
+3–200 Portale verarbeiten, einschließlich 76er-Auswahl. Große Fächer mit begrenzter Winkel-Nachbarschaft und effizienter Dreieckzählung generieren; selbst kreuzende Speichen nicht übernehmen. Speicherung/Scan/Reload/Zeichnung dürfen nach 60 Portalen nicht abschneiden. Nur ausdrückliche Übernahme aktiviert Arbeitsplan und ersetzt alte native Geometrie.

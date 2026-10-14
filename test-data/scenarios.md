@@ -557,3 +557,9 @@ Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt
 3. Ohne nativen Plan: leere Fächeransicht/Entwurf, keine externen Aufgaben. Übernahme aktiviert Arbeitsansicht, Abbrechen/Home erhalten ursprünglichen Plan. Speicherung scheitert: Quelle/Seite erhalten.
 4. Aufgaben/Next/Vorschau/Export nennen Quelle. Start mit offenem Arbeitsdialog schließt ihn; laufender Import cancelt, Vorschau stoppt, Finalcheck pausiert mit erhaltenem Fortschritt. Kein alter Dialog bei Wechsel in anderen Bereich.
 5. 360-px-Mobile: Karten, Rücknavigation, Collapse/Expand, Popup-Scroll und eigene Arbeitsaktionen prüfen. Alle 10 Sprachen ohne rohe Platzhalter. Echte IITC-/Mobile-Bestätigung ausstehend.
+
+## Tatsächliche frische Generierung (0.2.0-beta.23)
+1. Alten Fächer mit manuellen Ankern, Zuordnungen und älterem Auswahlpolygon speichern; neuen Ring mit 76 Portalen zeichnen. Fächerplaner öffnen: aktueller Ring, count=1, keine alten Pins/Zuordnungen, automatische Feld-/Linkvorschau. Alter gespeicherter Plan vor Übernahme unverändert.
+2. Alte Anchor-Blockercheck-/Keyfehler und paused Finalcheck im Zustand: Entwurf zeigt ausschließlich eigene Auswahl-/Generierungsdiagnosen, keine alten Arbeitsaufgaben oder Fehler. Gespeicherten Fächer verwenden nur ausdrücklich; dann dessen Arbeitsplan sichtbar.
+3. 76-Portale übernehmen, Refresh, Scan ohne geladene Marker, Links/Felder erneut zeichnen: keine Trunkierung nach 60. Bis 200 gültige Portale unterstützen, 201 korrekt abweisen. Große Winkel-Fächer auf Kreuzungen und doppelte Dreiecke prüfen.
+4. Manueller Anker-/Zuordnungswechsel gilt nur im aktuellen Entwurf. Abbrechen/Start erhält alte Pläne; nächstes Öffnen beginnt neu. Namen wiederverwenden ohne Rollenübernahme. Echter IITC-/Mobile-Test mit Nutzerpolygon ausstehend.

@@ -98,7 +98,7 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   ]) assert.ok(ap.buildFanDesign(portals, anchors, assignments).errors.includes(error), error);
   const many = Array.from({ length: 60 }, (_, i) => p(String(i), Math.cos(i), Math.sin(i)));
   const suggestion = ap.suggestFanAnchors(many, 30, [], {});
-  assert.ok(ap.buildFanDesign([...many, p('extra', 3, 3)], ['0'], {}).errors.includes('fan.limit'));
+  assert.ok(ap.buildFanDesign(Array.from({ length: 201 }, (_, i) => p('limit' + i, i / 1000, i / 2000)), ['limit0'], {}).errors.includes('fan.limit'));
   assert.equal(suggestion.anchors.length, 30);
   assert.ok(suggestion.evaluations <= 100);
 }
@@ -305,7 +305,7 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   ap.runtime.stats.A = { ...triangle[0], title: 'Existing anchor' };
   ap.requestPortalDetails = (guid, callback) => { requests.push(guid); callback({ title: 'Portal name ' + guid }); };
   draft(ap, missing, ['P0'], 'map');
-  assert.equal(ap.runtime.fanDraft.preview.errors[0], 'fan.limit');
+  assert.ok(!ap.runtime.fanDraft.preview.errors.includes('fan.limit'), '76 selected portals are supported');
   assert.equal(timers.length, 1, 'Even an oversized polygon starts name loading independently of geometry');
   ap.queueMissingNameRefresh(); assert.equal(timers.length, 1, 'Pending auto-loader is deduplicated');
   timers.shift()();
@@ -358,4 +358,52 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.deepEqual(requested, ['A', 'C', 'D'], 'Changed selections merge new GUIDs and skip obsolete pending names');
   assert.equal(ap.runtime.nameLoader, null);
 }
-console.log('Fan planner: polygon/name loading, shared deduplicated requests, persisted names, separate workspaces, bounded suggestions, native scan/render, preserved drawings and storage rollback passed.');
+{
+  const { ap, context, drawn, realScan } = runtime();
+  const selection = [p('new000', 9.6, 52.18), ...Array.from({ length: 75 }, (_, i) => p('new' + String(i + 1).padStart(3, '0'), 9.6 + .02 * Math.cos(i * Math.PI * 2 / 75), 52.18 + .02 * Math.sin(i * Math.PI * 2 / 75)))];
+  const oldArea = new Polygon([point(-1, -1), point(-1, 3), point(2, 3), point(2, -1)], { fill: true });
+  const newArea = new Polygon([point(52.15, 9.57), point(52.15, 9.63), point(52.21, 9.63), point(52.21, 9.57)], { fill: true });
+  drawn.addLayer(oldArea); drawn.addLayer(newArea);
+  draft(ap); assert.equal(ap.applyFanDesign(), true);
+  ap.state.fanDesign.anchors = ['A', 'B'];
+  ap.state.fanDesign.assignments = { C: 'A' };
+  ap.state.fanDesign.selectionAreaKey = ap.fanAreaKey(oldArea);
+  const old = JSON.stringify(ap.state.fanDesign);
+  ap.getLoadedPortals = () => [...selection, ...triangle].map(portal => ({ ...portal, latlng: point(portal) }));
+  context.window.dialog = () => {};
+  ap.showFanPlanner();
+  const current = ap.runtime.fanDraft;
+  assert.equal(current.areaKey, ap.fanAreaKey(newArea), 'Fresh design uses the current/newest polygon, not saved selection');
+  assert.equal(current.portals.length, 76);
+  assert.equal(current.count, 1);
+  assert.deepEqual(json(current.pinned), []);
+  assert.deepEqual(json(current.assignments), {});
+  assert.deepEqual(json(current.preview.errors), []);
+  assert.ok(current.preview.fields.length >= 70, 'Large polygon actually generates a visible fan');
+  assert.ok(current.layer);
+  assert.equal(JSON.stringify(ap.state.fanDesign), old, 'Generating never replaces the previous accepted plan');
+  assert.equal(ap.applyFanDesign(), true);
+  assert.equal(ap.runtime.fanDesigning, false);
+  assert.equal(ap.state.fanDesign.portals.length, 76, 'Accepted geometry is not truncated to the old 60-portal limit');
+  const expectedLinks = ap.state.fanDesign.links.length, expectedFields = ap.state.fanDesign.fields.length;
+  ap.load();
+  assert.equal(ap.state.fanDesign.portals.length, 76);
+  assert.equal(ap.state.fanDesign.links.length, expectedLinks);
+  assert.equal(ap.state.fanDesign.fields.length, expectedFields);
+  ap.getLoadedPortals = () => []; ap.queueMissingNameRefresh = () => {}; realScan();
+  assert.equal(Object.keys(ap.runtime.stats).length, 76);
+  assert.equal(ap.runtime.links.length, expectedLinks);
+  const visible = new Group(); ap.renderNativeFanPlan(visible);
+  assert.equal(visible.layers.length, expectedLinks + expectedFields);
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+}
+{
+  const { ap } = runtime();
+  const large = [p('center', 0, 0), ...Array.from({ length: 199 }, (_, i) => p('leaf' + String(i).padStart(3, '0'), Math.cos(i * Math.PI * 2 / 199), Math.sin(i * Math.PI * 2 / 199)))];
+  const result = ap.buildFanDesign(large, ['center'], {});
+  assert.deepEqual(json(result.errors), []);
+  assert.equal(result.fields.length, 199);
+  assert.equal(result.links.length, 398);
+  assert.equal(new Set(result.fields.map(field => field.map(p => p.guid).sort().join('|'))).size, 199);
+}
+console.log('Fan planner: fresh polygon generation with stale saved state, 76/200 portals, persistence/scan/render, name loading, separate workspaces and preserved inventory passed.');
