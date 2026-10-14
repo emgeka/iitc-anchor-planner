@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.24
+### Beta testing: 0.2.0-beta.25
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -59,9 +59,11 @@ yet validated. Plan preview previews the remaining work route on the map.
 Install only one Anchor Planner variant per IITC instance. The beta shares the
 portal completion and settings; inventory comes exclusively from IITC Keys,
 without migrating old local counts. New directions initially
-remain unconfirmed. The direction selector preselects a labeled suggestion from
-the first planned endpoint visit to the other endpoint. **Accept suggestion**
-confirms it; until then, key demand remains an estimate at both endpoints. Before returning to stable, export the plan: stable ignores the
+remain unconfirmed. The direction selector preselects a labeled suggestion that
+considers destination key stock across the open plan, reserving keys for confirmed
+throws first. Route order decides otherwise equivalent choices; unknown stock is
+kept distinct from zero. **Accept suggestion** confirms it; until then, key demand
+remains an estimate at both endpoints. Before returning to stable, export the plan: stable ignores the
 new directions and blocker task settings and uses its former key calculation.
 The beta updates only from its own URL; stable remains 0.1.55. The key workflow has been confirmed in a real IITC test; separate desktop/mobile
 coverage and the remaining beta scenarios are still pending.
@@ -134,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.16**
+- Development version: **0.2.0-beta.25**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -223,7 +225,7 @@ The Anchor portals area provides its own scan, readiness, portal list, tasks, Ke
 
 For a fan, draw a simple Draw Tools polygon first, then open **Fan planner**. Choose the polygon if there are several; the newest polygon is preselected. **Load portals** uses loaded portals inside/on the boundary, automatically suggests anchors and draws the proposal. The loaded map remains an explicit alternative; the unrelated current anchor plan is no longer offered as a source.
 
-Choose one, two or more anchors, pin manual anchors, assign each portal to one anchor or exclude it. Review **Preview**, then **Use plan**. Anchor Planner saves and draws its own geometry and opens the fan working area. New directions remain unconfirmed until selected in Tasks. Accepted selection outlines are ignored in the external scan. To return to the external plan use Home → Anchor portals; to restore a saved fan use Home → Fan planner → Use saved fan plan. Removing a fan leaves its design area empty and keeps the external geometry available.
+In **Suggest anchors**, enter the **Desired anchor count**. One, two or more anchors are supported: the valid range is 1 to one fewer than the active selected portals, capped at 199. Pinned anchors and manually assigned anchor targets count toward this total. If the requested number is smaller than those fixed choices, the planner explains the conflict instead of silently increasing it. Editing the number clears the previous preview and disables **Use plan**; leaving the field or pressing **Suggest anchors** calculates a fresh proposal. Pin manual anchors, assign each portal to one anchor or exclude it. Review **Preview**, then **Use plan**. Anchor Planner saves and draws its own geometry and opens the fan working area. New directions remain unconfirmed until selected in Tasks. Accepted selection outlines are ignored in the external scan. To return to the external plan use Home → Anchor portals; to restore a saved fan use Home → Fan planner → Use saved fan plan. Removing a fan leaves its design area empty and keeps the external geometry available.
 
 Missing portal names load automatically before acceptance, including oversized selections; the dialog shows progress and **Load names** retries failures. Resolved names are preserved across refresh. Geometry supports 3–200 selected portals; reduce the polygon or exclude portals after identifying them. Loaded Intel and geometric triangle counts do not guarantee an optimal or executable Ingress build sequence. Simple concave polygons are supported; holes/multipolygons are rejected.
 
@@ -234,3 +236,7 @@ Beta.23 fixes unintended restoration of previous fan anchors/assignments and pol
 ### Blocker factions and fixed portal badges (beta.24)
 Blocker tasks show friendly/enemy/unknown relation and Resistance/Enlightened/Machina faction. Friendly removal/flipping needs coordination; enemy removal is planned at the chosen endpoint. Colours: friendly amber, enemy red, unknown grey. All crossing factions remain blockers; no team is silently ignored. A known enemy link on the planned pair is a removal task, not an already-completed friendly throw, and never debits your Keys. Counts appear in the blocker panel; faction metadata survives paused Final check and JSON export. Missing data stays unknown; legacy existing-link handling remains when relation cannot be determined.
 Portal key-status badges now use geographic Leaflet markers instead of fixed container pixels, so they remain attached during animated travel, pan and zoom. Group visibility and status updates are preserved; an unsupported-runtime HTML fallback follows move events. Native marker placement uses the standard [Leaflet Marker/DivIcon API](https://leafletjs.com/reference.html#divicon).
+
+### Anchor count and key-aware directions (beta.25)
+The fan proposal uses the exact requested anchor count when valid; high counts can still produce crossing spokes or no fields, which prevent acceptance. Anchor selection and fan geometry do not optimize Keys. Once a plan is accepted, Tasks suggests throw directions using the existing IITC Keys stock: reserve confirmed open destination demand first, then distribute remaining known capacity jointly across unconfirmed links. Earlier suggestions can move to the opposite endpoint to leave a scarce key for another link. For uncovered links, unknown destination stock is preferred over known exhausted stock; route order breaks other ties. Open, unfinished plan portals can become throw sources even if the previous route skipped them.
+The bounded search supports at most 600 unconfirmed links and 200,000 visits; larger or interrupted searches retain a fallback without guaranteeing stock coverage. Suggestions do not change inventory or confirm directions, and they do not guarantee capture, access or legal field construction. Accept each direction explicitly and review the resulting demand. Practical desktop/mobile testing of these changes remains pending; stable stays 0.1.55.

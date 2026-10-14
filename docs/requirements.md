@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.24
+# Anforderungen für Entwicklungsstand 0.2.0-beta.25
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -137,8 +137,10 @@ bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
 - Text- und JSON-Export um konkrete Blocker je betroffenem Planlink ergänzen
   und die begrenzte IITC-Datenabdeckung kenntlich machen.
 
-Für offene Richtungen im Auswahlfeld einen gekennzeichneten Vorschlag vom
-zuerst besuchten Planportal zum anderen Endportal vorauswählen. Erst
+Für offene Richtungen im Auswahlfeld einen gekennzeichneten Vorschlag mit
+Ziel-Keybestand und bereits bestätigtem Zielbedarf vorauswählen. Verfügbare Keys
+über alle unbestätigten Links gemeinsam verteilen; Routenreihenfolge als
+nachrangige Entscheidung verwenden, unbekannten Bestand nicht als null behandeln. Erst
 **Vorschlag übernehmen** oder eine Richtungsänderung speichert die Auswahl;
 bis dahin bleibt der Keybedarf eine Schätzung. Bestätigte Richtungen erhalten.
 
@@ -331,3 +333,14 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - IITC-Linkfraktion speichern und gegen bekannte Spielerfraktion als own/enemy/unknown einordnen, Machina unterstützen. Fehlende Daten nicht erraten. Blockeraufgaben, Karte, Portal-Endpunktliste und Zusammenfassung kennzeichnen, eigene Entfernung/Umfärbung abstimmen. Alle kreuzenden Teams blockieren weiterhin.
 - Bekannte Gegnerverbindung identisch zum Planlink ist nicht erfüllt: Entfernungsaufgabe am Endportal, eigener Keybedarf bleibt. Gegnerlink nicht als verbrauchten eigenen Key buchen. Fraktion/Timestamp in Finalcheck-Zwischenstand; JSON-Blockerexport um faction/relation ergänzen.
 - Key-Badges geografisch an Portalpositionen binden und bei Bewegung/Zoom/Planvorschau stabil lassen. Sichtbarkeit via Plugin-Layer, passive Bedienung, gleiche Status-/Next-Markierung. Keine echten Key-/Erledigungsänderungen durch Markeranimation.
+
+## Gewünschte Ankeranzahl (0.2.0-beta.25)
+- Eigener sichtbarer Bereich **Anker vorschlagen** mit Ganzzahlfeld **Gewünschte Ankeranzahl**, Schrittweite 1 und dynamischer Grenze 1 bis min(199, aktive ausgewählte Portale minus 1). Eine gültige Suche soll genau diese Gesamtzahl vorschlagen; manuelle Pins und manuell zugeordnete Ankerziele zählen mit.
+- Leere, gebrochene oder außerhalb der Grenze liegende Werte sowie weniger gewünschte als festgelegte Anker erklären. Keine stille Erhöhung/Korrektur. Jede Eingabe verwirft Vorschau und sperrt Übernahme; bei Feldänderung, Vorschlagsbutton oder Vorschau mit geänderter Zahl zuerst frisch berechnen.
+- Bestehende frische Polygonwahl und ausdrückliche Planübernahme erhalten. Übernahme bei ungültiger/noch unbearbeiteter Zahl sperren. Eine zahlenmäßig gültige Auswahl garantiert keine kreuzungsfreien Speichen oder Felder; bestehende Geometriefehler weiter anzeigen.
+
+## Keybewusste Richtungsvorschläge (0.2.0-beta.25)
+- Für offene Links im Arbeitsplan ausschließlich IITC Keys lesen. Bereits bestätigte offene Zielwürfe zuerst reservieren; verbliebene bekannte Zielkapazität gemeinsam auf unbestätigte Links verteilen und bei Bedarf andere Vorschläge umorientieren. Bestätigte Richtungen nie automatisch ändern.
+- Offene, nicht erledigte Endportale mit gültigen Koordinaten aus Planstatistiken als mögliche Quelle berücksichtigen, auch wenn die bisherige Route sie ausgefiltert hat. Bei gleicher Kapazität reguläre Planbesuchsreihenfolge verwenden, keine reinen Blockerbesuche. Ohne geeignete Quelle keine Richtung erfinden.
+- Unbekannten Zielbestand vor bekannt erschöpftem Fallback wählen; ansonsten Routenpräferenz behalten. Größere Pläne bzw. ausgeschöpfte Suche mit begrenztem Fallback handhaben: höchstens 600 unbestätigte Links und 200.000 Besuche, keine Bestands- oder Baubarkeitsgarantie.
+- Link-/Richtungs-/Key-/Quellen-/Routenänderungen müssen den Vorschlagscache erneuern. Vorschläge weder bestätigen noch Keys/Erledigung verändern; bis zur ausdrücklichen Bestätigung bleibt Bedarf eine Schätzung. Ankerwahl und Fächergeometrie bleiben von Keybeständen unabhängig.

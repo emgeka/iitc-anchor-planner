@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.24
+# Architekturübersicht 0.2.0-beta.25
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -31,7 +31,7 @@ in Leaflet, Draw Tools sowie optionale IITC-Plugins defensiv.
 - berechnete Portalstatistiken und Planlinks,
 - aktuell geladene vorhandene Links und Blocker,
 - ungelöste Endpunkte und Diagnosekandidaten,
-- Layer, automatische Blocker-Geometrien und HTML-Statusmarker,
+- Layer, automatische Blocker-Geometrien und geografische Leaflet-Statusmarker mit HTML-Fallback,
 - verzögerten Panel-Refresh nach IITC-Kartendatenänderungen,
 - verzögerte Positionskorrektur nach Größenänderungen des Panelinhalts,
 - aktiver Zustand, Linkakkumulator und Fortschritt eines ausdrücklich
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 336 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 341 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -217,12 +217,19 @@ Schätzung und vorhandene Links gar nicht. Der Status vorhandener Links wird
 über `openLinks` statt über Keybedarf null bestimmt, damit reine Wurfportale
 nicht als bereits gebaut erscheinen.
 
-`getSuggestedLinkDirection` nutzt ausschließlich Planbesuche der stabilisierten
-Arbeitsroute; frühe reine Blockerbesuche zählen nicht. Der Vorschlag ist im
-Auswahlfeld vorausgewählt und gekennzeichnet, wird aber erst per Übernahme
-oder Richtungsänderung unter `linkDirections` gespeichert. Ohne offenen
-Endportalbesuch bleibt die Richtung offen. Draw-Tools-Zeichenreihenfolge und
-vorhandene Intel-Links erzeugen keine Vorschläge.
+`getSuggestedLinkDirection` verwendet gemeinsame Keykapazitäten für alle offenen
+unbestätigten Links. Zuerst reserviert die Berechnung Ziel-Keys für bestätigte
+offene Würfe; anschließend verteilt ein begrenztes Kapazitätsmatching die
+verbleibenden bekannten Keys, einschließlich Umverteilung früherer Vorschläge.
+Routenreihenfolge entscheidet zwischen ansonsten gleichwertigen Richtungen;
+frühe reine Blockerbesuche zählen nicht als reguläre Planbesuche. Offene, nicht
+erledigte Endportale aus `runtime.stats` bleiben als alternative Wurfquelle
+verfügbar, auch wenn die bisherige Route sie als reine Empfangsportale ausgelassen
+hat. Unbekannter Zielbestand wird von bekannt erschöpftem Bestand unterschieden.
+Der Vorschlag ist im Auswahlfeld vorausgewählt und gekennzeichnet, wird aber erst
+per Übernahme oder Richtungsänderung unter `linkDirections` gespeichert. Ohne
+gültige offene Quelle bleibt die Richtung offen. Draw-Tools-Zeichenreihenfolge
+und vorhandene Intel-Links erzeugen keine Vorschläge.
 
 `taskListHtml`, `wireTaskList`, `showTaskList` und `refreshTaskList` verwenden
 einen IITC-Dialog mit einer scrollbaren Tabelle. Pro Stopp enthält ein
@@ -245,12 +252,13 @@ unter Feldern. Die Planvorschau verwendet denselben Arbeitsplan als rein virtuel
 ## Karten- und Blockerdarstellung
 
 `renderOverlays` zeichnet alle beim letzten Scan erkannten betroffenen
-Planlinks pink gestrichelt, eindeutige Blocklinks türkis und berechnete
+Planlinks pink gestrichelt, eindeutige Blocklinks nach Fraktion (eigene gelb,
+gegnerische rot, unbekannte grau) und berechnete
 Kreuzungspunkte gelb. Eine eigene nicht interaktive Leaflet-Ebene mit höherem
 Z-Index hält diese Geometrien oberhalb der normalen IITC-Links, aber unterhalb
 der Portalmarker. Vorgemerkte zusätzliche Blocker-Portale erhalten Kartenringe;
 das nächste Arbeitsziel wird stärker markiert.
-Die HTML-Statusmarker kennzeichnen erledigte Portale mit `✓`; `K0` bleibt
+Die geografisch verankerten Statusmarker kennzeichnen erledigte Portale mit `✓`; `K0` bleibt
 ausschließlich Portalen vorbehalten, für die kein weiterer Key benötigt wird,
 und kann optisch nicht als „OK“ gelesen werden.
 
@@ -444,10 +452,10 @@ nextTaskHtml leitet den ersten Stopp mit blockers/links aus demselben getWorkPla
 
 ### Eigenständiger Fächer-Generator
 normalizeFanDesign validiert optionale anchors/assignments/areaKeys; load und JSONexport erhalten sie, clearData entfernt sie. fanAreaKey ist ein koordinatenbasierter Fingerprint der Auswahlpolygone. extractSegments ignoriert nur gespeicherte Auswahlflächen; alte Pläne behalten ihre Bedeutung.
-buildFanDesign weist jeden Nicht-Anker genau einem Anker zu (manuell, sonst nächste Luftlinie mit GUID-Tie-Break), reserviert alle Speichen und ergänzt längenpriorisierte kreuzungsfreie Blattlinks innerhalb der Gruppen. fanEdgesConflict erkennt echte Kreuzungen sowie kollineare Überlappung/T-Verbindung; GUID-identische Kanten sind kein Konflikt. Alle geschlossenen nicht-kollinearen Dreiergruppen werden als geometrische Felder gezählt. Keine Ingress-Bau-/Wurfreihenfolge, Key-Optimierung oder Verknüpfung zwischen Fächern.
-suggestFanAnchors bewahrt manuelle Anker und Zuordnungsziele. Deterministische greedy-Suche: Fehlerzahl, Feldzahl, Blocker, vorhandene Links, Gesamtlinklänge. Maximal 20 abgetastete Kandidaten; Budget min(100,max(8,floor(600/Portalzahl))) Geometrieprüfungen. Danach weitere gewünschte Anker per größtem Abstand ergänzen. Begrenzung schützt mobile Bedienung, garantiert kein Optimum.
-getFanCandidates liefert koordinierte Snapshots aus Plan, Kartenausschnitt oder einfachen Auswahlpolygonen (Rand inklusive). runtime.fanDraft hält Ausschlüsse, feste Anker, Zuordnungen und einen separaten LayerGroup. Dialogwechsel/Schließen bereinigt nur die eigene Vorschau; Quellenwechsel lädt neu und invalidiert sie. HTML-Inhalte werden escaped.
-applyFanDesign revalidiert Geometrie und vorhandene Zeichnungen, dedupliziert über Segmentkoordinaten, ergänzt geodesicPolyline/polyline in drawTools.drawnItems und ruft save auf. Bei Fehler neue Layer entfernen und Speicherung erneut versuchen; vorhandene Zeichnungen unverändert. Erst danach Metadaten speichern, Vorschau entfernen und regulär scan ausführen. Während Finalcheck/Planvorschau keine Übernahme. Richtungs-, Aufgaben-, Key- und Erledigungssemantik bleiben im bestehenden Scan/Arbeitsplan.
+buildFanDesign weist jeden Nicht-Anker genau einem Anker zu (manuell, sonst nächste Luftlinie mit GUID-Tie-Break), reserviert alle Speichen und ergänzt längenpriorisierte kreuzungsfreie Blattlinks innerhalb der Gruppen. fanEdgesConflict erkennt echte Kreuzungen sowie kollineare Überlappung/T-Verbindung; GUID-identische Kanten sind kein Konflikt. Alle geschlossenen nicht-kollinearen Dreiergruppen werden als geometrische Felder gezählt. Die Geometrie bewertet weder Ingress-Baureihenfolge noch Keybestand und verbindet keine getrennten Fächer. Keybewusste Wurfrichtungen entstehen gesondert im übernommenen Arbeitsplan, weiterhin als unbestätigte Vorschläge.
+suggestFanAnchors bewahrt manuelle Anker und Zuordnungsziele. Deterministische greedy-Suche: Fehlerzahl, Feldzahl, Blocker, vorhandene Links, Gesamtlinklänge. Maximal 20 abgetastete Kandidaten; Budget min(100,max(3,floor(600/Portalzahl))) Geometrieprüfungen. Danach weitere gewünschte Anker per größtem Abstand ergänzen. Begrenzung schützt mobile Bedienung, garantiert kein Optimum.
+getFanCandidates liefert koordinierte Snapshots aus Kartenausschnitt oder einfachen Auswahlpolygonen (Rand inklusive). Die Oberfläche bietet keine aktuelle Ankerplanquelle; ein interner Planpfad bleibt zur Kompatibilität verfügbar. runtime.fanDraft hält Ausschlüsse, feste Anker, Zuordnungen und einen separaten LayerGroup. Dialogwechsel/Schließen bereinigt nur die eigene Vorschau; Quellenwechsel lädt neu und invalidiert sie. HTML-Inhalte werden escaped.
+applyFanDesign revalidiert die aktive Entwurfsgeometrie und speichert normalisierte Portalsnapshots, GUID-Linkpaare, Felder und Auswahlmetadaten als eigenen nativen Plan; Draw Tools bleibt unverändert. Bei localStorage-Fehlern ursprüngliche Geometrie/Quelle wiederherstellen. Erst nach erfolgreicher Speicherung Arbeitsdialoge schließen, native Planquelle aktivieren, Vorschau entfernen und regulär scan ausführen. Während Finalcheck/Planvorschau keine Übernahme. Richtungs-, Aufgaben-, Key- und Erledigungssemantik bleiben im bestehenden Scan/Arbeitsplan.
 
 ### Fächervorschau beta.17
 previewFanDesign trennt Geometrie und Übernahmekonflikte: ausschließlich fan.drawConflict in errors verhindert das separate Overlay nicht. Andere Fehler verhindern es weiterhin. Feldfüllung 0,18 und Umrissgewicht 2/Deckkraft 0,9; keine Änderung am Plan oder Keys. applyFanDesign und Button bleiben bei jedem Fehler gesperrt.
@@ -482,3 +490,12 @@ Build-/Load-/UI-Grenze 200. normalizeFanDesign erhält maximal 200 Portale/Anker
 normalizeFaction verarbeitet kanonische res/enl/mac, Intel-Codes R/E/M, volle Namen und verfügbare IITC-TEAM-Konstanten; nicht numerisch raten. linkFaction priorisiert options.team, fällt auf data.team zurück. factionRelation wertet PLAYER.team aus; ohne bekannte Spieler-/Linkfraktion unknown. collectExistingLinkIds erfasst faction/timestamp, persistFinalScanProgress behält beide, mergeExistingLinkInfo ergänzt bekannte Metadaten und bevorzugt jüngere Entität desselben Portalpaars.
 isUsableExistingLink verwirft bekannte Gegnerlinks, erhält unbekannte Legacy-Existenzwertung. Scan, Coverage und Fächervorschlag teilen Regel. findBlockersForPlannedLink nimmt neben echten Kreuzungen auch identische Gegnerverbindungen als Blocker auf; andere gemeinsam endende Links weiterhin keine Kreuzung. Die bestehende Verbrauchslogik sieht Gegnerlinks nicht als bestehende eigene Würfe. Blockermetadaten werden in Tasks, Next, Panel-Zählern und farbiger Linie gezeigt; Export ergänzt faction/relation. Routenwahl/Abhängigkeiten bleiben geometrisch und zählen alle Fraktionen.
 addHtmlStatusMarker verwendet L.marker/L.divIcon am LatLng mit iconAnchor [16,16], passiven Optionen und Plugin-Pane; LayerGroup übernimmt Move/Zoom/Hide/Cleanup. Statusbadge liegt im Icon zentriert, dynamische Borderfarbe mit inline !important gegen alte CSS-Shorthand-Regel. Alte HTML-Container nur als Fallback; htmlBadgeLocations wird bei clear geleert, move-Event berechnet deren Position laufend neu statt nur bei moveend. Normaler Status-Refresh bleibt bei bestehenden Daten-/Endereignissen.
+
+### Ankeranzahl und frische Vorschläge beta.25
+showFanPlanner enthält ein eigenes fieldset für Anker vorschlagen und das dynamisch begrenzte Ganzzahlfeld. suggestFanDraft validiert count gegen 1..min(199, aktive Portale minus 1) sowie die Anzahl deduplizierter aktiver manueller Pins/Zuordnungsziele, bevor suggestFanAnchors läuft. Bei mehr aktiven Festlegungen als gewünscht ein Fehler statt stiller Erhöhung; ein gültiger Entwurf ergänzt bis zur gewünschten Gesamtzahl. Ungültige/veraltete Anker-IDs werden weiterhin durch Geometrieprüfung abgewiesen; die defensive innere Ankersuche behält ihren bisherigen Clamp. Eine gültige Ankerzahl kann weiterhin geometrische Fehler liefern.
+oninput setzt countDirty, leert vorherigen result/Layer und sperrt Übernahme. onchange und Vorschlagsbutton berechnen den aktuellen Entwurf neu; der Vorschau-Button führt bei countDirty/countError ebenfalls zuerst die Ankersuche aus. applyFanDesign weist unbearbeitete oder ungültige Zahlen ab. Ohne neue Zahl bleiben manuell gewählte Rollen/Zuordnungen Bestandteil des aktuellen Entwurfs. Frischer Polygonstart, ausdrückliche Wiederaufnahme, native Speicherung und Quellenisolation bleiben erhalten.
+
+### Gemeinsame Keykapazität für Richtungen beta.25
+getSuggestedLinkDirections berechnet eine Laufzeitzuordnung aller offenen unbestätigten Links; getSuggestedLinkDirection liest den jeweiligen Vorschlag daraus. Bekannte Keys werden je GUID gelesen und bestätigte offene Zielwürfe zuerst abgezogen, mindestens null Restkapazität. Der bipartite Graph verbindet offene Links mit zulässigen Zielportalen; ein Ziel braucht am anderen Ende eine offene nicht erledigte Quelle. Diese kann aus runtime.stats kommen, auch wenn sie aus der vorherigen Arbeitsroute gefiltert wurde. Matching maximiert innerhalb des Budgets die Zahl durch bekannte Restbestände gedeckter Vorschläge und kann zuvor gewählte Ziele umverteilen.
+Quellen benötigen gültige Koordinaten zusätzlich zum offenen nicht erledigten Status. Reguläre Planbesuchsreihenfolge liefert die Präferenz zwischen gleichwertigen Lösungen; reine Abbau-/Routenstartbesuche stellen keine Wurfquelle dar. Ungedeckte Links bevorzugen unbekannten Zielbestand vor bekannt erschöpftem Bestand, sonst Route. Alle bestätigten Richtungen bleiben unangetastet. Höchstens 600 unbestätigte Links und 200.000 Besuche; bei Größen-/Budgetgrenze ein begrenzter Fallback, keine Gesamtdeckungsgarantie.
+Der Cache-Schlüssel enthält Linkzustände, bestätigte Richtungen, Keybestände, geeignete Quellen und Routenpräferenz. Änderungen daran erneuern die Vorschläge, ohne Bestand oder linkDirections zu schreiben. Aufgaben und Nächste Aufgabe berechnen das gemeinsame Vorschlagsobjekt einmal pro Render und reichen es an einzelne Linkzeilen weiter; der Einzelgetter bleibt für andere Aufrufer verfügbar. Ein sichtbarer Key-Richtungshinweis erklärt die Vorauswahl. Erst ausdrückliche Übernahme/Änderung bestätigt die Richtung, worauf die bestehende Bedarf-/Aufgabenberechnung reagiert. Geometrie und Ankerwahl lesen weiterhin keine Keykapazitäten; diese Logik gilt erst im übernommenen Arbeitsplan. Keine zusätzliche Persistenz, Bestandsquelle oder Ingress-Bauprüfung.

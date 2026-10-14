@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.24
+# Bekannte Grenzen in 0.2.0-beta.25
 
 ## Portalzuordnung und Namen
 
@@ -284,3 +284,10 @@ End-to-end Regression mit 76 synthetischen Portalen und alter gespeicherter Geom
 ## Beta.24
 Nutzer bestätigt frische Fächerplanung grundsätzlich, meldet driftende Keymarker bei Planvorschau. Ursache: Bildschirmpositionen nur beim Neuzeichnen/endgültigen Kartenstopp aktualisiert. Native Leaflet-Statusmarker ersetzen diesen Pfad; Fallback auf move, bei fehlenden Marker-/DivIcon-APIs eingeschränkte Zoomanimation. Echter Desktop-/Mobile-Animationsvergleich ausstehend.
 Fraktionen stammen ausschließlich aus geladenem Intel und PLAYER; fehlen sie, relation unknown. Machina als eigene Fraktion, gegenüber RES/ENL gegnerisch. Bei unbekannter Fraktion bleiben bisherige Existenz-/Key-Regeln aus Kompatibilität erhalten; keine Garantie, dass ein unbekannter vorhandener Link nutzbar ist. Eigene Blocker brauchen reale Abstimmung/Umfärbung, kein automatischer Abbau oder Verfügbarkeitsnachweis. Keine Fraktionsfilter, die physische Blocker ausblenden. Klassifizierung sagt nichts über tatsächlichen Werfer/Inventar des Agenten aus; bestehende Teamlink-Verbrauchsregel gilt weiterhin.
+
+## Ankeranzahl und Keyvorschläge beta.25
+- Die gewünschte Ankeranzahl wird bei gültigen Eingaben exakt eingehalten, garantiert jedoch keinen geometrisch gültigen Fächer. Zu viele Anker können feldlose Gruppen oder kreuzende Speichen erzeugen; bestehende Fehler sperren weiter die Übernahme. Manuelle Anker und Zuordnungsziele zählen mit; Konflikte mit einer kleineren gewünschten Zahl müssen ausdrücklich gelöst werden. Ungültige/veraltete Anker-IDs können weiterhin Geometriefehler auslösen. Änderungen am Zahlenfeld entfernen bewusst den bisherigen Vorschlag bis zur Neuberechnung.
+- Die Fächergeometrie/Ankerwahl optimiert keine Keys. Erst Wurfrichtungsvorschläge im übernommenen Arbeitsplan berücksichtigen vorhandene Zielbestände gemeinsam, abzüglich bestätigtem offenen Bedarf. Ein Vorschlag bestätigt keine Richtung und reduziert weder echten noch angezeigten Bestand; offene Richtungen behalten den geschätzten Bedarf an beiden Enden.
+- Bei unzureichendem Gesamtbestand können Vorschläge weiterhin Keymangel enthalten. Unbekannter Bestand ist keine verfügbare Menge und wird nur gegenüber bekannt erschöpftem Fallback bevorzugt. Ohne geeignete offene Quelle bleibt der Link unbestätigt. Nach manuellem Bestands-/Richtungswechsel werden Vorschläge neu berechnet; ein bereits bestätigter Wurf wird nie automatisch umgekehrt.
+- Kapazitätsmatching ist auf 600 unbestätigte Links und 200.000 Besuche begrenzt. Größere Pläne oder ausgeschöpftes Budget behalten einen Fallback ohne Garantie maximaler Keydeckung. Route, Keys, Portalbesitz, Zugang und gültige Ingress-Baufolge werden nicht gemeinsam optimiert. Bekannte positive Mengen garantieren keine Ausführbarkeit.
+- Echter IITC-Desktop-/Mobile-Test des Ankerzahlfeldes, der Neuberechnung und keybewusster Vorschläge steht aus. Die automatisierten Fan-/Arbeitsplantests ersetzen keine Prüfung an realen Polygonen und realem Keysbestand. Stable und releases bleiben 0.1.55.

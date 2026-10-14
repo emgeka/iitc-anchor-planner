@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.24
+### Beta-Test: 0.2.0-beta.25
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -62,8 +62,10 @@ Planvorschau zeigt die verbleibende Aufgabenroute als Kartenvorschau.
 Nur eine Anchor-Planner-Variante je IITC-Instanz installieren. Die Beta verwendet
 Portal-Erledigung und Einstellungen weiter. Vorhandene Keys werden ausschließlich
 aus dem IITC-Plugin Keys gelesen; alte lokale Bestände werden nicht übernommen; neue Richtungen
-beginnen unbestätigt. Im Auswahlfeld ist ein gekennzeichneter Vorschlag vom
-zuerst besuchten Planendportal zum anderen Endportal vorausgewählt.
+beginnen unbestätigt. Im Auswahlfeld ist ein gekennzeichneter Vorschlag vorausgewählt,
+der die Ziel-Keybestände im gesamten offenen Plan berücksichtigt und Keys für
+bestätigte Würfe zuerst reserviert. Bei sonst gleichwertigen Optionen entscheidet
+die Routenreihenfolge; unbekannter Bestand bleibt von null unterscheidbar.
 **Vorschlag übernehmen** bestätigt ihn; bis dahin bleibt der Keybedarf an
 beiden Endportalen eine Schätzung. Vor der Rückkehr zu Stable den Plan exportieren: Stable ignoriert
 die neuen Richtungen und Blocker-Aufgabeneinstellungen und verwendet seine
@@ -140,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.16**
+- Entwicklungsversion: **0.2.0-beta.25**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -234,7 +236,7 @@ Im Bereich Ankerportale stehen Scan, Einsatzcheck, Portalübersicht, Aufgaben, K
 
 Für einen Fächer zuerst ein einfaches Draw-Tools-Polygon zeichnen, dann **Fächerplaner** öffnen. Bei mehreren Polygonen auswählen; die neueste Fläche ist vorausgewählt. **Portale laden** verwendet geladene Portale innerhalb/auf dem Rand, schlägt automatisch Anker vor und zeichnet den Vorschlag. Der geladene Kartenausschnitt bleibt eine ausdrückliche Alternative; der fremde aktuelle Ankerportal-Plan wird nicht mehr als Quelle angeboten.
 
-Einen, zwei oder mehr Anker wählen, manuelle Anker festlegen, Portale einem Anker zuordnen oder ausschließen. **Vorschau** prüfen, dann **Plan übernehmen**. Anchor Planner speichert und zeichnet die eigene Geometrie und öffnet deren Arbeitsbereich. Neue Wurfrichtungen unter Aufgaben bestätigen. Übernommene Auswahlränder werden beim externen Scan ignoriert. Zurück zum externen Plan über Start → Ankerportale; gespeicherten Fächer über Start → Fächerplaner → Gespeicherten Fächerplan verwenden öffnen. Eigenen Fächer entfernen lässt den Entwurfsbereich leer, der externe Plan bleibt verfügbar.
+Im Bereich **Anker vorschlagen** die **Gewünschte Ankeranzahl** eingeben. Ein, zwei oder mehr Anker sind möglich: von 1 bis eins weniger als die aktiv ausgewählten Portale, höchstens 199. Manuell festgelegte Anker und manuell zugeordnete Ankerziele zählen dazu. Ist die gewünschte Anzahl kleiner als diese Festlegungen, erklärt der Planer den Konflikt statt die Anzahl still zu erhöhen. Eingaben entfernen die bisherige Vorschau und sperren **Plan übernehmen**; beim Verlassen des Feldes oder über **Anker vorschlagen** wird ein frischer Vorschlag berechnet. Manuelle Anker festlegen, Portale einem Anker zuordnen oder ausschließen. **Vorschau** prüfen, dann **Plan übernehmen**. Anchor Planner speichert und zeichnet die eigene Geometrie und öffnet deren Arbeitsbereich. Neue Wurfrichtungen unter Aufgaben bestätigen. Übernommene Auswahlränder werden beim externen Scan ignoriert. Zurück zum externen Plan über Start → Ankerportale; gespeicherten Fächer über Start → Fächerplaner → Gespeicherten Fächerplan verwenden öffnen. Eigenen Fächer entfernen lässt den Entwurfsbereich leer, der externe Plan bleibt verfügbar.
 
 Fehlende Portalnamen werden automatisch vor Übernahme geladen, auch bei großer Auswahl; der Dialog zeigt Fortschritt, **Namen laden** versucht fehlgeschlagene Anfragen erneut. Erkannte Namen bleiben nach Refresh erhalten. Geometrie unterstützt 3–200 Portale; Polygon verkleinern oder nach Namensauflösung Portale ausschließen. Geladenes Intel und geometrische Dreiecke garantieren kein Optimum oder eine gültige Ingress-Baureihenfolge. Einfache konkave Polygone unterstützt, Löcher/Multipolygone abgewiesen.
 
@@ -245,3 +247,7 @@ Beta.23 behebt die ungewollte Übernahme alter Anker/Zuordnungen und Flächenaus
 ### Blocker-Fraktionen und verankerte Portalmarker (beta.24)
 Blockeraufgaben zeigen eigene/gegnerische/unbekannte Zugehörigkeit und Resistance/Enlightened/Machina. Eigene Entfernung/Umfärbung abstimmen; gegnerischen Abbau am gewählten Endportal einplanen. Farben: eigene gelb, gegnerische rot, unbekannte grau. Alle kreuzenden Fraktionen bleiben Blocker, keine wird still ignoriert. Ein bekannter gegnerischer Link auf der geplanten Verbindung wird zur Entfernungsaufgabe statt als eigener fertiger Wurf zu zählen und zieht keine eigenen Keys ab. Zähler stehen im Blockerbereich; Fraktionsdaten bleiben nach pausiertem Finalcheck und im JSONexport erhalten. Fehlende Daten bleiben unbekannt; bei unbekannter Zugehörigkeit bleibt die bisherige Existenzwertung erhalten.
 Key-Statusmarker sind jetzt geografisch verankerte Leaflet-Marker statt fixer Pixelpositionen im Kartencontainer. Sie bleiben während animierter Strecke, Verschieben und Zoom am Portal. Sichtbarkeit und Statusaktualisierung bleiben erhalten; der Fallback für eingeschränkte Laufzeiten folgt move-Ereignissen. Grundlage ist die reguläre [Leaflet Marker-/DivIcon-API](https://leafletjs.com/reference.html#divicon).
+
+### Ankeranzahl und keybewusste Wurfrichtungen (beta.25)
+Der Fächervorschlag verwendet genau die gewünschte Ankeranzahl, soweit gültig; hohe Anzahlen können dennoch kreuzende Speichen oder keine Felder ergeben und damit die Übernahme verhindern. Ankerwahl und Fächergeometrie optimieren keine Keys. Nach Übernahme schlägt **Aufgaben** Wurfrichtungen anhand des vorhandenen IITC-Keys-Bestands vor: bestätigten offenen Zielbedarf zuerst reservieren, übrige bekannte Kapazität gemeinsam auf unbestätigte Links verteilen. Frühere Vorschläge können zum anderen Endportal verschoben werden, damit ein knapper Key für einen anderen Link frei bleibt. Für ungedeckte Links wird unbekannter Zielbestand vor bekannt erschöpftem Bestand gewählt; weitere Gleichstände entscheidet die Route. Offene, nicht erledigte Planportale können Wurfquellen werden, auch wenn die bisherige Route sie übersprungen hat.
+Die begrenzte Suche unterstützt höchstens 600 unbestätigte Links und 200.000 Besuche; größere oder unterbrochene Suchen behalten einen Fallback ohne Bestandsdeckungsgarantie. Vorschläge verändern keinen Bestand, bestätigen keine Richtung und garantieren weder Eroberung, Zugang noch eine gültige Feldbaufolge. Richtungen einzeln bestätigen und den resultierenden Bedarf prüfen. Echte Desktop-/Mobile-Tests dieser Änderungen stehen aus; Stable bleibt 0.1.55.

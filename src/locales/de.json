@@ -284,12 +284,12 @@
   "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
   "next.targetKeys": "Keys für {title}: {owned}/{required}",
   "fan.title": "Fächerplaner",
-  "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Wurfrichtungen bleiben unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
+  "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Unter Aufgaben berücksichtigen Richtungsvorschläge die vorhandenen Keys, bleiben aber unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
   "fan.source": "Portale aus",
   "fan.source.map": "Geladener Kartenausschnitt",
   "fan.source.area": "Draw-Tools-Flächen",
   "fan.load": "Portale laden",
-  "fan.count": "Ankeranzahl",
+  "fan.count": "Gewünschte Ankeranzahl",
   "fan.suggest": "Anker vorschlagen",
   "fan.preview": "Vorschau",
   "fan.apply": "Plan übernehmen",
@@ -334,5 +334,10 @@
   "faction.ownHint": "Entfernung oder Umfärben mit der eigenen Fraktion abstimmen.",
   "faction.enemyHint": "Abbau am gewählten Endportal einplanen.",
   "faction.unknownHint": "Fraktion vor Ort oder mit aktualisierten Intel-Daten prüfen.",
-  "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}"
+  "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}",
+  "fan.countHelp": "1 schlägt einen Anker vor; 2 oder mehr ergeben getrennte Fächer. Manuelle Anker (★) und fest zugeordnete Anker zählen zur Gesamtzahl.",
+  "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
+  "fan.countPinned": "{count} Anker sind manuell oder durch Zuordnungen festgelegt. Gesamtzahl erhöhen oder diese Festlegungen lösen.",
+  "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
+  "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen."
 }
