@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.20
+### Beta testing: 0.2.0-beta.21
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -224,3 +224,5 @@ For a new fan, first draw a simple polygon around the desired portals in Draw To
 Choose one, two or more anchors, pin manual anchors, assign each fan portal to one anchor or exclude it. Review **Preview**, then **Use plan**. Anchor Planner saves and draws its own plan without changing Draw Tools lines or Keys. Accepted selection outlines are ignored when scanning Anchor portals; other drawings remain unchanged. Removing the native fan plan deletes only that geometry and returns to Anchor portals. New link directions remain unconfirmed until selected in Tasks.
 
 The planner accepts 3–60 portals and uses a bounded heuristic; loaded Intel data and geometric triangle counts do not guarantee an optimal or executable Ingress build sequence. Simple concave polygons are supported; holes/multipolygons are rejected. Save/export before returning to stable, which does not understand native fan plans or the plan selector. Inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/), implemented independently.
+
+Beta.21 automatically loads missing fan-portal names before acceptance, including oversized selections. The dialog shows progress and updates names during loading; **Load names** retries unavailable entries. Names use the exact GUID from loaded Intel, bookmarks, previous draft or saved plan. Resolved accepted names persist across refresh and incomplete Intel. The 60-portal planning limit remains: use a smaller polygon or exclude portals after identifying them.

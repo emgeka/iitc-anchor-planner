@@ -177,3 +177,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 ## Arbeitsbereiche und Auswahlflächen
 - Externe Ankerportal-Pläne und gespeicherte Fächergeometrie bei Umschaltung erhalten. Aufgaben und Overlays verwenden ausschließlich die aktive Planquelle; Keys und bestehende Einstellungen nicht löschen.
 - Fächerplaner startet mit einfacher Polygon-Auswahl; fehlende Fläche erklären, mehrere Flächen explizit auswählen. Nur übernommene Auswahlränder im externen Scan ausschließen. Polygon-/Modusänderungen mit test-fan-planner und Export-/Locale-Prüfungen abdecken.
+
+- Namensauflösung muss offene Fächerentwürfe unabhängig vom aktiven Arbeitsplan berücksichtigen; Requests deduplizieren, gespeicherte Portalnamen erhalten und fehlende Daten ehrlich kennzeichnen.

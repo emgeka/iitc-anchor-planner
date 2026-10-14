@@ -300,7 +300,7 @@
   "fan.leaf": "Fächerportal",
   "fan.anchor": "Anker",
   "fan.exclude": "Ausschließen",
-  "fan.limit": "3–60 Portale auswählen. Näher zoomen oder Portale ausschließen, um große Auswahlen zu verkleinern.",
+  "fan.limit": "3–60 Portale auswählen. Zeichne ein kleineres Auswahlpolygon oder schließe Portale aus, um die Auswahl zu verkleinern.",
   "fan.invalid": "Doppelte Portale, identische Positionen oder fehlende Koordinaten. Auswahl prüfen.",
   "fan.anchorsNeeded": "Mindestens einen Anker und mindestens ein Fächerportal auswählen.",
   "fan.invalidAssignment": "Ein manuell zugeordneter Anker fehlt. Zuordnung prüfen.",

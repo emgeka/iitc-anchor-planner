@@ -296,4 +296,66 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(context.window.plugin.keys.keys.A, 7);
   ap.load(); assert.equal(ap.getNativeFanPlan(), null, 'Removal survives reload');
 }
-console.log('Fan planner: independent anchors, bounded suggestions, native persistence/scan/render without Draw Tools, immutable preview, preserved drawings and storage rollback passed.');
+{
+  const { ap, context } = runtime();
+  const timers = [], requests = [];
+  context.setTimeout = fn => { timers.push(fn); return timers.length; };
+  ap.setMessage = () => {};
+  const missing = Array.from({ length: 76 }, (_, i) => ({ ...p('P' + i, i / 100, (i % 3) / 100), title: ap.MISSING_TITLE }));
+  ap.runtime.stats.A = { ...triangle[0], title: 'Existing anchor' };
+  ap.requestPortalDetails = (guid, callback) => { requests.push(guid); callback({ title: 'Portal name ' + guid }); };
+  draft(ap, missing, ['P0'], 'map');
+  assert.equal(ap.runtime.fanDraft.preview.errors[0], 'fan.limit');
+  assert.equal(timers.length, 1, 'Even an oversized polygon starts name loading independently of geometry');
+  ap.queueMissingNameRefresh(); assert.equal(timers.length, 1, 'Pending auto-loader is deduplicated');
+  timers.shift()();
+  assert.equal(requests.length, 1);
+  assert.equal(ap.runtime.fanDraft.portals[0].title, 'Portal name P0');
+  ap.refreshMissingNames(false); assert.equal(requests.length, 1, 'Manual retry shares the running loader');
+  while (timers.length) timers.shift()();
+  assert.equal(requests.length, 76);
+  assert.equal(new Set(requests).size, 76);
+  assert.ok(ap.runtime.fanDraft.portals.every(p => !ap.isMissingPortalTitle(p.title)));
+  assert.equal(ap.runtime.nameLoader, null);
+}
+{
+  const { ap, context, realScan } = runtime();
+  draft(ap); ap.applyFanDesign();
+  ap.runtime.fanDraft.portals[1].title = ap.MISSING_TITLE;
+  ap.state.fanDesign.portals[1].title = ap.MISSING_TITLE;
+  ap.runtime.links = [{ a: 'A', b: 'B', titleA: 'A', titleB: ap.MISSING_TITLE }];
+  ap.runtime.workPlan = { stale: true };
+  assert.equal(ap.updatePortalTitle('B', 'Resolved fan portal'), true);
+  assert.equal(ap.runtime.fanDraft.portals[1].title, 'Resolved fan portal');
+  assert.equal(ap.runtime.links[0].titleB, 'Resolved fan portal');
+  assert.equal(ap.runtime.workPlan, null);
+  ap.load(); assert.equal(ap.state.fanDesign.portals[1].title, 'Resolved fan portal');
+  ap.getLoadedPortals = () => [{ guid: 'B', title: ap.MISSING_TITLE, latlng: point(triangle[1]) }];
+  ap.queueMissingNameRefresh = () => {}; realScan();
+  assert.equal(ap.runtime.stats.B.title, 'Resolved fan portal', 'Incomplete Intel cannot replace a saved resolved name');
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+}
+{
+  const { ap } = runtime();
+  ap.getLoadedPortals = () => [{ guid: 'new', title: ap.MISSING_TITLE, latlng: point(1, 1) }];
+  ap.collectPortalBookmarks = () => [{ guid: 'new', title: 'Bookmark portal' }, { guid: 'unloaded', title: 'Do not add', latlng: point(1, 1) }];
+  assert.equal(ap.getFanCandidates('map')[0].title, 'Bookmark portal');
+  assert.equal(ap.getFanCandidates('map').length, 1, 'Bookmarks enrich names only for selected loaded GUIDs');
+}
+{
+  const { ap, context } = runtime();
+  const timers = [], replies = [], requested = [];
+  context.setTimeout = fn => timers.push(fn);
+  ap.setMessage = () => {};
+  draft(ap);
+  ap.runtime.fanDraft.portals = triangle.map(p => ({ ...p, title: ap.MISSING_TITLE }));
+  ap.requestPortalDetails = (guid, callback) => { requested.push(guid); replies.push(() => callback({ title: 'Resolved ' + guid })); };
+  ap.refreshMissingNames(true);
+  assert.deepEqual(requested, ['A']);
+  ap.runtime.fanDraft.portals = [{ ...triangle[2], title: ap.MISSING_TITLE }, { ...p('D', 2, 2), title: ap.MISSING_TITLE }];
+  ap.refreshMissingNames(true);
+  while (replies.length || timers.length) { if (replies.length) replies.shift()(); else timers.shift()(); }
+  assert.deepEqual(requested, ['A', 'C', 'D'], 'Changed selections merge new GUIDs and skip obsolete pending names');
+  assert.equal(ap.runtime.nameLoader, null);
+}
+console.log('Fan planner: polygon/name loading, shared deduplicated requests, persisted names, separate workspaces, bounded suggestions, native scan/render, preserved drawings and storage rollback passed.');
