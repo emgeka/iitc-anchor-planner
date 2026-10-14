@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.19
+# Anforderungen für Entwicklungsstand 0.2.0-beta.20
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -309,3 +309,8 @@ Portale laden und Quellenwechsel dürfen bei gültiger Auswahl keinen leeren Dia
 
 ## Eigenständiger Fächerplan (0.2.0-beta.19)
 Vorschläge direkt zeichnen und ohne Draw Tools übernehmen. Optionalen eigenen aktiven Plan mit Portalsnapshots/Links/Feldern speichern, nach Refresh scannen/zeichnen und für bestehende Aufgaben-/Key-/Routinglogik verwenden. GUID-Zuordnung exakt statt Koordinatennähe. Native Planquelle hat Vorrang; Draw Tools unverändert und nicht zusätzlich einscannen. Neuer Vorschlag ersetzt bei ausdrücklicher Übernahme den bisherigen nativen Plan, bei Speicherfehler bleibt dieser erhalten. Entfernen kehrt zur externen Planquelle zurück. Frühere Draw-Tools-Übernahmeanforderungen gelten nur für beta.16–18.
+
+## Getrennte Arbeitsbereiche und Auswahlpolygon (0.2.0-beta.20)
+- Ankerportale aktiviert externe Draw-Tools-/Auto-Draw-Geometrie; Fächerplaner ist getrennte Entwurfsansicht. Aktive Planquelle klar zeigen, beide Geometrien beim Umschalten erhalten, gespeicherten Fächer wieder aktivieren. Aufgaben/Routing/Keybedarf nur aus aktivem Plan; Bestände und vorhandene Einstellungen nicht löschen.
+- Polygonquelle vorauswählen, ohne Polygon Anleitung statt stiller Karten-/Planübernahme. Bei mehreren einfachen Polygonen explizite Auswahl mit Portalzahl; neuestes bzw. gespeichertes Polygon als Standard. Nur geladene Portale innerhalb/auf Rand; Kartengrenze nicht zusätzlich anwenden. Alternative Quellen bleiben explizit verfügbar.
+- Übernommenes Auswahlpolygon beim externen Scan nicht als Planlink lesen. Vorschau/Geometrie unabhängig zeichnen, Änderungen an Draw Tools nicht schreiben. Keine Umschaltung während Finalcheck/Planvorschau, Fehler beim Speichern erhalten vorherigen Modus. Persistenz und JSONexport der Quelle/Polygonwahl.

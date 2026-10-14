@@ -183,7 +183,7 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   ap.refreshFanPlanner();
   controls.get('#ap-fan-source').onchange.call({ value: 'area' });
   assert.equal(ap.runtime.fanDraft.portals.length, 2);
-  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.limit'), 'Invalid selection shows a reason instead of leaving a blank preview');
+  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.areaRequired'), 'Missing polygon explains the selection workflow');
   assert.ok(ap.fanPlannerHtml().includes('id="ap-fan-apply" disabled'));
   controls.get('#ap-fan-source').onchange.call({ value: 'plan' });
   assert.equal(ap.runtime.fanDraft.anchors.length, 1, 'Loading portals automatically suggests an anchor');
@@ -195,13 +195,15 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   ap.runtime.fanDraft = null; ap.previewFanDesign();
 }
 {
-  const { ap, context } = runtime();
+  const { ap, context, drawn } = runtime();
   context.window.innerWidth = 360;
+  drawn.addLayer(new Polygon([point(-1, -1), point(-1, 3), point(2, 3), point(2, -1)], { fill: true }));
   ap.getFanCandidates = () => triangle;
   const dialogs = [];
   context.window.dialog = options => dialogs.push(options);
   ap.showFanPlanner();
   assert.equal(dialogs[0].width, 340);
+  assert.equal(ap.runtime.fanDraft.source, 'area');
   assert.ok(ap.runtime.fanDraft.preview.fields.length);
   const first = ap.runtime.fanDraft;
   ap.showFanPlanner();
@@ -211,6 +213,60 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   dialogs[1].closeCallback();
   assert.equal(ap.runtime.fanDraft.layer, null);
   assert.equal(ap.runtime.fanDraft.open, false);
+}
+{
+  const { ap, context, drawn, realScan } = runtime();
+  const areaA = new Polygon([point(-1, -1), point(-1, 3), point(2, 3), point(2, -1)], { fill: true });
+  const areaB = new Polygon([point(9, 9), point(9, 13), point(12, 13), point(12, 9)], { fill: true });
+  drawn.addLayer(areaA); drawn.addLayer(areaB);
+  const second = [p('D', 10, 10), p('E', 12, 10), p('F', 11, 11)];
+  ap.getLoadedPortals = () => [...triangle, ...second].map(portal => ({ ...portal, latlng: point(portal) }));
+  assert.equal(ap.getFanAreas().length, 2);
+  assert.deepEqual(json(ap.getFanCandidates('area', ap.fanAreaKey(areaA)).map(p => p.guid)), ['A', 'B', 'C']);
+  assert.deepEqual(json(ap.getFanCandidates('area', ap.fanAreaKey(areaB)).map(p => p.guid)), ['D', 'E', 'F']);
+  context.window.dialog = () => {};
+  ap.showFanPlanner();
+  assert.equal(ap.runtime.fanDraft.areaKey, ap.fanAreaKey(areaB), 'Most recently drawn polygon is the default');
+  assert.deepEqual(json(ap.runtime.fanDraft.portals.map(p => p.guid)), ['D', 'E', 'F']);
+  assert.equal(ap.runtime.fanDraft.preview.fields.length, 1);
+  assert.equal(ap.applyFanDesign(), true);
+  assert.equal(ap.state.planSource, 'fan');
+  assert.equal(ap.extractSegments(areaB).length, 0, 'Accepted selection boundary is not an anchor-portal plan link');
+  const accepted = JSON.stringify(ap.state.fanDesign);
+  assert.equal(ap.switchPlanSource('external'), true);
+  assert.equal(ap.getActiveFanPlan(), null);
+  assert.equal(JSON.stringify(ap.state.fanDesign), accepted, 'Switching preserves the saved fan geometry');
+  const overlay = new Group(); ap.renderNativeFanPlan(overlay); assert.equal(overlay.layers.length, 0);
+  ap.load(); assert.equal(ap.state.planSource, 'external');
+  ap.queueMissingNameRefresh = () => {};
+  const external = new Line([point(triangle[0]), point(triangle[1])]);
+  drawn.layers = [external, areaB];
+  realScan();
+  assert.equal(ap.runtime.links.length, 1);
+  assert.equal(ap.runtime.links[0].id, 'A|B');
+  assert.equal(ap.switchPlanSource('fan'), true); realScan();
+  assert.equal(ap.runtime.links.length, 3);
+  assert.ok(ap.runtime.links.every(link => ['D', 'E', 'F'].includes(link.a) && ['D', 'E', 'F'].includes(link.b)));
+  assert.ok(drawn.layers.includes(external));
+  assert.equal(context.window.plugin.keys.keys.A, 7);
+  ap.runtime.finalScan = { running: true };
+  assert.equal(ap.switchPlanSource('external'), false);
+  assert.equal(ap.state.planSource, 'fan');
+  ap.runtime.finalScan = null;
+  context.localStorage.setItem = () => { throw Error('full'); };
+  assert.equal(ap.switchPlanSource('external'), false);
+  assert.equal(ap.state.planSource, 'fan');
+}
+{
+  const { ap, context, drawn } = runtime();
+  const hole = new Polygon([], { fill: true });
+  hole.getLatLngs = () => [[point(0, 0), point(0, 3), point(3, 3)], [point(1, 1), point(1, 2), point(2, 2)]];
+  drawn.addLayer(hole); assert.equal(ap.getFanAreas().length, 0);
+  context.window.dialog = () => {};
+  ap.showFanPlanner();
+  assert.ok(ap.runtime.fanDraft.preview.errors.includes('fan.areaRequired'));
+  assert.equal(ap.runtime.fanDraft.layer, undefined);
+  assert.equal(ap.applyFanDesign(), false);
 }
 {
   const { ap, context, realScan, drawn } = runtime();

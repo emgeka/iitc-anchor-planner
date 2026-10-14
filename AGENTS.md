@@ -173,3 +173,7 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Fächerplanung
 - Bei Generator-/Anker-/Zuordnungsänderungen zusätzlich `node src/test-fan-planner.mjs` ausführen. Vorschläge verändern weder Draw Tools noch Keys/Erledigung; erst der explizite Übernahmebutton speichert den eigenen aktiven Plan in Anchor Planner. Draw Tools ist optional und bleibt unverändert; native Geometrie hat Vorrang beim Scan. Bestehende Zeichnungen erhalten, selbst kreuzende Ankerlinks nicht übernehmen. Wurfrichtungen bleiben pro Link ausdrücklich zu bestätigen.
+
+## Arbeitsbereiche und Auswahlflächen
+- Externe Ankerportal-Pläne und gespeicherte Fächergeometrie bei Umschaltung erhalten. Aufgaben und Overlays verwenden ausschließlich die aktive Planquelle; Keys und bestehende Einstellungen nicht löschen.
+- Fächerplaner startet mit einfacher Polygon-Auswahl; fehlende Fläche erklären, mehrere Flächen explizit auswählen. Nur übernommene Auswahlränder im externen Scan ausschließen. Polygon-/Modusänderungen mit test-fan-planner und Export-/Locale-Prüfungen abdecken.

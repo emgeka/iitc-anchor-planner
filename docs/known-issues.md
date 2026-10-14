@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.19
+# Bekannte Grenzen in 0.2.0-beta.20
 
 ## Portalzuordnung und Namen
 
@@ -264,3 +264,7 @@ Nutzerscreenshot zeigt drei Fächerportale ohne Anker und ohne Vorschlagszusamme
 
 ## Native Fächerplanung beta.19
 Draw Tools ist für Vorschlag/Übernahme nicht mehr nötig. Der eigene gespeicherte Plan hat Vorrang vor externen Zeichnungen; eigene Geometrie über Eigenen Fächerplan entfernen löschen, um Draw Tools wieder zu scannen. Alte in beta.16–18 ergänzte Linien bleiben dort erhalten. Stable kennt native Plangeometrie nicht; vor Rückwechsel exportieren. Maximal 60 Portale/heuristische Geometrie und ungeladene Intel-Lücken unverändert. Automatische Keybuchung verwendet weiterhin nur beobachtete Intel-Links; Übernahme verändert keine Keys. Echte IITC-/Mobile-Bestätigung steht aus.
+
+## Plantrennung beta.20
+Nutzer bestätigt beta.19 grundsätzlich; Plattform/Mobile-Abdeckung offen. Beta.20 bietet getrennte Bereiche und umschaltbare Geometrien. Polygonworkflow verwendet nur bereits geladene Portale; bei wenigen Portalen hineinzoomen/Intel laden und erneut Portale laden. Mehrere Flächen einzeln wählen, Löcher/Multipolygone unsupported. Alternative Quellen bleiben wählbar. Polygonfingerprints beruhen auf Koordinaten: Geänderter Rand ist eine neue Zeichnung und wird nicht automatisch vom externen Scan ausgeschlossen. Auswahlränder erst nach Übernahme ausgeschlossen.
+Bestand und Portal-/Linkeinstellungen werden beim Planwechsel geteilt, nicht kopiert. Stable ignoriert Planquelle/native Geometrie: vor Rückwechsel exportieren. Ist Draw Tools nicht installiert, fehlt der externe Plan; gespeicherter Fächer bleibt verfügbar. Automatisierte Auswahl-/Umschalt-/Persistenz-/Fehlertests bestanden, echter IITC-/Mobile-Test der neuen Bedienung ausstehend.

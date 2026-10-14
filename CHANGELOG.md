@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.20
+
+### English
+- Separate Anchor portals and Fan planner, preserve both plans and switch the active source for tasks/routing. Start fan design from a selected Draw Tools polygon, support choosing among polygons, explain missing selection and ignore accepted selection outlines in external scans.
+
+### Deutsch
+- Ankerportale und Fächerplaner trennen, beide Pläne erhalten und aktive Quelle für Aufgaben/Routing umschalten. Fächer mit ausgewähltem Draw-Tools-Polygon beginnen, mehrere Flächen auswählbar machen, fehlende Auswahl erklären und übernommene Auswahlränder im externen Scan ignorieren.
+
 ## 0.2.0-beta.19
 
 ### English

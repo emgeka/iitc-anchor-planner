@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.19
+# Architekturübersicht 0.2.0-beta.20
 
 Entwicklungsstand; Stable bleibt 0.1.55. IITC-Praxistest ausstehend.
 
@@ -83,7 +83,7 @@ Darstellungszustände werden nicht dauerhaft gespeichert.
 ## Sprach-Datenfluss
 
 Die bearbeitbaren Übersetzungen liegen als JSON-Dateien unter `src/locales/`.
-Jede Sprache besitzt dieselben 310 semantischen Schlüssel; Platzhalter wie
+Jede Sprache besitzt dieselben 317 semantischen Schlüssel; Platzhalter wie
 `{count}`, `{title}` oder `{distance}` müssen pro Schlüssel identisch sein.
 `language.name` enthält den Eigennamen für die dynamisch erzeugte Auswahlliste.
 
@@ -458,3 +458,8 @@ Der ap-fan-load-Handler lädt wie bisher einen frischen Portal-Snapshot und setz
 ### Native Fächerpläne beta.19
 fanDesign ergänzt validierte portals (maximal 60), links (GUID-Paare, dedupliziert) und fields (geschlossene GUID-Dreiergruppen). Legacy-Metadaten ohne Geometrie bleiben kompatibel und aktivieren keinen nativen Plan. applyFanDesign speichert allein Anchor-Planner-Zustand mit überprüfter localStorage-Schreiboperation und Rücknahme bei Fehler, ohne Draw Tools zu prüfen oder zu verändern. clearNativeFanPlan entfernt nur eigene Geometrie, erhält Richtungen/Keys und kehrt zum externen Scan zurück.
 getNativeFanPlan aktiviert eigene Geometrie als ausschließliche Scanquelle. scan ergänzt ungeladene Portale aus Snapshots, verwendet GUID-genaue apFanEndpoints und durchläuft sonst vorhandene Blocker-/Keys-/Routenpipeline. drawLayers zählt dann 0. renderNativeFanPlan zeichnet gespeicherte Flächen und Links im normalen Plugin-Layer, zusätzlich zu Blocker-/Statusoverlays. Setup plant einen nativen Scan nach Initialisierung ein. Dialog-Vorschau bleibt getrennt; alte Draw-Tools-Konflikte blockieren native Entwürfe nicht. Neue Wurfrichtungen weiterhin ausdrücklich bestätigen.
+
+### Umschaltbare Planquellen und Polygonworkflow beta.20
+state.planSource ist auto/external/fan; auto migriert frühere Zustände ohne Verhaltenswechsel (nativer Plan, sofern vorhanden). getNativeFanPlan liefert gespeicherte Geometrie unabhängig vom Modus, getActiveFanPlan sperrt sie im externen Modus. scan/renderNativeFanPlan/Setup verwenden aktive Quelle. applyFanDesign setzt fan, clearNativeFanPlan external. switchPlanSource validiert Quelle und Busy-Zustand, prüft localStorage-Schreiboperation vor Laufzeitwechsel, leert Scan-/Routencache und scannt aktive Quelle. exportData ergänzt planSource, fanDesign ergänzt selectionAreaKey.
+getFanAreas liefert deduplizierte einfache Ringe; mehrere Ringe/Löcher werden nicht abgeflacht. getFanCandidates(area,key) filtert genau ein Polygon (inklusive Rand), ohne viewport-Grenze. showFanPlanner startet area, bevorzugt gespeicherten Fingerprint oder letzten Ring. Dropdown wechselt Fläche über gemeinsamen Load-Handler. Fehlendes Polygon ersetzt generische Fehler durch fan.areaRequired. Übernahme ergänzt gewählten Fingerprint in areaKeys; extractSegments ignoriert nur diese akzeptierte Auswahl. Andere externe Linien bleiben erhalten.
+Panel bietet getrennte Workspace-Buttons mit aktivem Status, gespeicherter Fächer bleibt im externen Modus abrufbar. Fächerdialog bietet gespeicherten Plan verwenden/entfernen. Portal-/Linknotizen, Richtungen und Keybestand bleiben gemeinsame reale Informationen. Aktuelle Darstellung ersetzt den bedingungslosen nativen Vorrang aus beta.19.

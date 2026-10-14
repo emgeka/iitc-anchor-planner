@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.19
+### Beta testing: 0.2.0-beta.20
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -216,14 +216,11 @@ The cyan travel trail grows progressively to the moving position marker over the
 ## Next task (0.2.0-beta.16)
 Open **Next task** in the panel or Tasks for a compact live view of the first remaining work stop: portal, GPS distance, Waze/Google Maps, blocker removal before link tasks, direction controls and keys needed at each destination. Route origins are context, not extra work. Scan, GPS routing and the full task list remain directly available. Manual reports use the existing controls and do not confirm Intel or debit Keys. The view updates after scans, task/Keys changes and location updates. Unscheduled work and incomplete readiness remain visible. Additional explanations use English outside German/English.
 
-### Fan planning in beta.16
-Open **Fan fields** in the panel. Load 3–60 portals from the current plan, the visible map, or a simple Draw Tools selection polygon. Choose one, two or more anchors and request a suggestion. Set individual portals to Anchor (pinned), Fan portal, or Exclude; each fan portal is assigned to its nearest anchor unless you choose another. Separate fans never connect different anchor groups.
+## Separate planning areas (0.2.0-beta.20)
+**Anchor portals** selects the existing Draw Tools/Auto Draw link plan. **Fan planner** opens a separate design area; the panel labels the active plan. Both geometries are preserved when switching. Use **Use saved fan plan** to return to an accepted fan without recalculating it. Tasks, keys and routing use the active plan; inventory and per-portal/per-link settings remain shared.
 
-Check **Preview**, then **Add to Draw Tools** to keep existing drawings and scan the added plan. Confirm link directions under Tasks before routing. Proposals do not change Keys or completion status. Anchor suggestions use geometry, loaded blockers, existing links and link length; the bounded search does not guarantee an optimum or a legal Ingress field-building sequence. Only loaded Intel data is evaluated. The fan-planning idea is inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/); this independent multi-anchor planner is implemented in Anchor Planner.
+For a new fan, first draw a simple polygon around the desired portals in Draw Tools, then open **Fan planner**. The polygon source is preselected. If there are several polygons, select one; the newest is used initially, or the saved selection if still available. **Load portals** uses only loaded portals inside or on that polygon, including portals outside the visible map bounds. It automatically suggests anchors and draws the proposal. No polygon produces a clear instruction. Alternative map/current-plan sources remain available explicitly.
 
-Beta.17 keeps valid fan proposals visible even when existing Draw Tools lines prevent applying them. Field fills and outlines are more visible; conflict warnings and the disabled apply button remain.
+Choose one, two or more anchors, pin manual anchors, assign each fan portal to one anchor or exclude it. Review **Preview**, then **Use plan**. Anchor Planner saves and draws its own plan without changing Draw Tools lines or Keys. Accepted selection outlines are ignored when scanning Anchor portals; other drawings remain unchanged. Removing the native fan plan deletes only that geometry and returns to Anchor portals. New link directions remain unconfirmed until selected in Tasks.
 
-Beta.18 automatically suggests anchors and displays the fan preview after Load portals or a source change. Invalid selections show an explanation. Editing roles/assignments still requires Preview before acceptance; suggestions and loads do not save drawings.
-
-### Native fan plan in beta.19
-Fan proposals are drawn directly by Anchor Planner. **Use plan** saves the accepted fan as the active plan for scans, tasks, destination Keys, routing and Plan preview; Draw Tools is optional. Loaded map portals are available without Draw Tools; polygons remain an optional selection source. The native plan takes precedence over Draw Tools drawings without modifying them. Portal snapshots and link/field geometry survive refresh; new directions remain unconfirmed. **Remove native fan plan** returns to scanning Draw Tools when available, without clearing Keys or existing per-link settings. Earlier beta.16–18 Draw Tools acceptance descriptions above are superseded by this workflow.
+The planner accepts 3–60 portals and uses a bounded heuristic; loaded Intel data and geometric triangle counts do not guarantee an optimal or executable Ingress build sequence. Simple concave polygons are supported; holes/multipolygons are rejected. Save/export before returning to stable, which does not understand native fan plans or the plan selector. Inspired by [Fan Fields 3](https://github.com/Avataar120/fanfields3/), implemented independently.
