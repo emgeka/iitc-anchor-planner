@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.23
+# Anforderungen für Entwicklungsstand 0.2.0-beta.24
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -326,3 +326,8 @@ Alle enthaltenen nicht ausgeschlossenen Fächerportale in die automatische Namen
 ## Frische, tatsächlich generierte Fächer (0.2.0-beta.23)
 Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch aktivieren. Neuer Entwurf: aktuelles/neuestes Polygon, ein automatischer Anker als Ausgangspunkt, keine übernommenen Pins/Zuordnungen/Ausschlüsse. Alte Pläne bleiben ausdrücklich abrufbar, aber beeinflussen die Generierung nicht. Entwurfsansicht zeigt keine alten Readiness-/Blockercheck-/Keyfehler und lädt Namen nur für ihre Auswahl.
 3–200 Portale verarbeiten, einschließlich 76er-Auswahl. Große Fächer mit begrenzter Winkel-Nachbarschaft und effizienter Dreieckzählung generieren; selbst kreuzende Speichen nicht übernehmen. Speicherung/Scan/Reload/Zeichnung dürfen nach 60 Portalen nicht abschneiden. Nur ausdrückliche Übernahme aktiviert Arbeitsplan und ersetzt alte native Geometrie.
+
+## Fraktionsbewusste Blocker und Marker (0.2.0-beta.24)
+- IITC-Linkfraktion speichern und gegen bekannte Spielerfraktion als own/enemy/unknown einordnen, Machina unterstützen. Fehlende Daten nicht erraten. Blockeraufgaben, Karte, Portal-Endpunktliste und Zusammenfassung kennzeichnen, eigene Entfernung/Umfärbung abstimmen. Alle kreuzenden Teams blockieren weiterhin.
+- Bekannte Gegnerverbindung identisch zum Planlink ist nicht erfüllt: Entfernungsaufgabe am Endportal, eigener Keybedarf bleibt. Gegnerlink nicht als verbrauchten eigenen Key buchen. Fraktion/Timestamp in Finalcheck-Zwischenstand; JSON-Blockerexport um faction/relation ergänzen.
+- Key-Badges geografisch an Portalpositionen binden und bei Bewegung/Zoom/Planvorschau stabil lassen. Sichtbarkeit via Plugin-Layer, passive Bedienung, gleiche Status-/Next-Markierung. Keine echten Key-/Erledigungsänderungen durch Markeranimation.

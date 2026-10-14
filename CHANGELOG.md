@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.24
+
+### English
+- Identify friendly/enemy/unknown and Machina blockers in tasks, summaries and map colours, preserving faction metadata through Final check/export. Treat matching enemy links as removal work without debiting Keys. Anchor key-status badges geographically with Leaflet markers so animated travel no longer slides them across portals.
+
+### Deutsch
+- Eigene/gegnerische/unbekannte und Machina-Blocker in Aufgaben, Zählern und Kartenfarben unterscheiden; Fraktionsdaten durch Finalcheck/Export erhalten. Identische Gegnerlinks als Entfernungsarbeit ohne Keyabzug behandeln. Key-Statusmarker mit Leaflet geografisch verankern, damit sie bei animierter Strecke nicht mehr über Portale rutschen.
+
 ## 0.2.0-beta.23
 
 ### English

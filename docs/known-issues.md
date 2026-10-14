@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.23
+# Bekannte Grenzen in 0.2.0-beta.24
 
 ## Portalzuordnung und Namen
 
@@ -280,3 +280,7 @@ Return Home pausiert Finalcheck und beendet Vorschau/Importdialoge. Nur einmal g
 ## Nicht generierender Fächerplaner beta.23
 Nutzer bestätigt korrekte Polygonportale, meldet aber fehlende Fächerplanung, automatisch geladene alte Zustände und eine alte Blockercheck-Meldung. Ursachen im Code: Einstieg übersprang Generierung bei gespeichertem Plan; showFanPlanner kopierte alte Pins/Zuordnungen/Flächenauswahl; 60er-Grenze blockierte bekannte 76er-Auswahl. Beta.23 entfernt diese automatische Wiederaufnahme, isoliert Entwurfsdiagnosen und unterstützt bis 200 Portale.
 End-to-end Regression mit 76 synthetischen Portalen und alter gespeicherter Geometrie: neue Fläche, keine alten Pins, generierte Felder, Übernahme, Refresh, Scan und Zeichnung vollständig. 200er-Fächer separat geprüft. Nutzerpolygon selbst liegt nicht als Koordinatendatei vor; tatsächlicher IITC-/Mobile-Praxistest weiterhin erforderlich. Winkel-Fächer über 60 ist bewusst begrenzt und liefert kein optimales Mehrlagennetz. Alte Pläne bleiben per ausdrücklicher Aktion abrufbar.
+
+## Beta.24
+Nutzer bestätigt frische Fächerplanung grundsätzlich, meldet driftende Keymarker bei Planvorschau. Ursache: Bildschirmpositionen nur beim Neuzeichnen/endgültigen Kartenstopp aktualisiert. Native Leaflet-Statusmarker ersetzen diesen Pfad; Fallback auf move, bei fehlenden Marker-/DivIcon-APIs eingeschränkte Zoomanimation. Echter Desktop-/Mobile-Animationsvergleich ausstehend.
+Fraktionen stammen ausschließlich aus geladenem Intel und PLAYER; fehlen sie, relation unknown. Machina als eigene Fraktion, gegenüber RES/ENL gegnerisch. Bei unbekannter Fraktion bleiben bisherige Existenz-/Key-Regeln aus Kompatibilität erhalten; keine Garantie, dass ein unbekannter vorhandener Link nutzbar ist. Eigene Blocker brauchen reale Abstimmung/Umfärbung, kein automatischer Abbau oder Verfügbarkeitsnachweis. Keine Fraktionsfilter, die physische Blocker ausblenden. Klassifizierung sagt nichts über tatsächlichen Werfer/Inventar des Agenten aus; bestehende Teamlink-Verbrauchsregel gilt weiterhin.

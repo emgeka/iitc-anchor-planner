@@ -185,3 +185,7 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Nach Änderungen an Panelnavigation/Workspace-Controls node src/test-workspaces-ui.mjs zusätzlich ausführen; CI muss denselben Check enthalten.
 
 - Ein neuer Fächerentwurf darf weder gespeicherte Pins/Zuordnungen/Flächenauswahl noch alte Arbeitsdiagnosen übernehmen. Wiederaufnahme ausschließlich ausdrücklich. Generator-/Persistenzgrenzen gemeinsam pflegen und große Auswahl durch echte Generierung, Übernahme, Reload, Scan und Zeichnung testen.
+
+## Blockerfraktionen und Marker
+- Alle physischen Kreuzblocker berücksichtigen, Fraktionen nicht still ausfiltern. Eigene/gegnerische/unbekannte Hinweise aus Intel/PLAYER ableiten; Gegnerverbindungen nicht als eigene erfüllte Würfe oder eigenen Keyverbrauch werten.
+- Key-Statusmarker geographisch verankern und mit Plugin-Layer aufräumen; Vorschau bleibt ohne echte Bestandswirkung. Nach entsprechenden Änderungen node src/test-blockers-overlays.mjs plus relevante Routing-/Verbrauchs-/Vorschautests ausführen.
