@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.21
+
+### English
+- Load missing fan-portal names before acceptance, including oversized selections. Share and deduplicate requests, update the dialog incrementally, reuse GUID-matched known names and persist resolved native-plan names across reload.
+
+### Deutsch
+- Fehlende Fächerportal-Namen vor Übernahme laden, auch bei zu großer Auswahl. Anfragen gemeinsam/dedupliziert verarbeiten, Dialog laufend aktualisieren, bekannte GUID-genaue Namen nutzen und erkannte Namen eigener Pläne über Refresh erhalten.
+
 ## 0.2.0-beta.20
 
 ### English

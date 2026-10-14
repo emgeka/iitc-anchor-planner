@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.20
+### Beta-Test: 0.2.0-beta.21
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -235,3 +235,5 @@ Für einen neuen Fächer zuerst mit Draw Tools ein einfaches Polygon um die gew�
 Einen, zwei oder mehr Anker wählen, manuelle Anker festlegen, Fächerportale einem Anker zuordnen oder ausschließen. **Vorschau** prüfen, dann **Plan übernehmen**. Anchor Planner speichert und zeichnet den eigenen Plan; Draw-Tools-Linien und Keys bleiben erhalten. Übernommene Auswahlränder werden beim Scan der Ankerportale ignoriert, andere Zeichnungen bleiben unverändert. Eigenen Fächerplan entfernen löscht nur dessen Geometrie und kehrt zu Ankerportale zurück. Neue Wurfrichtungen unter Aufgaben bestätigen.
 
 3–60 Portale und begrenzte heuristische Suche; geladene Intel-Daten und geometrische Dreiecke garantieren kein Optimum oder eine gültige Ingress-Baureihenfolge. Einfache konkave Polygone unterstützt, Löcher/Multipolygone abgewiesen. Vor Rückwechsel zu Stable exportieren; Stable kennt eigene Fächerpläne und Planumschaltung nicht. Von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert, eigenständig implementiert.
+
+Beta.21 lädt fehlende Namen der Fächerportale automatisch vor der Übernahme, auch bei zu großer Auswahl. Der Dialog zeigt Fortschritt und aktualisiert Namen laufend; **Namen laden** wiederholt fehlgeschlagene Anfragen. Namen stammen GUID-genau aus geladenem Intel, Bookmarks, vorherigem Entwurf oder gespeichertem Plan. Erkannte Namen übernommener Pläne bleiben nach Refresh und bei unvollständigem Intel erhalten. Die Planungsgrenze bleibt bei 60 Portalen: kleineres Polygon zeichnen oder nach Namensauflösung gezielt Portale ausschließen.

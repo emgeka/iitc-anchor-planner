@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.20
+# Bekannte Grenzen in 0.2.0-beta.21
 
 ## Portalzuordnung und Namen
 
@@ -268,3 +268,7 @@ Draw Tools ist für Vorschlag/Übernahme nicht mehr nötig. Der eigene gespeiche
 ## Plantrennung beta.20
 Nutzer bestätigt beta.19 grundsätzlich; Plattform/Mobile-Abdeckung offen. Beta.20 bietet getrennte Bereiche und umschaltbare Geometrien. Polygonworkflow verwendet nur bereits geladene Portale; bei wenigen Portalen hineinzoomen/Intel laden und erneut Portale laden. Mehrere Flächen einzeln wählen, Löcher/Multipolygone unsupported. Alternative Quellen bleiben wählbar. Polygonfingerprints beruhen auf Koordinaten: Geänderter Rand ist eine neue Zeichnung und wird nicht automatisch vom externen Scan ausgeschlossen. Auswahlränder erst nach Übernahme ausgeschlossen.
 Bestand und Portal-/Linkeinstellungen werden beim Planwechsel geteilt, nicht kopiert. Stable ignoriert Planquelle/native Geometrie: vor Rückwechsel exportieren. Ist Draw Tools nicht installiert, fehlt der externe Plan; gespeicherter Fächer bleibt verfügbar. Automatisierte Auswahl-/Umschalt-/Persistenz-/Fehlertests bestanden, echter IITC-/Mobile-Test der neuen Bedienung ausstehend.
+
+## Fächernamen beta.21
+Nutzer meldet zahlreiche unbekannte Namen; Screenshot aus beta.20 zeigt Polygon mit 76 Portalen, wenige aus vorheriger Planung benannt, übrige unbekannt. Ursache: Namensloader erfasste nur aktiven Arbeitsplan/Blocker, nicht den noch offenen Entwurf; Snapshots wurden nicht aktualisiert. Beta.21 deckt Entwürfe und persistente Namen ab. Alle 76 Namen können angefragt werden, auch wenn Geometrie wegen Grenze 60 nicht berechnet wird. Kleineres Polygon oder Ausschließen nötig; näher zoomen verkleinert ein festes Polygon nicht.
+Detailanfragen bleiben sequentiell mit 900-ms-Pause und können für viele Portale dauern. Nicht verfügbare Intel-Namen bleiben ehrlich unbekannt, manuell erneut laden. Keine Garantie vollständiger Intel-/Netzwerkantworten. Automatisierte 76-GUID-/Persistenz-/Dedup-Tests bestanden, Nutzer-/Mobile-Bestätigung ausstehend.

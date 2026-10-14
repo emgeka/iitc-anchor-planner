@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.20
+// @version        0.2.0-beta.21
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261014090000';
+  plugin_info.dateTimeVersion = '20261014100000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.20';
+  ap.VERSION = '0.2.0-beta.21';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -348,7 +348,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fächerportal",
       "fan.anchor": "Anker",
       "fan.exclude": "Ausschließen",
-      "fan.limit": "3–60 Portale auswählen. Näher zoomen oder Portale ausschließen, um große Auswahlen zu verkleinern.",
+      "fan.limit": "3–60 Portale auswählen. Zeichne ein kleineres Auswahlpolygon oder schließe Portale aus, um die Auswahl zu verkleinern.",
       "fan.invalid": "Doppelte Portale, identische Positionen oder fehlende Koordinaten. Auswahl prüfen.",
       "fan.anchorsNeeded": "Mindestens einen Anker und mindestens ein Fächerportal auswählen.",
       "fan.invalidAssignment": "Ein manuell zugeordneter Anker fehlt. Zuordnung prüfen.",
@@ -667,7 +667,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -986,7 +986,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1305,7 +1305,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1624,7 +1624,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -1943,7 +1943,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2262,7 +2262,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2581,7 +2581,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -2900,7 +2900,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -3219,7 +3219,7 @@ function wrapper(plugin_info) {
       "fan.leaf": "Fan portal",
       "fan.anchor": "Anchor",
       "fan.exclude": "Exclude",
-      "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+      "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
       "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
       "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
       "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",
@@ -4965,8 +4965,14 @@ function wrapper(plugin_info) {
       return inside;
     }
     var bounds = window.map && window.map.getBounds && window.map.getBounds();
-    return ap.getLoadedPortals().filter(function (portal) { return source === 'area' ? polygons.some(function (ring) { return inRing(portal.latlng, ring); }) : !bounds || bounds.contains(portal.latlng); }).map(function (portal) {
-      return { guid: portal.guid, title: portal.title, lat: portal.latlng.lat, lng: portal.latlng.lng };
+    var loaded = ap.getLoadedPortals(), known = Object.create(null);
+    function remember(guid, title) { if (guid && !ap.isMissingPortalTitle(title)) known[guid] = title; }
+    (ap.state.fanDesign && ap.state.fanDesign.portals || []).forEach(function (p) { remember(p.guid, p.title); });
+    (ap.runtime.fanDraft && ap.runtime.fanDraft.portals || []).forEach(function (p) { remember(p.guid, p.title); });
+    Object.keys(ap.runtime.stats || {}).forEach(function (guid) { remember(guid, ap.runtime.stats[guid].title); });
+    ap.collectPortalBookmarks(loaded).forEach(function (p) { remember(p.originalGuid || p.guid, p.title); });
+    return loaded.filter(function (portal) { return source === 'area' ? polygons.some(function (ring) { return inRing(portal.latlng, ring); }) : !bounds || bounds.contains(portal.latlng); }).map(function (portal) {
+      return { guid: portal.guid, title: ap.isMissingPortalTitle(portal.title) ? known[portal.guid] || portal.title : portal.title, lat: portal.latlng.lat, lng: portal.latlng.lng };
     }).sort(function (a, b) { return ap.displayPortalTitle(a.title).localeCompare(ap.displayPortalTitle(b.title)) || a.guid.localeCompare(b.guid); });
   };
   ap.clearFanPreview = function () {
@@ -4993,7 +4999,7 @@ function wrapper(plugin_info) {
       draft.preview.links.forEach(function (edge) { L.polyline([edge.a, edge.b], { color: colors[draft.anchors.indexOf(edge.anchor) % colors.length], weight: 3, interactive: false }).addTo(draft.layer); });
       draft.preview.anchors.forEach(function (anchor) { L.circleMarker(anchor, { radius: 11, color: '#fff', weight: 3, fillOpacity: .7, interactive: false }).addTo(draft.layer); });
     }
-    ap.refreshFanPlanner();
+    ap.refreshFanPlanner(); ap.queueMissingNameRefresh();
   };
   ap.applyFanDesign = function () {
     var draft = ap.runtime.fanDraft;
@@ -5056,10 +5062,11 @@ function wrapper(plugin_info) {
   };
   ap.fanPlannerHtml = function () {
     var draft = ap.runtime.fanDraft, html = '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
+    if (ap.runtime.nameLoader) html += '<p>' + ap.escapeHtml(ap.t('message.namesLoadingAuto', { current: ap.runtime.nameLoader.index, total: ap.runtime.nameLoader.queue.length })) + '</p>';
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
     var sourceKeys = { plan: 'fan.source.plan', map: 'fan.source.map', area: 'fan.source.area' };
     ['plan', 'map', 'area'].forEach(function (source) { html += '<option value="' + source + '"' + (draft.source === source ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(sourceKeys[source])) + '</option>'; });
-    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="59" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
+    html += '</select></label><button id="ap-fan-load">' + ap.escapeHtml(ap.t('fan.load')) + '</button><label>' + ap.escapeHtml(ap.t('fan.count')) + ' <input id="ap-fan-count" type="number" min="1" max="59" value="' + draft.count + '"></label><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button><button id="ap-fan-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
     if (draft.source === 'area') {
       html += '<label>' + ap.escapeHtml(ap.t('fan.area')) + ' <select id="ap-fan-area">';
       ap.getFanAreas().forEach(function (area, index) { html += '<option value="' + ap.escapeHtml(area.key) + '"' + (draft.areaKey === area.key ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('fan.areaOption', { index: index + 1, count: ap.getFanCandidates('area', area.key).length })) + '</option>'; });
@@ -5106,6 +5113,7 @@ function wrapper(plugin_info) {
       if (portals.length < 3 || portals.length > 60) { window.alert(ap.t('fan.limit')); return; }
       draft.anchors = ap.suggestFanAnchors(portals, draft.count, draft.pinned, draft.assignments).anchors; ap.previewFanDesign();
     };
+    element.querySelector('#ap-fan-loadnames').onclick = function () { ap.refreshMissingNames(false); };
     element.querySelector('#ap-fan-preview').onclick = ap.previewFanDesign;
     element.querySelector('#ap-fan-apply').onclick = ap.applyFanDesign;
     var areaSelect = element.querySelector('#ap-fan-area');
@@ -6716,7 +6724,9 @@ function wrapper(plugin_info) {
     var layers = nativeFan ? [] : ap.collectDrawToolLayers();
     if (nativeFan) {
       nativeFan.portals.forEach(function (p) {
-        if (!portals.some(function (loaded) { return loaded.guid === p.guid; })) portals.push(Object.assign({}, p, { latlng: ap.workPoint(p), source: 'Anchor Planner' }));
+        var loaded = portals.find(function (portal) { return portal.guid === p.guid; });
+        if (!loaded) portals.push(Object.assign({}, p, { latlng: ap.workPoint(p), source: 'Anchor Planner' }));
+        else if (ap.isMissingPortalTitle(loaded.title) && !ap.isMissingPortalTitle(p.title)) loaded.title = p.title;
       });
       nativeFan.links.forEach(function (edge) {
         var endpoints = edge.map(function (guid) { return portals.find(function (p) { return p.guid === guid; }); });
@@ -7396,6 +7406,11 @@ function wrapper(plugin_info) {
       ap.runtime.stats[guid].title = title;
       changed = true;
     }
+    var draft = ap.runtime.fanDraft;
+    (draft && draft.portals || []).forEach(function (p) { if (p.guid === guid && p.title !== title) { p.title = title; changed = true; } });
+    (ap.state.fanDesign && ap.state.fanDesign.portals || []).forEach(function (p) {
+      if (p.guid === guid && p.title !== title) { p.title = title; changed = true; persistentProgressChanged = true; }
+    });
     function updateLinkTitles(links, persistent) {
       (links || []).forEach(function (link) {
         if (link.a === guid && link.titleA !== title) {
@@ -7413,11 +7428,13 @@ function wrapper(plugin_info) {
     (ap.runtime.links || []).forEach(function (plannedLink) {
       updateLinkTitles(plannedLink && plannedLink.blockers);
     });
+    updateLinkTitles(ap.runtime.links);
     updateLinkTitles(ap.runtime.existingLinks);
     if (ap.runtime.finalScan && ap.runtime.finalScan.accumulator) updateLinkTitles(ap.runtime.finalScan.accumulator.list);
     var progressLinks = ap.state.finalScanProgress && ap.state.finalScanProgress.links;
     updateLinkTitles(progressLinks, true);
     if (persistentProgressChanged) ap.save();
+    if (changed) ap.runtime.workPlan = null;
     return changed;
   };
 
@@ -7450,44 +7467,51 @@ function wrapper(plugin_info) {
         consider(blocker.b, blocker.titleB);
       });
     });
+    var draft = ap.runtime.fanDraft;
+    (draft && draft.open ? draft.portals : []).forEach(function (p) { if (!draft.excluded[p.guid]) consider(p.guid, p.title); });
+    (ap.getActiveFanPlan() && ap.state.fanDesign.portals || []).forEach(function (p) { consider(p.guid, p.title); });
     return Object.keys(missing);
   };
 
   ap.queueMissingNameRefresh = function () {
     if (!ap.collectMissingPortalNameGuids().length) return false;
-    // Let the scan UI render before the same sequential loader used by the manual retry starts.
-    setTimeout(function () { ap.refreshMissingNames(true); }, 250);
+    if (ap.runtime.nameLoader) { ap.refreshMissingNames(true); return true; }
+    if (ap.runtime.nameRefreshQueued) return true;
+    ap.runtime.nameRefreshQueued = true;
+    setTimeout(function () { ap.runtime.nameRefreshQueued = false; ap.refreshMissingNames(true); }, 250);
     return true;
   };
-
   ap.refreshMissingNames = function (auto) {
     var missing = ap.collectMissingPortalNameGuids();
-    if (!missing.length) {
-      ap.setMessage(ap.t('message.namesNoneMissing'));
+    if (ap.runtime.nameLoader) {
+      missing.forEach(function (guid) { if (!ap.runtime.nameLoader.seen.has(guid)) { ap.runtime.nameLoader.seen.add(guid); ap.runtime.nameLoader.queue.push(guid); } });
       return;
     }
-
-    var idx = 0;
-    ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: 0, total: missing.length }));
-
+    if (!missing.length) { ap.setMessage(ap.t('message.namesNoneMissing')); return; }
+    var loader = { queue: missing.slice(), seen: new Set(missing), index: 0 };
+    ap.runtime.nameLoader = loader;
+    ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: 0, total: loader.queue.length }));
     function next() {
-      if (idx >= missing.length) {
-        ap.setMessage(ap.t(auto ? 'message.namesLoadedAuto' : 'message.namesLoaded') + ' ' + ap.t('message.namesUnavailable'));
-        ap.renderOverlays();
-        ap.renderPanel();
-        return;
+      var guid;
+      while (loader.index < loader.queue.length) {
+        guid = loader.queue[loader.index++];
+        if (ap.collectMissingPortalNameGuids().indexOf(guid) !== -1) break;
+        guid = null;
       }
-      var guid = missing[idx++];
+      if (!guid) {
+        ap.runtime.nameLoader = null;
+        ap.setMessage(ap.t(auto ? 'message.namesLoadedAuto' : 'message.namesLoaded') + ' ' + ap.t('message.namesUnavailable'));
+        ap.renderOverlays(); ap.renderPanel(); ap.refreshFanPlanner(); ap.refreshTaskList(); return;
+      }
       ap.requestPortalDetails(guid, function (data) {
-        var marker = window.portals && window.portals[guid];
-        var title = ap.getPortalTitleFromMarker(guid, marker);
+        var marker = window.portals && window.portals[guid], title = ap.getPortalTitleFromMarker(guid, marker);
         if (ap.isMissingPortalTitle(title)) title = ap.extractTitleFromObject(data, 0) || title;
         ap.updatePortalTitle(guid, title);
-        ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: idx, total: missing.length }));
+        ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: loader.index, total: loader.queue.length }));
+        ap.refreshFanPlanner(); ap.refreshTaskList();
         setTimeout(next, 900);
       });
     }
-
     next();
   };
 

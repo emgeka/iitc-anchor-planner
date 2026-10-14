@@ -300,7 +300,7 @@
   "fan.leaf": "Fan portal",
   "fan.anchor": "Anchor",
   "fan.exclude": "Exclude",
-  "fan.limit": "Select 3–60 portals. Zoom closer or exclude portals to reduce a large selection.",
+  "fan.limit": "Select 3–60 portals. Draw a smaller selection polygon or exclude portals to reduce the selection.",
   "fan.invalid": "Duplicate portals, coincident positions or missing coordinates. Review the selection.",
   "fan.anchorsNeeded": "Select at least one anchor and leave at least one fan portal.",
   "fan.invalidAssignment": "A manually assigned anchor is missing. Review assignments.",

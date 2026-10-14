@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.20
+# Anforderungen für Entwicklungsstand 0.2.0-beta.21
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -314,3 +314,6 @@ Vorschläge direkt zeichnen und ohne Draw Tools übernehmen. Optionalen eigenen 
 - Ankerportale aktiviert externe Draw-Tools-/Auto-Draw-Geometrie; Fächerplaner ist getrennte Entwurfsansicht. Aktive Planquelle klar zeigen, beide Geometrien beim Umschalten erhalten, gespeicherten Fächer wieder aktivieren. Aufgaben/Routing/Keybedarf nur aus aktivem Plan; Bestände und vorhandene Einstellungen nicht löschen.
 - Polygonquelle vorauswählen, ohne Polygon Anleitung statt stiller Karten-/Planübernahme. Bei mehreren einfachen Polygonen explizite Auswahl mit Portalzahl; neuestes bzw. gespeichertes Polygon als Standard. Nur geladene Portale innerhalb/auf Rand; Kartengrenze nicht zusätzlich anwenden. Alternative Quellen bleiben explizit verfügbar.
 - Übernommenes Auswahlpolygon beim externen Scan nicht als Planlink lesen. Vorschau/Geometrie unabhängig zeichnen, Änderungen an Draw Tools nicht schreiben. Keine Umschaltung während Finalcheck/Planvorschau, Fehler beim Speichern erhalten vorherigen Modus. Persistenz und JSONexport der Quelle/Polygonwahl.
+
+## Fächerportal-Namen (0.2.0-beta.21)
+Alle enthaltenen nicht ausgeschlossenen Fächerportale in die automatische Namensauflösung aufnehmen, unabhängig vom aktiven Ankerplan und unabhängig von der 60-Portal-Geometriegrenze. Bekannte GUID-genaue Titel aus Bookmarks/Entwurf/Plan nutzen, keine ungeladenen Bookmarks zur Auswahl hinzufügen. Dialog schrittweise aktualisieren, Retry erreichbar halten, doppelte parallele Requests vermeiden. Übernommene Namen speichern; unvollständiges Intel darf sie nicht verdrängen. Keine Änderung an Keys, Geometrie oder Erledigungen durch Namensauflösung.
