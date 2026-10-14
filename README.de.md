@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.19
+### Beta-Test: 0.2.0-beta.20
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -227,14 +227,11 @@ Die hellblaue Weglinie wächst schrittweise bis zum mitwandernden Positionsmarke
 ## Nächste Aufgabe (0.2.0-beta.16)
 **Nächste Aufgabe** im Panel oder unter Aufgaben öffnet eine kompakte Live-Ansicht des ersten verbleibenden Arbeitsstopps: Portal, GPS-Entfernung, Waze/Google Maps, Blocker-Abbau vor Linkaufgaben, Wurfrichtung und benötigte Keys am jeweiligen Ziel. Routenstarts sind Kontext, kein zusätzlicher Arbeitsauftrag. Scan, Standort-Routing und vollständige Aufgabenliste bleiben direkt erreichbar. Manuelle Meldungen nutzen die bestehenden Controls und bestätigen weder Intel noch buchen sie Keys. Die Ansicht aktualisiert sich nach Scans, Aufgaben-/Keyänderungen und Standortupdates. Nicht eingeplante Arbeit und unvollständiger Einsatzcheck bleiben sichtbar. Zusätzliche Erklärungen außerhalb Deutsch/Englisch zunächst Englisch.
 
-### Fächer planen in beta.16
-**Fächer planen** im Panel öffnen. 3–60 Portale aus dem aktuellen Plan, dem sichtbaren Kartenausschnitt oder einem einfachen Draw-Tools-Auswahlpolygon laden. Einen, zwei oder mehr Anker vorschlagen lassen. Einzelne Portale als Anker (festgelegt), Portal oder Ausgeschlossen markieren. Jedes weitere Portal gehört zum nächstgelegenen Anker, sofern du keinen anderen zuweist. Getrennte Fächer verbinden keine unterschiedlichen Ankergruppen.
+## Getrennte Planungsbereiche (0.2.0-beta.20)
+**Ankerportale** aktiviert den vorhandenen Draw-Tools-/Auto-Draw-Linkplan. **Fächerplaner** öffnet einen getrennten Entwurf; das Panel zeigt den aktiven Plan. Beide Geometrien bleiben beim Umschalten erhalten. **Gespeicherten Fächerplan verwenden** aktiviert einen übernommenen Fächer ohne Neuberechnung. Aufgaben, Keys und Routing verwenden den aktiven Plan; Bestand sowie Portal-/Linkeinstellungen bleiben gemeinsam.
 
-**Vorschau** prüfen und anschließend **In Draw Tools ergänzen**. Bestehende Zeichnungen bleiben erhalten, hinzugefügte Links werden gescannt. Wurfrichtungen unter Aufgaben bestätigen. Vorschläge ändern weder Keys noch Erledigungen. Die begrenzte Ankersuche bewertet Geometrie, geladene Blocker, vorhandene Links und Linklänge; sie garantiert weder das Optimum noch eine gültige Ingress-Baureihenfolge. Nur geladene Intel-Daten zählen. Die Idee ist von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert; der eigenständige Mehranker-Planer entsteht in Anchor Planner.
+Für einen neuen Fächer zuerst mit Draw Tools ein einfaches Polygon um die gewünschten Portale zeichnen, dann **Fächerplaner** öffnen. Die Polygonquelle ist vorausgewählt. Bei mehreren Polygonen eine Fläche auswählen; zunächst gilt die zuletzt gezeichnete bzw. die noch vorhandene gespeicherte Auswahl. **Portale laden** verwendet ausschließlich geladene Portale innerhalb oder auf dem Rand des Polygons, auch außerhalb des sichtbaren Ausschnitts. Anker und Vorschau werden automatisch berechnet. Ohne Polygon erscheint eine Anleitung. Kartenausschnitt und aktueller Plan bleiben ausdrücklich wählbare alternative Quellen.
 
-Beta.17 zeigt gültige Fächervorschläge auch dann, wenn vorhandene Draw-Tools-Linien die Übernahme verhindern. Feldflächen und Umrisse sind deutlicher; Konfliktmeldung und gesperrter Übernahmebutton bleiben erhalten.
+Einen, zwei oder mehr Anker wählen, manuelle Anker festlegen, Fächerportale einem Anker zuordnen oder ausschließen. **Vorschau** prüfen, dann **Plan übernehmen**. Anchor Planner speichert und zeichnet den eigenen Plan; Draw-Tools-Linien und Keys bleiben erhalten. Übernommene Auswahlränder werden beim Scan der Ankerportale ignoriert, andere Zeichnungen bleiben unverändert. Eigenen Fächerplan entfernen löscht nur dessen Geometrie und kehrt zu Ankerportale zurück. Neue Wurfrichtungen unter Aufgaben bestätigen.
 
-Beta.18 schlägt nach Portale laden und Quellenwechsel automatisch Anker vor und zeigt die Fächervorschau. Ungültige Auswahlen zeigen eine Erklärung. Nach manuellen Rollen-/Zuordnungsänderungen Vorschau prüfen; Laden und Vorschläge speichern keine Zeichnungen.
-
-### Eigener Fächerplan in beta.19
-Anchor Planner zeichnet Vorschläge direkt. **Plan übernehmen** speichert den eigenen Fächerplan als aktiven Plan für Scans, Aufgaben, Ziel-Keys, Routing und Planvorschau. Draw Tools ist optional; Portale aus der geladenen Karte sind ohne Draw Tools verfügbar, Auswahlpolygone bleiben optional. Der eigene Plan hat Vorrang vor vorhandenen Draw-Tools-Zeichnungen und verändert sie nicht. Portalnamen und Link-/Feldgeometrie bleiben nach Refresh erhalten; neue Wurfrichtungen bleiben unbestätigt. **Eigenen Fächerplan entfernen** kehrt zu Draw Tools zurück, sofern verfügbar, ohne Keys oder vorhandene Linkeinstellungen zu löschen. Dieser Ablauf ersetzt die obigen Übernahmebeschreibungen aus beta.16–18.
+3–60 Portale und begrenzte heuristische Suche; geladene Intel-Daten und geometrische Dreiecke garantieren kein Optimum oder eine gültige Ingress-Baureihenfolge. Einfache konkave Polygone unterstützt, Löcher/Multipolygone abgewiesen. Vor Rückwechsel zu Stable exportieren; Stable kennt eigene Fächerpläne und Planumschaltung nicht. Von [Fan Fields 3](https://github.com/Avataar120/fanfields3/) inspiriert, eigenständig implementiert.

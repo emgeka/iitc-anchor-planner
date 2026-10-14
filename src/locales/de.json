@@ -283,8 +283,8 @@
   "next.empty": "Zuerst einen Plan scannen.",
   "next.review": "Nicht eingeplante Aufgaben prüfen: vollständige Aufgabenliste öffnen.",
   "next.targetKeys": "Keys für {title}: {owned}/{required}",
-  "fan.title": "Fächer planen",
-  "fan.help": "Jedes Fächerportal gehört zu einem Anker. Anker automatisch vorschlagen oder Rollen und Zuordnung selbst wählen. Manuelle Anker (★) bleiben bei Vorschlägen fest. Der Vorschlag wird direkt gezeichnet. Plan übernehmen speichert ihn in Anchor Planner für Aufgaben, Keys und Routing. Wurfrichtungen bleiben unbestätigt. Nur geladene Intel-Daten; geometrische Feldzahl ohne garantierte Baureihenfolge.",
+  "fan.title": "Fächerplaner",
+  "fan.help": "Zeichne zuerst mit Draw Tools ein Polygon um die gewünschten Portale. Der Fächerplaner wertet die geladenen Portale innerhalb dieser Fläche aus. Bei mehreren Polygonen wähle die gewünschte Auswahlfläche. Jedes Fächerportal gehört zu einem Anker; manuelle Anker (★) bleiben fest. Vorschläge werden direkt gezeichnet. Plan übernehmen aktiviert den eigenen Plan für Aufgaben und Routing; der Ankerportal-Plan bleibt erhalten. Wurfrichtungen bleiben unbestätigt. Geometrische Feldzahl ohne garantierte Baureihenfolge.",
   "fan.source": "Portale aus",
   "fan.source.plan": "Aktueller Plan",
   "fan.source.map": "Geladener Kartenausschnitt",
@@ -308,5 +308,12 @@
   "fan.noFields": "Mit dieser Auswahl lassen sich keine echten Dreiecke bilden.",
   "fan.busy": "Planvorschau schließen oder Finalcheck pausieren, bevor Fächer geplant/übernommen werden.",
   "fan.applyFailed": "Der Fächerplan konnte nicht gespeichert werden. Der bisherige Plan bleibt erhalten.",
-  "fan.clear": "Eigenen Fächerplan entfernen"
+  "fan.clear": "Eigenen Fächerplan entfernen",
+  "fan.area": "Auswahlpolygon",
+  "fan.areaOption": "Polygon {index} · {count} Portale",
+  "fan.areaRequired": "Zeichne zuerst ein einfaches Auswahlpolygon mit Draw Tools und lade anschließend die Portale. Polygone mit Löchern werden nicht unterstützt.",
+  "fan.useSaved": "Gespeicherten Fächerplan verwenden",
+  "workspace.anchors": "Ankerportale",
+  "workspace.activeAnchors": "Aktiver Plan: Ankerportale (Draw Tools)",
+  "workspace.activeFan": "Aktiver Plan: Fächerplan"
 }
