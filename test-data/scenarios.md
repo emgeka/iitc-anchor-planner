@@ -589,3 +589,14 @@ Draw Tools deinstalliert/deaktiviert: Kartenausschnitt wählen, Vorschlag direkt
 6. Über 600 unbestätigte Links bzw. ausgeschöpftes 200.000er-Budget: begrenzter Fallback, keine unendliche Suche/Bestandsdeckungsgarantie. Planvorschau nutzt danach bestehende Bestätigungs-/virtuelle Keyregeln, keine realen Buchungen. Ankerwahl/Fächergeometrie trotz anderer Bestände unverändert. Echte Desktop-/Mobile-Prüfung nach Planübernahme, in Aufgaben und Nächste Aufgabe ausstehend.
 
 Automatisiert über die erweiterten src/test-fan-planner.mjs und src/test-work-plan.mjs sowie bestehende UI-/Keys-/Vorschau-/Locale-/Beta-Buildprüfungen. Die Szenarien verwenden synthetische Geometrie und Bestände; sie belegen keinen echten IITC-Praxistest.
+
+## Gemeinsame Darstellung (0.2.0-beta.26)
+1. Start, Ankerportale, Fächerentwurf, Aufgaben und Nächste Aufgabe vergleichen: gleiche Grundflächen, Schrift, Rahmen, Aktionsknöpfe und Tabellen. Die beiden Hauptfunktionen bleiben getrennt. Hauptaktionen und Löschaktionen sind unterscheidbar.
+2. Keybestand, Import, Reset/Rücknahme, Planvorschau, Export, Portalaktionen und Einstellungen öffnen: Inhaltsfläche, IITC-Titelleiste und Fußaktionen gehören zum selben Theme. Dateieingaben, Dropdowns, Zahlenfelder und Textbereiche bleiben bedienbar. Vorhandene Dialogoptionen, Handler und Close-Callbacks erhalten.
+3. Bei 360 px sowie breiter Desktopansicht lange Namen, Scrollflächen und Datenzeilen prüfen. Aktionsleisten umbrechen in lesbare Schaltflächen; kein horizontales Abschneiden. Dialogbreite bleibt innerhalb des Viewports. Standardhöhe 36 px, bei max-width:600px oder pointer:coarse 44 px; kompakte Daten-/Titelaktionen behalten eigene Mindestmaße.
+4. Tastatur-Tabfolge und sichtbaren Fokus prüfen; deaktivierte Aktionen dürfen nicht auslösen. Fremde IITC-Dialoge und Bedienelemente behalten ihre Darstellung. Markergeometrie und semantische Key-/Fraktionsfarben unverändert.
+5. Regression test-ui-theme prüft aktuelle/Legacy-Widgetklassen, String- und HTMLElement-Inhalte, unveränderte Optionen/Callbacks, schmale Breiten und fehlende Dialogschnittstelle. Übrige Verhaltensprüfungen weiter ausführen.
+
+Lokale Browserprüfung am 2026-10-22 mit synthetischen Portalen und simuliertem IITC-Dialograhmen: breite Panel-/Fächeransicht visuell geprüft; zehn Ansichten bei 360×800 ohne horizontalen Inhalts-/Seitenüberlauf, Aufgabenknöpfe nach Umbruchkorrektur 44–50 px, Tastaturfokus sichtbar. Fremdes Bedienelement behält seine Farbe. Dies bestätigt keine echte IITC-/Mobile-Integration mit Nutzerplan.
+
+Nutzer bestätigte am 2026-10-22 die Ankeranzahl und keybewussten Wurfrichtungen aus beta.25; Testplattform unbekannt, keine getrennte Desktop-/Mobile-Abdeckung ableiten.

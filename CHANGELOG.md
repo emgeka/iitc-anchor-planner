@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.26
+
+### English
+- Give the panel and all plugin dialogs one shared dark theme, including IITC dialog titles and footers, consistent typography, controls, compact tables and action roles. Constrain dialog widths to the viewport and provide clear keyboard, disabled and touch states. Preserve planning, inventory and map-status behavior.
+- Record the user's 2026-10-22 practical confirmation of both the desired anchor count and key-aware direction suggestions; platform unspecified. The new appearance was checked in a local wide/360-pixel browser fixture; real IITC verification remains pending.
+
+### Deutsch
+- Panel und sämtliche Plugindialoge mit gemeinsamem dunklem Theme vereinheitlichen, einschließlich IITC-Dialogtiteln und Fußleisten, Schrift, Bedienelementen, kompakten Tabellen und Aktionsrollen. Dialogbreite auf den Viewport begrenzen und Tastatur-, deaktivierte sowie Touchzustände klar darstellen. Planungs-, Bestands- und Kartenstatusverhalten erhalten.
+- Nutzerbestätigung vom 2026-10-22 für gewünschte Ankeranzahl und keybewusste Wurfrichtungen dokumentieren; Plattform nicht angegeben. Neue Darstellung in lokaler breiter/360-Pixel-Browservorschau geprüft; echte IITC-Prüfung ausstehend.
+
 ## 0.2.0-beta.25
 
 ### English

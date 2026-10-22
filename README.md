@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.25
+### Beta testing: 0.2.0-beta.26
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.25**
+- Development version: **0.2.0-beta.26**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -239,4 +239,8 @@ Portal key-status badges now use geographic Leaflet markers instead of fixed con
 
 ### Anchor count and key-aware directions (beta.25)
 The fan proposal uses the exact requested anchor count when valid; high counts can still produce crossing spokes or no fields, which prevent acceptance. Anchor selection and fan geometry do not optimize Keys. Once a plan is accepted, Tasks suggests throw directions using the existing IITC Keys stock: reserve confirmed open destination demand first, then distribute remaining known capacity jointly across unconfirmed links. Earlier suggestions can move to the opposite endpoint to leave a scarce key for another link. For uncovered links, unknown destination stock is preferred over known exhausted stock; route order breaks other ties. Open, unfinished plan portals can become throw sources even if the previous route skipped them.
-The bounded search supports at most 600 unconfirmed links and 200,000 visits; larger or interrupted searches retain a fallback without guaranteeing stock coverage. Suggestions do not change inventory or confirm directions, and they do not guarantee capture, access or legal field construction. Accept each direction explicitly and review the resulting demand. Practical desktop/mobile testing of these changes remains pending; stable stays 0.1.55.
+The bounded search supports at most 600 unconfirmed links and 200,000 visits; larger or interrupted searches retain a fallback without guaranteeing stock coverage. Suggestions do not change inventory or confirm directions, and they do not guarantee capture, access or legal field construction. Accept each direction explicitly and review the resulting demand. On 2026-10-22 the user confirmed both the desired anchor count and key-aware throw directions in a practical plugin test. The platform was not specified; separate desktop/mobile coverage and remaining edge cases are still pending. Stable stays 0.1.55.
+
+### Consistent interface (beta.26)
+The panel and every Anchor Planner dialog share a dark navy theme with the same type, controls, spacing and tables. Dialog title bars and footers use the same appearance; primary and destructive actions remain visually distinct. Keyboard focus, hover and disabled states are consistent, and controls grow for touch use. Dialog widths adapt to the available screen.
+The separate Anchor portals and Fan planner workflows, saved plans, Keys, routing and map-marker meanings are preserved. A local wide/360-pixel browser fixture has been checked with synthetic data and a simulated IITC dialog frame. Practical IITC/mobile testing remains pending; the beta does not replace stable 0.1.55.
