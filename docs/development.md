@@ -53,7 +53,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.25` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.26` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -62,7 +62,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.25` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.26` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.25` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.26` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.25` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.26` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -221,3 +221,8 @@ Beta.24: zusätzlicher Pflichtcheck/CI node src/test-blockers-overlays.mjs. Prü
 ### Ankeranzahl und keybewusste Richtungen beta.25
 Bestehende Pflichtchecks test-fan-planner und test-work-plan erweitern: exakte 1/2/mehr-Ankerzahl, dynamische Grenzen, manuelle Pins/Zuordnungsziele, invalidierte Vorschau/Übernahme und Neuberechnung; Zielbestand statt Quellbestand, bestätigte Reservierung, gemeinsame knappe Kapazität mit Umverteilung, unbekannt/null, geeignete ausgefilterte Quellen, Cacheänderungen und Suchgrenzen. Alle bestehenden UI-/Keys-/Vorschau-/Locale-/Buildprüfungen weiter ausführen. Keine neuen Bestandswrites durch Vorschläge, kein automatisches Bestätigen und keine Keyoptimierung der Fächergeometrie.
 341 Locale-Schlüssel: vier neue Ankerzahltexte (fan.countHelp/countInvalid/countPinned/countChanged) und ein Key-Richtungshinweis (tasks.directionKeyHelp), DE/EN und weitere Sprachen vorläufig EN; Bündel und Beta neu erzeugen. Cache und countDirty/countError bleiben Laufzeitzustand, JSON-/Persistenzschema unverändert. README-Projektstatus und aktuelle Richtungserklärung aktualisiert, historische Feature-/Changelog-Abschnitte erhalten. Vollständigen maßgeblichen Projektsatz einschließlich AGENTS bewusst abgleichen; Stable/releases unverändert 0.1.55. Echte Desktop-/Mobile-Praxistests vor Stable erforderlich.
+
+### Gemeinsames Theme beta.26
+Panel und alle Plugindialoge über gemeinsame Theme-Tokens und eine zentrale Dialoghülle vereinheitlichen, einschließlich äußerem IITC-Dialograhmen. Statische Inline-Layouts zu geteilten Inhalts-/Toolbar-/Tabellen-/Aktionsklassen verschieben; dynamische Werte, IDs/Hooks, Dialoghandles und Close-Callbacks beibehalten. Keine Plan-/Routing-/Key-/Markerlogikänderung und keine neue Persistenz.
+Neuer Pflichtcheck und CI: node src/test-ui-theme.mjs. Dialogabdeckung, geteilte Theme-Anbindung, Plugin-Scope, Breitenbegrenzung und erhaltene Dialogoptionen/Callbacks prüfen; bestehende Workspace-/Panel-/Locale-/Fan-/Aufgaben-/Keys-/Vorschautests weiter ausführen. Browseransichten auf Desktop und schmalem Mobilformat visuell prüfen, echten IITC-Praxistest getrennt dokumentieren. Lokale breite Vorschau und zehn Ansichten bei 360×800 mit synthetischen Daten und simuliertem IITC-Rahmen geprüft: kein horizontaler Überlauf, lesbare Toolbar, sichtbarer Fokus und unveränderte Fremdcontrols. Dies ersetzt keinen echten IITC-/Mobile-Praxistest.
+Localeumfang unverändert 341, keine neue Übersetzung oder Änderung an JSON-/Persistenzschema. Arbeitsfassung/Beta-Build auf 0.2.0-beta.26, Stable/releases bleiben 0.1.55. README, Anforderungen, Architektur, Grenzen, Szenarien, AGENTS und Changelog gemeinsam abgeglichen. Nutzerbestätigung für Ankeranzahl und keybewusste Richtung vom 2026-10-22 aufgenommen; die unbekannte Testplattform begründet keine getrennte Desktop-/Mobile-Abdeckung.

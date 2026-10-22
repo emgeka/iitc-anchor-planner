@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.25
+### Beta-Test: 0.2.0-beta.26
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.25**
+- Entwicklungsversion: **0.2.0-beta.26**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -250,4 +250,8 @@ Key-Statusmarker sind jetzt geografisch verankerte Leaflet-Marker statt fixer Pi
 
 ### Ankeranzahl und keybewusste Wurfrichtungen (beta.25)
 Der Fächervorschlag verwendet genau die gewünschte Ankeranzahl, soweit gültig; hohe Anzahlen können dennoch kreuzende Speichen oder keine Felder ergeben und damit die Übernahme verhindern. Ankerwahl und Fächergeometrie optimieren keine Keys. Nach Übernahme schlägt **Aufgaben** Wurfrichtungen anhand des vorhandenen IITC-Keys-Bestands vor: bestätigten offenen Zielbedarf zuerst reservieren, übrige bekannte Kapazität gemeinsam auf unbestätigte Links verteilen. Frühere Vorschläge können zum anderen Endportal verschoben werden, damit ein knapper Key für einen anderen Link frei bleibt. Für ungedeckte Links wird unbekannter Zielbestand vor bekannt erschöpftem Bestand gewählt; weitere Gleichstände entscheidet die Route. Offene, nicht erledigte Planportale können Wurfquellen werden, auch wenn die bisherige Route sie übersprungen hat.
-Die begrenzte Suche unterstützt höchstens 600 unbestätigte Links und 200.000 Besuche; größere oder unterbrochene Suchen behalten einen Fallback ohne Bestandsdeckungsgarantie. Vorschläge verändern keinen Bestand, bestätigen keine Richtung und garantieren weder Eroberung, Zugang noch eine gültige Feldbaufolge. Richtungen einzeln bestätigen und den resultierenden Bedarf prüfen. Echte Desktop-/Mobile-Tests dieser Änderungen stehen aus; Stable bleibt 0.1.55.
+Die begrenzte Suche unterstützt höchstens 600 unbestätigte Links und 200.000 Besuche; größere oder unterbrochene Suchen behalten einen Fallback ohne Bestandsdeckungsgarantie. Vorschläge verändern keinen Bestand, bestätigen keine Richtung und garantieren weder Eroberung, Zugang noch eine gültige Feldbaufolge. Richtungen einzeln bestätigen und den resultierenden Bedarf prüfen. Am 2026-10-22 bestätigte der Nutzer sowohl die gewünschte Ankeranzahl als auch die keybewussten Wurfrichtungen im praktischen Plugintest. Die Plattform wurde nicht genannt; getrennte Desktop-/Mobile-Abdeckung und übrige Sonderfälle stehen noch aus. Stable bleibt 0.1.55.
+
+### Einheitliche Oberfläche (beta.26)
+Panel und sämtliche Anchor-Planner-Dialoge verwenden ein gemeinsames dunkles Marineblau mit gleicher Schrift, einheitlichen Bedienelementen, Abständen und Tabellen. Auch Dialogtitel und Fußleisten passen dazu; Hauptaktionen und Löschaktionen sind optisch unterscheidbar. Tastaturfokus, Hover und deaktivierte Zustände sind einheitlich; für Touch werden die Bedienelemente größer. Dialogbreiten passen sich dem verfügbaren Bildschirm an.
+Die getrennten Abläufe für Ankerportale und Fächerplaner sowie gespeicherte Pläne, Keys, Routing und die Bedeutung der Kartenmarker bleiben erhalten. Lokale breite und 360-Pixel-Browseransichten wurden mit synthetischen Daten und simuliertem IITC-Dialograhmen geprüft. Echte IITC-/Mobile-Tests stehen noch aus; die Beta ersetzt Stable 0.1.55 nicht.

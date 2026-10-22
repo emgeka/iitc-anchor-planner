@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.25
+# Anforderungen für Entwicklungsstand 0.2.0-beta.26
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -344,3 +344,11 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Offene, nicht erledigte Endportale mit gültigen Koordinaten aus Planstatistiken als mögliche Quelle berücksichtigen, auch wenn die bisherige Route sie ausgefiltert hat. Bei gleicher Kapazität reguläre Planbesuchsreihenfolge verwenden, keine reinen Blockerbesuche. Ohne geeignete Quelle keine Richtung erfinden.
 - Unbekannten Zielbestand vor bekannt erschöpftem Fallback wählen; ansonsten Routenpräferenz behalten. Größere Pläne bzw. ausgeschöpfte Suche mit begrenztem Fallback handhaben: höchstens 600 unbestätigte Links und 200.000 Besuche, keine Bestands- oder Baubarkeitsgarantie.
 - Link-/Richtungs-/Key-/Quellen-/Routenänderungen müssen den Vorschlagscache erneuern. Vorschläge weder bestätigen noch Keys/Erledigung verändern; bis zur ausdrücklichen Bestätigung bleibt Bedarf eine Schätzung. Ankerwahl und Fächergeometrie bleiben von Keybeständen unabhängig.
+
+## Gemeinsame Darstellung (0.2.0-beta.26)
+- Ein einheitliches Theme für Panel und alle Anchor-Planner-Dialoge verwenden: Funktionswahl, Einstellungen, Fächerentwurf, Aufgaben, Nächste Aufgabe, Planvorschau, Portalaktionen, Export, Keybestand, Import, Reset und Rücknahme. IITC-Dialogtitelleiste, Schließen-Button und Fußleisten einbeziehen, fremde IITC-Oberflächen nicht verändern.
+- Gemeinsame Werte: Grundfläche #101923, Bedienelemente #24364a, Haupttext #eef5ff, zurückgenommener Text #b1c1d2, Rahmen #415164 und Cyan als Akzent. Einheitliche Typografie mit 13 px und Zeilenhöhe 1,45, nachvollziehbare Abstände, kompakte Tabellen und klar erkennbare Abschnitte.
+- Bedienelemente mindestens 36 px auf Desktop und 44 px bei Touchbedienung; eindeutige Hover-/Fokus-/deaktivierte Zustände. Tastaturbedienung, Eingabelabels, Primär-/Löschrollen und ausreichend lesbare Hinweise erhalten. Tabellen auf kleinen Flächen erreichbar halten, ohne Seitenbereiche abzuschneiden.
+- Dialogbreiten an den verfügbaren Viewport begrenzen, Scrollbereiche und Fußaktionen auf kleinen bzw. gedrehten Bildschirmen nutzbar halten. Statische Darstellungsangaben in geteilte Klassen verschieben; dynamische Geometrie-/Status-/Positionswerte erhalten.
+- Dies ist eine optische Vereinheitlichung. Getrennte Arbeitsbereiche, Dialog-IDs/Hooks/Close-Callbacks, gespeicherte Pläne, Keys, Richtungen, Routen- und Vorschauverhalten unverändert lassen. Markerfarben, Koordinatenbindung und Statusbedeutung nicht durch Themefarben ersetzen. Keine neuen Locale- oder JSON-/Persistenzfelder nötig.
+- Gemeinsame Dialogintegration mit Regressionstest und CI absichern; Browseransichten auf Desktop und Mobilgröße visuell prüfen. Ein Browserbeispiel ist kein echter IITC-/Mobile-Test mit Nutzerplan.

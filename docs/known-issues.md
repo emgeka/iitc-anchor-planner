@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.25
+# Bekannte Grenzen in 0.2.0-beta.26
 
 ## Portalzuordnung und Namen
 
@@ -290,4 +290,10 @@ Fraktionen stammen ausschließlich aus geladenem Intel und PLAYER; fehlen sie, r
 - Die Fächergeometrie/Ankerwahl optimiert keine Keys. Erst Wurfrichtungsvorschläge im übernommenen Arbeitsplan berücksichtigen vorhandene Zielbestände gemeinsam, abzüglich bestätigtem offenen Bedarf. Ein Vorschlag bestätigt keine Richtung und reduziert weder echten noch angezeigten Bestand; offene Richtungen behalten den geschätzten Bedarf an beiden Enden.
 - Bei unzureichendem Gesamtbestand können Vorschläge weiterhin Keymangel enthalten. Unbekannter Bestand ist keine verfügbare Menge und wird nur gegenüber bekannt erschöpftem Fallback bevorzugt. Ohne geeignete offene Quelle bleibt der Link unbestätigt. Nach manuellem Bestands-/Richtungswechsel werden Vorschläge neu berechnet; ein bereits bestätigter Wurf wird nie automatisch umgekehrt.
 - Kapazitätsmatching ist auf 600 unbestätigte Links und 200.000 Besuche begrenzt. Größere Pläne oder ausgeschöpftes Budget behalten einen Fallback ohne Garantie maximaler Keydeckung. Route, Keys, Portalbesitz, Zugang und gültige Ingress-Baufolge werden nicht gemeinsam optimiert. Bekannte positive Mengen garantieren keine Ausführbarkeit.
-- Echter IITC-Desktop-/Mobile-Test des Ankerzahlfeldes, der Neuberechnung und keybewusster Vorschläge steht aus. Die automatisierten Fan-/Arbeitsplantests ersetzen keine Prüfung an realen Polygonen und realem Keysbestand. Stable und releases bleiben 0.1.55.
+- Am 2026-10-22 bestätigte der Nutzer die gewünschte Ankeranzahl und keybewusste Wurfrichtung im praktischen Plugintest. Die Plattform wurde nicht genannt; getrennte Desktop-/Mobile-Abdeckung und vollständige Grenz-/Konfliktszenarien sind damit nicht belegt. Stable und releases bleiben 0.1.55.
+
+## Gemeinsames Theme beta.26
+- Der Nutzer beschreibt das bisherige Erscheinungsbild als uneinheitlich. Gemeinsame Theme-Tokens, Dialoghülle und Komponenten sollen Panel, Dialoginhalte und IITC-Dialograhmen vereinheitlichen. Diese Änderung korrigiert keine Plan-, Keys- oder Routinglogik; entsprechende bestehende Grenzen gelten weiter.
+- Die Darstellung ist auf Pluginklassen begrenzt. Andere IITC-Themes, benutzerdefinierte Styles und unterschiedliche jQuery-/IITC-Mobile-Dialograhmen können dennoch abweichen. Dialogtitel, Schließen-Button, Fußaktionen, Fokus und Scrollverhalten müssen im tatsächlichen IITC geprüft werden.
+- Lokale Browserprüfung am 2026-10-22: breite Panel-/Fächeransicht und zehn Ansichten bei 360×800 mit synthetischen Daten geprüft, ohne horizontalen Inhaltsüberlauf; Aufgabenbuttons nach Umbruchkorrektur lesbar, Tastaturfokus sichtbar. Der IITC-Dialograhmen war dabei simuliert. Ein lokales Browserbeispiel ersetzt keine echte IITC-/Mobile-Prüfung mit Nutzerplan, geladenen Portalen, Keys und fremden Overlays.
+- Gemeinsame Farben verändern keine geographischen Marker-/Blockerfarben oder deren Statusbedeutung. Dynamische Inlinewerte für Positionen, Fortschritt oder Status bleiben erlaubt; statische Layoutreste künftig am gemeinsamen Theme abgleichen.

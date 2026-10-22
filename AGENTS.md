@@ -194,3 +194,9 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Gewünschte Ankeranzahl als ausdrückliche Ganzzahl behandeln: feste Anker und manuelle Zuordnungsziele mitzählen, Konflikte erklären statt die Anzahl still zu erhöhen. Eingaben invalidieren alte Vorschau/Übernahme; neue Suche bleibt auf den aktuellen Entwurf begrenzt.
 - Richtungsvorschläge bekannte Zielbestände gemeinsam verteilen lassen, bestätigte offene Würfe zuerst reservieren und unbekannt/erschöpft unterscheiden. Vorschläge buchen keine Keys und bestätigen keine Richtung. Offene nicht erledigte Planendportale als mögliche Quelle erhalten; reine Blockerbesuche nicht als Planbesuche werten.
 - Bei Änderungen hierzu test-fan-planner und test-work-plan sowie relevante Keys-/Vorschau-/UI-Prüfungen ausführen. Suchbudgets, Fallbacks und fehlende Baubarkeitsgarantie in Anforderungen, Architektur und bekannten Grenzen gemeinsam pflegen.
+
+## Einheitliches Plugin-Theme
+- Panel und sämtliche Plugindialoge einschließlich IITC-Titelleiste/Fuß über gemeinsame Theme-Tokens und die zentrale Dialoghülle gestalten. Inhalts-/Widgetklassen auf das Plugin begrenzen; fremde IITC-Dialoge nicht umgestalten. Neue Dialoge müssen denselben Weg nutzen.
+- Typografie, Tabellen, Eingaben und Aktionsrollen gemeinsam pflegen; Tastaturfokus, Hover, Disabled und Touchgrößen berücksichtigen. Statische Inline-Layouts durch geteilte Klassen ersetzen, dynamische Status-/Positionswerte und Kartenfarben erhalten.
+- Dialog-IDs, Hooks, Rückgabewerte, Close-Callbacks und Arbeitsbereichstrennung bei optischen Änderungen bewahren. Keine Änderungen an Plan-, Keys-, Routing-, Vorschau- oder Markerlogik als Nebenwirkung.
+- Nach Theme-/Dialoghüllenänderungen node src/test-ui-theme.mjs zusätzlich zu bestehenden UI-/Panel-/Locale- und betroffenen Verhaltenstests ausführen; CI enthält denselben Check. Browseransichten auf Desktop und schmalem Mobilformat visuell prüfen, echten IITC-Praxistest getrennt dokumentieren.
