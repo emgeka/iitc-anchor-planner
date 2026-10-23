@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.30
+### Beta testing: 0.2.0-beta.31
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.30**
+- Development version: **0.2.0-beta.31**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -255,3 +255,6 @@ Resolved links and geometric target fields remain visible in muted purple, for b
 
 ### Readable blocker overlays (beta.30)
 Blockers use thin translucent lines by default, leaving the target plan readable. Selecting a blocker strongly highlights that connection and its yellow crossing. **Show all blockers** in the workspace or Plan preview restores full highlighting and all distinct crossing markers; **Clear selection** removes the focused highlight. These synchronized display controls do not filter blockers or change tasks, routing, Keys or completion. Home/reload returns to the quiet default.
+
+### Consistent fan draft (beta.31)
+The fan design preview now uses the same purple dashed target links, shaded geometric fields and Target plan legend as the accepted work plan. White anchor markers and assignments remain available. Cyan denotes simulated building in Plan preview. Saved plans change only on explicit acceptance; Draw Tools and Keys remain unchanged.

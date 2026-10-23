@@ -478,4 +478,18 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   assert.equal(ap.getNativeFanPlan().anchors.length, 3, 'Multiple selected anchors survive refresh');
   assert.equal(context.window.plugin.keys.keys.A, 7);
 }
-console.log('Fan planner: user-selected anchor counts, manual constraints, fresh polygon generation, 76/200 portals, persistence/scan/render and preserved inventory passed.');
+{
+  const {ap,context,storage,drawn}=runtime();context.window.map.getPane=()=>({});
+  const before=json(ap.state),keys=json(context.window.plugin.keys.keys);
+  draft(ap);
+  const target=ap.runtime.fanDraft.layer.layers.filter(layer=>layer.options.pane===ap.PLAN_PANE_NAME);
+  assert.equal(target.length,4,'Draft links and fields share the accepted target pane.');
+  assert.ok(target.every(layer=>layer.options.color===ap.MAP_COLORS.target));
+  assert.ok(target.filter(layer=>!(layer instanceof Polygon)).every(layer=>layer.options.dashArray),'Draft links use the shared target pattern.');
+  assert.ok(target.filter(layer=>layer instanceof Polygon).every(layer=>layer.options.fillOpacity>0),'Target fields stay filled.');
+  assert.match(ap.fanPlannerHtml(),/Target plan \(geometric\)/);
+  assert.ok(!ap.fanPlannerHtml().includes('Simulated build progress'),'A draft does not claim simulated progress.');
+  assert.deepEqual(json(ap.state),before);assert.deepEqual(json(context.window.plugin.keys.keys),keys);assert.equal(storage.size,0);assert.equal(drawn.layers.length,0);
+  const group=ap.runtime.fanDraft.layer;ap.clearFanPreview();assert.equal(group.layers.length,0);assert.equal(ap.runtime.fanDraft.layer,null);
+}
+console.log('Fan planner: shared violet draft/target geometry and legend, user-selected anchor counts, fresh generation, 76/200 portals, persistence and preserved inventory passed.');

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.30
+# Bekannte Grenzen in 0.2.0-beta.31
 
 ## Portalzuordnung und Namen
 
@@ -318,3 +318,9 @@ Lokale Browserprüfung am 2026-10-23 mit Leaflet und originalen IITC-Dialogen, s
 ## Überladene Blockerkarte beta.30
 Nutzer-Screenshot zeigt, dass zahlreiche kräftige Blockerlinien und gelbe Kreuzungsmarker den violetten Zielplan verdecken. Beta.30 stellt alle Blocker standardmäßig dezent dar und zeigt nur die ausgewählte Verbindung kräftig. Vollansicht bleibt ausdrücklich zuschaltbar und kann bei großen Plänen weiterhin dicht sein. Intel-/Fremdplugin-Flächen sowie Key-/Portalmarker bleiben erhalten; diese Änderung kann deren Überlagerungen nicht beseitigen.
 Automatisierte Prüfungen sichern unveränderte Aufgaben/Bestände und Fraktionen, stille/volle/gewählte Darstellung und synchronisierte Controls. Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Plan mit zwölf Blockern: 0 Schnittpunktmarker dezent, 22 unterschiedliche Marker in Vollansicht, 1 bei Auswahl; Aufheben entfernt den Fokus. Bei 360×800 zwei 155×44-px-Schalter ohne horizontalen Überlauf. Kein tatsächlicher Intel-/IITC-Mobile-Praxistest dieser Änderung.
+
+## Fächerentwurf noch cyan dargestellt beta.31
+Der Nutzer-Screenshot zeigt den offenen Fächerplaner mit 63 Portalen, 124 Links und 62 geometrischen Feldern. Die frühere Farbumstellung betraf den übernommenen Arbeitsplan; der Entwurf verwendete noch eine eigene Palette. Beta.31 vereinheitlicht diesen verbleibenden Renderingpfad und ergänzt dieselbe Zielplan-Legende. Bestehende grüne Intel-Felder bleiben unabhängig sichtbar; geometrische Flächen beweisen weiterhin keine gültige Ingress-Baufolge. Weiße Anker und Zuordnungstabelle erhalten die Rolleninformation; die alte Fächerfarbpalette entfällt.
+Automatisierte Prüfungen sichern gemeinsame Farbe/Pane/Strichmuster/Feldfüllung, Legende, unveränderte gespeicherte Daten/Keys/Draw Tools und Cleanup. Tatsächliche IITC-/Mobile-Bestätigung steht aus.
+
+Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Dreiportalentwurf: gefüllte violette Fläche und drei gestrichelte violette Kanten im gemeinsamen Zielpane, weiße Ankermarkierung und Zielplan-Legende vorhanden. Legende bei 360×800 erreichbar und ohne horizontalen Seitenüberlauf. Kein authentifizierter Intel-/IITC-Mobile-Test.

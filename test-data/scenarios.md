@@ -628,3 +628,10 @@ Lokale Browserprüfung am 2026-10-23 mit Leaflet und originalen IITC-Dialogen be
 3. Alle Blocker anzeigen ein-/ausschalten, sowohl im Panel als auch in der Planvorschau: identischer aria-pressed-Zustand, vollständige Hervorhebung/Kreuzungspunkte bzw. Rückkehr zu dezent. Kein Simulationsneustart oder Kamerasprung durch die Anzeigeschalter. Home/Reload/Datenlöschung setzt dezent zurück.
 4. Desktop und 360 px: Schalter erreichbar, Touchgrößen und Umbruch; Layerumschaltung und frischer Fächerentwurf behalten ihre Isolation.
 Automatisiert in test-blockers-overlays.mjs mit echtem Overlaypfad, Auswahl- und Controlhandlern geprüft; bestehende UI-/Vorschau-/Keys-/Routingtests weiter ausführen. Lokaler Browsercheck 2026-10-23 mit Leaflet/IITC-Dialogen und zwölf synthetischen Blockern bestätigt dezent/alle/ausgewählt/aufheben sowie 44-px-Controls ohne horizontalen Überlauf bei 360×800. Tatsächlicher IITC-/Mobile-Test ausstehend.
+
+## Einheitlicher Fächerentwurf (0.2.0-beta.31)
+1. Polygon auswählen und gültigen Fächer erzeugen: violette gestrichelte Links und violette Feldfüllung bereits vor Übernahme, dazu Zielplan (geometrisch) unter der Zusammenfassung. Weiße Anker bleiben erkennbar. Mit übernommenem Zielplan vergleichen; Cyan nicht als Entwurfsfarbe verwenden.
+2. Mehrere Anker und manuelle Zuordnungen bleiben in Rollen/Tabelle erhalten. Ungültiger Entwurf weiterhin ohne Kartenzeichnung. Schließen/neue Vorschau räumt alte Layer auf; keine Änderung von Draw Tools, gespeicherten Plänen, Keys oder Richtungsbestätigung.
+3. Desktop und 360 px: Legende lesbar und erreichbar, bestehende Scroll-/Übernahmebedienung erhalten. Automatisiert in test-fan-planner.mjs gegen tatsächliche Renderausgabe, Legacy-Konflikt-/Übernahme-/Großplantests und bestehende UI-/Vorschauprüfungen ergänzt. Tatsächlicher IITC-/Mobile-Test ausstehend.
+
+Lokaler Browsercheck 2026-10-23 mit Leaflet und originalen IITC-Dialogen bestätigt im gültigen Dreiportalentwurf vier violette Zielpfade (Fläche und drei Kanten), weißen Anker sowie erreichbare Legende auf Desktopbreite und 360×800 ohne horizontalen Seitenüberlauf. Keine echte Intel-/Mobile-Prüfung.

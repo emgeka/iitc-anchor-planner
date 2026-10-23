@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.30
+# Architekturübersicht 0.2.0-beta.31
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -524,3 +524,6 @@ createWalkSimulation friert target separat zu simulierten Frames ein. Die Sitzun
 ### Blocker-Hervorhebung beta.30
 runtime.showAllBlockers ist ein temporärer reiner Anzeigezustand, standardmäßig false. renderOverlays verwendet für alle unverändert erkannten Blocker 2-px-Linien mit reduzierter Deckkraft; Vollansicht verwendet bisherige 5-px-Hervorhebung. Schnittpunkte nur in Vollansicht allgemein zeichnen und nach latLngKey deduplizieren; selectedBlocker bleibt separat mit 7-px-Verbindungen und einem 7-px-Schnittpunktmarker sichtbar.
 blockerMapControlsHtml/wireBlockerMapControls teilen Schalter zwischen Panel und Planvorschau, aria-pressed signalisiert Vollansicht. Auswahl aufheben ist ohne Fokus disabled. Ereignisse zeichnen nur Overlays/Panel neu und synchronisieren vorhandene Vorschausteuerung, ohne Route/Simulationsschritt oder targetLayer neu zu berechnen. Fokusauswahl aktualisiert beide Steuerungen. Home und Datenlöschung setzen die temporäre Ansicht zurück; kein Speicher-/JSONschemawechsel.
+
+### Gemeinsamer Zielrenderer im Fächerentwurf beta.31
+previewFanDesign reicht die bereits berechneten fields und links des aktuellen gültigen Entwurfs direkt an renderPlanMapGeometry. Derselbe Renderer liefert violette Konturen, gestrichelte Links, Feldfüllung und PLAN_PANE_NAME; keine zweite Farbtabelle je Anker. Weiße Ankermarker verbleiben im Statuspane, Rollen/Zuordnungen bleiben in der Planertabelle erhalten. fanPlannerHtml ergänzt für einen gültigen Entwurf planMapLegendHtml(false); keine Legende für simulierten Fortschritt im Entwurf. Geometrieberechnung, Fehler-/Übernahmesperren, Schließen/Cleanup und persistente Daten unverändert.

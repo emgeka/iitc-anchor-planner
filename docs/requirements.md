@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.30
+# Anforderungen für Entwicklungsstand 0.2.0-beta.31
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -371,3 +371,6 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 ## Dezente Blockeransicht (0.2.0-beta.30)
 - Standardmäßig dünne transparente Linien und keine gelben Schnittpunktmarker. Fraktionsfarben und vollständige Erkennung/Aufgaben erhalten. Gewählte Verbindung samt Schnittpunkt kräftig hervorheben; Auswahl ausdrücklich aufhebbar.
 - Alle Blocker anzeigen als umschaltbare vollständige Hervorhebung einschließlich unterschiedlicher Kreuzungspunkte in Arbeitsbereich und Planvorschau anbieten. Schalterzustand synchronisieren, Tastatur/Touch und deaktivierte Auswahlaufhebung berücksichtigen. Ansicht rein temporär, Home/Reload/Datenlöschung setzt dezent zurück. Keine Filterung, Bestands-/Erledigungs-/Planänderung.
+
+## Einheitliche Entwurfsgeometrie (0.2.0-beta.31)
+- Gültigen Fächerentwurf mit denselben violetten gestrichelten Kanten/Feldfüllungen und derselben Zielplan-Legende wie den übernommenen Zielplan darstellen. Cyan bleibt simulierter Baufortschritt. Weiße Ankermarkierungen, Rollen und manuelle Zuordnung erhalten; ungültige Entwürfe weiterhin nicht zeichnen. Vorschau verändert keine gespeicherte Geometrie, Keys oder Draw Tools.

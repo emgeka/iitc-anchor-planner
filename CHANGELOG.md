@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.31
+
+### English
+- Use the shared purple target-plan renderer and legend for fan drafts as well as accepted plans. Preserve white anchor markers, assignments, geometric counts and explicit acceptance. Cyan remains reserved for simulated building.
+
+### Deutsch
+- Gemeinsamen violetten Zielplan-Renderer und dieselbe Legende auch für Fächerentwürfe verwenden. Weiße Ankermarkierungen, Zuordnungen, geometrische Zähler und ausdrückliche Übernahme erhalten. Cyan bleibt dem simulierten Bau vorbehalten.
+
 ## 0.2.0-beta.30
 
 ### English
