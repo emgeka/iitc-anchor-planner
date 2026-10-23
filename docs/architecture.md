@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.26
+# Architekturübersicht 0.2.0-beta.27
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -508,3 +508,6 @@ ap.openDialog ergänzt Inhalts-/Widgetklassen und begrenzt angeforderte Dialogbr
 Statische Inline-Layouts werden durch gemeinsame Klassen ersetzt; dynamische Positionen, Fortschritt und Statuswerte bleiben dynamisch. Kartenmarker, Portalbindung, Statusfarben und Fächer-/Routengeometrie bleiben im bestehenden Renderingpfad. Keine Änderung der Dialog-IDs, Hooks, Close-Semantik, Workspace-Isolation, Sprachschlüssel, Bestandswrites oder JSON-/Persistenzfelder. test-ui-theme sichert den gemeinsamen Integrationsweg; visuelle Browserprüfung und echter IITC-Praxistest werden getrennt dokumentiert.
 
 Aktuelle und Legacy-IITC-Widgetklassen werden in ap.openDialog zusammengeführt, Options-/classes-Objekte geklont und vorhandene HTMLElement-Inhalte unverändert weiterverwendet. Alle elf Dialogaufrufe verwenden die Hülle. Gemeinsame Basisregeln mit :where halten die Spezifität niedrig, damit kompakte Tabellenaktionen transparent bleiben. 36-px-Controls werden bei max-width:600px oder pointer:coarse 44 px; die mobile Aufgabenleiste nutzt mindestens 110 px breite Knöpfe mit 120-px-Flexbasis. Markerpositionen, dynamische Randfarben und Export-Sichtbarkeit behalten ihre bisherigen Inlinewerte.
+
+### Titelleistensymbole beta.27
+IITC zeichnet Titelknöpfe über absolut positionierte Pseudoelemente. Die Plugin-Knöpfe bleiben im Flexlayout relativ positioniert und bilden den Bezug für zentrierte CSS-Linien: Kreuz zum Schließen, Minus zum Einklappen, Plus bei collapse-collapsed. Alte ui-icon-Spans im Plugin ausblenden, pointer-events:none für Symbole. Die nativen Klone, Zustandsklassen und Ereignishandler bleiben erhalten; ausschließlich ap-dialog kapselt diese Regeln.

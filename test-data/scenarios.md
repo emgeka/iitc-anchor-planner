@@ -600,3 +600,8 @@ Automatisiert über die erweiterten src/test-fan-planner.mjs und src/test-work-p
 Lokale Browserprüfung am 2026-10-22 mit synthetischen Portalen und simuliertem IITC-Dialograhmen: breite Panel-/Fächeransicht visuell geprüft; zehn Ansichten bei 360×800 ohne horizontalen Inhalts-/Seitenüberlauf, Aufgabenknöpfe nach Umbruchkorrektur 44–50 px, Tastaturfokus sichtbar. Fremdes Bedienelement behält seine Farbe. Dies bestätigt keine echte IITC-/Mobile-Integration mit Nutzerplan.
 
 Nutzer bestätigte am 2026-10-22 die Ankeranzahl und keybewussten Wurfrichtungen aus beta.25; Testplattform unbekannt, keine getrennte Desktop-/Mobile-Abdeckung ableiten.
+
+## Titelleistensymbole (0.2.0-beta.27)
+1. Einstellungen im tatsächlichen IITC öffnen: links Minus, rechts Kreuz; beide Symbole innerhalb des Knopfs statt über dem Titel. Einklappen blendet Inhalt/Fuß aus und zeigt Plus; erneut klicken stellt Inhalt/Fuß und Minus wieder her. Schließen entfernt den Dialog, erneutes Öffnen funktioniert.
+2. Weitere Plugindialoge sowie fremden IITC-Dialog vergleichen; nur Plugindialoge verwenden das neue Theme. Bei 360 px bleiben Titel und Symbole erreichbar; Tastaturfokus und Klickziele erhalten.
+Lokale Prüfung am 2026-10-23 mit originalem IITC dialog.js/dialogs.css, jQuery 4.0.0/UI 1.14.2 bestätigt diese Titelaktionen auf Desktopbreite, sichtbare zentrierte Symbole mit 30-px-Titelknöpfen sowie 36-px-Titelknöpfe bei 360×800. Fremde Titelknöpfe behalten absolute Positionierung/17 px. Kein authentifizierter Intel- oder tatsächlicher Mobile-Praxistest.

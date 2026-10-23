@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.26
+# Bekannte Grenzen in 0.2.0-beta.27
 
 ## Portalzuordnung und Namen
 
@@ -297,3 +297,7 @@ Fraktionen stammen ausschließlich aus geladenem Intel und PLAYER; fehlen sie, r
 - Die Darstellung ist auf Pluginklassen begrenzt. Andere IITC-Themes, benutzerdefinierte Styles und unterschiedliche jQuery-/IITC-Mobile-Dialograhmen können dennoch abweichen. Dialogtitel, Schließen-Button, Fußaktionen, Fokus und Scrollverhalten müssen im tatsächlichen IITC geprüft werden.
 - Lokale Browserprüfung am 2026-10-22: breite Panel-/Fächeransicht und zehn Ansichten bei 360×800 mit synthetischen Daten geprüft, ohne horizontalen Inhaltsüberlauf; Aufgabenbuttons nach Umbruchkorrektur lesbar, Tastaturfokus sichtbar. Der IITC-Dialograhmen war dabei simuliert. Ein lokales Browserbeispiel ersetzt keine echte IITC-/Mobile-Prüfung mit Nutzerplan, geladenen Portalen, Keys und fremden Overlays.
 - Gemeinsame Farben verändern keine geographischen Marker-/Blockerfarben oder deren Statusbedeutung. Dynamische Inlinewerte für Positionen, Fortschritt oder Status bleiben erlaubt; statische Layoutreste künftig am gemeinsamen Theme abgleichen.
+
+## Titelleistenregression beta.27
+- Nutzer-Screenshot vom 2026-10-23 belegt leere Titelknöpfe und ein außerhalb liegendes × in beta.26. Ursache: position:static entfernt den Bezug für IITCs absolut positionierte Symbol-Pseudoelemente. Beta.27 korrigiert Position und Symbole. Die frühere vereinfachte Browser-Vorschau hatte diesen Fehler übersehen.
+- Lokal am 2026-10-23 mit originaler IITC-Dialogimplementierung und Styles, jQuery 4.0.0/UI 1.14.2 auf Desktopbreite und 360×800 geprüft: Symbole, Ein-/Aufklappen, Schließen/Wiederöffnen, fremde Dialoge unverändert. Nutzerbestätigung und tatsächliche IITC-Mobile-Prüfung stehen aus.

@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.26
+// @version        0.2.0-beta.27
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261022120000';
+  plugin_info.dateTimeVersion = '20261023120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.26';
+  ap.VERSION = '0.2.0-beta.27';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -8581,8 +8581,16 @@ function wrapper(plugin_info) {
 .ap-dialog.ui-dialog{padding:0;background:var(--ap-bg);border:1px solid var(--ap-border);border-radius:8px;box-shadow:0 12px 36px #0009;max-width:calc(100vw - 20px)}
 .ap-dialog .ui-dialog-titlebar{display:flex;align-items:center;gap:8px;margin:0;padding:10px 12px;background:var(--ap-surface);border:0;border-bottom:1px solid var(--ap-border);border-radius:8px 8px 0 0;color:var(--ap-text);font:600 14px/1.4 Arial,sans-serif}
 .ap-dialog .ui-dialog-title,.ap-dialog .ui-dialog-title-active{float:none;flex:1;min-width:0;margin:0;color:var(--ap-text);text-shadow:none}
-.ap-dialog .ui-dialog-titlebar-button{position:static!important;flex:none;float:none;margin:0!important;min-width:30px;min-height:30px;background:var(--ap-control);border:1px solid var(--ap-border);border-radius:4px;color:var(--ap-text);cursor:pointer}
+.ap-dialog .ui-dialog-titlebar-button{position:relative!important;inset:auto;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;flex:none;float:none;margin:0!important;padding:0;width:30px;height:30px;min-width:30px;min-height:30px;background:var(--ap-control);border:1px solid var(--ap-border);border-radius:4px;color:var(--ap-text);cursor:pointer}
 .ap-dialog .ui-dialog-titlebar-button:hover{background:var(--ap-hover)}
+.ap-dialog .ui-dialog-titlebar-button :is(.ui-icon,.ui-button-icon-space){display:none}
+.ap-dialog .ui-dialog-titlebar-button::before,.ap-dialog .ui-dialog-titlebar-button::after{position:absolute;top:50%;left:50%;margin:0;width:12px;height:0;border:0;border-top:2px solid currentColor;transform:translate(-50%,-50%);pointer-events:none}
+.ap-dialog .ui-dialog-titlebar-close:not(.ui-dialog-titlebar-button-collapse)::before{content:'';transform:translate(-50%,-50%) rotate(45deg)}
+.ap-dialog .ui-dialog-titlebar-close:not(.ui-dialog-titlebar-button-collapse)::after{content:'';transform:translate(-50%,-50%) rotate(-45deg)}
+.ap-dialog .ui-dialog-titlebar-button-collapse::before{content:none}
+.ap-dialog .ui-dialog-titlebar-button-collapse::after{content:''}
+.ap-dialog .ui-dialog-titlebar-button-collapse-collapsed::before{content:'';width:0;height:12px;border-top:0;border-left:2px solid currentColor}
+.ap-dialog .ui-dialog-titlebar-button-collapse-collapsed{background:#24495b;border-color:var(--ap-accent)}
 .ap-dialog .ui-dialog-content{padding:0!important;background:var(--ap-bg);color:var(--ap-text)}
 .ap-dialog .ui-dialog-buttonpane{margin:0;padding:8px 12px;background:var(--ap-surface);border:0;border-top:1px solid var(--ap-border);border-radius:0 0 8px 8px}
 .ap-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{display:flex;flex-wrap:wrap;gap:8px}

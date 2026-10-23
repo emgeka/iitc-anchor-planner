@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.26
+### Beta-Test: 0.2.0-beta.27
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.26**
+- Entwicklungsversion: **0.2.0-beta.27**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -255,3 +255,5 @@ Die begrenzte Suche unterstützt höchstens 600 unbestätigte Links und 200.000 
 ### Einheitliche Oberfläche (beta.26)
 Panel und sämtliche Anchor-Planner-Dialoge verwenden ein gemeinsames dunkles Marineblau mit gleicher Schrift, einheitlichen Bedienelementen, Abständen und Tabellen. Auch Dialogtitel und Fußleisten passen dazu; Hauptaktionen und Löschaktionen sind optisch unterscheidbar. Tastaturfokus, Hover und deaktivierte Zustände sind einheitlich; für Touch werden die Bedienelemente größer. Dialogbreiten passen sich dem verfügbaren Bildschirm an.
 Die getrennten Abläufe für Ankerportale und Fächerplaner sowie gespeicherte Pläne, Keys, Routing und die Bedeutung der Kartenmarker bleiben erhalten. Lokale breite und 360-Pixel-Browseransichten wurden mit synthetischen Daten und simuliertem IITC-Dialograhmen geprüft. Echte IITC-/Mobile-Tests stehen noch aus; die Beta ersetzt Stable 0.1.55 nicht.
+
+Beta.27 stellt die Titelleistensymbole wieder her: Schließen (×), Einklappen (−) und Aufklappen (+). Lokal mit originaler IITC-Dialogimplementierung auf Desktopbreite und bei 360 Pixeln geprüft; Bestätigung im installierten Plugin steht aus.
