@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.28
+### Beta testing: 0.2.0-beta.29
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.28**
+- Development version: **0.2.0-beta.29**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -249,3 +249,6 @@ Beta.27 restores the titlebar icons: close (×), collapse (−) and expand (+). 
 
 ### Final-check loading (beta.28)
 Allow up to 30 seconds per view and verify fully rendered, matching cached coverage even when IITC emits no new refresh hooks. Count only successfully loaded views. Failed or unconfirmed loads remain incomplete; **Resume check** retries only those views while retaining successful coverage, including after reload. The result distinguishes loading problems from the unchanged twelve-view cap. It does not issue extra tile requests or guarantee server completeness. Automated regression checks pass; actual desktop/IITC Mobile confirmation is pending.
+
+### Target plan, travel and progress (beta.29)
+Resolved links and geometric target fields remain visible in muted purple, for both the active external plan and the accepted fan plan. Keys, confirmed directions and simulation progress do not hide this target. Plan preview distinguishes the orange travel route from cyan simulated throws/new fields; its legend explains all three. Rewind preserves the target, and closing restores the permanent target overlay. Preview totals refer to simulated work, not the target. Geometric triangles do not validate an Ingress build order. Very dense plans retain all resolved links but limit shading to 2000 fields or 200000 adjacency checks, with an explicit notice.

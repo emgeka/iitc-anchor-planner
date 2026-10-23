@@ -53,7 +53,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.28` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.29` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -62,7 +62,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.28` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.29` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.28` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.29` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.28` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.29` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -233,3 +233,8 @@ Nutzer meldet am 2026-10-23 leere Titelleistenknöpfe und versetztes Schließen-
 ### Finalcheck-Ladeabschluss beta.28
 Offizielle IITC-Quellen core/code/map.js und map_request.js geprüft: Cache-Wiederverwendung kann Refreshhooks auslassen, mapDataRefreshEnd wird vor abschließender Statusaktualisierung gemeldet, fertige Fehlerläufe sind nicht done. Nur passiven Requeststatus/Queues lesen; keine eigenen Tile-Abfragen. test-final-scan.mjs um kontrollierte Timer für über acht Sekunden dauernde Ladung, Cache ohne Hooks, Request-/Renderqueues, Zoom/Flächenabdeckung, fehlende Hooks, failed/stale Tiles, getrennte Erfolgszählung, gezielte Wiederholung/Reload, Grenze und Cleanup erweitern. Alle bestehenden Prüfungen weiter ausführen.
 343 Locale-Schlüssel (zwei neue Ergebnisdiagnosen DE/EN, sonst EN); optionale Fortschrittsfelder checked/failedPoints, abwärtskompatibel. Aktuelle Arbeitsfassung/Beta.28 und Dokumentation gemeinsam abgleichen; historische beta.27-/Themeberichte erhalten, Stable/releases unverändert 0.1.55. Echte IITC-Desktop-/Mobile-Bestätigung steht aus.
+
+### Kartenebenen beta.29
+Gemeinsame aktive Zielgeometrie für externen/native Plan und eingefrorene Vorschau ergänzen, Ziel/Route/Simulation visuell und in Leaflet-Panes trennen. test-walk-simulation erweitert: Ziel bleibt ohne Keys/Richtung, getrennte Farben/Panes, offene/entartete/Duplikatgeometrie, begrenzte dichte Graphen, Snapshoterhalt, Rewind, normale Overlayunterdrückung/Restaurierung, Quellenwechsel und Cleanup. Bestehende Fan-/Workspace-/Marker-/Keys-/Finalcheckprüfungen unverändert weiter ausführen. 347 Locale-Schlüssel, vier neue Kartenlegendenschlüssel DE/EN (weitere Sprachen vorerst EN); Vorschauhinweise/Zählertitel angepasst. Keine Persistenz-/JSON-/AP- oder Routenalgorithmusänderung. Stable/releases weiter 0.1.55. Gesamten maßgeblichen Projektsatz inklusive AGENTS abgleichen; tatsächlicher IITC-Praxistest getrennt von lokaler Browserprüfung dokumentieren.
+
+Lokale visuelle Prüfung 2026-10-23: Leaflet aus offizieller IITC-Quelle und originale dialog.js/dialogs.css mit synthetischem Plan auf breitem Viewport sowie 360×800; getrennte Panes/Farben, Ziel ohne Keys, Rewind/Schließen und umbrechende Legende geprüft. Keine echte Intel-/Mobile-Prüfung.

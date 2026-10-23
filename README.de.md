@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.28
+### Beta-Test: 0.2.0-beta.29
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.28**
+- Entwicklungsversion: **0.2.0-beta.29**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -260,3 +260,6 @@ Beta.27 stellt die Titelleistensymbole wieder her: Schließen (×), Einklappen (
 
 ### Kartenladung im Finalcheck (beta.28)
 Pro Ansicht bis zu 30 Sekunden warten und vollständig gerenderte passende Cache-Abdeckung auch ohne neue IITC-Ladehooks prüfen. Nur erfolgreich geladene Ansichten zählen. Fehlgeschlagene oder unbestätigte Ladungen bleiben unvollständig; **Check fortsetzen** prüft nur diese Ansichten erneut und erhält erfolgreiche Abdeckung, auch nach Reload. Die Ergebnismeldung unterscheidet Ladeprobleme von der unveränderten Zwölf-Ansichten-Grenze. Keine zusätzlichen Tile-Abfragen und keine Garantie serverseitiger Vollständigkeit. Automatisierte Regressionstests bestanden; Bestätigung auf Desktop/IITC Mobile steht aus.
+
+### Zielplan, Route und Baufortschritt (beta.29)
+Aufgelöste Links und geometrische Zielfelder bleiben dezent violett sichtbar, sowohl im aktiven externen Plan als auch im übernommenen Fächerplan. Keys, bestätigte Richtungen und Simulationsfortschritt blenden den Zielplan nicht aus. Die Planvorschau unterscheidet die orange Route von cyanfarbenen simulierten Würfen/neuen Feldern; eine Legende erklärt alle drei Ebenen. Zurückspulen erhält den Zielplan, Schließen stellt dessen dauerhaftes Overlay wieder her. Vorschauzähler beziehen sich auf simulierte Arbeit, nicht auf den Zielplan. Geometrische Dreiecke bestätigen keine Ingress-Baufolge. Sehr dichte Pläne behalten alle aufgelösten Links, begrenzen Feldfüllung aber auf 2000 Flächen bzw. 200000 Nachbarschaftsprüfungen und zeigen dazu einen Hinweis.

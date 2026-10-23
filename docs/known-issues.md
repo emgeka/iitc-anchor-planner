@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.28
+# Bekannte Grenzen in 0.2.0-beta.29
 
 ## Portalzuordnung und Namen
 
@@ -307,3 +307,10 @@ Nutzer meldet am 2026-10-23 regelmäßig unvollständige Finalchecks. Die Codepr
 Ohne verlässliche Ladehooks und ohne lesbaren IITC-Requeststatus bleibt der Check bewusst unvollständig. Serverfehler, veraltete Tiles, fehlende Abdeckung oder mehr als zwölf nötige Ansichten bleiben echte Grenzen; die Warnung wird dann nicht unterdrückt. Neue Ergebnistexte sind DE/EN, weitere Sprachen vorerst Englisch. Deterministische Regressionstests decken langsame Ladung, Cache, Queuezustände, Fehler/Timeout, Wiederholung/Reload und Begrenzung ab; tatsächlicher Desktop-/Mobile-Praxistest steht aus.
 
 Nutzer nennt im Einsatzcheck einen unbestätigten Planlink, zwei fehlende Keys und 2672 geladene vorhandene Links. Diese Zusammenfassung enthält keinen Nachweis des konkreten Ladefehlers. Die neue Ursachen-/Erfolgsdiagnose bleibt deshalb auch bei erneutem Panelrendern unter Mehr sichtbar. Keymangel ist unabhängig vom Vollständigkeitsstatus des Blockerchecks.
+
+## Sichtbarer Zielplan beta.29
+Der Nutzer beschreibt die Planvorschau als reine Wegdarstellung. Bisher erschienen simulierte Feldflächen nur nach ausführbaren Würfen mit bestätigter Richtung/Keys; der externe Arbeitsmodus zeichnete hauptsächlich Blocker statt vollständiger Zielfelder. Beta.29 ergänzt unabhängig davon einen violetten geometrischen Zielplan und trennt orange Route/cyanfarbenen Baufortschritt mit Legende. Unaufgelöste Endpunkte können keine sicheren Zielfelder bilden; offene/entartete Dreiecke bleiben ungefüllt. Dichte Pläne erhalten alle aufgelösten Kanten, aber maximal 2000 Flächen bzw. 200000 Suchprüfungen; Hinweis bei Begrenzung. Keine AP-Schätzung oder Garantie tatsächlicher Ingress-Felder.
+Die geometrische Zielzeichnung enthält auch bestehende Plankanten/Felder. Simulationszähler zählen weiterhin ausschließlich neu simulierte Arbeit und können bei fehlenden Keys/Richtungen null bleiben. Native gespeicherte Pläne und externe Geometrie bleiben getrennt. Ein lokaler Leaflet-/IITC-Dialogtest mit synthetischer Geometrie ersetzt keine echte Intel-/IITC-Mobile-Prüfung.
+Nutzer bestätigt am 2026-10-23 die verbesserte Finalcheck-Darstellung aus beta.28; die gemeldete Plattform und vollständige Grenzfallabdeckung bleiben unbekannt.
+
+Lokale Browserprüfung am 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Dreiportalplan: violette Zielgeometrie (vier Pfade), orange Route und cyanfarbener Wurf getrennt sichtbar. Ohne Keys bleibt der Zielplan bei null simulierten Würfen; nach Schließen keine Routen-/Fortschrittspfade, Zielplan wiederhergestellt. Bei 360×800 kein horizontaler Überlauf und alle drei Legendeneinträge innerhalb des Dialogs. Dies ist keine authentifizierte Intel- oder tatsächliche Mobile-Prüfung.

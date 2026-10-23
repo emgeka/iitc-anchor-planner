@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.28
+// @version        0.2.0-beta.29
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,17 +25,21 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261023130000';
+  plugin_info.dateTimeVersion = '20261023140000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.28';
+  ap.VERSION = '0.2.0-beta.29';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
   ap.PANE_NAME = 'anchorPlannerPane';
+  ap.PLAN_PANE_NAME = 'anchorPlannerPlanPane';
+  ap.BUILD_PANE_NAME = 'anchorPlannerBuildPane';
+  ap.ROUTE_PANE_NAME = 'anchorPlannerRoutePane';
+  ap.MAP_COLORS = { target: '#c4b5fd', route: '#ffbd59', progress: '#00e5ff' };
   ap.PANEL_MARGIN_PX = 5;
   ap.FINAL_SCAN_MAX_VIEWS = 12;
   ap.FINAL_SCAN_VIEW_SPACING = 0.75;
@@ -300,14 +304,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Bestand geprüft",
       "keys.usageBooked": "1 Key bei {portal} abgezogen",
       "walk.title": "Planvorschau",
-      "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau.",
+      "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau. Der violette Zielplan bleibt unabhängig von Keys und Wurfrichtungen sichtbar. Orange zeigt die Route, Cyan den simulierten Baufortschritt.",
       "walk.previous": "Zurück",
       "walk.next": "Weiter",
       "walk.play": "Abspielen",
       "walk.pause": "Pause",
       "walk.restart": "Von vorn",
       "walk.stop": "Stopp {index} von {count}",
-      "walk.totals": "Vorschau: {links} Links · {fields} Dreiecke · {distance} Luftlinienweg",
+      "walk.totals": "Simuliert: {links} Links · {fields} Dreiecke · {distance} Luftlinienweg",
       "walk.empty": "Keine verbleibenden Stopps. Zuerst einen Plan scannen und Aufgaben prüfen.",
       "walk.remove": "Blocker abbauen",
       "walk.throw": "Link werfen",
@@ -390,7 +394,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
       "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen.",
       "message.finalScanRetry": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten vollständig geladen. Kartenladung fehlgeschlagen oder nicht rechtzeitig bestätigt. „Check fortsetzen“ prüft die fehlenden Ansichten erneut.",
-      "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen."
+      "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen.",
+      "map.target": "Zielplan (geometrisch)",
+      "map.route": "Route",
+      "map.progress": "Simulierter Baufortschritt",
+      "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar."
     },
     "en": {
       "language.label": "Language",
@@ -645,14 +653,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Plan preview",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -735,7 +743,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "es": {
       "language.label": "Idioma",
@@ -990,14 +1002,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Vista previa del plan",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1080,7 +1092,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "fr": {
       "language.label": "Langue",
@@ -1335,14 +1351,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Aperçu du plan",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1425,7 +1441,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "it": {
       "language.label": "Lingua",
@@ -1680,14 +1700,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Anteprima del piano",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -1770,7 +1790,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "ja": {
       "language.label": "言語",
@@ -2025,14 +2049,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "計画プレビュー",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2115,7 +2139,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "pl": {
       "language.label": "Język",
@@ -2370,14 +2398,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Podgląd planu",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2460,7 +2488,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2715,14 +2747,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Prévia do plano",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -2805,7 +2837,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "ru": {
       "language.label": "Язык",
@@ -3060,14 +3096,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Предпросмотр плана",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -3150,7 +3186,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3405,14 +3445,14 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "计划预览",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
       "walk.pause": "Pause",
       "walk.restart": "Start again",
       "walk.stop": "Stop {index} of {count}",
-      "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+      "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
       "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
@@ -3495,7 +3535,11 @@ function wrapper(plugin_info) {
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
       "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
       "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+      "map.target": "Target plan (geometric)",
+      "map.route": "Travel route",
+      "map.progress": "Simulated build progress",
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
     }
   };
   // AP_LOCALES_END
@@ -5180,7 +5224,7 @@ function wrapper(plugin_info) {
       return { index: index, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
         routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
-    return { frames: frames, unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
+    return { frames: frames, target: ap.getPlanMapGeometry(), unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
   };
   ap.normalizeFanDesign = function (value) {
     if (!value || !Array.isArray(value.anchors) || !value.assignments || typeof value.assignments !== 'object' || Array.isArray(value.assignments)) return null;
@@ -5473,13 +5517,68 @@ function wrapper(plugin_info) {
     ap.refreshFanPlanner(); return true;
   };
   ap.renderNativeFanPlan = function (group) {
-    var design = ap.getActiveFanPlan(); if (!design || !group) return;
-    var byGuid = Object.create(null);
-    design.portals.forEach(function (p) { byGuid[p.guid] = p; });
-    design.fields.forEach(function (field) { L.polygon(field.map(function (guid) { return byGuid[guid]; }),
-      ap.withOverlayPane({ color: '#00e5ff', weight: 2, fillOpacity: .18, interactive: false })).addTo(group); });
-    design.links.forEach(function (edge) { (L.geodesicPolyline || L.polyline)(edge.map(function (guid) { return byGuid[guid]; }),
-      ap.withOverlayPane({ color: '#00e5ff', weight: 3, opacity: .9, interactive: false })).addTo(group); });
+    if (ap.getActiveFanPlan()) ap.renderPlanMapGeometry(group, ap.getPlanMapGeometry());
+  };
+
+  ap.buildPlanMapGeometry = function (links) {
+    var points = Object.create(null), adjacency = Object.create(null), seen = new Set(), edges = [];
+    (links || []).forEach(function (link) {
+      if (!link || !link.a || !link.b || link.a === link.b) return;
+      var a = ap.workPoint(link.latlngA), b = ap.workPoint(link.latlngB), id = ap.normalizedLinkId(link.a, link.b);
+      if (!a || !b || seen.has(id)) return;
+      seen.add(id);
+      points[link.a] = { lat: a.lat, lng: a.lng }; points[link.b] = { lat: b.lat, lng: b.lng };
+      (adjacency[link.a] || (adjacency[link.a] = new Set())).add(link.b);
+      (adjacency[link.b] || (adjacency[link.b] = new Set())).add(link.a);
+      edges.push(link.a < link.b ? [link.a, link.b] : [link.b, link.a]);
+    });
+    var fields = [], budget = 200000, limited = false;
+    for (var i = 0; i < edges.length && !limited; i++) {
+      var edge = edges[i], neighbors = Array.from(adjacency[edge[0]]);
+      for (var j = 0; j < neighbors.length; j++) {
+        if (--budget < 0) { limited = true; break; }
+        var c = neighbors[j];
+        if (c <= edge[1] || !adjacency[edge[1]].has(c)) continue;
+        var vertices = [points[edge[0]], points[edge[1]], points[c]];
+        if (Math.abs(ap.orientation(vertices[0], vertices[1], vertices[2])) <= 1e-12) continue;
+        if (fields.length >= 2000) { limited = true; break; }
+        fields.push(vertices);
+      }
+    }
+    return { links: edges.map(function (edge) { return [points[edge[0]], points[edge[1]]]; }), fields: fields, limited: limited };
+  };
+
+  ap.getPlanMapGeometry = function () {
+    var design = ap.getActiveFanPlan(), links = (ap.runtime.links || []).filter(function (link) { return !!link; });
+    if (design) {
+      var portals = Object.create(null);
+      design.portals.forEach(function (portal) { portals[portal.guid] = portal; });
+      links = design.links.map(function (edge) { return { a: edge[0], b: edge[1], latlngA: portals[edge[0]], latlngB: portals[edge[1]] }; });
+    }
+    var signature = JSON.stringify(links.map(function (link) {
+      return [link.a, link.b, link.latlngA && [link.latlngA.lat, link.latlngA.lng], link.latlngB && [link.latlngB.lat, link.latlngB.lng]];
+    }));
+    var cached = ap.runtime.planMapGeometry;
+    if (!cached || cached.signature !== signature) ap.runtime.planMapGeometry = { signature: signature, geometry: ap.buildPlanMapGeometry(links) };
+    return ap.runtime.planMapGeometry.geometry;
+  };
+
+  ap.renderPlanMapGeometry = function (group, geometry) {
+    if (!group || !geometry) return;
+    geometry.fields.forEach(function (vertices) { L.polygon(vertices,
+      ap.withOverlayPane({ color: ap.MAP_COLORS.target, weight: 1, opacity: .55, fillOpacity: .12, interactive: false }, ap.PLAN_PANE_NAME)).addTo(group); });
+    geometry.links.forEach(function (edge) { (L.geodesicPolyline || L.polyline)(edge,
+      ap.withOverlayPane({ color: ap.MAP_COLORS.target, weight: 2, opacity: .8, dashArray: '5,7', interactive: false }, ap.PLAN_PANE_NAME)).addTo(group); });
+  };
+
+  ap.planMapLegendHtml = function (preview, geometry) {
+    var html = '<div class="ap-map-legend">';
+    (preview ? [['target', 'map.target'], ['route', 'map.route'], ['progress', 'map.progress']] : [['target', 'map.target']]).forEach(function (role) {
+      html += '<span class="ap-map-key ap-map-key-' + role[0] + '">' + ap.escapeHtml(ap.t(role[1])) + '</span>';
+    });
+    html += '</div>';
+    if (geometry && geometry.limited) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('map.limited')) + '</p>';
+    return html;
   };
   ap.fanPlannerHtml = function () {
     var draft = ap.runtime.fanDraft, html = '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
@@ -5678,7 +5777,9 @@ function wrapper(plugin_info) {
     session.element.querySelector('.ap-walk-content').textContent = ap.t('walk.stopped');
     ['.ap-walk-previous', '.ap-walk-next', '.ap-walk-play', '.ap-walk-restart'].forEach(function (selector) { session.element.querySelector(selector).disabled = true; });
     if (session.layer) { session.layer.clearLayers(); if (window.map && window.map.removeLayer) window.map.removeLayer(session.layer); }
+    if (session.targetLayer) { session.targetLayer.clearLayers(); if (window.map && window.map.removeLayer) window.map.removeLayer(session.targetLayer); }
     if (session.view && window.map && window.map.setView) window.map.setView(session.view.center, session.view.zoom, { animate: false });
+    ap.renderOverlays();
   };
   ap.renderWalkSimulation = function () {
     var session = ap.runtime.walkSimulation;
@@ -5732,17 +5833,17 @@ function wrapper(plugin_info) {
       if (path.length < 2) return;
       if (session.pathLayers[index]) {
         if (!previous || !previous.paths[index] || previous.paths[index].length !== path.length) session.pathLayers[index].setLatLngs(path);
-      } else session.pathLayers[index] = L.polyline(path, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer);
+      } else session.pathLayers[index] = L.polyline(path, ap.withOverlayPane({ color: ap.MAP_COLORS.route, weight: 4, opacity: .95, interactive: false }, ap.ROUTE_PANE_NAME)).addTo(session.layer);
     });
     for (var linkIndex = previous ? previous.links.length : 0; linkIndex < frame.links.length; linkIndex++) {
-      L.polyline(frame.links[linkIndex], { color: '#00e5ff', weight: 2, opacity: 0.7, interactive: false }).addTo(session.layer);
+      L.polyline(frame.links[linkIndex], ap.withOverlayPane({ color: ap.MAP_COLORS.progress, weight: 3, opacity: 1, interactive: false }, ap.BUILD_PANE_NAME)).addTo(session.layer);
     }
     for (var fieldIndex = previous ? previous.fields.length : 0; fieldIndex < frame.fields.length; fieldIndex++) {
-      L.polygon(frame.fields[fieldIndex], { color: '#00e5ff', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(session.layer);
+      L.polygon(frame.fields[fieldIndex], ap.withOverlayPane({ color: ap.MAP_COLORS.progress, weight: 2, fillOpacity: .2, interactive: false }, ap.BUILD_PANE_NAME)).addTo(session.layer);
     }
     if (frame.point) {
       if (session.head) session.head.setLatLng(frame.point);
-      else session.head = L.circleMarker(frame.point, { radius: 8, color: '#00e5ff', fillOpacity: 1, interactive: false }).addTo(session.layer);
+      else session.head = L.circleMarker(frame.point, ap.withOverlayPane({ radius: 8, color: ap.MAP_COLORS.route, fillOpacity: 1, interactive: false }, ap.ROUTE_PANE_NAME)).addTo(session.layer);
       if (!previous || !previous.point || previous.point.lat !== frame.point.lat || previous.point.lng !== frame.point.lng) {
         if (window.map && window.map.stop) window.map.stop();
         var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -5751,7 +5852,7 @@ function wrapper(plugin_info) {
         session.stepDelay = Math.ceil(duration * 1000) + 1200;
         if (window.map && window.map.panTo) window.map.panTo(frame.point, { animate: !reduceMotion, duration: duration, easeLinearity: 0.5 });
         if (!reduceMotion && travelPrefix) {
-          if (!session.pathLayers[travelIndex]) session.pathLayers[travelIndex] = L.polyline(targetPath, { color: '#00e5ff', weight: 4, opacity: 0.9, interactive: false }).addTo(session.layer);
+          if (!session.pathLayers[travelIndex]) session.pathLayers[travelIndex] = L.polyline(targetPath, ap.withOverlayPane({ color: ap.MAP_COLORS.route, weight: 4, opacity: .95, interactive: false }, ap.ROUTE_PANE_NAME)).addTo(session.layer);
           ap.animateWalkTravel(session, travelFrom, frame, travelIndex, travelPrefix, duration);
         }
       }
@@ -5787,16 +5888,19 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details><div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
       session.layer = new L.LayerGroup(); session.layer.addTo(window.map);
+      session.targetLayer = new L.LayerGroup(); session.targetLayer.addTo(window.map);
+      ap.renderPlanMapGeometry(session.targetLayer, model.target);
     }
     // Tile loads caused by preview panning cannot become real inventory bookings.
     // A subsequent explicit scan resumes passive observations on real map data.
     ap.runtime.suppressWalkObservations = true;
     ap.runtime.walkSimulation = session;
+    ap.renderOverlays();
     element.querySelector('.ap-walk-previous').onclick = function () { ap.seekWalkSimulation(session.index - 1); };
     element.querySelector('.ap-walk-next').onclick = function () { ap.seekWalkSimulation(session.index + 1); };
     element.querySelector('.ap-walk-play').onclick = ap.playWalkSimulation;
@@ -7686,10 +7790,11 @@ function wrapper(plugin_info) {
     ap.runtime.overlayCount++;
   };
 
-  ap.withOverlayPane = function (options) {
+  ap.withOverlayPane = function (options, pane) {
+    pane = pane || ap.PANE_NAME;
     try {
-      if (window.map && typeof window.map.getPane === 'function' && window.map.getPane(ap.PANE_NAME)) {
-        options.pane = ap.PANE_NAME;
+      if (window.map && typeof window.map.getPane === 'function' && window.map.getPane(pane)) {
+        options.pane = pane;
       }
     } catch (e) {}
     return options;
@@ -7702,7 +7807,7 @@ function wrapper(plugin_info) {
     ap.runtime.overlayCount = 0;
     if (!ap.runtime.enabled || ap.runtime.fanDesigning) return;
     ap.ensureOverlayLayerVisible();
-    ap.renderNativeFanPlan(ap.runtime.layerGroup);
+    if (!ap.runtime.walkSimulation) ap.renderPlanMapGeometry(ap.runtime.layerGroup, ap.getPlanMapGeometry());
     var renderedBlockers = {};
     (ap.runtime.links || []).forEach(function (link) {
       if (!link || !link.blocked || !link.latlngA || !link.latlngB) return;
@@ -8480,6 +8585,7 @@ function wrapper(plugin_info) {
     } else if (stats.length) {
       html += '<div id="ap-next-target" class="ap-next-target ap-next-complete">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
     }
+    html += ap.planMapLegendHtml(false, ap.getPlanMapGeometry());
     html += '<div class="ap-filters" aria-label="' + ap.escapeHtml(ap.t('filter.aria')) + '">';
     [
       ['all', ap.t('filter.all'), filterCounts.all],
@@ -8682,6 +8788,12 @@ function wrapper(plugin_info) {
 .ap-dialog .ui-dialog-titlebar-button-collapse::after{content:''}
 .ap-dialog .ui-dialog-titlebar-button-collapse-collapsed::before{content:'';width:0;height:12px;border-top:0;border-left:2px solid currentColor}
 .ap-dialog .ui-dialog-titlebar-button-collapse-collapsed{background:#24495b;border-color:var(--ap-accent)}
+.ap-map-legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 0;color:var(--ap-muted);font-size:12px;line-height:1.5}
+#iitc-anchor-planner .ap-map-legend{padding:8px 12px;border-bottom:1px solid var(--ap-border)}
+.ap-map-key{display:inline-flex;align-items:center;gap:6px;max-width:100%}
+.ap-map-key::before{content:'';display:inline-block;width:22px;flex:none;border-top:2px dashed ${ap.MAP_COLORS.target}}
+.ap-map-key-route::before{border-top:4px solid ${ap.MAP_COLORS.route}}
+.ap-map-key-progress::before{border-top:3px solid ${ap.MAP_COLORS.progress}}
 .ap-dialog .ui-dialog-content{padding:0!important;background:var(--ap-bg);color:var(--ap-text)}
 .ap-dialog .ui-dialog-buttonpane{margin:0;padding:8px 12px;background:var(--ap-surface);border:0;border-top:1px solid var(--ap-border);border-radius:0 0 8px 8px}
 .ap-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{display:flex;flex-wrap:wrap;gap:8px}
@@ -8846,6 +8958,14 @@ function wrapper(plugin_info) {
           pane.style.pointerEvents = 'none';
         }
       } catch (e) {}
+    }
+    if (window.map && typeof window.map.createPane === 'function' && typeof window.map.getPane === 'function') {
+      [[ap.PLAN_PANE_NAME, 420], [ap.BUILD_PANE_NAME, 530], [ap.ROUTE_PANE_NAME, 540]].forEach(function (entry) {
+        try {
+          var pane = window.map.getPane(entry[0]) || window.map.createPane(entry[0]);
+          if (pane && pane.style) { pane.style.zIndex = String(entry[1]); pane.style.pointerEvents = 'none'; }
+        } catch (e) {}
+      });
     }
     ap.runtime.layerGroup = new L.LayerGroup();
     if (typeof window.addLayerGroup === 'function') window.addLayerGroup('Anchor Planner', ap.runtime.layerGroup, true);

@@ -251,14 +251,14 @@
   "keys.usageReviewed": "Inventory checked",
   "keys.usageBooked": "1 key deducted at {portal}",
   "walk.title": "Anteprima del piano",
-  "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview.",
+  "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
   "walk.previous": "Previous",
   "walk.next": "Next",
   "walk.play": "Play",
   "walk.pause": "Pause",
   "walk.restart": "Start again",
   "walk.stop": "Stop {index} of {count}",
-  "walk.totals": "Preview: {links} links · {fields} triangles · {distance} straight-line route",
+  "walk.totals": "Simulated: {links} links · {fields} triangles · {distance} straight-line route",
   "walk.empty": "No remaining stops. Scan a plan and review Tasks first.",
   "walk.remove": "Remove blocker",
   "walk.throw": "Throw link",
@@ -341,5 +341,9 @@
   "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
   "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
   "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
-  "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
+  "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan.",
+  "map.target": "Target plan (geometric)",
+  "map.route": "Travel route",
+  "map.progress": "Simulated build progress",
+  "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
 }

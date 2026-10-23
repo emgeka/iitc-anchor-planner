@@ -7,14 +7,15 @@ function point(lat,lng){return {lat,lng,distanceTo:p=>Math.hypot(lat-p.lat,lng-p
 function runtime(){
   const storage=new Map(),timers=new Map(),timerDelays=[],layers=[],mapEvents=[];let timerId=0;
   class Layer {constructor(){this.items=[];this.clears=0;layers.push(this);}addTo(){return this;}clearLayers(){this.items=[];this.clears++;}removeLayer(item){this.items=this.items.filter(i=>i!==item);}}
-  const draw=(kind,coords)=>({kind,coords,addTo(layer){layer.items.push(this);return this;},setLatLngs(p){this.coords=p;return this;},setLatLng(p){this.coords=p;return this;}});
+  const draw=(kind,coords,options={})=>({kind,coords,options,addTo(layer){layer.items.push(this);return this;},setLatLngs(p){this.coords=p;return this;},setLatLng(p){this.coords=p;return this;}});
   const nodes=()=>{const n={'.ap-walk-content':{innerHTML:'',textContent:''}};for(const s of ['previous','next','play','restart'])n['.ap-walk-'+s]={disabled:false,textContent:''};return {innerHTML:'',querySelector:s=>n[s]};};
   const context={console,navigator:{},document:{getElementById:()=>null,createElement:nodes},
     localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},
     setTimeout:(fn,ms)=>{timerDelays.push(ms);timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),
-    L:{latLng:point,LayerGroup:Layer,polyline:p=>draw('line',p),polygon:p=>draw('field',p),circleMarker:p=>draw('head',p)},
+    L:{latLng:point,LayerGroup:Layer,polyline:(p,o)=>draw('line',p,o),polygon:(p,o)=>draw('field',p,o),circleMarker:(p,o)=>draw('head',p,o)},
     window:{bootPlugins:[],innerWidth:360,portals:{},map:{getCenter:()=>point(9,9),getZoom:()=>13,stop:()=>mapEvents.push(['stop']),panTo:(p,options)=>mapEvents.push(['pan',p,options]),setView:(p,z)=>mapEvents.push(['restore',p,z]),removeLayer:()=>mapEvents.push(['remove'])},alert:m=>mapEvents.push(['alert',m])}};
   vm.runInNewContext(wrapper+'\nwrapper({});',context);const ap=context.window.plugin.anchorPlanner;
+  const renderOverlays=ap.renderOverlays;
   ap.state.language='en';ap.renderPanel=()=>{};ap.renderOverlays=()=>{};ap.refreshTaskList=()=>{};
   context.window.dialog=d=>context.dialog=d;
   context.window.plugin.keys={keys:{B:1,C:2},addKey(){throw new Error('Simulation must never write Keys');}};
@@ -27,7 +28,7 @@ function runtime(){
     {portal:ap.runtime.stats.B,planVisit:true,links:[bc],blockers:[]},
     {portal:ap.runtime.stats.A,planVisit:true,links:[],blockers:[]}],blockers:[blocker],unscheduled:[],unassigned:[]};
   ap.getWorkPlan=()=>plan;ap.getCurrentUserLocation=()=>({latlng:point(0,-2)});
-  return {ap,context,storage,timers,timerDelays,layers,mapEvents,plan,ab,ac,bc};
+  return {ap,context,storage,timers,timerDelays,layers,mapEvents,plan,ab,ac,bc,renderOverlays};
 }
 {
   const {ap,context,storage}=runtime(),before=JSON.stringify(ap.state),inventory=JSON.stringify(context.window.plugin.keys.keys);
@@ -98,10 +99,13 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
 {
   const {ap,context,timers,layers,mapEvents,storage,ab}=runtime();
   ap.showWalkSimulation();const first=ap.runtime.walkSimulation;
-  assert.equal(context.dialog.width,340);assert.equal(first.index,0);assert.equal(layers.length,1);
+  assert.equal(context.dialog.width,340);assert.equal(first.index,0);assert.equal(layers.length,2);
+  assert.equal(first.targetLayer.items.filter(i=>i.kind==='field').length,1,'The complete target field is visible before the first simulated throw.');
+  const targetItems=first.targetLayer.items.slice();
   ap.seekWalkSimulation(2);assert.equal(first.index,2);assert.ok(first.element.querySelector('.ap-walk-content').innerHTML.includes('1 triangles'));
   assert.ok(first.layer.items.some(i=>i.kind==='field'));
   ap.seekWalkSimulation(1);assert.ok(!first.layer.items.some(i=>i.kind==='field'),'Previous removes future geometry.');
+  assert.deepEqual(first.targetLayer.items,targetItems,'Rewinding progress keeps the complete target geometry.');
   ap.playWalkSimulation();assert.equal(first.playing,true);assert.equal(timers.size,1);
   ap.playWalkSimulation();assert.equal(first.playing,false);assert.equal(timers.size,0);
   ap.seekWalkSimulation(0);ap.playWalkSimulation();
@@ -111,6 +115,7 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   assert.equal(ap.observeNewPlanLinks(),false);
   const close=context.dialog.closeCallback;ap.playWalkSimulation();const stale=timers.values().next().value;
   close();assert.equal(ap.runtime.walkSimulation,null);assert.equal(timers.size,0);assert.equal(first.layer.items.length,0);
+  assert.equal(first.targetLayer.items.length,0,'Closing also removes the preview target snapshot.');
   assert.ok(mapEvents.some(e=>e[0]==='restore'&&e[2]===13));
   stale();assert.equal(ap.runtime.walkSimulation,null,'Late timer callbacks cannot revive a closed preview.');
   ap.updateKeyConsumption();assert.equal(storage.size,0,'Late tile events after close stay isolated until a real scan.');
@@ -137,7 +142,7 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   context.window.matchMedia=()=>({matches:true});ap.seekWalkSimulation(2);
   assert.equal(mapEvents.filter(e=>e[0]==='pan').at(-1)[2].animate,false,'Respect reduced-motion preference.');
   context.dialog.closeCallback();
-  assert.equal(mapEvents.at(-3)[0],'stop','Stop camera animation before removing the preview and restoring the view.');
+  assert.deepEqual(mapEvents.slice(-4).map(e=>e[0]),['stop','remove','remove','restore'],'Stop camera animation before removing both preview layers and restoring the view.');
 }
 {
   const {ap,mapEvents,context,timers,timerDelays}=runtime();ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
@@ -175,4 +180,67 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   assert.equal(ap.runtime.walkSimulation.element.querySelector('.ap-walk-play').disabled,true);context.dialog.closeCallback();
   ap.runtime.finalScan={running:true};ap.showWalkSimulation();assert.equal(ap.runtime.walkSimulation,null,'Final check and simulation cannot compete for the map.');
 }
-console.log('Walk simulation checks passed: stop/blocker order, repeat visits, virtual keys, missing data, triangle closure, immutable snapshot, step/play/pause/restart, stale timers, layer/view cleanup and isolated real consumption.');
+{
+  const {ap,context,storage}=runtime();
+  context.window.map.getPane=()=>({});
+  context.window.plugin.keys.keys={}; ap.state.linkDirections={};
+  const stateBeforePreview=JSON.stringify(ap.state);
+  ap.showWalkSimulation(); const session=ap.runtime.walkSimulation;
+  assert.equal(session.model.target.links.length,3);
+  assert.equal(session.model.target.fields.length,1,'Target fields do not depend on Keys or confirmed directions.');
+  ap.seekWalkSimulation(2);
+  assert.equal(session.layer.items.filter(i=>i.kind==='field').length,0,'Unavailable throws create no simulated field.');
+  assert.equal(session.targetLayer.items.filter(i=>i.kind==='field').length,1);
+  assert.ok(session.targetLayer.items.every(i=>i.options.pane===ap.PLAN_PANE_NAME));
+  assert.ok(session.layer.items.filter(i=>i.kind==='line').every(i=>i.options.pane===ap.ROUTE_PANE_NAME));
+  assert.notEqual(session.targetLayer.items[0].options.color,session.pathLayers[0].options.color);
+  assert.match(session.element.innerHTML,/Target plan \(geometric\)/);
+  assert.match(session.element.innerHTML,/Simulated build progress/);
+  assert.equal(JSON.stringify(ap.state),stateBeforePreview);assert.equal(storage.size,0);
+  const oldTarget=JSON.stringify(session.model.target);
+  ap.runtime.links[0].latlngA.lat=20;ap.getPlanMapGeometry();
+  assert.equal(JSON.stringify(session.model.target),oldTarget,'A later live plan change cannot mutate the preview target snapshot.');
+  context.dialog.closeCallback();
+}
+{
+  const {ap,context}=runtime(); context.window.map.getPane=()=>({});
+  ap.showWalkSimulation(); const session=ap.runtime.walkSimulation; ap.seekWalkSimulation(2);
+  const built=session.layer.items.find(i=>i.kind==='field'),route=session.pathLayers[0],target=session.targetLayer.items[0];
+  assert.equal(built.options.pane,ap.BUILD_PANE_NAME);assert.equal(route.options.pane,ap.ROUTE_PANE_NAME);
+  assert.notEqual(built.options.color,route.options.color);assert.notEqual(built.options.color,target.options.color);
+  context.dialog.closeCallback();
+}
+{
+  const {ap,ab,ac,bc}=runtime();
+  assert.equal(ap.buildPlanMapGeometry([ab,ac,bc,ab]).fields.length,1,'Duplicate edges must not duplicate fields.');
+  assert.equal(ap.buildPlanMapGeometry([ab,ac]).fields.length,0,'Open boundaries are not filled.');
+  assert.equal(ap.buildPlanMapGeometry([{...ab,latlngB:null},ac,bc]).fields.length,0,'Missing coordinates cannot invent a triangle.');
+  const collinear=[{...ab,latlngA:point(0,0),latlngB:point(0,1)},{...ac,latlngA:point(0,0),latlngB:point(0,2)},{...bc,latlngA:point(0,1),latlngB:point(0,2)}];
+  assert.equal(ap.buildPlanMapGeometry(collinear).fields.length,0);
+  const dense=[];for(let a=0;a<30;a++)for(let b=a+1;b<30;b++)dense.push({a:String(a),b:String(b),latlngA:point(a,a*a/100),latlngB:point(b,b*b/100)});
+  const geometry=ap.buildPlanMapGeometry(dense);
+  assert.equal(geometry.links.length,dense.length);assert.equal(geometry.fields.length,2000);assert.equal(geometry.limited,true);
+  assert.match(ap.planMapLegendHtml(true,geometry),/field shading is limited/);
+}
+{
+  const {ap,context,renderOverlays}=runtime();
+  ap.runtime.layerGroup=new context.L.LayerGroup();ap.runtime.enabled=true;
+  ap.addHtmlStatusMarker=()=>{};ap.getNextRouteTarget=()=>null;ap.getRouteTasks=()=>[];ap.getBlockerWorklist=()=>[];
+  ap.renderOverlays=renderOverlays;ap.renderOverlays();
+  assert.equal(ap.runtime.layerGroup.items.length,4,'The normal external plan overlay includes its three links and target field.');
+  ap.showWalkSimulation();
+  assert.equal(ap.runtime.layerGroup.items.length,0,'Use a single target snapshot during simulation, without double shading.');
+  assert.equal(ap.runtime.walkSimulation.targetLayer.items.length,4);
+  context.dialog.closeCallback();
+  assert.equal(ap.runtime.layerGroup.items.length,4,'Closing restores the persistent target geometry.');
+  ap.runtime.fanDesigning=true;ap.renderOverlays();assert.equal(ap.runtime.layerGroup.items.length,0,'A new fan draft must not inherit the active work plan overlay.');
+  ap.runtime.fanDesigning=false;ap.runtime.enabled=false;ap.renderOverlays();assert.equal(ap.runtime.layerGroup.items.length,0,'Layer toggle still controls permanent plan visibility.');
+}
+{
+  const {ap}=runtime();const external=ap.getPlanMapGeometry();
+  ap.getActiveFanPlan=()=>({portals:[{guid:'X',lat:5,lng:5},{guid:'Y',lat:5,lng:6},{guid:'Z',lat:6,lng:6}],links:[['X','Y'],['X','Z'],['Y','Z']]});
+  const native=ap.getPlanMapGeometry();assert.equal(native.fields.length,1);assert.equal(native.links[0][0].lat,5);
+  assert.notEqual(native,external,'Changing plan source invalidates the geometry cache.');
+  ap.getActiveFanPlan=()=>null;assert.equal(ap.getPlanMapGeometry().links[0][0].lat,0,'Returning to the external plan restores only that geometry.');
+}
+console.log('Walk simulation checks passed: independent target geometry, distinct route/build styles, bounded fields, immutable target, virtual keys, animation, rewind, cleanup and isolated real consumption.');

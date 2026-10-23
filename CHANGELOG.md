@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.29
+
+### English
+- Keep the active geometric target plan visible in purple regardless of Keys or link directions, including external plans. Separate orange travel from cyan simulated building, with a shared legend and explicit simulated totals. Preserve target geometry through rewind and restore the normal plan on close without duplicate shading. Bound dense field shading with a visible notice; preserve real inventory and planning behavior.
+
+### Deutsch
+- Aktiven geometrischen Zielplan unabhängig von Keys und Wurfrichtungen violett sichtbar halten, auch bei externen Plänen. Orange Route und cyanfarbenen simulierten Bau mit gemeinsamer Legende und ausdrücklich simulierten Zählern unterscheiden. Zielgeometrie beim Zurückspulen erhalten und beim Schließen ohne doppelte Füllung restaurieren. Dichte Feldfüllung mit sichtbarem Hinweis begrenzen; echte Bestände und Planungslogik erhalten.
+
 ## 0.2.0-beta.28
 
 ### English

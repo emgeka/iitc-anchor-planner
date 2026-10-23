@@ -251,14 +251,14 @@
   "keys.usageReviewed": "Bestand geprüft",
   "keys.usageBooked": "1 Key bei {portal} abgezogen",
   "walk.title": "Planvorschau",
-  "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau.",
+  "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau. Der violette Zielplan bleibt unabhängig von Keys und Wurfrichtungen sichtbar. Orange zeigt die Route, Cyan den simulierten Baufortschritt.",
   "walk.previous": "Zurück",
   "walk.next": "Weiter",
   "walk.play": "Abspielen",
   "walk.pause": "Pause",
   "walk.restart": "Von vorn",
   "walk.stop": "Stopp {index} von {count}",
-  "walk.totals": "Vorschau: {links} Links · {fields} Dreiecke · {distance} Luftlinienweg",
+  "walk.totals": "Simuliert: {links} Links · {fields} Dreiecke · {distance} Luftlinienweg",
   "walk.empty": "Keine verbleibenden Stopps. Zuerst einen Plan scannen und Aufgaben prüfen.",
   "walk.remove": "Blocker abbauen",
   "walk.throw": "Link werfen",
@@ -341,5 +341,9 @@
   "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
   "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen.",
   "message.finalScanRetry": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten vollständig geladen. Kartenladung fehlgeschlagen oder nicht rechtzeitig bestätigt. „Check fortsetzen“ prüft die fehlenden Ansichten erneut.",
-  "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen."
+  "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen.",
+  "map.target": "Zielplan (geometrisch)",
+  "map.route": "Route",
+  "map.progress": "Simulierter Baufortschritt",
+  "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar."
 }

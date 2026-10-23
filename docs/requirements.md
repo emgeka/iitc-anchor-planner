@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.28
+# Anforderungen für Entwicklungsstand 0.2.0-beta.29
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -361,3 +361,9 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Wiederverwendete IITC-Abdeckung nur bei passender Zoomstufe/Ansichtsfläche, abgeschlossenem Status, leeren Request-/Renderwarteschlangen und ohne fehlgeschlagene/veraltete Tiles bestätigen. Fehlende Hooks ohne solchen Nachweis sind keine Entwarnung.
 - Ausschließlich vollständig geladene Ansichten zählen. Ladefehler/Timeouts zum ausdrücklichen Wiederholen speichern; erfolgreiche Ansichten und gesammelte Links erhalten. Erfolgreiche Fortsetzung muss die Unvollständig-/Timeoutmeldung ablösen. Pause, Reload und Löschen räumen alle Timer auf. Ältere fehlgeschlagene Zwischenstände ohne Erfolgszählung frisch prüfen.
 - Ladeprobleme und die weiterhin geltende Zwölf-Ansichten-Grenze in der Ergebnismeldung unterscheiden. Ursache und Erfolgszählung auch nach erneutem Panelrendern unter Mehr erhalten. Keine zusätzlichen Tile-Abfragen oder stilles Ausblenden der Warnung.
+
+## Zielplan und Baufortschritt (0.2.0-beta.29)
+- Zielplan, Reiseweg und simulierten Baufortschritt getrennt darstellen: violette gestrichelte Planlinks/dezente Felder, orange Route, cyanfarbene simulierte Würfe/Feldschlüsse. Legende zusätzlich zur Farbe. Zielplan unabhängig von Keys, Richtungsbestätigung und Simulationsschritt anzeigen, auch vor dem ersten Stopp und bei leerer Restaufgabe.
+- Normaler Arbeitsmodus zeigt aufgelöste aktive Geometrie einschließlich externer Draw-Tools-Pläne; gespeicherte inaktive Pläne oder frühere Arbeitsbereiche nicht beimischen. Layerumschaltung und frischer Fächerentwurf erhalten ihre bestehende Isolation.
+- Vorschau verwendet einen eingefrorenen Zielplan und getrennte Lebensdauer für Ziel-/Fortschrittslayer. Zurückspulen entfernt nur späteren Fortschritt; Schließen bereinigt beide Vorschaugruppen und restauriert den normalen Zielplan ohne doppelte Flächenfüllung. Marker-/Blockerfarben und echte Keys/Erledigung unverändert.
+- Dreiecke nur aus geschlossenen, nicht entarteten aufgelösten Plankanten ableiten. Keine Baubarkeits-/AP-Zusage; Feldfüllung für sehr dichte Graphen auf 2000 Flächen bzw. 200000 Nachbarschaftsprüfungen begrenzen und sichtbar erklären. Alle aufgelösten Kanten erhalten.
