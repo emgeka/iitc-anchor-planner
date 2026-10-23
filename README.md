@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.26
+### Beta testing: 0.2.0-beta.27
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.26**
+- Development version: **0.2.0-beta.27**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -244,3 +244,5 @@ The bounded search supports at most 600 unconfirmed links and 200,000 visits; la
 ### Consistent interface (beta.26)
 The panel and every Anchor Planner dialog share a dark navy theme with the same type, controls, spacing and tables. Dialog title bars and footers use the same appearance; primary and destructive actions remain visually distinct. Keyboard focus, hover and disabled states are consistent, and controls grow for touch use. Dialog widths adapt to the available screen.
 The separate Anchor portals and Fan planner workflows, saved plans, Keys, routing and map-marker meanings are preserved. A local wide/360-pixel browser fixture has been checked with synthetic data and a simulated IITC dialog frame. Practical IITC/mobile testing remains pending; the beta does not replace stable 0.1.55.
+
+Beta.27 restores the titlebar icons: close (×), collapse (−) and expand (+). Checked locally with the original IITC dialog implementation at desktop and 360-pixel widths; verification in the installed plugin remains pending.

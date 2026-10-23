@@ -200,3 +200,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Typografie, Tabellen, Eingaben und Aktionsrollen gemeinsam pflegen; Tastaturfokus, Hover, Disabled und Touchgrößen berücksichtigen. Statische Inline-Layouts durch geteilte Klassen ersetzen, dynamische Status-/Positionswerte und Kartenfarben erhalten.
 - Dialog-IDs, Hooks, Rückgabewerte, Close-Callbacks und Arbeitsbereichstrennung bei optischen Änderungen bewahren. Keine Änderungen an Plan-, Keys-, Routing-, Vorschau- oder Markerlogik als Nebenwirkung.
 - Nach Theme-/Dialoghüllenänderungen node src/test-ui-theme.mjs zusätzlich zu bestehenden UI-/Panel-/Locale- und betroffenen Verhaltenstests ausführen; CI enthält denselben Check. Browseransichten auf Desktop und schmalem Mobilformat visuell prüfen, echten IITC-Praxistest getrennt dokumentieren.
+
+- IITC-Titelleistenknöpfe benötigen einen positionierten Bezug für Symbol-Pseudoelemente. Theme-Prüfung mit originalen IITC-Dialogklassen/Styles und Ein-/Aufklappen/Schließen ergänzen; ein vereinfachter Rahmen mit Textsymbolen genügt dafür nicht.

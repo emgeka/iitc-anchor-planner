@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.27
+
+### English
+- Restore close, collapse and expand icons inside the dialog titlebar buttons. Keep IITC click handlers and scope the correction to plugin dialogs. Verify locally with the original IITC dialog implementation at desktop and 360-pixel widths; installed-plugin confirmation remains pending.
+
+### Deutsch
+- Symbole zum Schließen, Ein- und Aufklappen innerhalb der Dialogtitelknöpfe wiederherstellen. IITC-Klickfunktionen erhalten und Korrektur auf Plugindialoge begrenzen. Lokal mit originaler IITC-Dialogimplementierung auf Desktopbreite und bei 360 Pixeln geprüft; Bestätigung im installierten Plugin steht aus.
+
 ## 0.2.0-beta.26
 
 ### English

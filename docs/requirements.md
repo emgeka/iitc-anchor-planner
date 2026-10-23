@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.26
+# Anforderungen für Entwicklungsstand 0.2.0-beta.27
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -352,3 +352,6 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Dialogbreiten an den verfügbaren Viewport begrenzen, Scrollbereiche und Fußaktionen auf kleinen bzw. gedrehten Bildschirmen nutzbar halten. Statische Darstellungsangaben in geteilte Klassen verschieben; dynamische Geometrie-/Status-/Positionswerte erhalten.
 - Dies ist eine optische Vereinheitlichung. Getrennte Arbeitsbereiche, Dialog-IDs/Hooks/Close-Callbacks, gespeicherte Pläne, Keys, Richtungen, Routen- und Vorschauverhalten unverändert lassen. Markerfarben, Koordinatenbindung und Statusbedeutung nicht durch Themefarben ersetzen. Keine neuen Locale- oder JSON-/Persistenzfelder nötig.
 - Gemeinsame Dialogintegration mit Regressionstest und CI absichern; Browseransichten auf Desktop und Mobilgröße visuell prüfen. Ein Browserbeispiel ist kein echter IITC-/Mobile-Test mit Nutzerplan.
+
+## Titelleistenknöpfe (0.2.0-beta.27)
+- Schließen, Einklappen und Aufklappen müssen sichtbare zentrierte Symbole innerhalb ihrer Knöpfe zeigen. IITC-Zustandsklassen und Klickfunktionen erhalten; Symbole dürfen keine Klicks abfangen. Fremde Dialoge unverändert lassen. Mit echten IITC-Pseudoelementen auf breitem und schmalem Viewport prüfen.
