@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.31
+# Architekturübersicht 0.2.0-beta.32
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -527,3 +527,8 @@ blockerMapControlsHtml/wireBlockerMapControls teilen Schalter zwischen Panel und
 
 ### Gemeinsamer Zielrenderer im Fächerentwurf beta.31
 previewFanDesign reicht die bereits berechneten fields und links des aktuellen gültigen Entwurfs direkt an renderPlanMapGeometry. Derselbe Renderer liefert violette Konturen, gestrichelte Links, Feldfüllung und PLAN_PANE_NAME; keine zweite Farbtabelle je Anker. Weiße Ankermarker verbleiben im Statuspane, Rollen/Zuordnungen bleiben in der Planertabelle erhalten. fanPlannerHtml ergänzt für einen gültigen Entwurf planMapLegendHtml(false); keine Legende für simulierten Fortschritt im Entwurf. Geometrieberechnung, Fehler-/Übernahmesperren, Schließen/Cleanup und persistente Daten unverändert.
+
+### Native Intel-Feldfüllungen beta.32
+runtime.hideIntelFieldFill steuert nur die Darstellung; hiddenIntelFields hält je nativem Layer die ursprüngliche fillOpacity und einen eigenen add-Listener. syncIntelFieldVisibility arbeitet ausschließlich auf window.fields, ohne Einträge oder Layer aus IITC zu entfernen. setStyle({fillOpacity:0}) unterstützt SVG/Canvas und lässt übrige Optionen unverändert. Wiederholte Synchronisation vermeidet unnötige Stylewrites. Nicht mehr registrierte Layer werden restauriert und ihre Listener/Referenzen freigegeben. Geänderte nichtnull Füllstärken anderer Plugins werden als neuer Wiederherstellungswert übernommen; eine vor dem Wiederherstellen schon gesetzte andere Füllstärke nicht überschreiben.
+Offizielle IITC-Quelle core/code/map_renderer.js geprüft: fieldAdded liefert das Polygon vor window.fields-Zuweisung und Mapaddition. Der Hook verarbeitet deshalb unmittelbar data.field; ein add-Listener hält die Einstellung auch nach späteren Add-/Styleaktionen ein. mapDataRefreshEnd sowie Overlay-/Kartenrefresh synchronisieren nach. Deaktivierter Anchor-Planner-Layer restauriert die Füllungen, behält den temporären Wunsch fürs Wiederaktivieren. Home/Datenlöschung setzt den Wunsch zurück.
+intelFieldControlsHtml/wireIntelFieldControls teilen dieselbe aria-pressed-Steuerung zwischen Panel, Fan-Landing, Fächerentwurf und Planvorschau. Toggle synchronisiert bestehende Buttons ohne Neuaufbau von Formularen oder Simulation. Ein neuer Locale-Schlüssel, kein Persistenz-/Exportschemawechsel und keine Änderung der Intel-Daten-/Blocker-/Bestandslogik.

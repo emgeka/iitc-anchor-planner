@@ -212,3 +212,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Blocker-Anzeigemodi dürfen keine Fraktion/Kreuzung aus Erkennung, Aufgaben oder Export filtern. Dezent als Standard, explizite Vollansicht und ausgewählten Fokus gemeinsam testen; Controls in Panel/Vorschau synchron halten und reale Keys/Erledigung unangetastet lassen.
 
 - Die gemeinsame Zielplan-Darstellung gilt auch für den noch nicht übernommenen Fächerentwurf. Renderer/Farben/Legende teilen; Ankerrollen, Zuordnungen, Vorschau-Cleanup und Übernahmesperren erhalten. Nach Änderungen test-fan-planner zusätzlich zu UI-/Vorschautests ausführen.
+
+- Intel-Füllungsansicht ausschließlich an nativen registrierten Feld-Layern reversibel umsetzen. Daten/Links/Portale/Zielgeometrie erhalten, fieldAdded vor Registrierung berücksichtigen, gespeicherte Styles/Listener freigeben und Home/Deaktivierung restaurieren. SVG/Canvas, spätere Felder und synchronisierte UI ohne Simulationseingriff prüfen; keine globale Farb-/DOMregel auf fremde Flächen anwenden.

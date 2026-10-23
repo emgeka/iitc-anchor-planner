@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.31
+# Bekannte Grenzen in 0.2.0-beta.32
 
 ## Portalzuordnung und Namen
 
@@ -324,3 +324,7 @@ Der Nutzer-Screenshot zeigt den offenen Fächerplaner mit 63 Portalen, 124 Links
 Automatisierte Prüfungen sichern gemeinsame Farbe/Pane/Strichmuster/Feldfüllung, Legende, unveränderte gespeicherte Daten/Keys/Draw Tools und Cleanup. Tatsächliche IITC-/Mobile-Bestätigung steht aus.
 
 Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Dreiportalentwurf: gefüllte violette Fläche und drei gestrichelte violette Kanten im gemeinsamen Zielpane, weiße Ankermarkierung und Zielplan-Legende vorhanden. Legende bei 360×800 erreichbar und ohne horizontalen Seitenüberlauf. Kein authentifizierter Intel-/IITC-Mobile-Test.
+
+## Dominierende Intel-Füllungen beta.32
+Nutzer-Screenshot zeigt trotz violetter Zielgeometrie stark dominierende grüne Intel-Flächen. Beta.32 bietet den ausdrücklich gewünschten Füllungsschalter. Nur in window.fields registrierte native Leaflet-Felder mit lesbarer fillOpacity/setStyle werden behandelt; fremde zusätzliche Feldlayer bleiben erhalten. Andere Plugins können Füllstile verändern; die nächste Synchronisation berücksichtigt solche Änderungen. Es werden keine Felddaten aus Scan oder IITC entfernt.
+Automatisierte Prüfungen decken individuell reversible Füllstärken, erhaltene Links/Portale/Zielflächen, fieldAdded vor Registrierung, spätere Mapaddition, verpasste Hooks, Fremdplugin-Stile, Listener-/Referenzcleanup, Home/Layerzustand und synchronisierte Controls ohne Simulationsneustart ab. Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen: SVG und Canvas, nachgeladenes Feld im ausgeblendeten Zustand, Wiederherstellung .25/.4/.3, grüner Link/Portal und violette Zielfläche erhalten. Bei 360×800 ein 44-px-Schalter ohne horizontalen Seitenüberlauf. Synthetische Daten; tatsächliche Intel-/IITC-Mobile-Bestätigung ausstehend.

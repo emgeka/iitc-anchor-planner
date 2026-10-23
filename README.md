@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.31
+### Beta testing: 0.2.0-beta.32
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.31**
+- Development version: **0.2.0-beta.32**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -258,3 +258,6 @@ Blockers use thin translucent lines by default, leaving the target plan readable
 
 ### Consistent fan draft (beta.31)
 The fan design preview now uses the same purple dashed target links, shaded geometric fields and Target plan legend as the accepted work plan. White anchor markers and assignments remain available. Cyan denotes simulated building in Plan preview. Saved plans change only on explicit acceptance; Draw Tools and Keys remain unchanged.
+
+### Hide Intel field fills (beta.32)
+Use **Hide Intel field fills** in the fan planner, work plan or Plan preview to inspect the purple target geometry without native field shading. Existing links, portals and field data remain available; blocker checks and Keys are unchanged. Newly loaded fields follow the switch. Toggle again to restore their original fill strength. Home/data clearing restores fills; disabling the Anchor Planner layer restores them until re-enabled. This temporary view setting resets on reload.

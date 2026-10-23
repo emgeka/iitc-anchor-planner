@@ -177,7 +177,7 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   draft(ap, [{ ...triangle[0], title: '<script>bad</script>' }, ...triangle.slice(1)]);
   assert.ok(!ap.fanPlannerHtml().includes('<script>bad'));
   const controls = new Map();
-  const element = { scrollTop: 0, querySelector(key) { if (!controls.has(key)) controls.set(key, {}); return controls.get(key); }, querySelectorAll() { return []; } };
+  const element = { scrollTop: 0, querySelector(key) { if (!controls.has(key)) controls.set(key, { setAttribute(name,value) { this[name]=value; } }); return controls.get(key); }, querySelectorAll() { return []; } };
   context.document.getElementById = id => id === 'ap-fan-planner' ? element : null;
   ap.getFanCandidates = source => source === 'area' ? triangle.slice(0, 2) : triangle;
   ap.refreshFanPlanner();

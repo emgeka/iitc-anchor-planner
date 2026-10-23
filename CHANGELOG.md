@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.32
+
+### English
+- Add a synchronized Hide Intel field fills switch in the fan planner, work plan and Plan preview. Hide only native field shading, retain Intel entities/links/portals and our plan geometry, include newly loaded fields and restore individual fill strengths. Keep the setting temporary and restore fills on Home/data clearing or layer deactivation.
+
+### Deutsch
+- Synchronisierten Schalter Intel-Feldflächen ausblenden im Fächerplaner, Arbeitsplan und in der Planvorschau ergänzen. Nur native Feldfüllungen ausblenden, Intel-Daten/Links/Portale und eigene Plangeometrie erhalten, nachgeladene Felder berücksichtigen und individuelle Füllstärken restaurieren. Einstellung temporär halten und Flächen bei Startseite/Datenlöschung oder Layerdeaktivierung wiederherstellen.
+
 ## 0.2.0-beta.31
 
 ### English
