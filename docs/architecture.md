@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.27
+# Architekturübersicht 0.2.0-beta.28
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -511,3 +511,7 @@ Aktuelle und Legacy-IITC-Widgetklassen werden in ap.openDialog zusammengeführt,
 
 ### Titelleistensymbole beta.27
 IITC zeichnet Titelknöpfe über absolut positionierte Pseudoelemente. Die Plugin-Knöpfe bleiben im Flexlayout relativ positioniert und bilden den Bezug für zentrierte CSS-Linien: Kreuz zum Schließen, Minus zum Einklappen, Plus bei collapse-collapsed. Alte ui-icon-Spans im Plugin ausblenden, pointer-events:none für Symbole. Die nativen Klone, Zustandsklassen und Ereignishandler bleiben erhalten; ausschließlich ap-dialog kapselt diese Regeln.
+
+### Finalcheck-Ladezustand und Wiederholung beta.28
+Der alte Acht-Sekunden-Fallback zählte auch Zeitüberschreitungen als besuchte Ansichten und markierte den gesamten Lauf dauerhaft als timedOut. Jetzt bleibt der Watchdog bis zum tatsächlichen Abschluss aktiv (30 Sekunden), und eine lokale 250-ms-Prüfung liest IITC.map.request bzw. window.mapDataRequest defensiv. Der Status done genügt nur mit passender fetchedDataParams-Fläche/Zoom, leeren queuedTiles/requestedTiles/renderQueue, activeRequestCount=0 und ohne failedTileCount/staleTileCount. errors/out of date bleiben Fehler. Ohne Statusschnittstelle bleibt ein Start-/End-Hookpaar mit Ruhephase der Kompatibilitätspfad; ohne jeden Nachweis führt das Zeitlimit zu unvollständig. Keine eigenen Requests oder Eingriffe in IITCs Queue.
+checked zählt Erfolge, index abgearbeitete Versuche; failedPoints hält fehlgeschlagene Ansichten. Die optionalen Fortschrittsfelder checked/failedPoints ergänzen das vorhandene Speicherschema. Am Ende bleiben nur fehlgeschlagene Punkte zum ausdrücklichen Wiederholen, mit bisherigem Erfolgszähler und Linkakkumulator. Nach erfolgreicher Fortsetzung wird finalScanTimedOut=false und finalScanComplete=true. Ältere timedOut-Zwischenstände ohne checked starten frisch, da ihre Erfolge nicht belegt sind. Begrenzte Geometrie bleibt auch nach Wiederholung unvollständig. Poll-, Settle- und Watchdog-Timer beim Abschluss, Pausieren und Löschen abbrechen; verzögerte Schrittwechsel an die konkrete Sitzung binden.

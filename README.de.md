@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.27
+### Beta-Test: 0.2.0-beta.28
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.27**
+- Entwicklungsversion: **0.2.0-beta.28**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -257,3 +257,6 @@ Panel und sämtliche Anchor-Planner-Dialoge verwenden ein gemeinsames dunkles Ma
 Die getrennten Abläufe für Ankerportale und Fächerplaner sowie gespeicherte Pläne, Keys, Routing und die Bedeutung der Kartenmarker bleiben erhalten. Lokale breite und 360-Pixel-Browseransichten wurden mit synthetischen Daten und simuliertem IITC-Dialograhmen geprüft. Echte IITC-/Mobile-Tests stehen noch aus; die Beta ersetzt Stable 0.1.55 nicht.
 
 Beta.27 stellt die Titelleistensymbole wieder her: Schließen (×), Einklappen (−) und Aufklappen (+). Lokal mit originaler IITC-Dialogimplementierung auf Desktopbreite und bei 360 Pixeln geprüft; Bestätigung im installierten Plugin steht aus.
+
+### Kartenladung im Finalcheck (beta.28)
+Pro Ansicht bis zu 30 Sekunden warten und vollständig gerenderte passende Cache-Abdeckung auch ohne neue IITC-Ladehooks prüfen. Nur erfolgreich geladene Ansichten zählen. Fehlgeschlagene oder unbestätigte Ladungen bleiben unvollständig; **Check fortsetzen** prüft nur diese Ansichten erneut und erhält erfolgreiche Abdeckung, auch nach Reload. Die Ergebnismeldung unterscheidet Ladeprobleme von der unveränderten Zwölf-Ansichten-Grenze. Keine zusätzlichen Tile-Abfragen und keine Garantie serverseitiger Vollständigkeit. Automatisierte Regressionstests bestanden; Bestätigung auf Desktop/IITC Mobile steht aus.

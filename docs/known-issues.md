@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.27
+# Bekannte Grenzen in 0.2.0-beta.28
 
 ## Portalzuordnung und Namen
 
@@ -301,3 +301,9 @@ Fraktionen stammen ausschließlich aus geladenem Intel und PLAYER; fehlen sie, r
 ## Titelleistenregression beta.27
 - Nutzer-Screenshot vom 2026-10-23 belegt leere Titelknöpfe und ein außerhalb liegendes × in beta.26. Ursache: position:static entfernt den Bezug für IITCs absolut positionierte Symbol-Pseudoelemente. Beta.27 korrigiert Position und Symbole. Die frühere vereinfachte Browser-Vorschau hatte diesen Fehler übersehen.
 - Lokal am 2026-10-23 mit originaler IITC-Dialogimplementierung und Styles, jQuery 4.0.0/UI 1.14.2 auf Desktopbreite und 360×800 geprüft: Symbole, Ein-/Aufklappen, Schließen/Wiederöffnen, fremde Dialoge unverändert. Nutzerbestätigung und tatsächliche IITC-Mobile-Prüfung stehen aus.
+
+## Regelmäßig unvollständiger Finalcheck beta.28
+Nutzer meldet am 2026-10-23 regelmäßig unvollständige Finalchecks. Die Codeprüfung findet ein zu kurzes Acht-Sekunden-Limit sowie fehlende Cache-Abschlussprüfung; zudem wurden Zeitüberschreitungen als geprüfte Ansichten gezählt. Der konkrete Auslöser im aktuellen Nutzerplan ist noch nicht bestätigt. Beta.28 wartet bis zu 30 Sekunden, prüft passende vollständig gerenderte Cache-Abdeckung und bietet fehlgeschlagene Ansichten gezielt erneut an. Prüfzählung erfasst nur vollständige Ladungen; Ladeprobleme und Zwölf-Ansichten-Grenze werden getrennt erklärt.
+Ohne verlässliche Ladehooks und ohne lesbaren IITC-Requeststatus bleibt der Check bewusst unvollständig. Serverfehler, veraltete Tiles, fehlende Abdeckung oder mehr als zwölf nötige Ansichten bleiben echte Grenzen; die Warnung wird dann nicht unterdrückt. Neue Ergebnistexte sind DE/EN, weitere Sprachen vorerst Englisch. Deterministische Regressionstests decken langsame Ladung, Cache, Queuezustände, Fehler/Timeout, Wiederholung/Reload und Begrenzung ab; tatsächlicher Desktop-/Mobile-Praxistest steht aus.
+
+Nutzer nennt im Einsatzcheck einen unbestätigten Planlink, zwei fehlende Keys und 2672 geladene vorhandene Links. Diese Zusammenfassung enthält keinen Nachweis des konkreten Ladefehlers. Die neue Ursachen-/Erfolgsdiagnose bleibt deshalb auch bei erneutem Panelrendern unter Mehr sichtbar. Keymangel ist unabhängig vom Vollständigkeitsstatus des Blockerchecks.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.28
+
+### English
+- Make Final check tolerate loads up to 30 seconds and recognize matching, fully rendered cached coverage without new refresh hooks. Count successful views separately, retain failed views for Resume check across reload, and clear incomplete status after a successful retry. Explain loading failures separately from the unchanged twelve-view cap; never treat missing or failed data as an all-clear.
+
+### Deutsch
+- Im Finalcheck bis zu 30 Sekunden lange Ladungen zulassen und passende vollständig gerenderte Cache-Abdeckung auch ohne neue Refreshhooks erkennen. Erfolgreiche Ansichten getrennt zählen, fehlgeschlagene Ansichten über Reload für Check fortsetzen erhalten und die Unvollständig-Meldung nach erfolgreicher Wiederholung ablösen. Ladefehler und unveränderte Zwölf-Ansichten-Grenze getrennt erklären; fehlende oder fehlerhafte Daten bleiben keine Entwarnung.
+
 ## 0.2.0-beta.27
 
 ### English

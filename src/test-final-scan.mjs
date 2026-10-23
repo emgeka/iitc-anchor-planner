@@ -10,7 +10,7 @@ const wrapperStart = userscript.indexOf('function wrapper(plugin_info) {');
 const wrapperEnd = userscript.indexOf('var script = document.createElement', wrapperStart);
 const wrapperSource = userscript.slice(wrapperStart, wrapperEnd);
 
-function createRuntime(savedState = null) {
+function createRuntime(savedState = null, clock = null) {
   class LatLng {
     constructor(lat, lng) { this.lat = lat; this.lng = lng; }
   }
@@ -18,8 +18,8 @@ function createRuntime(savedState = null) {
   if (savedState) stored.set('plugin-anchor-planner-v1', JSON.stringify(savedState));
   const context = {
     console,
-    clearTimeout,
-    setTimeout,
+    clearTimeout: clock ? clock.clearTimeout : clearTimeout,
+    setTimeout: clock ? clock.setTimeout : setTimeout,
     document: { documentElement: { lang: '' }, getElementById() { return null; } },
     localStorage: {
       getItem(key) { return stored.has(key) ? stored.get(key) : null; },
@@ -183,4 +183,172 @@ function createRuntime(savedState = null) {
   assert.equal(automaticNameRefreshes, 1, 'New blocker endpoints must trigger automatic name loading after final-scan recomputation.');
 }
 
-console.log('Final blocker scan checks passed: zoom selection, unconfirmed-only coverage, incomplete-status distinction, pause/reload resume, stale-plan rejection, late-link settling, blocker recomputation, automatic blocker-name loading, existing-link no-op');
+function createClock() {
+  let now = 0, serial = 0;
+  const timers = new Map();
+  return {
+    setTimeout(callback, delay = 0) { const id = ++serial; timers.set(id, { at: now + delay, callback }); return id; },
+    clearTimeout(id) { timers.delete(id); },
+    advance(ms) {
+      const end = now + ms;
+      let budget = 10000;
+      while (budget--) {
+        const next = [...timers].filter(([, t]) => t.at <= end).sort((a, b) => a[1].at - b[1].at || a[0] - b[0])[0];
+        if (!next) { now = end; return; }
+        timers.delete(next[0]); now = next[1].at; next[1].callback();
+      }
+      throw new Error('Unexpected unbounded final-check timers');
+    },
+    get pending() { return timers.size; }
+  };
+}
+
+function loadFixture(saved = null) {
+  const clock = createClock();
+  const runtime = createRuntime(saved, clock);
+  const { ap, context } = runtime;
+  let center = { lat: 50, lng: 8 }, zoom = 8;
+  const mapViews = [], messages = [];
+  context.window.map = {
+    project: p => ({ x: p.lng, y: p.lat }), unproject: p => ({ lat: p.y, lng: p.x }),
+    getCenter: () => center, getZoom: () => zoom, getBounds: () => ({ center }),
+    getContainer: () => ({ clientWidth: 800, clientHeight: 600 }),
+    setView(p, z) { center = p; zoom = z; mapViews.push({ center: p, zoom: z }); }
+  };
+  ap.runtime.links = [{ id: 'a|b', a: 'a', b: 'b', existing: false, latlngA: { lat: 0, lng: 0 }, latlngB: { lat: 1, lng: 1 }, blockers: [] }];
+  ap.renderPanel = ap.renderOverlays = ap.queueMissingNameRefresh = () => {};
+  ap.setMessage = message => messages.push(message);
+  const request = {
+    getStatus: () => ({ short: request.status }), status: 'refreshing',
+    fetchedDataParams: { mapZoom: 13, bounds: { contains: () => request.covered } }, covered: true,
+    activeRequestCount: 0, queuedTiles: {}, requestedTiles: {}, renderQueue: [], renderQueuePaused: false,
+    failedTileCount: 0, staleTileCount: 0
+  };
+  context.window.IITC = { map: { request } };
+  return { ...runtime, clock, request, mapViews, messages };
+}
+
+{
+  const { ap, clock, request } = loadFixture();
+  ap.startFinalScan(); ap.onFinalScanMapDataRefreshStart();
+  clock.advance(9000);
+  assert.ok(ap.runtime.finalScan?.running, 'A normal nine-second load must not fail at the former eight-second cutoff.');
+  request.status = 'done'; ap.onFinalScanMapDataRefreshEnd(); clock.advance(1200);
+  assert.equal(ap.runtime.finalScan, null);
+  assert.equal(ap.state.lastScan.finalScanComplete, true);
+  assert.equal(ap.state.lastScan.finalScanViews, 1);
+}
+
+{
+  const { ap, clock, request } = loadFixture();
+  request.status = 'done';
+  ap.startFinalScan(); clock.advance(1200);
+  assert.equal(ap.state.lastScan.finalScanComplete, true, 'Matching, drained cached coverage must succeed without a new start/end hook pair.');
+  assert.equal(ap.state.lastScan.finalScanTimedOut, false);
+  assert.equal(clock.pending, 0);
+}
+
+{
+  const { ap, clock, request } = loadFixture();
+  request.status = 'done'; request.renderQueue = [{}];
+  ap.startFinalScan(); clock.advance(2000);
+  assert.ok(ap.runtime.finalScan.running, 'Done status with unrendered entities must keep waiting.');
+  request.renderQueue = []; request.activeRequestCount = 1; clock.advance(1000);
+  assert.ok(ap.runtime.finalScan.running, 'An active request must not be considered complete.');
+  request.activeRequestCount = 0; clock.advance(1500);
+  assert.equal(ap.state.lastScan.finalScanComplete, true);
+}
+
+{
+  const { ap, clock, request, stored, messages } = loadFixture();
+  ap.buildFinalScanCheckpoints = () => ({ points: [{ lat: 0, lng: 0 }, { lat: 1, lng: 1 }], total: 2, truncated: false });
+  ap.startFinalScan(); ap.onFinalScanMapDataRefreshStart();
+  request.status = 'done'; ap.onFinalScanMapDataRefreshEnd(); clock.advance(1100);
+  assert.equal(ap.runtime.finalScan.index, 1);
+  request.covered = false; clock.advance(31000);
+  assert.equal(ap.state.lastScan.finalScanComplete, false);
+  assert.equal(ap.state.lastScan.finalScanViews, 1, 'Timed-out visits must not count as successfully checked.');
+  assert.equal(ap.state.lastScan.finalScanTotalViews, 2);
+  assert.equal(ap.state.lastScan.finalScanTimedOut, true);
+  assert.equal(ap.canResumeFinalScan(), true);
+  assert.equal(ap.state.finalScanProgress.points.length, 1, 'Retry only the failed view.');
+  assert.match(messages.at(-1), /Resume check/);
+  const reloaded = loadFixture(JSON.parse(stored.get(ap.STORAGE_KEY)));
+  reloaded.ap.load(); reloaded.request.status = 'done';
+  assert.equal(reloaded.ap.canResumeFinalScan(), true);
+  reloaded.ap.startFinalScan(); reloaded.clock.advance(1200);
+  assert.equal(reloaded.mapViews[0].center.lat, 1, 'Reloaded retry must skip the already checked first view.');
+  assert.equal(reloaded.ap.state.lastScan.finalScanViews, 2);
+  assert.equal(reloaded.ap.state.lastScan.finalScanComplete, true);
+  assert.equal(reloaded.ap.state.lastScan.finalScanTimedOut, false, 'A successful retry clears the previous timeout.');
+  assert.equal(reloaded.ap.state.finalScanProgress, null);
+}
+
+{
+  const { ap, clock, request } = loadFixture();
+  ap.buildFinalScanCheckpoints = () => ({ points: [{ lat: 0, lng: 0 }, { lat: 1, lng: 1 }], total: 2, truncated: false });
+  request.status = 'done'; ap.startFinalScan();
+  // Constant late link arrivals must not disable the overall loading deadline.
+  for (let i = 0; i < 59; i++) { clock.advance(500); ap.onFinalScanLinkAdded(); }
+  clock.advance(2000);
+  assert.equal(ap.runtime.finalScan, null, 'A timed-out quiet period must not leave a stale timer blocking the next cached view.');
+  assert.equal(ap.state.lastScan.finalScanViews, 1);
+  assert.equal(ap.state.finalScanProgress.points.length, 1);
+}
+
+{
+  const { ap, context, request, clock } = loadFixture();
+  context.window.mapDataRequest = request; delete context.window.IITC;
+  request.status = 'done'; ap.startFinalScan(); clock.advance(1200);
+  assert.equal(ap.state.lastScan.finalScanComplete, true, 'Older IITC global mapDataRequest must support verified cache reuse.');
+}
+
+for (const failure of ['no hooks', 'wrong zoom', 'missing coverage', 'failed tiles', 'stale tiles']) {
+  const { ap, context, request, clock } = loadFixture();
+  request.status = 'done';
+  if (failure === 'no hooks') delete context.window.IITC;
+  if (failure === 'wrong zoom') request.fetchedDataParams.mapZoom = 12;
+  if (failure === 'missing coverage') request.covered = false;
+  if (failure === 'failed tiles') request.failedTileCount = 1;
+  if (failure === 'stale tiles') request.staleTileCount = 1;
+  ap.startFinalScan();
+  if (failure !== 'no hooks') { ap.onFinalScanMapDataRefreshStart(); ap.onFinalScanMapDataRefreshEnd(); }
+  clock.advance(32000);
+  assert.equal(ap.state.lastScan.finalScanComplete, false, `${failure} must never give a false all-clear.`);
+  assert.equal(ap.state.lastScan.finalScanViews, 0);
+  assert.equal(ap.canResumeFinalScan(), true);
+  assert.equal(clock.pending, 0);
+}
+
+{
+  const { ap, request, clock, messages } = loadFixture();
+  ap.buildFinalScanCheckpoints = () => ({ points: [{ lat: 0, lng: 0 }], total: 14, truncated: true });
+  request.status = 'done'; ap.startFinalScan(); clock.advance(1200);
+  assert.equal(ap.state.lastScan.finalScanComplete, false);
+  assert.equal(ap.state.lastScan.finalScanTimedOut, false);
+  assert.match(messages.at(-1), /twelve-view limit/);
+  assert.equal(ap.canResumeFinalScan(), false, 'A capped plan must not offer a retry with no missing stored views.');
+}
+
+{
+  const { ap, request, clock } = loadFixture();
+  ap.startFinalScan(); ap.pauseFinalScan(); request.status = 'done'; clock.advance(32000);
+  assert.equal(ap.runtime.finalScan, null);
+  assert.equal(ap.canResumeFinalScan(), true);
+  assert.equal(clock.pending, 0, 'Pausing must cancel the polling, timeout and settling timers.');
+}
+
+{
+  const { ap, clock } = loadFixture();
+  ap.state.finalScanProgress = {
+    planSignature: ap.finalScanPlanSignature(ap.runtime.links), points: [{ lat: 8, lng: 8 }, { lat: 9, lng: 9 }],
+    total: 2, index: 1, targetZoom: 13, timedOut: true, truncated: false, links: []
+  };
+  ap.startFinalScan();
+  assert.equal(ap.runtime.finalScan.index, 0, 'Legacy timed-out progress without a verified count must be rechecked from scratch.');
+  assert.equal(ap.runtime.finalScan.checked, 0);
+  ap.pauseFinalScan(); clock.advance(32000);
+  assert.equal(clock.pending, 0);
+}
+
+console.log('Final blocker scan checks passed: slow loads, cached coverage, renderer/request queues, failed/stale tiles, accurate counts, retry/reload, timeouts, view cap, pause/cleanup, hook fallback, zoom, blockers and names');
