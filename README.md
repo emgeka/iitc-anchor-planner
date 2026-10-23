@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.29
+### Beta testing: 0.2.0-beta.30
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.29**
+- Development version: **0.2.0-beta.30**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -252,3 +252,6 @@ Allow up to 30 seconds per view and verify fully rendered, matching cached cover
 
 ### Target plan, travel and progress (beta.29)
 Resolved links and geometric target fields remain visible in muted purple, for both the active external plan and the accepted fan plan. Keys, confirmed directions and simulation progress do not hide this target. Plan preview distinguishes the orange travel route from cyan simulated throws/new fields; its legend explains all three. Rewind preserves the target, and closing restores the permanent target overlay. Preview totals refer to simulated work, not the target. Geometric triangles do not validate an Ingress build order. Very dense plans retain all resolved links but limit shading to 2000 fields or 200000 adjacency checks, with an explicit notice.
+
+### Readable blocker overlays (beta.30)
+Blockers use thin translucent lines by default, leaving the target plan readable. Selecting a blocker strongly highlights that connection and its yellow crossing. **Show all blockers** in the workspace or Plan preview restores full highlighting and all distinct crossing markers; **Clear selection** removes the focused highlight. These synchronized display controls do not filter blockers or change tasks, routing, Keys or completion. Home/reload returns to the quiet default.

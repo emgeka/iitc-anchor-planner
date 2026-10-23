@@ -138,7 +138,7 @@
   "blocker.endpointOf.other": "Endpunkt von {count} Blocklinks",
   "blocker.openPlanPortal": "bereits offenes Planportal",
   "blocker.donePlanPortal": "Planportal erledigt",
-  "blocker.mapLegend": "Magenta: blockierter Planlink. Blocker: eigene gelb, gegnerische rot, unbekannte grau. Schnittpunkte gelb. Alle Blocker bleiben vor den abhängigen Würfen zu entfernen.",
+  "blocker.mapLegend": "Blocker standardmäßig dezent: eigene gelb, gegnerische rot, unbekannte grau; blockierte Planlinks magenta. Auswahl hebt eine Verbindung samt gelbem Schnittpunkt hervor. „Alle Blocker anzeigen“ blendet die vollständigen Hervorhebungen ein. Alle erkannten Blocker bleiben Aufgaben.",
   "row.keys": "Keys {owned}/{required}",
   "row.links": "Links: {count}",
   "row.existing": "vorhanden: {count}",
@@ -345,5 +345,7 @@
   "map.target": "Zielplan (geometrisch)",
   "map.route": "Route",
   "map.progress": "Simulierter Baufortschritt",
-  "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar."
+  "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
+  "blocker.showAll": "Alle Blocker anzeigen",
+  "blocker.clearSelection": "Auswahl aufheben"
 }
