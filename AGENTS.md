@@ -205,3 +205,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Finalcheck-Ladezustand
 - Besuchte und erfolgreich geladene Ansichten getrennt zählen. Cache ohne neue Hooks nur mit passender IITC-Abdeckung, fertigem fehlerfreiem Status und leeren Request-/Renderqueues bestätigen; Schweigen allein ist kein Erfolg. Fehlende Ansichten gezielt fortsetzbar halten, erfolgreiche Wiederholung muss die alte Warnung ablösen. Ladefehler und Ansichtengrenze erklären; sämtliche Timer bei Pause/Abschluss/Löschen aufräumen. Nach Änderungen test-final-scan plus UI-/Blocker-/Keys-/Vorschauprüfungen ausführen.
+
+## Zielplan und Vorschau
+- Geometrischen Zielplan von simulierter Ausführbarkeit trennen. Aktive Quelle verwenden, Ziel-/Routen-/Fortschrittsfarben und Legende gemeinsam pflegen; Marker-/Blockerbedeutung bewahren. Ein laufender Ziel-Snapshot darf durch Rewind oder Live-Änderung nicht verändert werden. Beide Vorschaugruppen aufräumen, normale Zielgeometrie restaurieren und doppelte Füllung verhindern. Geometriesuche begrenzen und Begrenzung sichtbar machen; alle aufgelösten Kanten erhalten. test-walk-simulation, Fan-/Workspace-/Blocker-/Keys-Prüfungen sowie Desktop-/Mobilansicht prüfen.
