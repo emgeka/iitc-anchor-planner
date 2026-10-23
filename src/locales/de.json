@@ -339,5 +339,7 @@
   "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
   "fan.countPinned": "{count} Anker sind manuell oder durch Zuordnungen festgelegt. Gesamtzahl erhöhen oder diese Festlegungen lösen.",
   "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
-  "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen."
+  "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen.",
+  "message.finalScanRetry": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten vollständig geladen. Kartenladung fehlgeschlagen oder nicht rechtzeitig bestätigt. „Check fortsetzen“ prüft die fehlenden Ansichten erneut.",
+  "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen."
 }

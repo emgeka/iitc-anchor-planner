@@ -28,7 +28,7 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.27
+### Beta testing: 0.2.0-beta.28
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +136,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.27**
+- Development version: **0.2.0-beta.28**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -246,3 +246,6 @@ The panel and every Anchor Planner dialog share a dark navy theme with the same 
 The separate Anchor portals and Fan planner workflows, saved plans, Keys, routing and map-marker meanings are preserved. A local wide/360-pixel browser fixture has been checked with synthetic data and a simulated IITC dialog frame. Practical IITC/mobile testing remains pending; the beta does not replace stable 0.1.55.
 
 Beta.27 restores the titlebar icons: close (×), collapse (−) and expand (+). Checked locally with the original IITC dialog implementation at desktop and 360-pixel widths; verification in the installed plugin remains pending.
+
+### Final-check loading (beta.28)
+Allow up to 30 seconds per view and verify fully rendered, matching cached coverage even when IITC emits no new refresh hooks. Count only successfully loaded views. Failed or unconfirmed loads remain incomplete; **Resume check** retries only those views while retaining successful coverage, including after reload. The result distinguishes loading problems from the unchanged twelve-view cap. It does not issue extra tile requests or guarantee server completeness. Automated regression checks pass; actual desktop/IITC Mobile confirmation is pending.

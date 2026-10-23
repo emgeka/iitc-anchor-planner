@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.27
+// @version        0.2.0-beta.28
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261023120000';
+  plugin_info.dateTimeVersion = '20261023130000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.27';
+  ap.VERSION = '0.2.0-beta.28';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -39,7 +39,8 @@ function wrapper(plugin_info) {
   ap.PANEL_MARGIN_PX = 5;
   ap.FINAL_SCAN_MAX_VIEWS = 12;
   ap.FINAL_SCAN_VIEW_SPACING = 0.75;
-  ap.FINAL_SCAN_FALLBACK_MS = 8000;
+  ap.FINAL_SCAN_FALLBACK_MS = 30000;
+  ap.FINAL_SCAN_POLL_MS = 250;
   ap.FINAL_SCAN_SETTLE_MS = 1000;
   ap.FALLBACK_LANGUAGE = 'en';
   ap.MISSING_TITLE = '';
@@ -387,7 +388,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
       "fan.countPinned": "{count} Anker sind manuell oder durch Zuordnungen festgelegt. Gesamtzahl erhöhen oder diese Festlegungen lösen.",
       "fan.countChanged": "Ankeranzahl geändert. Vor der Planübernahme einen neuen Vorschlag berechnen.",
-      "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen."
+      "tasks.directionKeyHelp": "Richtungsvorschläge teilen die vorhandenen Ziel-Keys auf; bestätigte Richtungen reservieren ihren Bedarf zuerst. Bei ausreichenden Keys entscheidet die Route. Bei unbekanntem oder unzureichendem Bestand können weiterhin Keys fehlen. Jede Richtung einzeln bestätigen.",
+      "message.finalScanRetry": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten vollständig geladen. Kartenladung fehlgeschlagen oder nicht rechtzeitig bestätigt. „Check fortsetzen“ prüft die fehlenden Ansichten erneut.",
+      "message.finalScanLimit": "Finaler Blockercheck unvollständig: {checked} von {total} Ansichten geprüft. Dieser Plan überschreitet die Grenze von zwölf Ansichten; einen kleineren Teilplan prüfen."
     },
     "en": {
       "language.label": "Language",
@@ -730,7 +733,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "es": {
       "language.label": "Idioma",
@@ -1073,7 +1078,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "fr": {
       "language.label": "Langue",
@@ -1416,7 +1423,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "it": {
       "language.label": "Lingua",
@@ -1759,7 +1768,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "ja": {
       "language.label": "言語",
@@ -2102,7 +2113,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "pl": {
       "language.label": "Język",
@@ -2445,7 +2458,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2788,7 +2803,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "ru": {
       "language.label": "Язык",
@@ -3131,7 +3148,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3474,7 +3493,9 @@ function wrapper(plugin_info) {
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
       "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+      "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+      "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+      "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
     }
   };
   // AP_LOCALES_END
@@ -6038,6 +6059,8 @@ function wrapper(plugin_info) {
       total: scan.total,
       truncated: scan.truncated,
       index: scan.index,
+      checked: Number(scan.checked) || 0,
+      failedPoints: (scan.failedPoints || []).map(function (point) { return { lat: Number(point.lat), lng: Number(point.lng) }; }),
       targetZoom: scan.targetZoom,
       timedOut: scan.timedOut,
       links: (scan.accumulator.list || []).map(function (link) {
@@ -6133,17 +6156,61 @@ function wrapper(plugin_info) {
     ap.mergeExistingLinkInfo(scan.accumulator, ap.collectExistingLinkIds(portals));
   };
 
+  ap.getFinalScanLoadState = function () {
+    // IITC may reuse the current fetched area without emitting refresh hooks.
+    // A quiet map alone is not proof: require matching coverage and a drained renderer.
+    try {
+      var request = window.IITC && window.IITC.map && window.IITC.map.request || window.mapDataRequest;
+      if (!request || typeof request.getStatus !== 'function') return null;
+      var fetched = request.fetchedDataParams;
+      if (!fetched || !fetched.bounds || typeof fetched.bounds.contains !== 'function' ||
+          typeof window.map.getBounds !== 'function') return 'pending';
+      var scan = ap.runtime.finalScan;
+      var bounds = window.map.getBounds();
+      if (!scan || window.map.getZoom() !== scan.targetZoom || fetched.mapZoom !== scan.targetZoom ||
+          !fetched.bounds.contains(bounds) || scan.viewBounds && !fetched.bounds.contains(scan.viewBounds) ||
+          scan.viewBounds && typeof bounds.contains === 'function' && !bounds.contains(scan.viewBounds)) return 'pending';
+      var status = request.getStatus() || {};
+      if (!['done', 'errors', 'out of date'].includes(status.short)) return 'pending';
+      if (request.activeRequestCount !== 0 || !request.queuedTiles || Object.keys(request.queuedTiles).length ||
+          !request.requestedTiles || Object.keys(request.requestedTiles).length ||
+          !Array.isArray(request.renderQueue) || request.renderQueue.length || request.renderQueuePaused) return 'pending';
+      if (!Number.isFinite(request.failedTileCount) || !Number.isFinite(request.staleTileCount)) return 'pending';
+      return status.short === 'done' && request.failedTileCount === 0 && request.staleTileCount === 0 ? 'done' : 'failed';
+    } catch (e) { return null; }
+  };
+
+  ap.pollFinalScanLoad = function (token) {
+    var scan = ap.runtime.finalScan;
+    if (!scan || !scan.running || scan.stepToken !== token || scan.stepComplete) return;
+    var state = ap.getFinalScanLoadState();
+    if (state === 'done' || state === 'failed') {
+      scan.refreshEnded = true;
+      if (!scan.settleTimer) ap.scheduleFinalScanStepCompletion();
+    } else if (state === 'pending') {
+      scan.refreshEnded = false;
+      if (scan.settleTimer) clearTimeout(scan.settleTimer);
+      scan.settleTimer = null;
+    }
+    scan.pollTimer = setTimeout(function () { ap.pollFinalScanLoad(token); }, ap.FINAL_SCAN_POLL_MS);
+  };
+
   ap.completeFinalScanStep = function (token, timedOut) {
     var scan = ap.runtime.finalScan;
     if (!scan || !scan.running || scan.stepToken !== token || scan.stepComplete) return;
     scan.stepComplete = true;
     if (scan.stepTimer) clearTimeout(scan.stepTimer);
     if (scan.settleTimer) clearTimeout(scan.settleTimer);
-    if (timedOut && scan.refreshStarted) scan.timedOut = true;
+    if (scan.pollTimer) clearTimeout(scan.pollTimer);
+    scan.stepTimer = scan.settleTimer = scan.pollTimer = null;
+    if (timedOut) {
+      scan.timedOut = true;
+      scan.failedPoints.push(scan.points[scan.index]);
+    } else scan.checked++;
     ap.captureFinalScanLinks();
     scan.index++;
     ap.persistFinalScanProgress();
-    setTimeout(ap.visitFinalScanCheckpoint, 50);
+    setTimeout(function () { if (ap.runtime.finalScan === scan) ap.visitFinalScanCheckpoint(); }, 50);
   };
 
   ap.onFinalScanMapDataRefreshStart = function () {
@@ -6164,7 +6231,9 @@ function wrapper(plugin_info) {
     var token = scan.stepToken;
     if (scan.settleTimer) clearTimeout(scan.settleTimer);
     scan.settleTimer = setTimeout(function () {
-      ap.completeFinalScanStep(token, false);
+      scan.settleTimer = null;
+      var state = ap.getFinalScanLoadState();
+      if (state !== 'pending') ap.completeFinalScanStep(token, state === 'failed');
     }, ap.FINAL_SCAN_SETTLE_MS);
   };
 
@@ -6172,10 +6241,6 @@ function wrapper(plugin_info) {
     var scan = ap.runtime.finalScan;
     if (!scan || !scan.running || !scan.refreshStarted) return;
     scan.refreshEnded = true;
-    if (scan.stepTimer) {
-      clearTimeout(scan.stepTimer);
-      scan.stepTimer = null;
-    }
     ap.scheduleFinalScanStepCompletion();
   };
 
@@ -6192,22 +6257,32 @@ function wrapper(plugin_info) {
     scan.running = false;
     if (scan.stepTimer) clearTimeout(scan.stepTimer);
     if (scan.settleTimer) clearTimeout(scan.settleTimer);
+    if (scan.pollTimer) clearTimeout(scan.pollTimer);
     ap.captureFinalScanLinks();
-    var complete = !scan.truncated && !scan.timedOut;
-    var checked = Math.min(scan.index, scan.points.length);
+    var complete = !scan.truncated && !scan.timedOut && scan.checked >= scan.total;
+    var timedOut = scan.timedOut;
+    var checked = scan.checked;
     var total = scan.total;
     var originalCenter = scan.originalCenter;
     var originalZoom = scan.originalZoom;
     ap.state.finalScanProgress = null;
+    if (scan.failedPoints.length) {
+      // Keep only failed views for an explicit retry; successful coverage is retained.
+      scan.points = scan.failedPoints;
+      scan.failedPoints = [];
+      scan.index = 0;
+      scan.timedOut = false;
+      ap.persistFinalScanProgress();
+    }
     ap.applyExistingLinkCoverage(scan.accumulator, {
       complete: complete,
       checked: checked,
       total: total,
       zoom: scan.targetZoom,
-      timedOut: scan.timedOut
+      timedOut: timedOut
     });
     try { window.map.setView(originalCenter, originalZoom, { animate: false }); } catch (e) {}
-    ap.setMessage(complete ? ap.t('message.finalScanComplete', { count: checked }) : ap.t('message.finalScanIncomplete', { checked: checked, total: total }));
+    ap.setMessage(complete ? ap.t('message.finalScanComplete', { count: checked }) : ap.t(ap.state.finalScanProgress ? 'message.finalScanRetry' : (scan.truncated ? 'message.finalScanLimit' : 'message.finalScanIncomplete'), { checked: checked, total: total }));
     ap.runtime.finalScan = null;
   };
 
@@ -6217,12 +6292,13 @@ function wrapper(plugin_info) {
     scan.running = false;
     if (scan.stepTimer) clearTimeout(scan.stepTimer);
     if (scan.settleTimer) clearTimeout(scan.settleTimer);
+    if (scan.pollTimer) clearTimeout(scan.pollTimer);
     ap.captureFinalScanLinks();
     ap.persistFinalScanProgress();
     try { window.map.setView(scan.originalCenter, scan.originalZoom, { animate: false }); } catch (e) {}
     ap.runtime.finalScan = null;
     ap.renderPanel();
-    ap.setMessage(ap.t('message.finalScanPaused', { checked: scan.index, total: scan.total }));
+    ap.setMessage(ap.t('message.finalScanPaused', { checked: scan.checked, total: scan.total }));
     return true;
   };
 
@@ -6234,17 +6310,20 @@ function wrapper(plugin_info) {
     scan.refreshEnded = false;
     scan.stepComplete = false;
     if (scan.settleTimer) clearTimeout(scan.settleTimer);
+    scan.settleTimer = null;
     scan.stepToken++;
     var token = scan.stepToken;
-    ap.setMessage(ap.t('message.finalScanProgress', { current: scan.index + 1, total: scan.points.length }));
+    ap.setMessage(ap.t('message.finalScanProgress', { current: scan.checked + 1, total: scan.total }));
     try {
       window.map.setView(scan.points[scan.index], scan.targetZoom, { animate: false });
+      scan.viewBounds = typeof window.map.getBounds === 'function' ? window.map.getBounds() : null;
     } catch (e) {
       scan.timedOut = true;
       ap.completeFinalScanStep(token, true);
       return;
     }
     scan.stepTimer = setTimeout(function () { ap.completeFinalScanStep(token, true); }, ap.FINAL_SCAN_FALLBACK_MS);
+    ap.pollFinalScanLoad(token);
   };
 
   ap.startFinalScan = function () {
@@ -6269,6 +6348,8 @@ function wrapper(plugin_info) {
     var targetZoom = ap.getFinalScanZoom();
     var planSignature = ap.finalScanPlanSignature(links);
     var saved = ap.canResumeFinalScan() ? ap.state.finalScanProgress : null;
+    // Old timed-out progress did not record which visits actually loaded.
+    if (saved && saved.checked == null && saved.timedOut) saved = null;
     var checkpoints = saved ? {
       points: saved.points,
       total: Number(saved.total) || saved.points.length,
@@ -6294,6 +6375,8 @@ function wrapper(plugin_info) {
       total: checkpoints.total,
       truncated: checkpoints.truncated,
       index: saved ? Math.max(0, Number(saved.index) || 0) : 0,
+      checked: saved ? Math.max(0, Number(saved.checked == null ? saved.index : saved.checked) || 0) : 0,
+      failedPoints: saved && Array.isArray(saved.failedPoints) ? saved.failedPoints.slice() : [],
       targetZoom: saved ? Number(saved.targetZoom) || targetZoom : targetZoom,
       originalCenter: window.map.getCenter(),
       originalZoom: window.map.getZoom(),
@@ -6303,7 +6386,8 @@ function wrapper(plugin_info) {
       stepToken: 0,
       stepComplete: false,
       stepTimer: null,
-      settleTimer: null
+      settleTimer: null,
+      pollTimer: null
     };
     ap.captureFinalScanLinks();
     ap.persistFinalScanProgress();
@@ -8205,6 +8289,8 @@ function wrapper(plugin_info) {
     if (activeFinalScan && activeFinalScan.running) {
       activeFinalScan.running = false;
       if (activeFinalScan.stepTimer) clearTimeout(activeFinalScan.stepTimer);
+      if (activeFinalScan.settleTimer) clearTimeout(activeFinalScan.settleTimer);
+      if (activeFinalScan.pollTimer) clearTimeout(activeFinalScan.pollTimer);
       try { window.map.setView(activeFinalScan.originalCenter, activeFinalScan.originalZoom, { animate: false }); } catch (e) {}
       ap.runtime.finalScan = null;
     }
@@ -8412,7 +8498,12 @@ function wrapper(plugin_info) {
       var scanOpenEndpoints = Number(last.unresolvedEndpoints) || 0;
       html += 'Scan: ' + ap.escapeHtml(ap.tp('scan.summaryLink', scanLinks)) + ' · ' + ap.escapeHtml(ap.tp('scan.summaryPortal', scanPortals));
       if (scanOpenEndpoints) html += ' · ' + ap.escapeHtml(ap.tp('scan.summaryEndpoint', scanOpenEndpoints));
-      if ((Number(last.unconfirmedLinks) || 0) > 0) html += ' · ' + ap.escapeHtml(ap.t(last.finalScanComplete ? 'scan.finalComplete' : (finalScanResumable ? 'scan.finalPaused' : (finalScanIncomplete ? 'scan.finalIncomplete' : 'scan.finalPending'))));
+      if ((Number(last.unconfirmedLinks) || 0) > 0) html += ' · ' + ap.escapeHtml(ap.t(last.finalScanComplete ? 'scan.finalComplete' : (finalScanIncomplete ? 'scan.finalIncomplete' : (finalScanResumable ? 'scan.finalPaused' : 'scan.finalPending'))));
+      if (finalScanIncomplete && (Number(last.unconfirmedLinks) || 0) > 0) {
+        var finalReason = finalScanResumable && last.finalScanTimedOut ? 'message.finalScanRetry' :
+          (Number(last.finalScanTotalViews) > ap.FINAL_SCAN_MAX_VIEWS ? 'message.finalScanLimit' : 'message.finalScanIncomplete');
+        html += '<div class="ap-hint">' + ap.escapeHtml(ap.t(finalReason, { checked: Number(last.finalScanViews) || 0, total: Number(last.finalScanTotalViews) || 0 })) + '</div>';
+      }
       if (last.unresolvedSample && last.unresolvedSample.length) {
         html += '<div class="ap-unresolved"><b>' + ap.escapeHtml(ap.t('diagnostics.openEndpoints')) + '</b>';
         html += '<div class="ap-hint">' + ap.escapeHtml(ap.t('diagnostics.help')) + '</div>';

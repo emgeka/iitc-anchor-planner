@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.27
+# Anforderungen für Entwicklungsstand 0.2.0-beta.28
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -355,3 +355,9 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 
 ## Titelleistenknöpfe (0.2.0-beta.27)
 - Schließen, Einklappen und Aufklappen müssen sichtbare zentrierte Symbole innerhalb ihrer Knöpfe zeigen. IITC-Zustandsklassen und Klickfunktionen erhalten; Symbole dürfen keine Klicks abfangen. Fremde Dialoge unverändert lassen. Mit echten IITC-Pseudoelementen auf breitem und schmalem Viewport prüfen.
+
+## Verlässliche Finalcheck-Abschlüsse (0.2.0-beta.28)
+- Für normale Kartenladungen bis zu 30 Sekunden pro Ansicht zulassen. Eine Sekunde Ruhe nach Ladeende bzw. verifiziertem Cache-Abschluss erhalten; späte Links verschieben die Ruhephase, aber nicht unbegrenzt das Zeitlimit.
+- Wiederverwendete IITC-Abdeckung nur bei passender Zoomstufe/Ansichtsfläche, abgeschlossenem Status, leeren Request-/Renderwarteschlangen und ohne fehlgeschlagene/veraltete Tiles bestätigen. Fehlende Hooks ohne solchen Nachweis sind keine Entwarnung.
+- Ausschließlich vollständig geladene Ansichten zählen. Ladefehler/Timeouts zum ausdrücklichen Wiederholen speichern; erfolgreiche Ansichten und gesammelte Links erhalten. Erfolgreiche Fortsetzung muss die Unvollständig-/Timeoutmeldung ablösen. Pause, Reload und Löschen räumen alle Timer auf. Ältere fehlgeschlagene Zwischenstände ohne Erfolgszählung frisch prüfen.
+- Ladeprobleme und die weiterhin geltende Zwölf-Ansichten-Grenze in der Ergebnismeldung unterscheiden. Ursache und Erfolgszählung auch nach erneutem Panelrendern unter Mehr erhalten. Keine zusätzlichen Tile-Abfragen oder stilles Ausblenden der Warnung.

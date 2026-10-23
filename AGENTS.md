@@ -202,3 +202,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Nach Theme-/Dialoghüllenänderungen node src/test-ui-theme.mjs zusätzlich zu bestehenden UI-/Panel-/Locale- und betroffenen Verhaltenstests ausführen; CI enthält denselben Check. Browseransichten auf Desktop und schmalem Mobilformat visuell prüfen, echten IITC-Praxistest getrennt dokumentieren.
 
 - IITC-Titelleistenknöpfe benötigen einen positionierten Bezug für Symbol-Pseudoelemente. Theme-Prüfung mit originalen IITC-Dialogklassen/Styles und Ein-/Aufklappen/Schließen ergänzen; ein vereinfachter Rahmen mit Textsymbolen genügt dafür nicht.
+
+## Finalcheck-Ladezustand
+- Besuchte und erfolgreich geladene Ansichten getrennt zählen. Cache ohne neue Hooks nur mit passender IITC-Abdeckung, fertigem fehlerfreiem Status und leeren Request-/Renderqueues bestätigen; Schweigen allein ist kein Erfolg. Fehlende Ansichten gezielt fortsetzbar halten, erfolgreiche Wiederholung muss die alte Warnung ablösen. Ladefehler und Ansichtengrenze erklären; sämtliche Timer bei Pause/Abschluss/Löschen aufräumen. Nach Änderungen test-final-scan plus UI-/Blocker-/Keys-/Vorschauprüfungen ausführen.

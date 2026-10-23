@@ -339,5 +339,7 @@
   "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
   "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
   "fan.countChanged": "Anchor count changed. Calculate a new proposal before using the plan.",
-  "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately."
+  "tasks.directionKeyHelp": "Direction suggestions share the available target keys; confirmed directions reserve stock first. With enough keys, route order decides. Unknown or insufficient stock can still require keys. Confirm each direction separately.",
+  "message.finalScanRetry": "Final blocker check incomplete: {checked} of {total} views fully loaded. Map loading failed or was not confirmed in time. Use Resume check to retry the missing views.",
+  "message.finalScanLimit": "Final blocker check incomplete: {checked} of {total} views checked. This plan exceeds the twelve-view limit; check a smaller part of the plan."
 }
