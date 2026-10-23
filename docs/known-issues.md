@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.29
+# Bekannte Grenzen in 0.2.0-beta.30
 
 ## Portalzuordnung und Namen
 
@@ -314,3 +314,7 @@ Die geometrische Zielzeichnung enthält auch bestehende Plankanten/Felder. Simul
 Nutzer bestätigt am 2026-10-23 die verbesserte Finalcheck-Darstellung aus beta.28; die gemeldete Plattform und vollständige Grenzfallabdeckung bleiben unbekannt.
 
 Lokale Browserprüfung am 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Dreiportalplan: violette Zielgeometrie (vier Pfade), orange Route und cyanfarbener Wurf getrennt sichtbar. Ohne Keys bleibt der Zielplan bei null simulierten Würfen; nach Schließen keine Routen-/Fortschrittspfade, Zielplan wiederhergestellt. Bei 360×800 kein horizontaler Überlauf und alle drei Legendeneinträge innerhalb des Dialogs. Dies ist keine authentifizierte Intel- oder tatsächliche Mobile-Prüfung.
+
+## Überladene Blockerkarte beta.30
+Nutzer-Screenshot zeigt, dass zahlreiche kräftige Blockerlinien und gelbe Kreuzungsmarker den violetten Zielplan verdecken. Beta.30 stellt alle Blocker standardmäßig dezent dar und zeigt nur die ausgewählte Verbindung kräftig. Vollansicht bleibt ausdrücklich zuschaltbar und kann bei großen Plänen weiterhin dicht sein. Intel-/Fremdplugin-Flächen sowie Key-/Portalmarker bleiben erhalten; diese Änderung kann deren Überlagerungen nicht beseitigen.
+Automatisierte Prüfungen sichern unveränderte Aufgaben/Bestände und Fraktionen, stille/volle/gewählte Darstellung und synchronisierte Controls. Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synthetischem Plan mit zwölf Blockern: 0 Schnittpunktmarker dezent, 22 unterschiedliche Marker in Vollansicht, 1 bei Auswahl; Aufheben entfernt den Fokus. Bei 360×800 zwei 155×44-px-Schalter ohne horizontalen Überlauf. Kein tatsächlicher Intel-/IITC-Mobile-Praxistest dieser Änderung.

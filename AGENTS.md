@@ -208,3 +208,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Zielplan und Vorschau
 - Geometrischen Zielplan von simulierter Ausführbarkeit trennen. Aktive Quelle verwenden, Ziel-/Routen-/Fortschrittsfarben und Legende gemeinsam pflegen; Marker-/Blockerbedeutung bewahren. Ein laufender Ziel-Snapshot darf durch Rewind oder Live-Änderung nicht verändert werden. Beide Vorschaugruppen aufräumen, normale Zielgeometrie restaurieren und doppelte Füllung verhindern. Geometriesuche begrenzen und Begrenzung sichtbar machen; alle aufgelösten Kanten erhalten. test-walk-simulation, Fan-/Workspace-/Blocker-/Keys-Prüfungen sowie Desktop-/Mobilansicht prüfen.
+
+- Blocker-Anzeigemodi dürfen keine Fraktion/Kreuzung aus Erkennung, Aufgaben oder Export filtern. Dezent als Standard, explizite Vollansicht und ausgewählten Fokus gemeinsam testen; Controls in Panel/Vorschau synchron halten und reale Keys/Erledigung unangetastet lassen.

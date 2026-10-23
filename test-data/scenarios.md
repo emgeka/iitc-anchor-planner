@@ -621,3 +621,10 @@ Automatisiert in test-final-scan.mjs mit kontrollierter Zeit und synthetischen I
 Automatisiert in test-walk-simulation.mjs einschließlich permanentem Overlaypfad, Vorschau-Lebensdauer, Quellenwechsel, Grenzen und Simulationstrennung geprüft; vorhandene Fan-/Blocker-/Keys-/Workspaceprüfungen beibehalten. Echte Desktop-/IITC-Mobile-Prüfung ausstehend.
 
 Lokale Browserprüfung am 2026-10-23 mit Leaflet und originalen IITC-Dialogen bestätigt Ziel-/Routen-/Baufarben, Zielplan ohne Keys, Wiederherstellung nach Schließen sowie umbrechende Legende bei 360×800 ohne horizontalen Überlauf. Synthetische Daten, keine echte Intel-/Mobile-Abdeckung.
+
+## Übersichtliche Blockerkarte (0.2.0-beta.30)
+1. Dichten Plan mit eigenen/gegnerischen/unbekannten und gemeinsam genutzten Blockern prüfen: Zielplan bleibt sichtbar, Blocker dünn/transparent, keine gelben Punkte. Erkennungszahlen, Abbauaufgaben, Keys und Route unverändert.
+2. Blocker über bestehende Auswahlaktion fokussieren: genau diese Verbindung kräftig und ein gelber Schnittpunkt. Auswahl aufheben entfernt Fokus; ohne Fokus deaktiviert.
+3. Alle Blocker anzeigen ein-/ausschalten, sowohl im Panel als auch in der Planvorschau: identischer aria-pressed-Zustand, vollständige Hervorhebung/Kreuzungspunkte bzw. Rückkehr zu dezent. Kein Simulationsneustart oder Kamerasprung durch die Anzeigeschalter. Home/Reload/Datenlöschung setzt dezent zurück.
+4. Desktop und 360 px: Schalter erreichbar, Touchgrößen und Umbruch; Layerumschaltung und frischer Fächerentwurf behalten ihre Isolation.
+Automatisiert in test-blockers-overlays.mjs mit echtem Overlaypfad, Auswahl- und Controlhandlern geprüft; bestehende UI-/Vorschau-/Keys-/Routingtests weiter ausführen. Lokaler Browsercheck 2026-10-23 mit Leaflet/IITC-Dialogen und zwölf synthetischen Blockern bestätigt dezent/alle/ausgewählt/aufheben sowie 44-px-Controls ohne horizontalen Überlauf bei 360×800. Tatsächlicher IITC-/Mobile-Test ausstehend.

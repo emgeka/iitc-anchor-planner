@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.29
+# Anforderungen für Entwicklungsstand 0.2.0-beta.30
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -367,3 +367,7 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Normaler Arbeitsmodus zeigt aufgelöste aktive Geometrie einschließlich externer Draw-Tools-Pläne; gespeicherte inaktive Pläne oder frühere Arbeitsbereiche nicht beimischen. Layerumschaltung und frischer Fächerentwurf erhalten ihre bestehende Isolation.
 - Vorschau verwendet einen eingefrorenen Zielplan und getrennte Lebensdauer für Ziel-/Fortschrittslayer. Zurückspulen entfernt nur späteren Fortschritt; Schließen bereinigt beide Vorschaugruppen und restauriert den normalen Zielplan ohne doppelte Flächenfüllung. Marker-/Blockerfarben und echte Keys/Erledigung unverändert.
 - Dreiecke nur aus geschlossenen, nicht entarteten aufgelösten Plankanten ableiten. Keine Baubarkeits-/AP-Zusage; Feldfüllung für sehr dichte Graphen auf 2000 Flächen bzw. 200000 Nachbarschaftsprüfungen begrenzen und sichtbar erklären. Alle aufgelösten Kanten erhalten.
+
+## Dezente Blockeransicht (0.2.0-beta.30)
+- Standardmäßig dünne transparente Linien und keine gelben Schnittpunktmarker. Fraktionsfarben und vollständige Erkennung/Aufgaben erhalten. Gewählte Verbindung samt Schnittpunkt kräftig hervorheben; Auswahl ausdrücklich aufhebbar.
+- Alle Blocker anzeigen als umschaltbare vollständige Hervorhebung einschließlich unterschiedlicher Kreuzungspunkte in Arbeitsbereich und Planvorschau anbieten. Schalterzustand synchronisieren, Tastatur/Touch und deaktivierte Auswahlaufhebung berücksichtigen. Ansicht rein temporär, Home/Reload/Datenlöschung setzt dezent zurück. Keine Filterung, Bestands-/Erledigungs-/Planänderung.

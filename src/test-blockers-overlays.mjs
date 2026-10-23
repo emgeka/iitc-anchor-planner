@@ -17,10 +17,11 @@ function runtime() {
     localStorage: { getItem: key => storage.get(key) || null, setItem: (key, value) => storage.set(key, value) } };
   vm.runInNewContext(wrapper + '\nwrapper({});', context);
   const ap = context.window.plugin.anchorPlanner;
+  const renderOverlays = ap.renderOverlays;
   ap.state.language = 'en';
   ap.renderPanel = ap.renderOverlays = ap.refreshTaskList = ap.queueMissingNameRefresh = ap.refreshKeyList = () => {};
   context.window.plugin.keys = { keys: { B: 5 }, addKey(delta, guid) { this.keys[guid] = (this.keys[guid] || 0) + delta; } };
-  return { ap, context, storage };
+  return { ap, context, storage, renderOverlays };
 }
 function intel(a, b, team, x, y, timestamp = 1) {
   return { options: { team, timestamp, data: { oGuid: a, dGuid: b } }, getLatLngs: () => [x, y] };
@@ -119,4 +120,51 @@ function planned(ap) {
   assert.equal(badge.style.left, '33px'); assert.equal(badge.style.top, '23px');
   ap.clearHtmlOverlay(); assert.equal(ap.runtime.htmlBadgeLocations.length, 0);
 }
-console.log('Blocker factions/overlays: own/enemy/Machina/unknown, all crossing links, preserved checkpoint metadata, coincident enemy removal and key accounting, native geographic badges and moving fallback passed.');
+{
+  const {ap,context,storage,renderOverlays}=runtime();
+  const first=planned(ap), blocker={guid:'shared',a:'X',b:'Y',latlngA:point(-1,1),latlngB:point(2,1),faction:'enl'};
+  const second={...first,id:'C|D',a:'C',b:'D',latlngA:point(1,0),latlngB:point(1,2)};
+  for(const link of [first,second]){link.blocked=true;link.blockers=[blocker];}
+  ap.runtime.links=[first,second];
+  ap.runtime.layerGroup={layers:[],clearLayers(){this.layers=[];}};
+  const shape=(kind,coords,options)=>({kind,coords,options,addTo(group){group.layers.push(this);return this;}});
+  context.L.polyline=(coords,options)=>shape('line',coords,options);
+  context.L.circleMarker=(coords,options)=>shape('crossing',coords,options);
+  context.window.map={setView(){},getZoom:()=>13};
+  ap.addHtmlStatusMarker=()=>{};ap.getNextRouteTarget=()=>null;ap.getRouteTasks=()=>[];ap.getBlockerWorklist=()=>[];
+  ap.renderOverlays=renderOverlays;
+  const layers=()=>ap.runtime.layerGroup.layers;
+  Object.keys(ap.runtime.stats).forEach(guid=>ap.ensureAnchorState(guid));
+  const before=JSON.stringify(ap.state), stock=JSON.stringify(context.window.plugin.keys.keys), work=JSON.stringify(ap.runtime.links);
+  assert.equal(ap.runtime.showAllBlockers,false);
+  ap.renderOverlays();
+  assert.equal(layers().filter(l=>l.kind==='crossing').length,0,'Default view has no clutter of crossing dots.');
+  assert.equal(layers().filter(l=>l.options.color===ap.blockerColor(blocker)).length,1,'Shared blockers are drawn only once.');
+  assert.ok(layers().every(l=>l.options.weight<=2 && l.options.opacity<=.8),'Default overlays remain subdued, including target lines.');
+  function controls(){const toggle={attrs:{},setAttribute(k,v){this.attrs[k]=v;}},clear={disabled:false};return{toggle,clear,root:{querySelector(s){return s==='.ap-blocker-map-toggle'?toggle:s==='.ap-blocker-map-clear'?clear:null;}}};}
+  const panel=controls(),preview=controls();ap.runtime.panel=panel.root;
+  ap.renderPanel=()=>ap.wireBlockerMapControls(panel.root);
+  ap.runtime.walkSimulation={element:preview.root};ap.wireBlockerMapControls(panel.root);ap.wireBlockerMapControls(preview.root);
+  assert.equal(panel.clear.disabled,true);assert.equal(panel.toggle.attrs['aria-pressed'],'false');
+  assert.match(ap.blockerMapControlsHtml(),/Show all blockers/);
+  panel.toggle.onclick();
+  assert.equal(ap.runtime.showAllBlockers,true);
+  assert.equal(preview.toggle.attrs['aria-pressed'],'true','Panel changes synchronize preview controls.');
+  assert.equal(layers().filter(l=>l.kind==='crossing').length,2,'The explicit full view restores every distinct crossing.');
+  assert.ok(layers().some(l=>l.options.weight===5));
+  preview.toggle.onclick();
+  assert.equal(panel.toggle.attrs['aria-pressed'],'false','Preview changes synchronize panel controls.');
+  assert.equal(layers().filter(l=>l.kind==='crossing').length,0);
+  ap.focusBlocker(first,blocker);
+  assert.equal(panel.clear.disabled,false);
+  assert.equal(layers().filter(l=>l.kind==='crossing').length,1,'Quiet view shows only the selected crossing.');
+  assert.ok(layers().some(l=>l.options.weight===7),'Selected blockers remain strongly highlighted.');
+  preview.clear.onclick();
+  assert.equal(ap.runtime.selectedBlocker,null);assert.equal(panel.clear.disabled,true);
+  assert.equal(layers().filter(l=>l.kind==='crossing').length,0);
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.plugin.keys.keys),stock);
+  assert.equal(JSON.stringify(ap.runtime.links),work,'Display modes must not alter detection or tasks.');assert.equal(storage.size,0);
+  ap.runtime.walkSimulation=null;ap.runtime.showAllBlockers=true;ap.showWorkspaceHome();
+  assert.equal(ap.runtime.showAllBlockers,false,'Home returns to the quiet default.');
+}
+console.log('Blocker factions/overlays: quiet/full/selected rendering, synchronized controls, unchanged tasks/inventory, factions, shared blockers, checkpoints and geographic badges passed.');

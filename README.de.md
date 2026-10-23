@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.29
+### Beta-Test: 0.2.0-beta.30
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.29**
+- Entwicklungsversion: **0.2.0-beta.30**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -263,3 +263,6 @@ Pro Ansicht bis zu 30 Sekunden warten und vollständig gerenderte passende Cache
 
 ### Zielplan, Route und Baufortschritt (beta.29)
 Aufgelöste Links und geometrische Zielfelder bleiben dezent violett sichtbar, sowohl im aktiven externen Plan als auch im übernommenen Fächerplan. Keys, bestätigte Richtungen und Simulationsfortschritt blenden den Zielplan nicht aus. Die Planvorschau unterscheidet die orange Route von cyanfarbenen simulierten Würfen/neuen Feldern; eine Legende erklärt alle drei Ebenen. Zurückspulen erhält den Zielplan, Schließen stellt dessen dauerhaftes Overlay wieder her. Vorschauzähler beziehen sich auf simulierte Arbeit, nicht auf den Zielplan. Geometrische Dreiecke bestätigen keine Ingress-Baufolge. Sehr dichte Pläne behalten alle aufgelösten Links, begrenzen Feldfüllung aber auf 2000 Flächen bzw. 200000 Nachbarschaftsprüfungen und zeigen dazu einen Hinweis.
+
+### Übersichtliche Blockermarkierungen (beta.30)
+Blocker erscheinen standardmäßig dünn und transparent, damit der Zielplan lesbar bleibt. Eine ausgewählte Blockerverbindung samt gelbem Schnittpunkt wird kräftig hervorgehoben. **Alle Blocker anzeigen** im Arbeitsbereich oder in der Planvorschau stellt die vollständigen Hervorhebungen und alle unterschiedlichen Kreuzungspunkte dar; **Auswahl aufheben** entfernt den Fokus. Die synchronisierten Schalter filtern keine Blocker und ändern weder Aufgaben, Routing, Keys noch Erledigung. Startseite/Reload kehrt zur dezenten Ansicht zurück.

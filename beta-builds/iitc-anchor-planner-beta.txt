@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.29
+// @version        0.2.0-beta.30
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261023140000';
+  plugin_info.dateTimeVersion = '20261023150000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.29';
+  ap.VERSION = '0.2.0-beta.30';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -191,7 +191,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpunkt von {count} Blocklinks",
       "blocker.openPlanPortal": "bereits offenes Planportal",
       "blocker.donePlanPortal": "Planportal erledigt",
-      "blocker.mapLegend": "Magenta: blockierter Planlink. Blocker: eigene gelb, gegnerische rot, unbekannte grau. Schnittpunkte gelb. Alle Blocker bleiben vor den abhängigen Würfen zu entfernen.",
+      "blocker.mapLegend": "Blocker standardmäßig dezent: eigene gelb, gegnerische rot, unbekannte grau; blockierte Planlinks magenta. Auswahl hebt eine Verbindung samt gelbem Schnittpunkt hervor. „Alle Blocker anzeigen“ blendet die vollständigen Hervorhebungen ein. Alle erkannten Blocker bleiben Aufgaben.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "vorhanden: {count}",
@@ -398,7 +398,9 @@ function wrapper(plugin_info) {
       "map.target": "Zielplan (geometrisch)",
       "map.route": "Route",
       "map.progress": "Simulierter Baufortschritt",
-      "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar."
+      "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
+      "blocker.showAll": "Alle Blocker anzeigen",
+      "blocker.clearSelection": "Auswahl aufheben"
     },
     "en": {
       "language.label": "Language",
@@ -540,7 +542,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpoint of {count} blocking links",
       "blocker.openPlanPortal": "already an open plan portal",
       "blocker.donePlanPortal": "plan portal completed",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "existing: {count}",
@@ -747,7 +749,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "es": {
       "language.label": "Idioma",
@@ -889,7 +893,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extremo de {count} enlaces bloqueadores",
       "blocker.openPlanPortal": "ya es un portal abierto del plan",
       "blocker.donePlanPortal": "portal del plan completado",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Llaves {owned}/{required}",
       "row.links": "Enlaces: {count}",
       "row.existing": "existentes: {count}",
@@ -1096,7 +1100,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "fr": {
       "language.label": "Langue",
@@ -1238,7 +1244,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extrémité de {count} liens bloqueurs",
       "blocker.openPlanPortal": "déjà un portail ouvert du plan",
       "blocker.donePlanPortal": "portail du plan terminé",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Clés {owned}/{required}",
       "row.links": "Liens : {count}",
       "row.existing": "existants : {count}",
@@ -1445,7 +1451,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "it": {
       "language.label": "Lingua",
@@ -1587,7 +1595,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Estremo di {count} link blocker",
       "blocker.openPlanPortal": "già portale aperto del piano",
       "blocker.donePlanPortal": "portale del piano completato",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Chiavi {owned}/{required}",
       "row.links": "Link: {count}",
       "row.existing": "esistenti: {count}",
@@ -1794,7 +1802,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "ja": {
       "language.label": "言語",
@@ -1936,7 +1946,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "ブロックリンク {count}本の端点",
       "blocker.openPlanPortal": "未完了の計画ポータル",
       "blocker.donePlanPortal": "完了済み計画ポータル",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "キー {owned}/{required}",
       "row.links": "リンク: {count}",
       "row.existing": "既存: {count}",
@@ -2143,7 +2153,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "pl": {
       "language.label": "Język",
@@ -2285,7 +2297,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Koniec {count} linków blokujących",
       "blocker.openPlanPortal": "już otwarty portal planu",
       "blocker.donePlanPortal": "ukończony portal planu",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Klucze {owned}/{required}",
       "row.links": "Linki: {count}",
       "row.existing": "istniejące: {count}",
@@ -2492,7 +2504,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2634,7 +2648,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Ponta de {count} links bloqueadores",
       "blocker.openPlanPortal": "já é portal aberto do plano",
       "blocker.donePlanPortal": "portal do plano concluído",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Chaves {owned}/{required}",
       "row.links": "Links: {count}",
       "row.existing": "existentes: {count}",
@@ -2841,7 +2855,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "ru": {
       "language.label": "Язык",
@@ -2983,7 +2999,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Конец {count} блокирующих линков",
       "blocker.openPlanPortal": "уже открытый портал плана",
       "blocker.donePlanPortal": "портал плана выполнен",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "Ключи {owned}/{required}",
       "row.links": "Линки: {count}",
       "row.existing": "есть: {count}",
@@ -3190,7 +3206,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3332,7 +3350,7 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "{count} 条阻挡 Link 的端点",
       "blocker.openPlanPortal": "已是未完成计划 Portal",
       "blocker.donePlanPortal": "已完成计划 Portal",
-      "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
       "row.keys": "钥匙 {owned}/{required}",
       "row.links": "Link：{count}",
       "row.existing": "已有：{count}",
@@ -3539,7 +3557,9 @@ function wrapper(plugin_info) {
       "map.target": "Target plan (geometric)",
       "map.route": "Travel route",
       "map.progress": "Simulated build progress",
-      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+      "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+      "blocker.showAll": "Show all blockers",
+      "blocker.clearSelection": "Clear selection"
     }
   };
   // AP_LOCALES_END
@@ -3577,6 +3597,7 @@ function wrapper(plugin_info) {
     existingLinks: [],
     unresolvedEndpoints: [],
     selectedBlocker: null,
+    showAllBlockers: false,
     userLocation: null,
     userLocationHooksBound: false,
     nextTargetKey: null,
@@ -5580,6 +5601,28 @@ function wrapper(plugin_info) {
     if (geometry && geometry.limited) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('map.limited')) + '</p>';
     return html;
   };
+
+  ap.blockerMapControlsHtml = function () {
+    if (!(ap.runtime.links || []).some(function (link) { return link && link.blocked && (link.blockers || []).length; })) return '';
+    return '<div class="ap-blocker-map-controls"><button class="ap-blocker-map-toggle" aria-pressed="' + (ap.runtime.showAllBlockers ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('blocker.showAll')) + '</button><button class="ap-blocker-map-clear"' + (ap.runtime.selectedBlocker ? '' : ' disabled') + '>' + ap.escapeHtml(ap.t('blocker.clearSelection')) + '</button></div>';
+  };
+
+  ap.wireBlockerMapControls = function (root) {
+    if (!root || typeof root.querySelector !== 'function') return;
+    var toggle = root.querySelector('.ap-blocker-map-toggle'), clear = root.querySelector('.ap-blocker-map-clear');
+    function refresh() {
+      ap.renderOverlays(); ap.renderPanel();
+      if (ap.runtime.walkSimulation) ap.wireBlockerMapControls(ap.runtime.walkSimulation.element);
+    }
+    if (toggle) {
+      toggle.setAttribute('aria-pressed', ap.runtime.showAllBlockers ? 'true' : 'false');
+      toggle.onclick = function () { ap.runtime.showAllBlockers = !ap.runtime.showAllBlockers; refresh(); };
+    }
+    if (clear) {
+      clear.disabled = !ap.runtime.selectedBlocker;
+      clear.onclick = function () { ap.runtime.selectedBlocker = null; refresh(); };
+    }
+  };
   ap.fanPlannerHtml = function () {
     var draft = ap.runtime.fanDraft, html = '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
     if (ap.runtime.nameLoader) html += '<p>' + ap.escapeHtml(ap.t('message.namesLoadingAuto', { current: ap.runtime.nameLoader.index, total: ap.runtime.nameLoader.queue.length })) + '</p>';
@@ -5785,6 +5828,7 @@ function wrapper(plugin_info) {
     var session = ap.runtime.walkSimulation;
     if (!session) return;
     var frame = session.model.frames[session.index], element = session.element;
+    ap.wireBlockerMapControls(element);
     element.querySelector('.ap-walk-previous').disabled = session.index <= 0;
     element.querySelector('.ap-walk-next').disabled = !frame || session.index >= session.model.frames.length - 1;
     element.querySelector('.ap-walk-play').disabled = !frame || session.model.frames.length < 2;
@@ -5888,7 +5932,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
@@ -7808,12 +7852,12 @@ function wrapper(plugin_info) {
     if (!ap.runtime.enabled || ap.runtime.fanDesigning) return;
     ap.ensureOverlayLayerVisible();
     if (!ap.runtime.walkSimulation) ap.renderPlanMapGeometry(ap.runtime.layerGroup, ap.getPlanMapGeometry());
-    var renderedBlockers = {};
+    var renderedBlockers = {}, renderedCrossings = {}, showAll = !!ap.runtime.showAllBlockers;
     (ap.runtime.links || []).forEach(function (link) {
       if (!link || !link.blocked || !link.latlngA || !link.latlngB) return;
       try {
         var path = L.polyline([link.latlngA, link.latlngB], {
-          color: '#ff2d95', weight: 5, opacity: 0.9, dashArray: '8,6', interactive: false
+          color: '#ff2d95', weight: showAll ? 5 : 2, opacity: showAll ? .9 : .35, dashArray: '8,6', interactive: false
         });
         path.options = ap.withOverlayPane(path.options);
         path.addTo(ap.runtime.layerGroup);
@@ -7825,14 +7869,16 @@ function wrapper(plugin_info) {
           renderedBlockers[blockerId] = true;
           try {
             var blockerPath = L.polyline([blocker.latlngA, blocker.latlngB], {
-              color: ap.blockerColor(blocker), weight: 5, opacity: 0.95, interactive: false
+              color: ap.blockerColor(blocker), weight: showAll ? 5 : 2, opacity: showAll ? .95 : .45, interactive: false
             });
             blockerPath.options = ap.withOverlayPane(blockerPath.options);
             blockerPath.addTo(ap.runtime.layerGroup);
           } catch (e2) {}
         }
-        var crossing = ap.segmentIntersectionPoint(link.latlngA, link.latlngB, blocker.latlngA, blocker.latlngB);
-        if (crossing) {
+        var crossing = showAll && ap.segmentIntersectionPoint(link.latlngA, link.latlngB, blocker.latlngA, blocker.latlngB);
+        var crossingKey = crossing && ap.latLngKey(crossing);
+        if (crossing && !renderedCrossings[crossingKey]) {
+          renderedCrossings[crossingKey] = true;
           try {
             var crossingMarker = L.circleMarker(crossing, {
               radius: 5, color: '#111', weight: 2, fillColor: '#ffe600', fillOpacity: 1, interactive: false
@@ -7909,6 +7955,8 @@ function wrapper(plugin_info) {
     }
     ap.runtime.selectedBlocker = { plannedLink: plannedLink, blocker: blocker, intersection: crossing };
     ap.renderOverlays();
+    ap.wireBlockerMapControls(ap.runtime.panel);
+    if (ap.runtime.walkSimulation) ap.wireBlockerMapControls(ap.runtime.walkSimulation.element);
     try {
       var currentZoom = typeof window.map.getZoom === 'function' ? Number(window.map.getZoom()) : 15;
       var targetZoom = Math.max(isFinite(currentZoom) ? currentZoom : 15, 15);
@@ -8415,6 +8463,7 @@ function wrapper(plugin_info) {
     ap.runtime.existingLinks = [];
     ap.runtime.unresolvedEndpoints = [];
     ap.runtime.selectedBlocker = null;
+    ap.runtime.showAllBlockers = false;
     ap.save();
     ap.renderOverlays();
     ap.renderPanel();
@@ -8466,6 +8515,7 @@ function wrapper(plugin_info) {
     ap.closeWorkspaceDialogs();
     ap.runtime.fanDesigning = false;
     ap.runtime.workspaceView = 'home';
+    ap.runtime.showAllBlockers = false; ap.runtime.selectedBlocker = null;
     ap.renderOverlays();
     ap.renderPanel();
   };
@@ -8586,6 +8636,7 @@ function wrapper(plugin_info) {
       html += '<div id="ap-next-target" class="ap-next-target ap-next-complete">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
     }
     html += ap.planMapLegendHtml(false, ap.getPlanMapGeometry());
+    html += ap.blockerMapControlsHtml();
     html += '<div class="ap-filters" aria-label="' + ap.escapeHtml(ap.t('filter.aria')) + '">';
     [
       ['all', ap.t('filter.all'), filterCounts.all],
@@ -8691,6 +8742,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-tasks').onclick = ap.showTaskList;
     document.getElementById('ap-home').onclick = ap.showWorkspaceHome;
     document.getElementById('ap-settings').onclick = ap.showPluginSettings;
+    ap.wireBlockerMapControls(panel);
     var design = document.getElementById('ap-fan-design'); if (design) design.onclick = ap.showFanPlanner;
     var clearFan = panel.querySelector('#ap-fan-remove-plan'); if (clearFan) clearFan.onclick = ap.clearNativeFanPlan;
     if (document.getElementById('ap-next-task')) document.getElementById('ap-next-task').onclick = ap.showNextTask;
@@ -8794,6 +8846,10 @@ function wrapper(plugin_info) {
 .ap-map-key::before{content:'';display:inline-block;width:22px;flex:none;border-top:2px dashed ${ap.MAP_COLORS.target}}
 .ap-map-key-route::before{border-top:4px solid ${ap.MAP_COLORS.route}}
 .ap-map-key-progress::before{border-top:3px solid ${ap.MAP_COLORS.progress}}
+.ap-blocker-map-controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+#iitc-anchor-planner .ap-blocker-map-controls{padding:8px 12px;margin:0;border-bottom:1px solid var(--ap-border)}
+.ap-blocker-map-controls button{flex:1 1 130px}
+.ap-blocker-map-controls button[aria-pressed=true]{background:#24495b;border-color:var(--ap-accent)}
 .ap-dialog .ui-dialog-content{padding:0!important;background:var(--ap-bg);color:var(--ap-text)}
 .ap-dialog .ui-dialog-buttonpane{margin:0;padding:8px 12px;background:var(--ap-surface);border:0;border-top:1px solid var(--ap-border);border-radius:0 0 8px 8px}
 .ap-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{display:flex;flex-wrap:wrap;gap:8px}

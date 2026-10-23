@@ -138,7 +138,7 @@
   "blocker.endpointOf.other": "Extremo de {count} enlaces bloqueadores",
   "blocker.openPlanPortal": "ya es un portal abierto del plan",
   "blocker.donePlanPortal": "portal del plan completado",
-  "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+  "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
   "row.keys": "Llaves {owned}/{required}",
   "row.links": "Enlaces: {count}",
   "row.existing": "existentes: {count}",
@@ -345,5 +345,7 @@
   "map.target": "Target plan (geometric)",
   "map.route": "Travel route",
   "map.progress": "Simulated build progress",
-  "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+  "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+  "blocker.showAll": "Show all blockers",
+  "blocker.clearSelection": "Clear selection"
 }

@@ -138,7 +138,7 @@
   "blocker.endpointOf.other": "{count} 条阻挡 Link 的端点",
   "blocker.openPlanPortal": "已是未完成计划 Portal",
   "blocker.donePlanPortal": "已完成计划 Portal",
-  "blocker.mapLegend": "Magenta: blocked plan link. Blockers: friendly amber, enemy red, unknown grey. Crossings yellow. All blockers remain removal tasks before dependent throws.",
+  "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
   "row.keys": "钥匙 {owned}/{required}",
   "row.links": "Link：{count}",
   "row.existing": "已有：{count}",
@@ -345,5 +345,7 @@
   "map.target": "Target plan (geometric)",
   "map.route": "Travel route",
   "map.progress": "Simulated build progress",
-  "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible."
+  "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
+  "blocker.showAll": "Show all blockers",
+  "blocker.clearSelection": "Clear selection"
 }

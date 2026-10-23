@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.30
+
+### English
+- Subdue blocker lines by default and show a yellow crossing only for the selected connection. Add synchronized Show all blockers and Clear selection controls in the workspace and Plan preview. Full view restores all distinct crossing markers and strong highlighting. Keep every detected blocker, faction, task and inventory rule unchanged.
+
+### Deutsch
+- Blockerlinien standardmäßig dezent darstellen und gelben Schnittpunkt nur für die ausgewählte Verbindung zeigen. Synchronisierte Schalter Alle Blocker anzeigen und Auswahl aufheben im Arbeitsbereich und in der Planvorschau ergänzen. Vollansicht stellt alle unterschiedlichen Kreuzungspunkte und kräftige Hervorhebungen wieder her. Alle erkannten Blocker, Fraktionen, Aufgaben und Bestandsregeln erhalten.
+
 ## 0.2.0-beta.29
 
 ### English
