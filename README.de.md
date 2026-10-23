@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.30
+### Beta-Test: 0.2.0-beta.31
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.30**
+- Entwicklungsversion: **0.2.0-beta.31**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -266,3 +266,6 @@ Aufgelöste Links und geometrische Zielfelder bleiben dezent violett sichtbar, s
 
 ### Übersichtliche Blockermarkierungen (beta.30)
 Blocker erscheinen standardmäßig dünn und transparent, damit der Zielplan lesbar bleibt. Eine ausgewählte Blockerverbindung samt gelbem Schnittpunkt wird kräftig hervorgehoben. **Alle Blocker anzeigen** im Arbeitsbereich oder in der Planvorschau stellt die vollständigen Hervorhebungen und alle unterschiedlichen Kreuzungspunkte dar; **Auswahl aufheben** entfernt den Fokus. Die synchronisierten Schalter filtern keine Blocker und ändern weder Aufgaben, Routing, Keys noch Erledigung. Startseite/Reload kehrt zur dezenten Ansicht zurück.
+
+### Einheitlicher Fächerentwurf (beta.31)
+Die Entwurfsvorschau verwendet dieselben violetten gestrichelten Ziellinks, gefüllten geometrischen Feldflächen und die Zielplan-Legende wie der übernommene Arbeitsplan. Weiße Ankermarkierungen und Zuordnungen bleiben erhalten. Cyan kennzeichnet den simulierten Bau in der Planvorschau. Gespeicherte Pläne ändern sich erst bei ausdrücklicher Übernahme; Draw Tools und Keys bleiben unverändert.
