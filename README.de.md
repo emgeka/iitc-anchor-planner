@@ -28,7 +28,7 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.31
+### Beta-Test: 0.2.0-beta.32
 
 Dieser Featurestand zielt auf **0.2.0**. Größere neue Funktionen erhöhen die
 Minor-Version; Patch-Releases bleiben Korrekturen und kleinen Anpassungen vorbehalten.
@@ -142,7 +142,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.31**
+- Entwicklungsversion: **0.2.0-beta.32**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -269,3 +269,6 @@ Blocker erscheinen standardmäßig dünn und transparent, damit der Zielplan les
 
 ### Einheitlicher Fächerentwurf (beta.31)
 Die Entwurfsvorschau verwendet dieselben violetten gestrichelten Ziellinks, gefüllten geometrischen Feldflächen und die Zielplan-Legende wie der übernommene Arbeitsplan. Weiße Ankermarkierungen und Zuordnungen bleiben erhalten. Cyan kennzeichnet den simulierten Bau in der Planvorschau. Gespeicherte Pläne ändern sich erst bei ausdrücklicher Übernahme; Draw Tools und Keys bleiben unverändert.
+
+### Intel-Feldflächen ausblenden (beta.32)
+Mit **Intel-Feldflächen ausblenden** im Fächerplaner, Arbeitsplan oder in der Planvorschau wird der violette Zielplan ohne native Feldfüllungen sichtbar. Vorhandene Links, Portale und Felddaten bleiben erhalten; Blockercheck und Keys unverändert. Nachgeladene Felder folgen dem Schalter. Erneutes Umschalten stellt die ursprünglichen Füllstärken wieder her. Startseite/Datenlöschung blendet die Flächen wieder ein; Ausschalten des Anchor-Planner-Layers ebenfalls bis zum erneuten Einschalten. Die temporäre Ansicht wird nach Reload zurückgesetzt.

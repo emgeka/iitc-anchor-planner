@@ -167,4 +167,59 @@ function planned(ap) {
   ap.runtime.walkSimulation=null;ap.runtime.showAllBlockers=true;ap.showWorkspaceHome();
   assert.equal(ap.runtime.showAllBlockers,false,'Home returns to the quiet default.');
 }
-console.log('Blocker factions/overlays: quiet/full/selected rendering, synchronized controls, unchanged tasks/inventory, factions, shared blockers, checkpoints and geographic badges passed.');
+function field(opacity) {
+  const listeners=new Map();
+  return {options:{fillOpacity:opacity,fillColor:'#00ff00',stroke:false,data:{points:['A','B','C']}},writes:0,
+    setStyle(style){Object.assign(this.options,style);this.writes++;},
+    on(name,fn){listeners.set(name,fn);},off(name,fn){if(listeners.get(name)===fn)listeners.delete(name);},
+    add(){listeners.get('add')?.();},get listeners(){return listeners.size;}};
+}
+function fieldControls(){const button={attrs:{},setAttribute(k,v){this.attrs[k]=v;}};return {button,root:{querySelector:s=>s==='.ap-intel-field-toggle'?button:null}};}
+{
+  const {ap,context,storage}=runtime(),a=field(.25),b=field(.6),zero=field(0),plan=field(.12);
+  context.window.fields={a,b,zero};
+  context.window.links={existing:{options:{color:'green'}}};context.window.portals={A:{title:'A'}};
+  const before=JSON.stringify(ap.state),inventory=JSON.stringify(context.window.plugin.keys.keys),original=JSON.stringify([a.options,b.options,zero.options]);
+  const panel=fieldControls(),fan=fieldControls(),preview=fieldControls();
+  ap.runtime.panel=panel.root;ap.runtime.walkSimulation={index:7,element:preview.root};
+  context.document.getElementById=id=>id==='ap-fan-planner'?fan.root:null;
+  [panel,fan,preview].forEach(c=>ap.wireIntelFieldControls(c.root));
+  ap.syncIntelFieldVisibility();assert.equal(a.writes,0,'Fields remain untouched before explicit hiding.');
+  panel.button.onclick();
+  assert.equal(a.options.fillOpacity,0);assert.equal(b.options.fillOpacity,0);assert.equal(plan.options.fillOpacity,.12,'Own plan shading is not in the Intel registry and must remain visible.');
+  assert.equal(Object.keys(context.window.fields).length,3,'Intel field entities remain available.');
+  assert.equal(context.window.links.existing.options.color,'green');assert.equal(context.window.portals.A.title,'A');
+  assert.equal(fan.button.attrs['aria-pressed'],'true');assert.equal(preview.button.attrs['aria-pressed'],'true');
+  assert.equal(ap.runtime.walkSimulation.index,7,'Display toggling cannot restart simulation.');
+  ap.syncIntelFieldVisibility();assert.equal(a.writes,1,'Repeated refreshes need not rewrite an already hidden fill.');
+  preview.button.onclick();assert.equal(panel.button.attrs['aria-pressed'],'false');
+  assert.equal(JSON.stringify([a.options,b.options,zero.options]),original,'Restore each original opacity and preserve all other native styles/data.');
+  assert.equal(ap.runtime.hiddenIntelFields.size,0);assert.equal(a.listeners,0);
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.plugin.keys.keys),inventory);assert.equal(storage.size,0);
+}
+{
+  const {ap,context}=runtime(),hooks={},events={};
+  context.L.LayerGroup=class{clearLayers(){}};context.window.addHook=(name,fn)=>hooks[name]=fn;
+  context.window.map={on:(name,fn)=>events[name]=fn,hasLayer:()=>true};
+  context.window.fields={};ap.setupLayer();ap.runtime.hideIntelFieldFill=true;
+  const added=field(.25);hooks.fieldAdded({field:added});
+  assert.equal(added.options.fillOpacity,0,'fieldAdded precedes native registration/addition and still must hide the new field.');
+  context.window.fields.new=added;
+  added.options.fillOpacity=.4;added.add();assert.equal(added.options.fillOpacity,0,'A later native add/style pass still honors the switch.');
+  events.overlayremove({layer:ap.runtime.layerGroup});assert.equal(added.options.fillOpacity,.4,'Disabling Anchor Planner restores Intel fills.');
+  events.overlayadd({layer:ap.runtime.layerGroup});assert.equal(added.options.fillOpacity,0,'Re-enabling restores the requested display mode.');
+  delete context.window.fields.new;ap.syncIntelFieldVisibility();assert.equal(added.options.fillOpacity,.4);assert.equal(ap.runtime.hiddenIntelFields.size,0);assert.equal(added.listeners,0,'Unload releases saved field objects and add listeners.');
+  context.window.fields.next=field(.25);hooks.mapDataRefreshEnd();assert.equal(context.window.fields.next.options.fillOpacity,0,'Refresh catches native fields if an add hook was missed.');
+  ap.showWorkspaceHome();assert.equal(context.window.fields.next.options.fillOpacity,.25);assert.equal(ap.runtime.hideIntelFieldFill,false);
+}
+{
+  const {ap,context}=runtime(),native=field(.25);context.window.fields={native};ap.runtime.hideIntelFieldFill=true;
+  ap.syncIntelFieldVisibility();native.options.fillOpacity=.75;ap.syncIntelFieldVisibility();
+  ap.runtime.hideIntelFieldFill=false;ap.syncIntelFieldVisibility();assert.equal(native.options.fillOpacity,.75,'Restoration respects another plugin changing the fill style.');
+  ap.runtime.hideIntelFieldFill=true;ap.syncIntelFieldVisibility();native.options.fillOpacity=.9;
+  ap.runtime.hideIntelFieldFill=false;ap.syncIntelFieldVisibility();assert.equal(native.options.fillOpacity,.9,'Do not overwrite a newer style supplied just before restoring.');
+  context.window.fields={unsupported:{options:{}},broken:{options:{fillOpacity:.25},setStyle(){throw Error('unsupported renderer');}}};
+  ap.runtime.hideIntelFieldFill=true;assert.doesNotThrow(()=>ap.syncIntelFieldVisibility());
+  assert.equal(ap.runtime.hiddenIntelFields.size,0);
+}
+console.log('Blocker/overlay checks: Intel-fill hide/restore/live hooks/cleanup, synchronized display controls, preserved native data/inventory, blocker modes/factions and geographic badges passed.');

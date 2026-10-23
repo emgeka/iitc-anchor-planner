@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.31
+// @version        0.2.0-beta.32
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261023160000';
+  plugin_info.dateTimeVersion = '20261023170000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.31';
+  ap.VERSION = '0.2.0-beta.32';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -400,7 +400,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulierter Baufortschritt",
       "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
       "blocker.showAll": "Alle Blocker anzeigen",
-      "blocker.clearSelection": "Auswahl aufheben"
+      "blocker.clearSelection": "Auswahl aufheben",
+      "map.hideIntelFields": "Intel-Feldflächen ausblenden"
     },
     "en": {
       "language.label": "Language",
@@ -751,7 +752,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "es": {
       "language.label": "Idioma",
@@ -1102,7 +1104,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "fr": {
       "language.label": "Langue",
@@ -1453,7 +1456,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "it": {
       "language.label": "Lingua",
@@ -1804,7 +1808,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "ja": {
       "language.label": "言語",
@@ -2155,7 +2160,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "pl": {
       "language.label": "Język",
@@ -2506,7 +2512,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2857,7 +2864,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "ru": {
       "language.label": "Язык",
@@ -3208,7 +3216,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3559,7 +3568,8 @@ function wrapper(plugin_info) {
       "map.progress": "Simulated build progress",
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
-      "blocker.clearSelection": "Clear selection"
+      "blocker.clearSelection": "Clear selection",
+      "map.hideIntelFields": "Hide Intel field fills"
     }
   };
   // AP_LOCALES_END
@@ -3598,6 +3608,8 @@ function wrapper(plugin_info) {
     unresolvedEndpoints: [],
     selectedBlocker: null,
     showAllBlockers: false,
+    hideIntelFieldFill: false,
+    hiddenIntelFields: new Map(),
     userLocation: null,
     userLocationHooksBound: false,
     nextTargetKey: null,
@@ -5599,6 +5611,58 @@ function wrapper(plugin_info) {
     return html;
   };
 
+  ap.restoreIntelFieldFill = function (field, saved) {
+    try {
+      // Preserve a newer style supplied by another plugin while this view was active.
+      if (field.options && field.options.fillOpacity === 0) field.setStyle({ fillOpacity: saved.opacity });
+    } catch (e) {}
+    try { if (field.off) field.off('add', saved.onAdd); } catch (e2) {}
+    ap.runtime.hiddenIntelFields.delete(field);
+  };
+
+  ap.hideIntelFieldLayerFill = function (field) {
+    if (!ap.runtime.hideIntelFieldFill || !ap.runtime.enabled || !field || !field.options || typeof field.setStyle !== 'function') return;
+    var opacity = field.options.fillOpacity;
+    if (opacity == null || !isFinite(Number(opacity))) return;
+    var saved = ap.runtime.hiddenIntelFields.get(field);
+    if (!saved) {
+      saved = { opacity: opacity, onAdd: function () { ap.hideIntelFieldLayerFill(field); } };
+      ap.runtime.hiddenIntelFields.set(field, saved);
+      try { if (field.on) field.on('add', saved.onAdd); } catch (e) {}
+    } else if (opacity !== 0) saved.opacity = opacity;
+    if (opacity !== 0) {
+      try { field.setStyle({ fillOpacity: 0 }); } catch (e2) { ap.restoreIntelFieldFill(field, saved); }
+    }
+  };
+
+  ap.syncIntelFieldVisibility = function () {
+    var saved = ap.runtime.hiddenIntelFields;
+    if (!ap.runtime.hideIntelFieldFill || !ap.runtime.enabled) {
+      saved.forEach(function (entry, field) { ap.restoreIntelFieldFill(field, entry); });
+      return;
+    }
+    var fields = Object.keys(window.fields || {}).map(function (guid) { return window.fields[guid]; });
+    var live = new Set(fields);
+    saved.forEach(function (entry, field) { if (!live.has(field)) ap.restoreIntelFieldFill(field, entry); });
+    fields.forEach(ap.hideIntelFieldLayerFill);
+  };
+
+  ap.intelFieldControlsHtml = function () {
+    return '<div class="ap-field-map-controls"><button class="ap-intel-field-toggle" aria-pressed="' + (ap.runtime.hideIntelFieldFill ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('map.hideIntelFields')) + '</button></div>';
+  };
+
+  ap.wireIntelFieldControls = function (root) {
+    if (!root || typeof root.querySelector !== 'function') return;
+    var button = root.querySelector('.ap-intel-field-toggle');
+    if (!button) return;
+    button.setAttribute('aria-pressed', ap.runtime.hideIntelFieldFill ? 'true' : 'false');
+    button.onclick = function () {
+      ap.runtime.hideIntelFieldFill = !ap.runtime.hideIntelFieldFill;
+      ap.syncIntelFieldVisibility();
+      [ap.runtime.panel, document.getElementById('ap-fan-planner'), ap.runtime.walkSimulation && ap.runtime.walkSimulation.element].forEach(ap.wireIntelFieldControls);
+    };
+  };
+
   ap.blockerMapControlsHtml = function () {
     if (!(ap.runtime.links || []).some(function (link) { return link && link.blocked && (link.blockers || []).length; })) return '';
     return '<div class="ap-blocker-map-controls"><button class="ap-blocker-map-toggle" aria-pressed="' + (ap.runtime.showAllBlockers ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('blocker.showAll')) + '</button><button class="ap-blocker-map-clear"' + (ap.runtime.selectedBlocker ? '' : ' disabled') + '>' + ap.escapeHtml(ap.t('blocker.clearSelection')) + '</button></div>';
@@ -5621,7 +5685,7 @@ function wrapper(plugin_info) {
     }
   };
   ap.fanPlannerHtml = function () {
-    var draft = ap.runtime.fanDraft, html = '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
+    var draft = ap.runtime.fanDraft, html = ap.intelFieldControlsHtml() + '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
     if (ap.runtime.nameLoader) html += '<p>' + ap.escapeHtml(ap.t('message.namesLoadingAuto', { current: ap.runtime.nameLoader.index, total: ap.runtime.nameLoader.queue.length })) + '</p>';
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
     var sourceKeys = { map: 'fan.source.map', area: 'fan.source.area' };
@@ -5663,6 +5727,7 @@ function wrapper(plugin_info) {
     var draft = ap.runtime.fanDraft, element = document.getElementById('ap-fan-planner');
     if (!draft || !draft.open || !element) return;
     var scroll = element.scrollTop; element.innerHTML = ap.fanPlannerHtml(); element.scrollTop = scroll;
+    ap.wireIntelFieldControls(element);
     element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
     var countInput = element.querySelector('#ap-fan-count');
     countInput.value = draft.count;
@@ -5827,6 +5892,7 @@ function wrapper(plugin_info) {
     if (!session) return;
     var frame = session.model.frames[session.index], element = session.element;
     ap.wireBlockerMapControls(element);
+    ap.wireIntelFieldControls(element);
     element.querySelector('.ap-walk-previous').disabled = session.index <= 0;
     element.querySelector('.ap-walk-next').disabled = !frame || session.index >= session.model.frames.length - 1;
     element.querySelector('.ap-walk-play').disabled = !frame || session.model.frames.length < 2;
@@ -5930,7 +5996,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
@@ -7843,6 +7909,7 @@ function wrapper(plugin_info) {
   };
 
   ap.renderOverlays = function () {
+    ap.syncIntelFieldVisibility();
     if (!ap.runtime.layerGroup) return;
     ap.runtime.layerGroup.clearLayers();
     ap.clearHtmlOverlay();
@@ -8462,6 +8529,7 @@ function wrapper(plugin_info) {
     ap.runtime.unresolvedEndpoints = [];
     ap.runtime.selectedBlocker = null;
     ap.runtime.showAllBlockers = false;
+    ap.runtime.hideIntelFieldFill = false; ap.syncIntelFieldVisibility();
     ap.save();
     ap.renderOverlays();
     ap.renderPanel();
@@ -8514,6 +8582,7 @@ function wrapper(plugin_info) {
     ap.runtime.fanDesigning = false;
     ap.runtime.workspaceView = 'home';
     ap.runtime.showAllBlockers = false; ap.runtime.selectedBlocker = null;
+    ap.runtime.hideIntelFieldFill = false; ap.syncIntelFieldVisibility();
     ap.renderOverlays();
     ap.renderPanel();
   };
@@ -8537,6 +8606,7 @@ function wrapper(plugin_info) {
     else {
       html += '<div class="ap-view-nav">' + (fan ? '<button id="ap-home">' + ap.escapeHtml(ap.t('ui.home')) + '</button><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b>' : '<b>' + ap.escapeHtml(ap.t('ui.choose')) + '</b>') + '<button id="ap-settings">' + ap.escapeHtml(ap.t('ui.settings')) + '</button></div>';
       if (fan) {
+        html += ap.intelFieldControlsHtml();
         html += '<div class="ap-workspace-empty"><p>' + ap.escapeHtml(ap.t('ui.fanEmpty')) + '</p><button id="ap-fan-design">' + ap.escapeHtml(ap.t('ui.design')) + '</button>';
         if (ap.getNativeFanPlan()) html += '<button id="ap-fan-use-saved">' + ap.escapeHtml(ap.t('fan.useSaved')) + '</button>';
         html += '</div>';
@@ -8544,6 +8614,7 @@ function wrapper(plugin_info) {
       else html += '<div class="ap-home-cards"><button id="ap-home-anchors"><b>' + ap.escapeHtml(ap.t('workspace.anchors')) + '</b><span>' + ap.escapeHtml(ap.t('ui.anchorsHelp')) + '</span></button><button id="ap-home-fan"><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b><span>' + ap.escapeHtml(ap.t('ui.fanHelp')) + '</span></button></div>';
     }
     panel.innerHTML = html; panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
+    ap.wireIntelFieldControls(panel);
     document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = !ap.state.panelCollapsed; ap.save(); ap.renderPanel(); };
     var settings = document.getElementById('ap-settings'); if (settings) settings.onclick = ap.showPluginSettings;
     var home = document.getElementById('ap-home'); if (home) home.onclick = ap.showWorkspaceHome;
@@ -8634,6 +8705,7 @@ function wrapper(plugin_info) {
       html += '<div id="ap-next-target" class="ap-next-target ap-next-complete">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
     }
     html += ap.planMapLegendHtml(false, ap.getPlanMapGeometry());
+    html += ap.intelFieldControlsHtml();
     html += ap.blockerMapControlsHtml();
     html += '<div class="ap-filters" aria-label="' + ap.escapeHtml(ap.t('filter.aria')) + '">';
     [
@@ -8741,6 +8813,7 @@ function wrapper(plugin_info) {
     document.getElementById('ap-home').onclick = ap.showWorkspaceHome;
     document.getElementById('ap-settings').onclick = ap.showPluginSettings;
     ap.wireBlockerMapControls(panel);
+    ap.wireIntelFieldControls(panel);
     var design = document.getElementById('ap-fan-design'); if (design) design.onclick = ap.showFanPlanner;
     var clearFan = panel.querySelector('#ap-fan-remove-plan'); if (clearFan) clearFan.onclick = ap.clearNativeFanPlan;
     if (document.getElementById('ap-next-task')) document.getElementById('ap-next-task').onclick = ap.showNextTask;
@@ -8848,6 +8921,10 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-blocker-map-controls{padding:8px 12px;margin:0;border-bottom:1px solid var(--ap-border)}
 .ap-blocker-map-controls button{flex:1 1 130px}
 .ap-blocker-map-controls button[aria-pressed=true]{background:#24495b;border-color:var(--ap-accent)}
+.ap-field-map-controls{display:flex;margin:0 0 10px}
+.ap-field-map-controls button{flex:1;white-space:normal}
+#iitc-anchor-planner .ap-field-map-controls{padding:8px 12px;margin:0;border-bottom:1px solid var(--ap-border)}
+.ap-field-map-controls button[aria-pressed=true]{background:#24495b;border-color:var(--ap-accent)}
 .ap-dialog .ui-dialog-content{padding:0!important;background:var(--ap-bg);color:var(--ap-text)}
 .ap-dialog .ui-dialog-buttonpane{margin:0;padding:8px 12px;background:var(--ap-surface);border:0;border-top:1px solid var(--ap-border);border-radius:0 0 8px 8px}
 .ap-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{display:flex;flex-wrap:wrap;gap:8px}
@@ -9030,6 +9107,7 @@ function wrapper(plugin_info) {
       window.map.on('overlayadd', function (e) {
         if (e && e.layer === ap.runtime.layerGroup) {
           ap.runtime.enabled = true;
+          ap.syncIntelFieldVisibility();
           ap.renderPanel();
           ap.renderOverlays();
         }
@@ -9037,6 +9115,7 @@ function wrapper(plugin_info) {
       window.map.on('overlayremove', function (e) {
         if (e && e.layer === ap.runtime.layerGroup) {
           ap.runtime.enabled = false;
+          ap.syncIntelFieldVisibility();
           if (ap.runtime.layerGroup) ap.runtime.layerGroup.clearLayers();
           ap.clearHtmlOverlay();
           ap.runtime.overlayCount = 0;
@@ -9053,8 +9132,9 @@ function wrapper(plugin_info) {
     }
     if (typeof window.addHook === 'function') {
       try { window.addHook('mapDataRefreshStart', ap.onFinalScanMapDataRefreshStart); } catch (e) {}
-      try { window.addHook('mapDataRefreshEnd', function () { ap.onFinalScanMapDataRefreshEnd(); ap.scheduleMapDataPanelRefresh(100); }); } catch (e2) {}
+      try { window.addHook('mapDataRefreshEnd', function () { ap.onFinalScanMapDataRefreshEnd(); ap.syncIntelFieldVisibility(); ap.scheduleMapDataPanelRefresh(100); }); } catch (e2) {}
       try { window.addHook('linkAdded', ap.onFinalScanLinkAdded); } catch (e3) {}
+      try { window.addHook('fieldAdded', function (data) { if (data) ap.hideIntelFieldLayerFill(data.field); }); } catch (e4) {}
     }
   };
 

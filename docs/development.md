@@ -53,7 +53,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.31` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.32` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -62,7 +62,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.31` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.32` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.31` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.32` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.31` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.32` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -246,3 +246,6 @@ test-blockers-overlays um reale Overlayausgabe für dezent/alle/ausgewählt, ded
 Entwurf über gemeinsamen Zielrenderer und gemeinsame Legende zeichnen, weiße Anker und Zuordnungen erhalten. test-fan-planner prüft tatsächliche Renderoptionen/Pane, Muster, Flächen, semantische Legende, Cleanup und unveränderte gespeicherte Daten/Keys/Draw Tools. Alle bestehenden elf Suiten weiter ausführen. 349 Locale-Schlüssel unverändert, keine Schema-/Bestands-/Geometriealgorithmusänderung. Arbeitsfassung, Beta und gesamter maßgeblicher Projektsatz inklusive AGENTS abgeglichen; Stable/releases weiter 0.1.55. Browserprüfung und tatsächlichen IITC-Praxistest getrennt dokumentieren.
 
 Lokale visuelle Prüfung 2026-10-23 mit Leaflet/IITC-Dialogen: violette Entwurfsfelder/-kanten, gemeinsamer Zielpane, weiße Anker und Legende; Desktop und 360×800 ohne horizontalen Seitenüberlauf. Synthetische Geometrie, keine tatsächliche Intel-/Mobile-Abdeckung.
+
+### Intel-Feldfüllungsschalter beta.32
+Nur native window.fields über Leaflet setStyle reversibel anpassen; offiziellen fieldAdded-Ablauf vor Mapaddition beachten. test-blockers-overlays um hide/restore, Feldnachladen/Setup-Hooks, entfernte Objekte/Listener, Fremdstile, Home/Layerzustand, native Daten-/Keyisolation und synchronisierte Controls erweitern. Bestehende elf Suiten unverändert beibehalten, Fan-DOM-Fixture für neuen echten Button vervollständigen. Lokale visuelle Prüfung mit SVG und Canvas sowie 360×800 durchgeführt; synthetische Daten, echte IITC-/Mobile-Bestätigung ausstehend. 350 Locale-Schlüssel (map.hideIntelFields neu DE/EN, sonst EN). Keine Persistenz oder Plan-/Datenänderung. Gesamten maßgeblichen Projektsatz inklusive AGENTS/Beta abgleichen; Stable/releases unverändert 0.1.55.

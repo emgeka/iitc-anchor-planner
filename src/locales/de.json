@@ -347,5 +347,6 @@
   "map.progress": "Simulierter Baufortschritt",
   "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
   "blocker.showAll": "Alle Blocker anzeigen",
-  "blocker.clearSelection": "Auswahl aufheben"
+  "blocker.clearSelection": "Auswahl aufheben",
+  "map.hideIntelFields": "Intel-Feldflächen ausblenden"
 }

@@ -347,5 +347,6 @@
   "map.progress": "Simulated build progress",
   "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
   "blocker.showAll": "Show all blockers",
-  "blocker.clearSelection": "Clear selection"
+  "blocker.clearSelection": "Clear selection",
+  "map.hideIntelFields": "Hide Intel field fills"
 }
