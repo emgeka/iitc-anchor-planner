@@ -220,3 +220,8 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Spine ist eine ausdrücklich gewählte Alternative zu getrennten Fächern. Genau zwei Anker, erste Fassung einseitig strikt verschachtelt, begrenzte Paarwahl transparent machen. Keine Gleichsetzung mit umfassenderen Herringbone-Varianten ohne Funktionsvergleich.
 - mode/spine und geordnete Kanten durch Normalisierung, Übernahme, Reload und Export erhalten. Routensuche darf Wurfreihenfolge nicht übergehen; Richtungsumkehr braucht gegebenenfalls Rückbesuche. Blockertermine an konkrete Würfe binden, offene Links nicht durch pauschales Portal-done verlieren. Vorschau bei fehlenden Voraussetzungen blockieren und keine echten Keys/Erledigung verändern. Geometrische Ziele weiterhin von Baubarkeits-/AP-Versprechen trennen.
 - Bei Änderungen Fan-, Arbeitsplan- und Vorschautests gemeinsam ausführen; Legacy-Fächer und externe Quelle isoliert halten. Frühere Beta-Versionen kennen Spine-Abhängigkeiten nicht.
+
+
+## Fraktionsklarheit und Mehr-Zuordnung
+- Fraktionsfarben nach RES/ENL/Machina/unbekannt und relativen Spielerbezug getrennt halten; Machina auch ohne PLAYER nie als nutzbar behandeln. Identische gegnerische/Machina-Verbindungen als Belegung erklären. Eigene vorhandene Planlinks, unbekannte Legacy-Bestandswertung und geladene Intel-Links nicht gleichsetzen. Exportgründe, einzigartige Fraktionssummen, Karte/Legende und Key-Schätztexte gemeinsam pflegen.
+- Zusatzaktionen müssen direkt dem Mehr-Button folgen und vor Nächste Aufgabe liegen. ARIA, Desktop/Mobilumbruch und Zustandsisolation mit Workspace-/Themeprüfungen abdecken.

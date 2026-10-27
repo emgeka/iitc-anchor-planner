@@ -138,3 +138,18 @@ function savedFan(ap) {
   assert.deepEqual(Array.from(ap.collectMissingPortalNameGuids()), ['new'], 'Fresh design name loading cannot include old anchor/blocker diagnostics');
 }
 console.log('Workspace UI: pure home choice, isolated anchor/fan controls, fresh design without stale diagnostics/overlays, settings, dialog cleanup and preserved plans passed.');
+
+{
+  const {ap,panel,node}=runtime();savedFan(ap);ap.schedulePanelPositionCorrection=()=>{};
+  for(const view of ['anchors','fan']){
+    ap.runtime.workspaceView=view;ap.state.planSource=view==='fan'?'fan':'external';ap.renderPanel();
+    const html=panel.innerHTML, region=html.indexOf('id="ap-more-actions"'), more=html.indexOf('id="ap-more"'), load=html.indexOf('id="ap-loadnames"'), next=html.indexOf('id="ap-next-task"');
+    assert.ok(more<region && region<load && load<next,'Extra actions follow More and precede Next task in both workspaces');
+    assert.ok(html.includes('aria-controls="ap-more-actions"'));
+    const attrs={};node('ap-more').setAttribute=(key,value)=>attrs[key]=value;
+    const before=JSON.stringify(ap.state);node('ap-more').onclick();assert.equal(attrs['aria-expanded'],'true');assert.equal(panel.classList.contains('ap-show-more'),true);
+    node('ap-more').onclick();assert.equal(attrs['aria-expanded'],'false');assert.equal(panel.classList.contains('ap-show-more'),false);
+    assert.equal(JSON.stringify(ap.state),before,'Showing extra actions does not change plans or settings');
+  }
+}
+console.log('More actions: correct adjacency, accessible target and open/close behavior in anchor and fan workspaces passed.');
