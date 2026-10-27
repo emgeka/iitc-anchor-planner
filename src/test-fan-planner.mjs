@@ -493,3 +493,73 @@ function draft(ap, portals = triangle, anchors = ['A'], source = 'plan') {
   const group=ap.runtime.fanDraft.layer;ap.clearFanPreview();assert.equal(group.layers.length,0);assert.equal(ap.runtime.fanDraft.layer,null);
 }
 console.log('Fan planner: shared violet draft/target geometry and legend, user-selected anchor counts, fresh generation, 76/200 portals, persistence and preserved inventory passed.');
+
+// Spine mode is independent of nearest-anchor fan assignments.
+{
+  const { ap, context, realScan, drawn } = runtime();
+  const portals = [p('A', 0, 0), p('B', .02, 0), ...[1,2,3,4].map(i => p('S'+i, .01, i*.005)), p('opposite', .01, -.01), p('onbase', .005, 0)];
+  const before = JSON.stringify(ap.state), keys = JSON.stringify(context.window.plugin.keys.keys);
+  const plan = ap.buildFanDesign(portals, ['B','A'], {}, 'spine');
+  assert.deepEqual(json(plan.errors), []);
+  assert.deepEqual(json(plan.spine), ['S1','S2','S3','S4']);
+  assert.deepEqual(json(plan.unused).sort(), ['onbase','opposite']);
+  assert.equal(plan.links.length, 12); assert.equal(plan.fields.length, 10);
+  assert.ok(!plan.links.some(edge => plan.links.some(other => ap.fanEdgesConflict(edge, other))));
+  assert.equal(JSON.stringify(ap.state), before); assert.equal(JSON.stringify(context.window.plugin.keys.keys), keys);
+  const separate = ap.buildFanDesign(portals, ['A','B'], {});
+  assert.ok(Object.keys(separate.assignments).length && !Object.keys(plan.assignments).length);
+  assert.deepEqual(json(ap.suggestSpineAnchors(portals, ['A','B']).anchors), ['A','B']);
+  assert.equal(ap.suggestSpineAnchors(portals, ['A','B']).evaluations, 1);
+  const suggested = ap.suggestSpineAnchors(portals, ['A']);
+  assert.ok(suggested.anchors.includes('A')); assert.equal(suggested.anchors.length, 2);
+  assert.deepEqual(json(suggested), json(ap.suggestSpineAnchors(portals, ['A'])));
+  assert.ok(ap.buildFanDesign(portals, ['A'], {}, 'spine').errors.includes('spine.twoAnchors'));
+  assert.ok(ap.buildFanDesign(portals, ['A','B','S1'], {}, 'spine').errors.includes('spine.twoAnchors'));
+  assert.ok(ap.buildFanDesign([p('A',0,0),p('B',1,0),p('C',2,0)], ['A','B'], {}, 'spine').errors.includes('spine.noChain'));
+  assert.ok(ap.buildFanDesign([...portals, portals[0]], ['A','B'], {}, 'spine').errors.includes('fan.invalid'));
+  ap.runtime.fanDraft = { portals, mode:'spine', source:'map', count:2, anchors:['A','B'], pinned:['A','B'], excluded:{}, assignments:{S1:'A'}, open:true };
+  ap.previewFanDesign();
+  assert.ok(ap.fanPlannerHtml().includes('Spine position'));
+  assert.ok(!ap.fanPlannerHtml().includes('class="ap-fan-assignment"'));
+  assert.ok(ap.fanPlannerHtml().includes('Not in proposal'));
+  assert.equal(ap.applyFanDesign(), true); assert.equal(drawn.layers.length, 0);
+  assert.equal(ap.state.fanDesign.mode, 'spine'); assert.equal(ap.state.fanDesign.portals.length, 6);
+  ap.load(); assert.deepEqual(json(ap.getActiveSpinePlan().spine), ['S1','S2','S3','S4']);
+  const corrupt = json(ap.state.fanDesign); corrupt.links.reverse();
+  assert.equal(ap.normalizeFanDesign(corrupt), null, 'A damaged spine order cannot silently fall back to generic routing');
+  ap.getLoadedPortals = () => []; ap.queueMissingNameRefresh = () => {}; realScan();
+  assert.equal(ap.runtime.links.length, 12); assert.equal(Object.keys(ap.runtime.stats).length, 6);
+  assert.equal(JSON.stringify(context.window.plugin.keys.keys), keys);
+  ap.state.planSource = 'external'; assert.equal(ap.getActiveSpinePlan(), null);
+}
+{
+  const { ap } = runtime();
+  // A tempting early portal must not prevent finding the longer nested chain.
+  const portals = [p('A',0,0),p('B',10,0),p('lure',1,1),p('S1',5,1),p('S2',5,2),p('S3',5,3),p('S4',5,4)];
+  assert.deepEqual(json(ap.buildSpineDesign(portals,['A','B']).spine), ['S1','S2','S3','S4']);
+  const many = [p('A',0,0),p('B',2,0),...Array.from({length:198},(_,i)=>p('S'+i,1,(i+1)/200))];
+  const plan = ap.buildSpineDesign(many,['A','B']);
+  assert.equal(plan.links.length, 594); assert.equal(plan.fields.length, 592); assert.equal(plan.errors.length,0);
+  const search = ap.suggestSpineAnchors(many, ['A','B']); assert.equal(search.evaluations, 1);
+  const broad = ap.suggestSpineAnchors(many, []); assert.ok(broad.evaluations <= 80); assert.equal(broad.limited, true);
+}
+
+{
+  const {ap,context}=runtime();
+  const points=[p('A',0,0),p('B',2,0),p('S1',1,1),p('S2',1,2)];draft(ap,points);
+  let controls=new Map(),markup='';
+  const element={scrollTop:0,get innerHTML(){return markup;},set innerHTML(html){markup=html;controls=new Map([...html.matchAll(/<[^>]*\bid="([^"]+)"[^>]*>/g)].map(m=>['#'+m[1],{value:m[0].match(/\bvalue="([^"]*)"/)?.[1]||'',disabled:/\bdisabled\b/.test(m[0]),textContent:''}]));},querySelector:s=>controls.get(s)||null,querySelectorAll:()=>[]};
+  context.document.getElementById=id=>id==='ap-fan-planner'?element:null;
+  ap.refreshFanPlanner();const mode=controls.get('#ap-fan-mode');mode.value='spine';mode.onchange();
+  assert.equal(ap.runtime.fanDraft.mode,'spine');assert.equal(ap.runtime.fanDraft.count,2);
+  assert.equal(ap.runtime.fanDraft.preview.anchors.length,2);assert.ok(markup.includes('Choose exactly two anchors'));
+  const input=controls.get('#ap-fan-count');input.value='3';input.oninput();controls.get('#ap-fan-suggest').onclick();
+  assert.equal(ap.runtime.fanDraft.preview,null);assert.ok(ap.runtime.fanDraft.countError);assert.equal(ap.applyFanDesign(),false);
+  controls.get('#ap-fan-count').value='2';controls.get('#ap-fan-suggest').onclick();
+  assert.equal(ap.runtime.fanDraft.preview.errors.length,0);
+  const next=controls.get('#ap-fan-mode');next.value='fan';next.onchange();
+  assert.equal(ap.runtime.fanDraft.mode,'fan');assert.ok(markup.includes('class="ap-fan-assignment"'));
+}
+
+
+console.log("Spine geometry, bounded pair selection, pins, UI modes, 200 portals and native persistence passed.");

@@ -348,5 +348,21 @@
   "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
   "blocker.showAll": "Alle Blocker anzeigen",
   "blocker.clearSelection": "Auswahl aufheben",
-  "map.hideIntelFields": "Intel-Feldflächen ausblenden"
+  "map.hideIntelFields": "Intel-Feldflächen ausblenden",
+  "spine.mode": "Planungsart",
+  "spine.separate": "Getrennte Fächer",
+  "spine.title": "Spine-Felder · zwei Anker",
+  "spine.help": "Entwurf: Genau zwei Anker manuell oder über „Anker vorschlagen“ wählen. Der Planer sucht eine ineinanderliegende Portalfolge auf einer Seite ihrer Basislinie. Jedes Spine-Portal wird mit beiden Ankern und ab dem zweiten mit seinem Vorgänger verbunden. Ungeeignete Portale werden nicht übernommen. Erst Vorschau prüfen; Richtungen bleiben unbestätigt. Die Feldzahl ist ein geometrisches Ziel, keine Baugarantie oder AP-Schätzung.",
+  "spine.twoAnchors": "Spine-Felder benötigen genau zwei Anker. Anzahl auf 2 setzen und höchstens zwei Anker manuell festlegen.",
+  "spine.noChain": "Für dieses Ankerpaar wurde keine geeignete Spine gefunden. Andere Anker oder Portale wählen.",
+  "spine.summary": "Spine-Portale: {count} · ausgelassene Portale: {unused}. Eine Seite der Basislinie; Ankerpaar-Vorschläge verwenden eine begrenzte Suche.",
+  "spine.position": "Spine-Position",
+  "spine.step": "Spine {index}",
+  "spine.unused": "Nicht im Vorschlag",
+  "spine.leaf": "Spine-Kandidat",
+  "spine.routeOrder": "Spine-Baufolge · Strecke folgt der Wurfreihenfolge",
+  "spine.workflow": "Spine-Baufolge: Basislinie zuerst, danach je Spine-Portal beide Anker und den Vorgänger verlinken. Richtungen einzeln bestätigen. Die Baufolge bleibt auch bei einer neuen Startposition erhalten. Vorhandene Links können das Feldergebnis verändern.",
+  "spine.prerequisite": "Vorherige Spine-Würfe fehlen noch",
+  "spine.throw": "Wurf {index}",
+  "spine.countHelp": "Für diesen Entwurf genau zwei Anker wählen. Manuelle Anker (★) bleiben fest; zusätzliche Anker zuerst freigeben."
 }

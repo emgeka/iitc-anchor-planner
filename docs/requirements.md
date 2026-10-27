@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.32
+# Anforderungen für Entwicklungsstand 0.2.0-beta.33
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -378,3 +378,11 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 ## Intel-Feldfüllungen ausblenden (0.2.0-beta.32)
 - Synchronisierten reversiblen Schalter im Fächerentwurf, dessen Landing-Ansicht, Arbeitsplan und Planvorschau anbieten. Nur fillOpacity nativer IITC-Felder verändern, keine Feld-/Link-/Portaldaten löschen und keine eigenen Ziel-/Simulationsflächen ausblenden. Keine Änderung von Scan, Blockern, Route, Keys oder Erledigung.
 - Neu geladene Felder auch beim fieldAdded-Hook vor Registrierung/Mapaddition berücksichtigen. Originale individuelle Füllstärke wiederherstellen, nachgelieferte Fremdplugin-Stile respektieren, entfernte Felder und Listener freigeben. SVG und Canvas berücksichtigen. Home/Datenlöschung bzw. Deaktivierung des Plugin-Layers stellt Füllungen wieder her; keine persistente Präferenz. Schalterzustand zwischen allen geöffneten Ansichten ohne Simulationsneustart synchron halten.
+
+
+## Spine-Testentwurf (0.2.0-beta.33)
+- Alternative Planungsart im Fächerbereich; getrennte Fächer bleiben Standard und unverändert. Genau zwei manuelle/automatische Anker; zusätzliche Pins oder andere Anzahl erklären statt still reduzieren. Bestehende manuelle Fächerzuordnungen im Spine-Modus ignorieren, beim Zurückschalten erhalten.
+- Für ein festes Ankerpaar längste strikt ineinanderliegende Portalfolge auf einer Seite der Basis suchen. Portalmenge und fehlende Kandidaten zeigen; nur Anker/gewählte Spine übernehmen. Alle physischen Blocker behalten, nicht nach Fraktion ausfiltern oder still Portale wegen entfernbarer Blocker streichen.
+- Gemeinsame Basis zuerst, anschließend je Spine-Portal beide Anker und dann Vorgänger. Modus/spine und geordnete links persistieren/exportieren. Aufgaben/Nächste Aufgabe/Vorschau müssen Reihenfolge einschließlich Rückbesuchen bei umgedrehter Richtung erhalten. Start/GPS/manuelle Reihenfolge dürfen sie nicht umgehen. Blocker davor einfügen; keine Aufgaben durch manuell erledigte Portale verlieren.
+- Vorschläge bestätigen keine Richtung. Bestehender Keymatcher darf bei knappen Keys alternative Richtungen vorschlagen; Wurfreihenfolge bleibt hart. Simulation blockiert abhängige Würfe bei fehlenden früheren Kanten und schließt im Spine-Modus höchstens das größte verfügbare Dreieck je Linkseite. Keine echten Bestands-/Erledigungswrites.
+- Zähler bleiben geometrische Ziele, keine AP- oder Baubarkeitsgarantie. Keine Linklimit-/Unterfeld-/Feldhistorienprüfung; weitere Seiten und Outbound-Strategien ausdrücklich außerhalb dieses ersten Entwurfs.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.33
+
+### English
+- Add an explicit two-anchor Spine fields testing mode alongside separate fans: nested chain search, bounded anchor-pair suggestions, omitted-portal feedback and persisted ordered geometry. Keep throw order across Tasks, Next task, routing and preview, inserting blockers first and revisiting sources for changed directions. Missing prerequisites block later virtual throws; Keys and Draw Tools stay unchanged. One side only, no outbound strategy, AP estimate or buildability guarantee.
+
+### Deutsch
+- Ausdrücklichen Testmodus Spine-Felder mit zwei Ankern neben getrennten Fächern ergänzen: verschachtelte Kettensuche, begrenzte Ankerpaar-Vorschläge, ausgelassene Portale und gespeicherte geordnete Geometrie. Wurfreihenfolge in Aufgaben, Nächste Aufgabe, Routing und Vorschau erhalten; Blocker vorher einfügen und bei Richtungsänderungen Quellen erneut besuchen. Fehlende Voraussetzungen sperren spätere virtuelle Würfe; Keys und Draw Tools bleiben unverändert. Zunächst einseitig, ohne Outbound-Strategie, AP-Schätzung oder Baubarkeitsgarantie.
+
 ## 0.2.0-beta.32
 
 ### English
