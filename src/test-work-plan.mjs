@@ -18,12 +18,14 @@ function runtime(saved = null) {
     localStorage: { getItem(key) { return storage.get(key) || null; }, setItem(key, value) { storage.set(key, value); } } };
   vm.runInNewContext(wrapper + '\nwrapper({});', context);
   const ap = context.window.plugin.anchorPlanner;
-  const refreshTaskList = ap.refreshTaskList;
+  const refreshTaskList = ap.refreshTaskList, realOwnership = ap.getPortalOwnership;
+  // Existing route tests assume already-owned portals; ownership scenarios restore the real reader below.
+  ap.getPortalOwnership = () => ({faction:'res',action:'',source:'fixture'});
   ap.state.language = 'en';
   ap.renderOverlays = () => {};
   ap.renderPanel = () => {};
   ap.refreshTaskList = () => {};
-  return { ap, context, storage, refreshTaskList };
+  return { ap, context, storage, refreshTaskList, realOwnership };
 }
 function portal(ap, guid, x, y = 0) {
   ap.runtime.stats[guid] = { guid, title: guid, lat: y, lng: x, linkCount: 1, openLinks: 1, requiredKeys: 1 };
@@ -577,3 +579,37 @@ console.log('Work-plan checks passed: next-task navigation, live refresh, shared
 
 
 console.log("Spine throw sequence, alternate directions, removal deadlines and manual completion isolation passed.");
+
+{
+  const {ap,context,storage,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  portal(ap,'A',0);portal(ap,'B',2);const ab=link(ap,'A','B');direction(ap,ab,'A');
+  context.window.portals={A:{options:{team:'ENLIGHTENED'}},B:{options:{team:'ENLIGHTENED'}}};
+  const shared=blocker('green-base','A',0,'B',2);shared.faction='enl';ab.blockers=[shared];
+  ap.state.lastScan={plannedLinks:1,blockedPlannedLinks:1,unconfirmedLinks:1};
+  const plan=ap.getWorkPlan(null),throwIndex=plan.stops.findIndex(s=>s.links.length);
+  assert.equal(plan.stops.filter(s=>s.portalTask?.action==='capture').length,2,'Both enemy ends need capture, independently of key stock');
+  for(const guid of ['A','B'])assert.ok(plan.stops.findIndex(s=>s.portal.guid===guid&&s.portalTask)<=throwIndex);
+  assert.equal(plan.stops.flatMap(s=>s.blockers).length,1,'Capture can remove an incident shared blocker without another automatic detour');
+  assert.equal(ap.getPortalTaskSummary().capture,2);assert.match(ap.nextTaskHtml(),/Capture portal/);assert.match(ap.routeTargetLabel(ap.getRouteTasks(null)[0],false),/Next portal task/);
+  const before=JSON.stringify(context.window.portals);ap.ensureAnchorState('B').done=true;ap.runtime.workPlan=null;
+  assert.equal(ap.getWorkPlan(null).stops.filter(s=>s.portalTask).length,2,'Manual portal done is no proof of capture');
+  context.window.portals.B.options.team='RESISTANCE';const updated=ap.getWorkPlan(null);
+  assert.equal(updated.stops.filter(s=>s.portalTask).length,1,'A fresh owner observation invalidates the cached route');
+  assert.ok(updated.stops.some(s=>s.portal.guid==='A'&&s.portalTask));assert.ok(!updated.stops.some(s=>s.portal.guid==='B'&&s.portalTask));
+  context.window.portals.A.options.team=0;assert.equal(ap.getPortalOwnership('A').action,'claim');
+  context.window.portals.A.options.team='MACHINA';assert.equal(ap.getPortalOwnership('A').action,'capture');
+  context.window.portals.A.options.team=999;assert.equal(ap.getPortalOwnership('A').action,'verify');
+  context.window.portals={};ap.runtime.existingLinks=[{a:'A',b:'X',faction:'enl'}];assert.equal(ap.getPortalOwnership('A').action,'capture');
+  ap.runtime.existingLinks.push({a:'A',b:'Y',faction:'res'});assert.equal(ap.getPortalOwnership('A').action,'verify','Conflicting observations cannot establish ownership');
+  context.window.portals.A={options:{team:'RESISTANCE'}};assert.equal(ap.getPortalOwnership('A').action,'','Portal marker overrides stale link evidence');
+  assert.equal(storage.size,0);assert.ok(before.includes('ENLIGHTENED'));
+}
+console.log('Portal prerequisites: both endpoints, independent keys, captures/neutral/Machina/unknown, live cache updates and blocker integration passed.');
+
+{
+  const {ap,context,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  let fresh=true,requests=0;context.window.portalDetail={isFresh:()=>fresh,get:()=>({team:'ENLIGHTENED'}),request(){requests++;}};
+  assert.equal(ap.getPortalOwnership('cached').action,'capture');assert.equal(ap.getPortalOwnership('cached').source,'details');
+  fresh=false;assert.equal(ap.getPortalOwnership('cached').action,'verify');assert.equal(requests,0,'Ownership reads must never request Intel data themselves');
+  context.window.portalDetail.get=()=>{throw Error('unavailable')};fresh=true;assert.equal(ap.getPortalOwnership('cached').action,'verify');
+}

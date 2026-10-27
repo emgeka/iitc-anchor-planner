@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.34
+# Bekannte Grenzen in 0.2.0-beta.35
 
 ## Portalzuordnung und Namen
 
@@ -74,8 +74,8 @@
   entweder diese Reihenfolge oder einen eigenen Standortvorschlag mit
   100-m-Neuberechnungsschwelle; es gibt keine automatische Ankunftserkennung.
 - Die automatische Route nutzt eine begrenzte gemeinsame Luftliniensuche und garantiert keinen
-  kürzesten Weg. Sie prüft geometrische Blocker-Abhängigkeiten, aber keine
-  Eroberung, Erreichbarkeit über Straßen, Linklimits oder das Linken unter
+  kürzesten Weg. Sie berücksichtigt geometrische Blocker- und beobachtete Besitz-Abhängigkeiten, aber keine
+  tatsächliche Eroberung, Erreichbarkeit über Straßen, Linklimits oder das Linken unter
   bereits gebauten Feldern. Offene Wurfrichtungen benötigen weiterhin eine
   Bestätigung des vorausgewählten Vorschlags oder eine eigene
   Entscheidung; Keybedarf an ihren beiden Endportalen bleibt eine Schätzung.
@@ -347,3 +347,11 @@ Machina mit fehlendem PLAYER wurde bisher unknown und damit möglicherweise nutz
 Mehr-Buttons wurden bisher unter Nächste Aufgabe gerendert. beta.34 ordnet den zusammengehörigen Bereich direkt dem Mehr-Button zu, ohne Umdeutung der Aktionen. Echter Nutzer-IITC-/Mobile-Test für diese Darstellung weiterhin erforderlich. Feldfüllungen bleiben unverändert; die vorgemerkte normale/dezente/aus-Auswahl wird nicht umgesetzt.
 
 Lokaler Desktop-/360×800-Browsertest der Fraktionshinweise und Mehr-Zuordnung am 2026-10-27 erfolgreich; synthetische Daten. Nutzer-Praxistest weiterhin ausstehend.
+
+## Besitzaufgaben beta.35
+
+Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
+
+Intel ist ein beobachteter Zustand, keine Zukunftsgarantie. Linkbasierte Besitzableitung kann veraltet sein; frische Marker-/Detaildaten haben Vorrang. Fehlende Koordinaten bleiben als nicht eingeplante Voraussetzung sichtbar. Eine unbekannte Fraktion muss durch aktuelle Intel-Daten geklärt werden; die Vorschau nimmt keine erfolgreiche Prüfung an. Bereits eigene Portale werden hinsichtlich Ausbau als wurffähig angenommen. Historische Abschnitte zu fehlender Eroberungsprüfung beschreiben frühere Betas. Lokale Desktop-/Mobilprüfung mit synthetischen Daten ersetzt keinen echten IITC-/IITC-Mobile-Test.
+
+Lokale Prüfung am 2026-10-27 erfolgreich: echte Leaflet-Karte und originale IITC-Dialoghülle mit synthetischem Spine-Plan, beiden ENL-Ankern und RES-Spieler. Aufgaben zeigen beide Eroberungen vor dem Basiswurf; Vorschau zeigt die explizite virtuelle Übernahme. Desktop 1280×720 und schmale Ansicht 360×800 visuell geprüft (Bedienung, Umbruch, sichtbare Hinweise). Automatisiert alle elf Suiten inklusive Besitz-/Key-Unabhängigkeit, Neutral/Machina/unbekannt, Zielbesuch, Live-Aktualisierung und Datenisolation erfolgreich. Echter IITC-/IITC-Mobile-Praxistest bleibt ausstehend.

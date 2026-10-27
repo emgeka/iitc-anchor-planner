@@ -225,3 +225,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 ## Fraktionsklarheit und Mehr-Zuordnung
 - Fraktionsfarben nach RES/ENL/Machina/unbekannt und relativen Spielerbezug getrennt halten; Machina auch ohne PLAYER nie als nutzbar behandeln. Identische gegnerische/Machina-Verbindungen als Belegung erklären. Eigene vorhandene Planlinks, unbekannte Legacy-Bestandswertung und geladene Intel-Links nicht gleichsetzen. Exportgründe, einzigartige Fraktionssummen, Karte/Legende und Key-Schätztexte gemeinsam pflegen.
 - Zusatzaktionen müssen direkt dem Mehr-Button folgen und vor Nächste Aufgabe liegen. ARIA, Desktop/Mobilumbruch und Zustandsisolation mit Workspace-/Themeprüfungen abdecken.
+
+## Portalbesitz vor Linkbau
+- Besitz an beiden Enden jedes offenen Links unabhängig vom Keybestand berücksichtigen. Erobern/Übernehmen/Prüfen als echte Routenaufgaben vor abhängige Würfe einfügen, auch an reinen Zielen. Manuelles done oder Blockerabbau ersetzt keinen Besitznachweis. Unbekannt bleibt in der Vorschau ungeklärt; virtuelle Eroberung verändert keine echten Daten und erobert niemals das andere Ende. Live-Besitzänderungen invalidieren die Route. Routing-, Vorschau-, UI-, Locale-/Export- und Keytests gemeinsam prüfen.

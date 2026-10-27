@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.34
+# Architekturübersicht 0.2.0-beta.35
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -248,8 +248,7 @@ Datenbasis geändert; aufgeklappte Stopps und Scrollposition bleiben bei
 Aktualisierungen erhalten. Sichtbare Texte sind vollständig gebündelt übersetzt.
 JSON exportiert die neue sprachneutrale Liste `plannedLinks` mit `from`/`to`
 (bei offener Richtung null); der Standort wird weiterhin nicht exportiert.
-Die Vorschläge prüfen weder Eroberung noch ausgehende Linklimits oder Linken
-unter Feldern. Die Planvorschau verwendet denselben Arbeitsplan als rein virtuelle Vorschau.
+Der Arbeitsplan berücksichtigt beobachteten Besitz als Voraussetzung. Tatsächliche Eroberung, Ausbauressourcen, ausgehende Linklimits und Linken unter Feldern bleiben vor Ort zu prüfen. Die Planvorschau verwendet denselben Arbeitsplan als rein virtuelle Vorschau.
 
 ## Karten- und Blockerdarstellung
 
@@ -548,3 +547,9 @@ normalizeFaction/factionRelation bleiben Datenbasis. Machina liefert auch ohne b
 getPlanLinkSummary liest nur runtime.links/existingLinkIds/Blocker: ownExisting, unverifiedExisting, open, enemyOccupied, machinaOccupied, openDirections. Nur bekannte own-Metadaten zählen als ownExisting; kompatibel weiter als existing gewertete unbekannte Links landen in unverifiedExisting. getReadiness fordert bei diesen Prüfung an. planLinkSummaryHtml teilt die rein lesende Erklärung zwischen Panel/Tasks/Next. Offene Richtungen bleiben konservativ an beiden Enden gezählt; Defizittext wird als geschätzt gekennzeichnet.
 Text-Export ersetzt pauschales vorhandene Links durch eigene/unbestätigte/offene Planlinkzahlen, nennt Spielerfraktion und vorläufige Keys. Blockerzeilen tragen Fraktion, Bezug und Belegung/Kreuzung. Faction-Summary dedupliziert per GUID bzw. normalisierten Endpunkten sowohl runtime-Strings als auch JSON-Endpunktobjekte. JSON ergänzt playerFaction, linkSummary und je Blocker guid/reason (same-connection/crossing); bestehende faction/relation und bestehende Top-Level-Felder bleiben erhalten. Keine Bestandswrites durch diese Auswertung.
 renderPanel gruppiert Zusatzaktionen/Toleranz unter ap-more-actions direkt nach den Hauptaktionen. Der Button referenziert den Bereich mit aria-controls; bisheriger ap-show-more-Zustand/Handler bleibt. Drei Hauptaktionen in einer Gridzeile, Mehr über volle nächste Zeile; Hinweis/Entwurfsaktionen/Next erst danach. Reale Key-/Spine-/Overlayzustände bleiben erhalten.
+
+## Portalbesitz vor Linkaufgaben (beta.35)
+
+Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
+
+getPortalOwnership liest geladene Marker, danach ausschließlich frische offizielle portalDetail/IITC.portal.details-Caches, zuletzt eindeutige Fraktionen beobachteter inzidenter Links. Widersprüchliche/fehlende Daten bleiben unbekannt; der Leser erzeugt keine Requests. insertPortalTasks bündelt oder fügt Besuche vor dem ersten abhängigen konkreten Wurf ein. Explizite Blockerziele und Spine-Wurfreihenfolge bleiben erhalten; automatische Abbauaufgaben können in frühere Eroberungsbesuche integriert werden. Besitzwerte gehören zur Routensignatur; portalDetailLoaded aktualisiert über den vorhandenen Debounce. Manuelles done ersetzt keinen Besitznachweis. getRouteTasks und JSON anchors.ownership enthalten die Voraussetzung. Vorschau friert ownership ein, führt virtuelle Aktionen in einem lokalen prepared-Set und löscht bei virtueller Eroberung ausschließlich inzidente virtuelle Blocker. Kein Schreiben in reale Portale, Keys oder Erledigung.

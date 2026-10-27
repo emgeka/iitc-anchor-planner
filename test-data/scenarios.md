@@ -657,3 +657,12 @@ Lokaler Browsercheck 2026-10-23 mit Leaflet und originalen IITC-Dialogen bestät
 3. Text-Export für Nutzerbeispiel: eigene/unbestätigte/offene Planlinks, Spielerfraktion, geschätzter Bedarf bei offenen Richtungen und pro Blocker Fraktion/Grund. JSON playerFaction/linkSummary, blocker.guid/reason und bestehende relation/faction prüfen. Wiederholte Blocker mit JSON-Endpunktobjekten nur einmal in Fraktionssummen zählen.
 4. Mehr auf Desktop und 360×800 im Anker- und Fächerbereich auf-/zuklappen: Zusatzaktionen direkt unter Mehr, vor Nächste Aufgabe; ARIA-Ziel/Zustand korrekt, Controls erreichbar und Plan/Keys unverändert. Drei Hauptaktionen ohne Buchstabenzerlegung, Mehr über volle Zeile.
 Automatisiert test-blockers-overlays, test-localization und test-workspaces-ui erweitert; alle elf bestehenden Suiten weiter ausführen.
+
+## Besitzvoraussetzungen beta.35
+
+- RES-Spieler, beide Anker ENL: beide Eroberungen vor abhängigem Basiswurf, auch mit null Keys. Ziel-only-Besuch aufnehmen; Änderung des Bestands entfernt keine Besitzaufgabe.
+- Machina erobern, neutral übernehmen, unbekannt prüfen. Marker vor Cache vor eindeutiger Linkevidenz; widersprüchlich/fehlend bleibt unbekannt. Frische Details verwenden, veraltete ignorieren, kein automatischer Request.
+- Abbau bei A erobert B nicht; manuelle Portal-/Blocker-Erledigung ersetzt keine Eroberung. Explizite Abbauziele erhalten, automatische Aufgaben gegebenenfalls bündeln.
+- Spine-Wurffolge auch bei Richtungsumkehr, GPS-/festem Start und Rückbesuchen erhalten. ENL→RES-Update entfernt nur die betroffene Eroberung aus der neu berechneten Route.
+- Vorschau: bekannte Übernahme ausdrücklich virtuell, unbekannt sperrt Wurf, fehlende Keys sperren Wurf unabhängig davon. Zurück/Von vorn ändern keine echten Keys, Besitzdaten oder Erledigung.
+- Aufgaben, Nächste Aufgabe, Einsatzcheck und Export zeigen Besitz separat von Keys; Desktop und 360×800 prüfen. Echter IITC-/Mobile-Praxistest steht aus.

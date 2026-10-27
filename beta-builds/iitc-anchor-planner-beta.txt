@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.34
+// @version        0.2.0-beta.35
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261027200000';
+  plugin_info.dateTimeVersion = '20261027210000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.34';
+  ap.VERSION = '0.2.0-beta.35';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -237,7 +237,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Manuell als erledigt melden",
       "tasks.reroute": "Route ab Standort",
       "tasks.manualOrder": "Gespeicherte Reihenfolge",
-      "tasks.routeNote": "Luftlinienvorschlag. Eroberung, ausgehende Linklimits und Linken unter Feldern weiterhin prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
+      "tasks.routeNote": "Arbeitsroute als Luftlinienvorschlag. Beobachteter Portalbesitz ergänzt Eroberungs-/Übernahme-/Prüfaufgaben vor abhängigen Würfen an beiden Enden. Tatsächliche Eroberung, Ausbauressourcen, ausgehende Linklimits, Reichweite und Links unter Feldern weiter vor Ort prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
       "tasks.modeManual": "Gespeicherte Portalreihenfolge mit Blocker-Stopps",
       "tasks.modeLocation": "Ab IITC-Standort; kleine GPS-Änderungen behalten die Reihenfolge",
       "tasks.planVisit": "Linkaufgaben",
@@ -303,7 +303,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Bestand geprüft",
       "keys.usageBooked": "1 Key bei {portal} abgezogen",
       "walk.title": "Planvorschau",
-      "walk.notice": "Vorschau der aktuell verbleibenden Route. Aufgaben und Keyverbrauch werden simuliert; echter Bestand und Erledigung bleiben unverändert. Dreiecke sind geometrische Vorschauen, keine geprüften Ingress-Felder. Eroberung, Linklimits und Bauen unter Feldern werden nicht geprüft. Bei geändertem Plan schließen und erneut öffnen. Dialog schließen löscht die Kartenvorschau. Der violette Zielplan bleibt unabhängig von Keys und Wurfrichtungen sichtbar. Orange zeigt die Route, Cyan den simulierten Baufortschritt.",
+      "walk.notice": "Vorschau der verbleibenden Arbeitsroute. Nötige Eroberungen/Übernahmen sind anhand des beobachteten Portalbesitzes eigene virtuelle Aufgaben vor den abhängigen Links. Unbekannter Besitz bleibt ungeklärt und sperrt simulierte Würfe. Blockerabbau erobert das andere Endportal nicht. Echte Portale, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Linklimits, Reichweite und Links unter Feldern sind weiter zu prüfen. Dreiecke bleiben geometrische Vorschläge, keine zugesicherten Felder. Nach Planänderung schließen und neu öffnen. Violett zeigt das Ziel, Orange den Weg und Cyan den simulierten Bau.",
       "walk.previous": "Zurück",
       "walk.next": "Weiter",
       "walk.play": "Abspielen",
@@ -429,7 +429,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "Eine gegnerische oder Machina-Verbindung belegt genau diesen Planlink. Sie zählt nicht als gebaut und muss zuerst entfernt werden.",
       "blocker.reason.same": "belegt geplante Verbindung",
       "blocker.reason.crossing": "kreuzt Planlink",
-      "links.unverified": "{count} als vorhanden gewertete Planlinks: Fraktion noch prüfen"
+      "links.unverified": "{count} als vorhanden gewertete Planlinks: Fraktion noch prüfen",
+      "portal.capture": "Portal erobern und linkfähig ausbauen",
+      "portal.claim": "Neutrales Portal übernehmen und linkfähig ausbauen",
+      "portal.verify": "Portalfraktion vor dem Linkbau prüfen",
+      "portal.beforeLinks": "Vor jedem abhängigen Link an beiden Enden erforderlich. Linkabbau an einem Endportal erobert das andere Endportal nicht. Diese Besitzaufgabe benötigt keine Keys.",
+      "portal.action": "Portalvoraussetzung",
+      "portal.simulated": "Eroberung/Ausbau simuliert; echter Portalzustand unverändert",
+      "portal.verifyUnresolved": "Fraktion unbekannt; keine Eroberung oder Ausbau angenommen",
+      "portal.notReady": "Portalbesitz als Voraussetzung ungeklärt; nicht simuliert",
+      "portal.plannedLink": "Geplanter Link",
+      "portal.summary": "Portale vor dem Linkbau: erobern {capture} · neutral übernehmen {claim} · prüfen {verify}",
+      "portal.nextTask": "Nächste Portalaufgabe:"
     },
     "en": {
       "language.label": "Language",
@@ -617,7 +628,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Report manually completed",
       "tasks.reroute": "Route from location",
       "tasks.manualOrder": "Saved order",
-      "tasks.routeNote": "Straight-line suggestion. Capture, outgoing-link limits and linking under fields still need checking. Manual completion does not confirm Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Saved portal order with blocker stops",
       "tasks.modeLocation": "From IITC location; small GPS changes keep the order",
       "tasks.planVisit": "Link tasks",
@@ -683,7 +694,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Plan preview",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -809,7 +820,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "es": {
       "language.label": "Idioma",
@@ -997,7 +1019,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Marcar como completado manualmente",
       "tasks.reroute": "Ruta desde mi ubicación",
       "tasks.manualOrder": "Orden guardado",
-      "tasks.routeNote": "Propuesta en línea recta. Comprobar captura, límites de salida y enlaces bajo campos. Completar manualmente no confirma Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Orden guardado con paradas de bloqueadores",
       "tasks.modeLocation": "Desde la ubicación IITC; pequeños cambios GPS mantienen el orden",
       "tasks.planVisit": "Tareas de enlaces",
@@ -1063,7 +1085,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Vista previa del plan",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -1189,7 +1211,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "fr": {
       "language.label": "Langue",
@@ -1377,7 +1410,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Signaler terminé manuellement",
       "tasks.reroute": "Itinéraire depuis ma position",
       "tasks.manualOrder": "Ordre enregistré",
-      "tasks.routeNote": "Suggestion à vol d’oiseau. Vérifier capture, limites des liens sortants et liens sous champs. Une validation manuelle ne confirme pas Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordre enregistré avec arrêts pour les obstacles",
       "tasks.modeLocation": "Depuis la position IITC ; les petits changements GPS gardent l’ordre",
       "tasks.planVisit": "Tâches de liens",
@@ -1443,7 +1476,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Aperçu du plan",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -1569,7 +1602,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "it": {
       "language.label": "Lingua",
@@ -1757,7 +1801,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Segnala completamento manuale",
       "tasks.reroute": "Percorso dalla posizione",
       "tasks.manualOrder": "Ordine salvato",
-      "tasks.routeNote": "Proposta in linea d’aria. Verificare cattura, limiti dei link in uscita e link sotto i campi. Il completamento manuale non conferma Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordine salvato con soste per i blocchi",
       "tasks.modeLocation": "Dalla posizione IITC; piccoli cambiamenti GPS mantengono l’ordine",
       "tasks.planVisit": "Attività dei link",
@@ -1823,7 +1867,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Anteprima del piano",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -1949,7 +1993,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "ja": {
       "language.label": "言語",
@@ -2137,7 +2192,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "手動で完了を報告",
       "tasks.reroute": "現在地からルート",
       "tasks.manualOrder": "保存された順序",
-      "tasks.routeNote": "直線経路の提案です。キャプチャ、出力リンク数、フィールド内からのリンク条件を確認してください。手動完了はIntel確認ではありません。",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "保存されたポータル順序とブロッカー停止地点",
       "tasks.modeLocation": "IITC現在地から・小さなGPS変動では順序を維持",
       "tasks.planVisit": "リンクのタスク",
@@ -2203,7 +2258,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "計画プレビュー",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -2329,7 +2384,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "pl": {
       "language.label": "Język",
@@ -2517,7 +2583,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Zgłoś ręczne wykonanie",
       "tasks.reroute": "Trasa od bieżącej pozycji",
       "tasks.manualOrder": "Zapisana kolejność",
-      "tasks.routeNote": "Propozycja w linii prostej. Sprawdź przejęcie, limity linków wychodzących i linkowanie pod polami. Ręczne wykonanie nie potwierdza Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Zapisana kolejność z przystankami blokad",
       "tasks.modeLocation": "Od pozycji IITC; małe zmiany GPS zachowują kolejność",
       "tasks.planVisit": "Zadania linków",
@@ -2583,7 +2649,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Podgląd planu",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -2709,7 +2775,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2897,7 +2974,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Informar conclusão manual",
       "tasks.reroute": "Rota a partir da localização",
       "tasks.manualOrder": "Ordem salva",
-      "tasks.routeNote": "Sugestão em linha reta. Verifique captura, limites de links de saída e links sob campos. Conclusão manual não confirma o Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordem salva com paradas para bloqueadores",
       "tasks.modeLocation": "Da posição IITC; pequenas mudanças GPS mantêm a ordem",
       "tasks.planVisit": "Tarefas de links",
@@ -2963,7 +3040,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Prévia do plano",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -3089,7 +3166,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "ru": {
       "language.label": "Язык",
@@ -3277,7 +3365,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "Отметить ручное выполнение",
       "tasks.reroute": "Маршрут от текущей позиции",
       "tasks.manualOrder": "Сохранённый порядок",
-      "tasks.routeNote": "Маршрут по прямой. Проверьте захват, лимиты исходящих линков и линкование под полями. Ручная отметка не подтверждает Intel.",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Сохранённый порядок с остановками для блокировок",
       "tasks.modeLocation": "От позиции IITC; небольшие изменения GPS сохраняют порядок",
       "tasks.planVisit": "Задачи по линкам",
@@ -3343,7 +3431,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "Предпросмотр плана",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -3469,7 +3557,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3657,7 +3756,7 @@ function wrapper(plugin_info) {
       "tasks.manualDone": "手动报告完成",
       "tasks.reroute": "从当前位置规划路线",
       "tasks.manualOrder": "已保存顺序",
-      "tasks.routeNote": "直线路线建议。仍需检查占领、出链上限及场内链接条件。手动完成不代表 Intel 确认。",
+      "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "已保存的 Portal 顺序及阻挡停靠点",
       "tasks.modeLocation": "从 IITC 位置开始；轻微 GPS 变化保持顺序",
       "tasks.planVisit": "连线任务",
@@ -3723,7 +3822,7 @@ function wrapper(plugin_info) {
       "keys.usageReviewed": "Inventory checked",
       "keys.usageBooked": "1 key deducted at {portal}",
       "walk.title": "计划预览",
-      "walk.notice": "Preview of the current remaining route. Actions and key use are simulated; real inventory and completion stay unchanged. Triangles are geometric previews, not validated Ingress fields. Capture, link limits and linking under fields are not checked. Close and reopen to use a changed plan. Close the dialog to clear the map preview. The purple target plan stays visible regardless of keys and link directions. Orange shows travel; cyan shows simulated build progress.",
+      "walk.notice": "Preview of the remaining work route. Required portal captures/claims are explicit virtual actions before dependent links, based on observed ownership. Unknown ownership remains unresolved and blocks simulated throws. Removing a blocker does not capture its other endpoint. Real portals, inventory and completion stay unchanged. Existing friendly portals are assumed link-ready; deployment resources, link limits, range and linking under fields still need checking. Triangles remain geometric previews, not guaranteed fields. Close and reopen after a plan change. Purple shows the target, orange travel, cyan simulated building.",
       "walk.previous": "Previous",
       "walk.next": "Next",
       "walk.play": "Play",
@@ -3849,7 +3948,18 @@ function wrapper(plugin_info) {
       "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
-      "links.unverified": "{count} plan links counted as existing: verify faction"
+      "links.unverified": "{count} plan links counted as existing: verify faction",
+      "portal.capture": "Capture portal and fully deploy for linking",
+      "portal.claim": "Claim neutral portal and fully deploy for linking",
+      "portal.verify": "Check portal faction before linking",
+      "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
+      "portal.action": "Portal prerequisite",
+      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
+      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
+      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.plannedLink": "Planned link",
+      "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
+      "portal.nextTask": "Next portal task:"
     }
   };
   // AP_LOCALES_END
@@ -4900,6 +5010,80 @@ function wrapper(plugin_info) {
     return a.distanceTo(b);
   };
 
+  ap.getPortalOwnership = function (guid) {
+    var marker = (window.portals || {})[guid], options = marker && marker.options || {}, data = options.data || {};
+    var raw = options.team != null ? options.team : data.team;
+    var faction = 'unknown', source = 'unknown', observationSource = 'portal';
+    if (raw == null) {
+      var details = window.portalDetail || window.IITC && window.IITC.portal && window.IITC.portal.details;
+      try {
+        if (details && typeof details.get==='function' && typeof details.isFresh==='function' && details.isFresh(guid)) {
+          var cached = details.get(guid);
+          if (cached && cached.team != null) { raw = cached.team; observationSource = 'details'; }
+        }
+      } catch (_) {}
+    }
+    if (raw != null && raw !== '') {
+      faction = String(raw) === '0' || ['N', 'NEUTRAL', 'NONE'].indexOf(String(raw).toUpperCase()) !== -1 ? 'neutral' : ap.normalizeFaction(raw);
+      source = observationSource;
+    } else {
+      // A current portal marker wins over link observations. Conflicting link
+      // factions are deliberately not guessed into a portal owner.
+      var factions = Array.from(new Set((ap.runtime.existingLinks || []).filter(function (link) { return link.a === guid || link.b === guid; })
+        .map(function (link) { return ap.normalizeFaction(link.faction); }).filter(function (value) { return value !== 'unknown'; })));
+      if (factions.length === 1) { faction = factions[0]; source = 'links'; }
+    }
+    var own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
+    var action = faction === 'unknown' || own !== 'res' && own !== 'enl' ? 'verify' : faction === 'neutral' ? 'claim' : faction !== own ? 'capture' : '';
+    return { faction: faction, action: action, source: source };
+  };
+
+  ap.portalTaskText = function (task) {
+    var label = ap.t({ capture: 'portal.capture', claim: 'portal.claim', verify: 'portal.verify' }[task.action]);
+    return label + (task.faction === 'res' || task.faction === 'enl' || task.faction === 'mac' ? ' · ' + ap.t({res:'faction.res',enl:'faction.enl',mac:'faction.mac'}[task.faction]) : '');
+  };
+  ap.portalTaskHtml = function (task) {
+    return task ? '<div class="ap-portal-task"><b>' + ap.escapeHtml(ap.portalTaskText(task)) + '</b><div class="ap-task-muted">' + ap.escapeHtml(ap.t('portal.beforeLinks')) + '</div></div>' : '';
+  };
+  ap.getPortalTaskSummary = function () {
+    var counts = {capture:0,claim:0,verify:0}, seen = new Set();
+    (ap.runtime.links || []).filter(function (link) { return !link.existing; }).forEach(function (link) {
+      [link.a,link.b].forEach(function (guid) {
+        if (seen.has(guid)) return; seen.add(guid);
+        var action = ap.getPortalOwnership(guid).action;
+        if (action) counts[action]++;
+      });
+    });
+    return counts;
+  };
+
+  ap.insertPortalTasks = function (stops, start, openLinks) {
+    var needs = Object.create(null), unresolved = [], seen = new Set();
+    openLinks.forEach(function (link) {
+      [link.a, link.b].forEach(function (guid) {
+        if (seen.has(guid)) return; seen.add(guid);
+        var ownership = ap.getPortalOwnership(guid);
+        if (!ownership.action) return;
+        var point = guid === link.a ? link.latlngA : link.latlngB;
+        needs[guid] = { portal: ap.runtime.stats[guid] || {guid:guid,title:guid === link.a ? link.titleA : link.titleB,lat:point && point.lat,lng:point && point.lng}, ownership:ownership };
+      });
+    });
+    function deadline(guid) { return stops.findIndex(function (stop) { return stop.links.some(function (link) { return link.a === guid || link.b === guid; }); }); }
+    Object.keys(needs).sort(function (a,b) { return deadline(a)-deadline(b) || a.localeCompare(b); }).forEach(function (guid) {
+      var item = needs[guid], end = deadline(guid), endpoint = ap.workPoint(item.portal), best = null;
+      if (end < 0 || !endpoint) { unresolved.push(guid); return; }
+      for (var index=0;index<=end;index++) {
+        var same = stops[index].portal.guid === guid;
+        var before = index ? ap.workPoint(stops[index-1].portal) : start, after = ap.workPoint(stops[index].portal);
+        var cost = same ? 0 : ap.workDistance(before,endpoint)+ap.workDistance(endpoint,after)-ap.workDistance(before,after);
+        if (!best || cost < best.cost-.001) best = {index:index,same:same,cost:cost};
+      }
+      if (best.same) stops[best.index].portalTask = item.ownership;
+      else stops.splice(best.index,0,{portal:item.portal,portalTask:item.ownership,planVisit:false,routeTargetType:'portal',links:[],blockers:[]});
+    });
+    return {stops:stops,unresolved:unresolved};
+  };
+
   ap.getWorkBlockers = function () {
     var blockers = {};
     (ap.runtime.links || []).forEach(function (link) {
@@ -4981,13 +5165,16 @@ function wrapper(plugin_info) {
         last.links.push(link);
       });
     }
+    if (!sequence) openLinks.forEach(function (link) {
+      var direction = ap.getLinkDirection(link), candidates = direction ? [direction.from] : [link.a,link.b];
+      var stop = stops.find(function (item) { return candidates.indexOf(item.portal.guid) !== -1; });
+      if (stop) stop.links.push(link);
+    });
+    var preparation = ap.insertPortalTasks(stops,start,openLinks); stops = preparation.stops;
     var unscheduled = [];
     var blocked = ap.getWorkBlockers();
     function linkVisit(link) {
-      if (sequence) return stops.findIndex(function (stop) { return stop.links.some(function (task) { return task.id === link.id; }); });
-      var direction = ap.getLinkDirection(link);
-      var candidates = direction ? [direction.from] : [link.a, link.b];
-      return stops.findIndex(function (stop) { return stop.planVisit && candidates.indexOf(stop.portal.guid) !== -1; });
+      return stops.findIndex(function (stop) { return stop.links.some(function (task) { return task.id === link.id; }); });
     }
     // Earliest dependent visit is a hard insertion deadline; shared blockers occur once.
     blocked.sort(function (a, b) {
@@ -5036,12 +5223,20 @@ function wrapper(plugin_info) {
     (ap.runtime.links || []).filter(function (link) { return !link.existing; }).forEach(function (link) {
       var index = linkVisit(link);
       if (index < 0) unassigned.push(link);
-      else if (!sequence) stops[index].links.push(link);
     });
-    // Destinations and unused direction candidates carry no executable task.
-    stops = stops.filter(function (stop) { return stop.links.length || stop.blockers.length; });
+    // Automatic removal at a portal already scheduled for capture is fulfilled
+    // by that capture. Keep explicit user-selected removal endpoints intact.
+    blocked.forEach(function (item) {
+      if (item.manual || item.target || (ap.state.blockerRoutePortals || {})[item.blocker.a] || (ap.state.blockerRoutePortals || {})[item.blocker.b]) return;
+      var deadline = Math.min.apply(null,item.links.map(linkVisit).filter(function (index) { return index>=0; }));
+      var capture = stops.find(function (stop,index) { return index<=deadline && stop.portalTask && stop.portalTask.action==='capture' && (stop.portal.guid===item.blocker.a || stop.portal.guid===item.blocker.b); });
+      if (!capture) return;
+      stops.forEach(function (stop) { stop.blockers = stop.blockers.filter(function (other) { return other.id!==item.id; }); });
+      capture.blockers.push(item);
+    });
+    stops = stops.filter(function (stop) { return stop.links.length || stop.blockers.length || stop.portalTask; });
     if (targets) stops = ap.refineBlockerStops(stops, start);
-    return { stops: stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned };
+    return { stops: stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned, unscheduledPortals: preparation.unresolved };
   };
 
   ap.refineBlockerStops = function (stops, start) {
@@ -5057,7 +5252,7 @@ function wrapper(plugin_info) {
     var bestDistance = distance(stops), attempts = 0;
     for (var pass = 0; pass < 2 && attempts < 256; pass++) {
       var before = bestDistance;
-      stops.filter(function (stop) { return !stop.planVisit && stop.blockers.length; }).forEach(function (stop) {
+      stops.filter(function (stop) { return !stop.planVisit && !stop.portalTask && stop.blockers.length; }).forEach(function (stop) {
         var source = stops.indexOf(stop);
         if (source < 0) return;
         var remaining = stops.slice(); remaining.splice(source, 1);
@@ -5085,7 +5280,7 @@ function wrapper(plugin_info) {
 
   ap.buildWorkPlan = function (location) {
     location = ap.getWorkRouteLocation(location);
-    var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat); });
+    var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat) || (stat.openLinks || 0)>0 && !!ap.getPortalOwnership(stat.guid).action; });
     var start = location && location.latlng || null;
     var spine = ap.getActiveSpinePlan();
     if (spine) return ap.addWorkRouteStart(ap.buildWorkPlanForOrder(ap.sortedStats(false), start, location, {}, spine.links));
@@ -5141,7 +5336,7 @@ function wrapper(plugin_info) {
       seen[key] = true; evaluations++;
       var plan = ap.buildWorkPlanForOrder(order, start, location, targets);
       // A shorter route must not obtain its saving by dropping unresolved work.
-      if (plan.unscheduled.length > baseline.unscheduled.length || plan.unassigned.length > baseline.unassigned.length) return;
+      if (plan.unscheduled.length > baseline.unscheduled.length || plan.unassigned.length > baseline.unassigned.length || plan.unscheduledPortals.length > baseline.unscheduledPortals.length) return;
       var distance = routeDistance(plan);
       if (distance < best.distance - 0.001) best = { order: order, targets: targets, plan: plan, distance: distance };
     }
@@ -5185,6 +5380,7 @@ function wrapper(plugin_info) {
       portals: ap.sortedStats(false).map(function (stat) { return [stat.guid, stat.lat, stat.lng, ap.ensureAnchorState(stat.guid).done]; }),
       selections: ap.state.blockerRoutePortals,
       tasks: ap.state.blockerTasks,
+      ownership: Object.keys(ap.runtime.stats || {}).sort().map(function (guid) { return [guid,ap.getPortalOwnership(guid)]; }),
       spine: ap.getActiveSpinePlan(),
       mode: ap.state.workRouteMode, start: ap.state.workRouteStart
     });
@@ -5339,6 +5535,10 @@ function wrapper(plugin_info) {
     var status = link.existing ? (existingOwn ? 'tasks.existing' : 'tasks.existingUnverified') : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
     var spine = ap.getActiveSpinePlan(), step = spine ? spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; }) : -1;
     var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
+    if (!link.existing) [link.a,link.b].forEach(function (guid) {
+      var ownership = ap.getPortalOwnership(guid);
+      if (ownership.action) html += '<p class="ap-task-warning">' + ap.escapeHtml((guid===link.a?titleA:titleB) + ': ' + ap.portalTaskText(ownership)) + '</p>';
+    });
     if (!link.existing) {
       html += '<label>' + ap.escapeHtml(ap.t('tasks.direction')) + ' <select class="ap-task-direction" aria-label="' + ap.escapeHtml(ap.t('tasks.direction')) + '" data-link="' + index + '">';
       ['', link.a, link.b].forEach(function (from) {
@@ -5381,7 +5581,7 @@ function wrapper(plugin_info) {
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
-    if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t('route.complete')) + '</div>';
+    if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t((plan.unscheduledPortals || []).length ? 'tasks.unresolved' : 'route.complete')) + '</div>';
     if (plan.stops.length) {
       html += '<table class="ap-task-table" aria-label="' + ap.escapeHtml(ap.t('tasks.title')) + '"><colgroup><col class="ap-task-col-number"><col><col class="ap-task-col-keys"><col class="ap-task-col-count"><col class="ap-task-col-blockers"></colgroup><thead><tr><th scope="col">#</th>';
       ['tasks.columnPortal', 'tasks.columnKeys', 'tasks.columnLinks', 'tasks.columnBlockers'].forEach(function (key) { html += '<th scope="col">' + ap.escapeHtml(ap.t(key)) + '</th>'; });
@@ -5389,15 +5589,16 @@ function wrapper(plugin_info) {
     }
     plan.stops.forEach(function (stop, index) {
       var portal = stop.portal;
-      var stopId = stop.routeTargetType === 'start' ? 'start:' + portal.guid : stop.planVisit ? 'plan:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
+      var stopId = stop.routeTargetType === 'start' ? 'start:' + portal.guid : stop.planVisit ? 'plan:' + portal.guid : stop.portalTask ? 'portal:' + portal.guid : 'blocker:' + portal.guid + ':' + stop.blockers.map(function (item) { return item.id; }).sort().join(';');
       var local = ap.ensureAnchorState(portal.guid);
       var title = ap.displayPortalTitle(portal.title);
       var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
       html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
-      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.escapeHtml(title) + '</button></th>';
+      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.escapeHtml(title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + '</th>';
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
+      html += ap.portalTaskHtml(stop.portalTask);
       if (stop.routeTargetType === 'start') html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('walk.start')) + '</div>';
       if (stop.planVisit) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.planVisit')) + '</div>';
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
@@ -5412,7 +5613,7 @@ function wrapper(plugin_info) {
       html += '</div></div></td></tr></tbody>';
     });
     if (plan.stops.length) html += '</table>';
-    if (plan.unscheduled.length || plan.unassigned.length) {
+    if (plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length) {
       html += '<div class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</div>';
       plan.unscheduled.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       plan.unassigned.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
@@ -5508,6 +5709,7 @@ function wrapper(plugin_info) {
     var points = Object.create(null), keys = Object.create(null), edges = Object.create(null), formed = new Set();
     var built = [], fields = [], cleared = new Set(), trail = [], paths = [[]], distance = 0;
     var spine = ap.getActiveSpinePlan();
+    var ownership = Object.create(null), prepared = new Set();
     (ap.runtime.links || []).forEach(function (link) {
       var pointA = ap.workPoint(link.latlngA), pointB = ap.workPoint(link.latlngB);
       if (pointA) points[link.a] = { lat: pointA.lat, lng: pointA.lng };
@@ -5518,6 +5720,7 @@ function wrapper(plugin_info) {
       var point = ap.workPoint(ap.runtime.stats[guid]);
       if (point) points[guid] = { lat: point.lat, lng: point.lng };
     });
+    Object.keys(points).forEach(function (guid) { ownership[guid] = ap.getPortalOwnership(guid); });
     function closeTriangles(a, b, emit) {
       var candidates = [];
       Object.keys(points).forEach(function (c) {
@@ -5545,14 +5748,27 @@ function wrapper(plugin_info) {
         if (previous) distance += ap.workDistance(previous, point);
         previous = point; trail.push({ lat: point.lat, lng: point.lng }); paths[paths.length - 1].push({ lat: point.lat, lng: point.lng });
       } else { previous = null; paths.push([]); }
+      if (stop.portalTask) {
+        var verified = stop.portalTask.action !== 'verify';
+        actions.push({kind:'portal',title:ap.displayPortalTitle(stop.portal.title) + ' · ' + ap.portalTaskText(stop.portalTask),status:verified?'portal.simulated':'portal.verifyUnresolved'});
+        if (verified) {
+          prepared.add(stop.portal.guid);
+          if (stop.portalTask.action==='capture') plan.blockers.forEach(function (item) {
+            if (item.blocker.a===stop.portal.guid || item.blocker.b===stop.portal.guid) cleared.add(item.id);
+          });
+        }
+      }
       stop.blockers.forEach(function (item) {
+        if (cleared.has(item.id)) return;
         cleared.add(item.id);
         actions.push({ kind: 'blocker', title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) + ' · ' + ap.blockerFactionText(item.blocker) });
       });
       stop.links.forEach(function (link) {
         var direction = ap.getLinkDirection(link), status = 'walk.ready';
         var target = direction && direction.to;
-        if (!direction) status = 'walk.direction';
+        var pendingPortal = [link.a,link.b].some(function (guid) { return !prepared.has(guid) && (!ownership[guid] || ownership[guid].action); });
+        if (pendingPortal) status = 'portal.notReady';
+        else if (!direction) status = 'walk.direction';
         else if (!point || !points[target]) status = 'walk.coordinates';
         else if (spine && spine.links.slice(0, spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; })).some(function (edge) { return !edges[ap.normalizedLinkId(edge[0], edge[1])]; })) status = 'spine.prerequisite';
         else if (plan.blockers.some(function (item) { return item.links.some(function (other) { return other.id === link.id; }) && !cleared.has(item.id); })) status = 'walk.blocked';
@@ -5573,7 +5789,7 @@ function wrapper(plugin_info) {
       return { index: index, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
         routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
-    return { frames: frames, target: ap.getPlanMapGeometry(), unresolved: plan.unscheduled.length + plan.unassigned.length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
+    return { frames: frames, target: ap.getPlanMapGeometry(), unresolved: plan.unscheduled.length + plan.unassigned.length + (plan.unscheduledPortals || []).length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
   };
   ap.normalizeFanDesign = function (value) {
     if (!value || !Array.isArray(value.anchors) || !value.assignments || typeof value.assignments !== 'object' || Array.isArray(value.assignments)) return null;
@@ -6211,7 +6427,7 @@ function wrapper(plugin_info) {
     var location = ap.getCurrentUserLocation(), plan = ap.getWorkPlan(location);
     var suggestions = ap.getSuggestedLinkDirections();
     // A route origin is orientation, not an executable task.
-    var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length; });
+    var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length || stop.portalTask; });
     var stop = plan.stops[index];
     var html = '<div class="ap-next-toolbar"><button id="ap-next-all">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-next-scan"' + (ap.runtime.finalScan && ap.runtime.finalScan.running ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button></div>';
     html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
@@ -6220,13 +6436,14 @@ function wrapper(plugin_info) {
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     var readiness = ap.getReadiness(ap.sortedStats(false));
     if (readiness && readiness.key !== 'ready') html += '<p class="ap-task-warning">' + ap.escapeHtml(readiness.label + ' · ' + readiness.summary.join(' · ')) + '</p>';
-    if (plan.unscheduled.length || plan.unassigned.length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
-    if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
+    if (plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
+    if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
     var portal = stop.portal, nav = ap.navigationLinks(portal);
     html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + '</button></h2>';
     if (location) html += '<p>' + ap.escapeHtml(ap.formatDistance(ap.distanceToPortal(location, portal))) + ' · ' + ap.escapeHtml(ap.t('route.aerial')) + '</p>';
     html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
     html += '<p>' + ap.escapeHtml(ap.t('tasks.columnBlockers')) + ': ' + stop.blockers.length + ' · ' + ap.escapeHtml(ap.t('tasks.columnLinks')) + ': ' + stop.links.length + '</p>';
+    html += ap.portalTaskHtml(stop.portalTask);
     stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
     stop.links.forEach(function (link) {
       var direction = ap.getLinkDirection(link), target = direction && ap.runtime.stats[direction.to];
@@ -6323,7 +6540,7 @@ function wrapper(plugin_info) {
       html = '<p><b>' + ap.escapeHtml(ap.t('walk.stop', { index: session.index + 1, count: session.model.frames.length })) + ' · ' + ap.escapeHtml(frame.title) + '</b></p>';
       html += '<p>' + ap.escapeHtml(ap.t('walk.totals', { links: frame.links.length, fields: frame.fields.length, distance: ap.formatDistance(frame.distance) })) + '</p><ol>';
       frame.actions.forEach(function (action) {
-        html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'blocker' ? 'walk.remove' : 'walk.throw')) + ': ' + ap.escapeHtml(action.title);
+        html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'portal' ? 'portal.action' : action.kind === 'blocker' ? 'walk.remove' : action.status === 'walk.ready' ? 'walk.throw' : 'portal.plannedLink')) + ': ' + ap.escapeHtml(action.title);
         if (action.status) html += ' · ' + ap.escapeHtml(ap.t(action.status));
         if (action.owned !== null && action.owned !== undefined) html += ' · ' + ap.escapeHtml(ap.t('walk.keysLeft', { count: action.owned }));
         html += '</li>';
@@ -7828,7 +8045,7 @@ function wrapper(plugin_info) {
 
   ap.getRouteTasks = function (location) {
     return ap.getWorkPlan(location).stops.map(function (stop) {
-      return Object.assign({}, stop.portal, { routeTargetType: stop.routeTargetType });
+      return Object.assign({}, stop.portal, { routeTargetType: stop.routeTargetType, portalTask: stop.portalTask || null });
     });
     ap.state.workRouteMode = 'manual';
     ap.runtime.workPlan = null;
@@ -7857,6 +8074,7 @@ function wrapper(plugin_info) {
   };
 
   ap.routeTargetLabel = function (target, usesLocation) {
+    if (target && target.portalTask) return ap.t('portal.nextTask') + ' ' + ap.portalTaskText(target.portalTask);
     var type = ap.t(target && target.routeTargetType === 'blocker' ? 'route.blockerPortal' : 'route.planPortal');
     return ap.t(usesLocation ? 'route.nextFromLocation' : 'route.next', { type: type });
   };
@@ -8116,6 +8334,8 @@ function wrapper(plugin_info) {
 
   ap.getStatus = function (guid, stat) {
     var local = ap.ensureAnchorState(guid);
+    var ownership = ap.getPortalOwnership(guid);
+    if ((stat.openLinks || 0)>0 && ownership.action) return {key:ownership.action==='verify'?'unknown':'blocked',label:ap.portalTaskText(ownership),symbol:'⚑',cls:ownership.action==='verify'?'ap-partial':'ap-blocked'};
     if (local.done) return { key: 'done', label: ap.t('status.done'), symbol: '✓', cls: 'ap-done' };
     if ((stat.blockedLinks || 0) > 0) return { key: 'blocked', label: ap.t('status.blocked'), symbol: '×', cls: 'ap-blocked' };
     var openLinks = stat.openLinks == null ? Math.max(0, (stat.linkCount || 0) - (stat.existingLinks || 0)) : stat.openLinks;
@@ -8171,6 +8391,7 @@ function wrapper(plugin_info) {
       missingKeys: 0,
       openDirections: ap.getPlanLinkSummary().openDirections,
       unverifiedExisting: ap.getPlanLinkSummary().unverifiedExisting,
+      portalTasks: ap.getPortalTaskSummary(),
       missingNames: 0,
       unconfirmedLinks: Number(last.unconfirmedLinks) || 0,
       finalScanComplete: !!last.finalScanComplete,
@@ -8211,15 +8432,16 @@ function wrapper(plugin_info) {
       if (result.missingNames) result.summary.push(ap.tp('readiness.missingName', result.missingNames));
       if (result.unresolvedExistingLinks) result.summary.push(ap.tp('readiness.unusableLink', result.unresolvedExistingLinks));
       if (result.unverifiedExisting) result.summary.push(ap.t('links.unverified', { count: result.unverifiedExisting }));
+      if (result.portalTasks.capture || result.portalTasks.claim || result.portalTasks.verify) result.summary.push(ap.t('portal.summary',result.portalTasks));
       if (finalScanPending) result.summary.push(ap.t('readiness.finalScanPending'));
       else if (finalScanIncomplete) result.summary.push(ap.t('readiness.finalScanIncomplete'));
       else if (result.unconfirmedLinks > 0 && result.finalScanComplete) result.summary.push(ap.t('readiness.finalScanComplete'));
       if (noPlan) result.summary.push(ap.t('readiness.noPlan'));
 
-      if (unresolvedEndpoints || blockedPlannedLinks || result.missingKeys) {
+      if (unresolvedEndpoints || blockedPlannedLinks || result.missingKeys || result.portalTasks.capture || result.portalTasks.claim) {
         result.key = 'blocked';
         result.label = ap.t('readiness.notReady');
-      } else if (result.keysUnavailable || result.missingNames || result.unresolvedExistingLinks || result.unverifiedExisting || finalScanPending || finalScanIncomplete || noPlan) {
+      } else if (result.keysUnavailable || result.missingNames || result.unresolvedExistingLinks || result.unverifiedExisting || result.portalTasks.verify || finalScanPending || finalScanIncomplete || noPlan) {
         result.key = 'check';
         result.label = ap.t('readiness.check');
       }
@@ -8811,6 +9033,7 @@ function wrapper(plugin_info) {
           blockedLinks: stat.blockedLinks || 0,
           openLinks: stat.openLinks || stat.requiredKeys || 0,
           requiredKeys: stat.requiredKeys,
+          ownership: ap.getPortalOwnership(stat.guid),
           ownedKeys: ap.getOwnedKeys(stat.guid),
           done: !!local.done,
           note: local.note || '',
@@ -8852,6 +9075,8 @@ function wrapper(plugin_info) {
     var ownFaction = ap.normalizeFaction(window.PLAYER && window.PLAYER.team), linkSummary = ap.getPlanLinkSummary();
     lines.push(ap.t('faction.player', { faction: ap.t(ownFaction === 'res' || ownFaction === 'enl' ? 'faction.' + ownFaction : 'faction.noData') }));
     lines.push(ap.t('links.summary', linkSummary));
+    var portalTasks = ap.getPortalTaskSummary();
+    if (portalTasks.capture || portalTasks.claim || portalTasks.verify) lines.push(ap.t('portal.summary',portalTasks));
     if (linkSummary.enemyOccupied || linkSummary.machinaOccupied) lines.push(ap.t('links.occupied', linkSummary));
     lines.push(ap.t('text.done', { done: doneCount, total: stats.length }));
     lines.push(ap.t('text.keys', { owned: ap.getKeysPlugin() ? totalOwned : '?', required: totalRequired }));
@@ -8879,6 +9104,8 @@ function wrapper(plugin_info) {
       if (stat.address) lines.push('   ' + ap.t('text.address') + ' ' + stat.address);
       lines.push('   ' + ap.t('text.links', { total: stat.linkCount, existing: stat.existingLinks || 0, open: stat.openLinks || stat.requiredKeys || 0, blocked: stat.blockedLinks || 0 }));
       lines.push('   ' + ap.t('text.keysPortal', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys || 0 }));
+      var ownership = ap.getPortalOwnership(stat.guid);
+      if (ownership.action && (stat.openLinks || 0)>0) lines.push('   ' + ap.portalTaskText(ownership));
       lines.push('   Waze: ' + nav.waze);
       if (local.note) lines.push('   ' + ap.t('text.note') + ' ' + local.note);
       lines.push('');
@@ -9524,7 +9751,7 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-next-target span{flex:1}#iitc-anchor-planner .ap-next-target a{padding:6px 8px;border:1px solid var(--ap-border);border-radius:var(--ap-radius)}
 #iitc-anchor-planner .ap-route-remaining{font-size:12px;color:var(--ap-muted)}
 #iitc-anchor-planner .ap-list-empty{padding:12px;text-align:center;color:var(--ap-muted)}
-.ap-blocker-faction{font-weight:bold;margin:6px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}.ap-blocker-faction-res{color:#6ca8ff}.ap-blocker-faction-enl{color:#43d879}.ap-blocker-faction-mac{color:#ff5b68}
+.ap-portal-task{padding:8px;margin:6px 0;border-left:3px solid var(--ap-accent);background:var(--ap-surface)}.ap-task-overview th small{display:block;font-weight:normal;color:var(--ap-muted)}.ap-blocker-faction{font-weight:bold;margin:6px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}.ap-blocker-faction-res{color:#6ca8ff}.ap-blocker-faction-enl{color:#43d879}.ap-blocker-faction-mac{color:#ff5b68}
 /* Semantic portal colours and geographic marker geometry remain independent. */
 .ap-blocked{color:#ff3b30}.ap-status{display:inline-block;min-width:18px;text-align:center;font-weight:bold}
 .ap-missing{color:#ff9f43}.ap-partial{color:#f5d76e}.ap-ready{color:#ff6ad5}.ap-existing{color:#bdbdbd}.ap-done{color:#eee}
@@ -9546,7 +9773,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.mapDataPanelRefreshTimer) clearTimeout(ap.runtime.mapDataPanelRefreshTimer);
     ap.runtime.mapDataPanelRefreshTimer = setTimeout(function () {
       ap.runtime.mapDataPanelRefreshTimer = null;
-      if (ap.runtime.enabled && ap.runtime.panel && (ap.runtime.links || []).length && !ap.observeNewPlanLinks()) ap.renderPanel();
+      if (ap.runtime.enabled && ap.runtime.panel && (ap.runtime.links || []).length && !ap.observeNewPlanLinks()) { ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); }
     }, delay == null ? 150 : delay);
   };
 
@@ -9605,6 +9832,7 @@ function wrapper(plugin_info) {
       try { window.addHook('mapDataRefreshEnd', function () { ap.onFinalScanMapDataRefreshEnd(); ap.syncIntelFieldVisibility(); ap.scheduleMapDataPanelRefresh(100); }); } catch (e2) {}
       try { window.addHook('linkAdded', ap.onFinalScanLinkAdded); } catch (e3) {}
       try { window.addHook('fieldAdded', function (data) { if (data) ap.hideIntelFieldLayerFill(data.field); }); } catch (e4) {}
+      try { window.addHook('portalDetailLoaded', function () { ap.scheduleMapDataPanelRefresh(100); }); } catch (e5) {}
     }
   };
 
