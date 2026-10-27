@@ -244,3 +244,28 @@ for(const reason of ['direction','keys','unknown','blocked','coordinates']){
   ap.getActiveFanPlan=()=>null;assert.equal(ap.getPlanMapGeometry().links[0][0].lat,0,'Returning to the external plan restores only that geometry.');
 }
 console.log('Walk simulation checks passed: independent target geometry, distinct route/build styles, bounded fields, immutable target, virtual keys, animation, rewind, cleanup and isolated real consumption.');
+
+{
+  const {ap,context,storage}=runtime();
+  const points=[{guid:'A',title:'A',lat:0,lng:0},{guid:'B',title:'B',lat:0,lng:.02},...[1,2,3].map(i=>({guid:'S'+i,title:'Spine '+i,lat:i*.005,lng:.01}))];
+  const design=ap.buildSpineDesign(points,['A','B']);
+  ap.state.fanDesign=ap.normalizeFanDesign({mode:'spine',spine:design.spine,anchors:['A','B'],assignments:{},portals:points,links:design.links.map(e=>[e.a.guid,e.b.guid]),fields:design.fields.map(f=>f.map(p=>p.guid))});
+  ap.state.planSource='fan';ap.runtime.stats=Object.fromEntries(points.map(p=>[p.guid,{...p,openLinks:1,linkCount:1}]));
+  ap.runtime.links=design.links.map(e=>({id:e.id,a:e.a.guid,b:e.b.guid,titleA:e.a.title,titleB:e.b.title,latlngA:point(e.a.lat,e.a.lng),latlngB:point(e.b.lat,e.b.lng),existing:false,blockers:[]}));
+  ap.state.linkDirections={};ap.runtime.links.forEach(e=>ap.state.linkDirections[e.id]=e.a);
+  context.window.plugin.keys.keys={A:10,B:10,S1:10,S2:10,S3:10};
+  ap.getWorkPlan=()=>ap.buildWorkPlan(null);
+  points.forEach(p=>ap.ensureAnchorState(p.guid));
+  const before=JSON.stringify(ap.state),keys=JSON.stringify(context.window.plugin.keys.keys);
+  const model=ap.createWalkSimulation();
+  assert.equal(model.frames.at(-1).links.length,9);assert.equal(model.frames.at(-1).fields.length,7,'Ordered nested spine makes basal layers and side fields');
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(storage.size,0);
+  context.window.plugin.keys.keys.B=0;
+  const failed=ap.createWalkSimulation();assert.equal(failed.frames.at(-1).links.length,0);assert.equal(failed.frames.at(-1).fields.length,0);
+  assert.ok(failed.frames.slice(1).flatMap(f=>f.actions).some(a=>a.status==='spine.prerequisite'));
+  context.window.plugin.keys.keys.B=10; delete ap.state.linkDirections[ap.runtime.links[0].id];
+  assert.equal(ap.createWalkSimulation().frames.at(-1).links.length,0,'An unconfirmed prerequisite blocks later virtual spine throws');
+}
+
+
+console.log("Spine ordered fields, prerequisite propagation and real inventory isolation passed.");

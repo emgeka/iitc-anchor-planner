@@ -28,7 +28,9 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.32
+### Beta testing: 0.2.0-beta.33
+
+New testing draft: choose **Separate fans** or **Spine fields · two anchors** in the fan planner. Spine finds a nested portal chain on one side of the baseline. Suggest two anchors or fix them manually; omitted portals are labeled. Acceptance preserves the mode and numbered throw sequence for Tasks, Next task and Plan preview. Construction order takes priority over shorter travel; blockers are inserted before dependent throws and changed directions can cause return visits. Directions still require individual confirmation; planning leaves Keys untouched. Open spine links remain tasks despite manual portal completion; detected Intel links complete them. Both-side planning, outbound strategies and AP estimates are not included yet. Older betas ignore spine dependencies – export before switching back.
 
 This feature release targets **0.2.0**. Substantial new features increment the
 minor version; patch releases are reserved for fixes and small adjustments.
@@ -136,7 +138,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.32**
+- Development version: **0.2.0-beta.33**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

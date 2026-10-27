@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.32
+# Bekannte Grenzen in 0.2.0-beta.33
 
 ## Portalzuordnung und Namen
 
@@ -328,3 +328,14 @@ Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen, synt
 ## Dominierende Intel-Füllungen beta.32
 Nutzer-Screenshot zeigt trotz violetter Zielgeometrie stark dominierende grüne Intel-Flächen. Beta.32 bietet den ausdrücklich gewünschten Füllungsschalter. Nur in window.fields registrierte native Leaflet-Felder mit lesbarer fillOpacity/setStyle werden behandelt; fremde zusätzliche Feldlayer bleiben erhalten. Andere Plugins können Füllstile verändern; die nächste Synchronisation berücksichtigt solche Änderungen. Es werden keine Felddaten aus Scan oder IITC entfernt.
 Automatisierte Prüfungen decken individuell reversible Füllstärken, erhaltene Links/Portale/Zielflächen, fieldAdded vor Registrierung, spätere Mapaddition, verpasste Hooks, Fremdplugin-Stile, Listener-/Referenzcleanup, Home/Layerzustand und synchronisierte Controls ohne Simulationsneustart ab. Lokale Browserprüfung 2026-10-23 mit Leaflet und originalen IITC-Dialogen: SVG und Canvas, nachgeladenes Feld im ausgeblendeten Zustand, Wiederherstellung .25/.4/.3, grüner Link/Portal und violette Zielfläche erhalten. Bei 360×800 ein 44-px-Schalter ohne horizontalen Seitenüberlauf. Synthetische Daten; tatsächliche Intel-/IITC-Mobile-Bestätigung ausstehend.
+
+
+## Spine-Felder als begrenzter Testentwurf beta.33
+- Nur zwei gemeinsame Anker und eine strikt ineinanderliegende Folge auf einer Seite der Basis. Keine vollständige Kopie des FF3-Herringbone-Modus; beide Seiten, Outbound/Best und SBUL-Einstellungen fehlen bewusst. Der feste Paarvergleich aus synthetischen Daten ist kein allgemeiner Leistungsnachweis.
+- Ankerpaarsuche wertet nur ein begrenztes, weiteste-zuerst sortiertes Budget aus; kann bessere Paare übersehen. DP maximiert Portalzahl für das betrachtete Paar unter strikter Verschachtelung, nicht Wege, MU oder Keys. Projektion/Orientierung wie bisher regional angenähert; keine weltweite geodätische Optimierung.
+- Geometrische Ziele sind keine zugesicherte Feldzahl/AP. Bestehende Link-/Feldhistorie kann Feldlagen bereits verhindert haben. Linklimits, Reichweite, Unterfeldausführung und realer Ausbau werden weiterhin nicht validiert. Geänderte Richtungen können lange Rückbesuche verursachen.
+- Offene Spine-Würfe bleiben trotz Portal-done erhalten; pauschales Erledigt in Tasks/Next entfällt dort. Erkannte Intel-Links lösen Aufgaben ab. Ein unbestätigter/früher fehlender Wurf blockiert spätere virtuelle Würfe; echte Keys bleiben unberührt.
+- Neue mode/spine-Daten überstehen Reload/Export. Ältere Betas kennen die Bauabhängigkeiten nicht; vor Rückwechsel exportieren, nicht mit älterer Beta abarbeiten. Legacy-Fächer und externe Pläne bleiben unverändert.
+- Echter IITC-/Mobile-Test mit Nutzerplan steht aus. Lokale Browserprüfung verwendet synthetische Portale und echte Leaflet-/IITC-Dialogdateien.
+
+Lokale Desktop-/360×800-Prüfung am 2026-10-27 erfolgreich: neue Planungsart, Fehler-/Übernahmesperre, nummerierte Aufgaben und vollständige Beispielsimulation. Kein echter Intel-Praxistest.

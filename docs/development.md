@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.32` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.33` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.32` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.33` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -249,3 +249,10 @@ Lokale visuelle Prüfung 2026-10-23 mit Leaflet/IITC-Dialogen: violette Entwurfs
 
 ### Intel-Feldfüllungsschalter beta.32
 Nur native window.fields über Leaflet setStyle reversibel anpassen; offiziellen fieldAdded-Ablauf vor Mapaddition beachten. test-blockers-overlays um hide/restore, Feldnachladen/Setup-Hooks, entfernte Objekte/Listener, Fremdstile, Home/Layerzustand, native Daten-/Keyisolation und synchronisierte Controls erweitern. Bestehende elf Suiten unverändert beibehalten, Fan-DOM-Fixture für neuen echten Button vervollständigen. Lokale visuelle Prüfung mit SVG und Canvas sowie 360×800 durchgeführt; synthetische Daten, echte IITC-/Mobile-Bestätigung ausstehend. 350 Locale-Schlüssel (map.hideIntelFields neu DE/EN, sonst EN). Keine Persistenz oder Plan-/Datenänderung. Gesamten maßgeblichen Projektsatz inklusive AGENTS/Beta abgleichen; Stable/releases unverändert 0.1.55.
+
+
+### Spine-Testentwurf beta.33
+feature/spine-fields von aktuellem beta, PR nach beta, kein Stable-Release. 366 Locale-Schlüssel; Spine-Texte DE/EN, andere Sprachen vorläufig EN. Optionale mode/spine-Metadaten in fanDesign/JSON; Legacy-Fächer unverändert, ältere Betas nicht zur Spine-Abarbeitung verwenden. Bestehende elf CI-Suiten erweitern: Geometrie und Pins, 200 Portale, Modussteuerung/Fehler, Auswahl/Übernahme/Reload/Scan, Reihenfolge bei GPS/manuell/Richtungsumkehr, Blocker und Isolation, Simulation mit Voraussetzungen/größtem Feld je Seite. Keine eigene Keyverwaltung oder echte Bestandswrites durch Planung/Simulation.
+FF3-Herringbone-Quelle zum Vergleich gelesen, kein Quellcode übernommen. Mathematisch längste verschachtelte Kette je Ankerpaar statt nächster erreichbarer Kandidat, begrenzte weiteste-zuerst Paarwahl. Lokale synthetische Vergleichsdaten getrennt von tatsächlichem IITC-Test dokumentieren. gesamten maßgeblichen Projektsatz einschließlich AGENTS und stabiler Distribution bewusst abgleichen; releases bleiben 0.1.55.
+
+Lokale visuelle Prüfung am 2026-10-27: echter Leaflet-/IITC-Dialograhmen mit synthetischen Portalen, Moduswechsel/automatische Anker und ausgelassene Kandidaten, Übernahme, einzelne Richtungsbestätigung und vollständige Vorschau (5 Spine-Portale → 15 Links/13 Dreiecke) geprüft. Bei 360×800 keine horizontale Überbreite; scrollbare Modus-/Anker-/Übernahmecontrols und gesperrte Übernahme bei Anzahl 3, erneute Generierung bei 2. Der lokale Testserver enthielt zunächst eine künstliche 48vh-Höhenbegrenzung; diese wurde aus der Fixture entfernt, Produkt-CSS unverändert. Echte Intel-/IITC-Mobile-Bestätigung weiterhin ausstehend.

@@ -348,5 +348,21 @@
   "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
   "blocker.showAll": "Show all blockers",
   "blocker.clearSelection": "Clear selection",
-  "map.hideIntelFields": "Hide Intel field fills"
+  "map.hideIntelFields": "Hide Intel field fills",
+  "spine.mode": "Planning pattern",
+  "spine.separate": "Separate fans",
+  "spine.title": "Spine fields · two anchors",
+  "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+  "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+  "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+  "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+  "spine.position": "Spine position",
+  "spine.step": "Spine {index}",
+  "spine.unused": "Not in proposal",
+  "spine.leaf": "Spine candidate",
+  "spine.routeOrder": "Spine build order · travel respects throw sequence",
+  "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+  "spine.prerequisite": "Earlier spine throws are still missing",
+  "spine.throw": "Throw {index}",
+  "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
 }

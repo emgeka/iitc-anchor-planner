@@ -539,3 +539,41 @@ function assertDependencies(ap,plan){
   for(const locale of Object.keys(ap.LOCALES)){ap.state.language=locale;assert.ok(!ap.nextTaskHtml().includes('{title}'));}
 }
 console.log('Work-plan checks passed: next-task navigation, live refresh, shared reports, actionable stops, explicit origins, fixed portal starts, GPS/manual switching and dependency safety.');
+
+{
+  const { ap } = runtime();
+  for (const [id,x,y] of [['A',0,0],['B',.02,0],['S1',.01,.005],['S2',.01,.01],['S3',.01,.015]]) portal(ap,id,x,y);
+  const points=Object.values(ap.runtime.stats), design=ap.buildSpineDesign(points,['A','B']);
+  ap.state.fanDesign=ap.normalizeFanDesign({mode:'spine',spine:design.spine,anchors:['A','B'],assignments:{},portals:points,links:design.links.map(e=>[e.a.guid,e.b.guid]),fields:design.fields.map(f=>f.map(p=>p.guid))});
+  ap.state.planSource='fan';
+  for(const edge of ap.state.fanDesign.links) direction(ap,link(ap,...edge),edge[0]);
+  const expected=ap.state.fanDesign.links.map(e=>ap.normalizedLinkId(...e));
+  const ordered=()=>ap.buildWorkPlan({latlng:point(.015,.01)}).stops.flatMap(s=>s.links.map(l=>l.id));
+  assert.deepEqual(JSON.parse(JSON.stringify(ordered())),JSON.parse(JSON.stringify(expected)), 'GPS cannot reorder spine construction');
+  ap.state.workRouteMode='manual'; assert.deepEqual(JSON.parse(JSON.stringify(ordered())),JSON.parse(JSON.stringify(expected)));
+  // Reverse only the final throw: an earlier source must be revisited, not pulled forward.
+  const last=ap.runtime.links.at(-1); direction(ap,last,last.b);
+  let plan=ap.buildWorkPlan(null);
+  assert.equal(plan.stops.at(-1).portal.guid,last.b);
+  assert.equal(plan.stops.at(-1).links[0].id,last.id);
+  assert.deepEqual(JSON.parse(JSON.stringify(plan.stops.flatMap(s=>s.links.map(l=>l.id)))),JSON.parse(JSON.stringify(expected)));
+  const blocked=blocker('spine-blocker','X',-.01,'Y',.03);ap.runtime.links[3].blockers=[blocked];
+  plan=ap.buildWorkPlan(null);
+  const removal=plan.stops.findIndex(s=>s.blockers.length),throwIndex=plan.stops.findIndex(s=>s.links.some(l=>l.id===ap.runtime.links[3].id));
+  assert.ok(removal>=0 && removal<=throwIndex);
+  assert.equal(plan.stops.flatMap(s=>s.blockers).length,1);
+  ap.ensureAnchorState('S2').done=true;
+  assert.equal(ap.buildWorkPlan(null).stops.flatMap(s=>s.links).length,expected.length,'Manual portal completion cannot discard later spine throws');
+  ap.runtime.links[0].existing=true;
+  assert.equal(ap.buildWorkPlan(null).stops.flatMap(s=>s.links).length,expected.length-1);
+  assert.match(ap.workRouteLabel(null),/Spine build order/);
+  assert.match(ap.nextTaskHtml(),/Remove blocker/);
+  ap.runtime.links[3].blockers=[]; ap.runtime.workPlan=null;
+  assert.match(ap.nextTaskHtml(),/Throw 2/);
+  assert.ok(!ap.nextTaskHtml().includes('ap-task-portal-done'), 'Next task cannot hide later return visits through whole-portal completion');
+  delete ap.state.linkDirections[ap.runtime.links[3].id];
+  assert.equal(ap.getSuggestedLinkDirection(ap.runtime.links[3]).from,'S2','Spine proposals must still use a manually completed source with open throws');
+}
+
+
+console.log("Spine throw sequence, alternate directions, removal deadlines and manual completion isolation passed.");

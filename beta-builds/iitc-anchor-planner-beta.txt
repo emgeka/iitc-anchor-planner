@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.32
+// @version        0.2.0-beta.33
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261023170000';
+  plugin_info.dateTimeVersion = '20261027170000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.32';
+  ap.VERSION = '0.2.0-beta.33';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -401,7 +401,23 @@ function wrapper(plugin_info) {
       "map.limited": "Sehr dichter Plan: Die Darstellung der Feldflächen ist begrenzt; alle aufgelösten Planlinks bleiben sichtbar.",
       "blocker.showAll": "Alle Blocker anzeigen",
       "blocker.clearSelection": "Auswahl aufheben",
-      "map.hideIntelFields": "Intel-Feldflächen ausblenden"
+      "map.hideIntelFields": "Intel-Feldflächen ausblenden",
+      "spine.mode": "Planungsart",
+      "spine.separate": "Getrennte Fächer",
+      "spine.title": "Spine-Felder · zwei Anker",
+      "spine.help": "Entwurf: Genau zwei Anker manuell oder über „Anker vorschlagen“ wählen. Der Planer sucht eine ineinanderliegende Portalfolge auf einer Seite ihrer Basislinie. Jedes Spine-Portal wird mit beiden Ankern und ab dem zweiten mit seinem Vorgänger verbunden. Ungeeignete Portale werden nicht übernommen. Erst Vorschau prüfen; Richtungen bleiben unbestätigt. Die Feldzahl ist ein geometrisches Ziel, keine Baugarantie oder AP-Schätzung.",
+      "spine.twoAnchors": "Spine-Felder benötigen genau zwei Anker. Anzahl auf 2 setzen und höchstens zwei Anker manuell festlegen.",
+      "spine.noChain": "Für dieses Ankerpaar wurde keine geeignete Spine gefunden. Andere Anker oder Portale wählen.",
+      "spine.summary": "Spine-Portale: {count} · ausgelassene Portale: {unused}. Eine Seite der Basislinie; Ankerpaar-Vorschläge verwenden eine begrenzte Suche.",
+      "spine.position": "Spine-Position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Nicht im Vorschlag",
+      "spine.leaf": "Spine-Kandidat",
+      "spine.routeOrder": "Spine-Baufolge · Strecke folgt der Wurfreihenfolge",
+      "spine.workflow": "Spine-Baufolge: Basislinie zuerst, danach je Spine-Portal beide Anker und den Vorgänger verlinken. Richtungen einzeln bestätigen. Die Baufolge bleibt auch bei einer neuen Startposition erhalten. Vorhandene Links können das Feldergebnis verändern.",
+      "spine.prerequisite": "Vorherige Spine-Würfe fehlen noch",
+      "spine.throw": "Wurf {index}",
+      "spine.countHelp": "Für diesen Entwurf genau zwei Anker wählen. Manuelle Anker (★) bleiben fest; zusätzliche Anker zuerst freigeben."
     },
     "en": {
       "language.label": "Language",
@@ -753,7 +769,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "es": {
       "language.label": "Idioma",
@@ -1105,7 +1137,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "fr": {
       "language.label": "Langue",
@@ -1457,7 +1505,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "it": {
       "language.label": "Lingua",
@@ -1809,7 +1873,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "ja": {
       "language.label": "言語",
@@ -2161,7 +2241,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "pl": {
       "language.label": "Język",
@@ -2513,7 +2609,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2865,7 +2977,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "ru": {
       "language.label": "Язык",
@@ -3217,7 +3345,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3569,7 +3713,23 @@ function wrapper(plugin_info) {
       "map.limited": "Very dense plan: field shading is limited; all resolved plan links remain visible.",
       "blocker.showAll": "Show all blockers",
       "blocker.clearSelection": "Clear selection",
-      "map.hideIntelFields": "Hide Intel field fills"
+      "map.hideIntelFields": "Hide Intel field fills",
+      "spine.mode": "Planning pattern",
+      "spine.separate": "Separate fans",
+      "spine.title": "Spine fields · two anchors",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
+      "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
+      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.position": "Spine position",
+      "spine.step": "Spine {index}",
+      "spine.unused": "Not in proposal",
+      "spine.leaf": "Spine candidate",
+      "spine.routeOrder": "Spine build order · travel respects throw sequence",
+      "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
+      "spine.prerequisite": "Earlier spine throws are still missing",
+      "spine.throw": "Throw {index}",
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
     }
   };
   // AP_LOCALES_END
@@ -4676,7 +4836,7 @@ function wrapper(plugin_info) {
     return plan;
   };
 
-  ap.buildWorkPlanForOrder = function (base, start, location, targets) {
+  ap.buildWorkPlanForOrder = function (base, start, location, targets, sequence) {
     var openLinks = (ap.runtime.links || []).filter(function (link) { return !link.existing; });
     var stops = base.filter(function (portal) {
       return openLinks.some(function (link) {
@@ -4686,9 +4846,25 @@ function wrapper(plugin_info) {
     }).map(function (portal) {
       return { portal: portal, planVisit: true, blockers: [], links: [], routeTargetType: 'plan' };
     });
+    // A spine is a sequence of throws, not a permutation of unique portals.
+    // Alternate confirmed directions may require revisiting an anchor.
+    if (sequence) {
+      stops = [];
+      sequence.forEach(function (edge) {
+        var link = openLinks.find(function (item) { return item.id === ap.normalizedLinkId(edge[0], edge[1]); });
+        if (!link) return;
+        var direction = ap.getLinkDirection(link), from = direction ? direction.from : edge[0];
+        var portal = base.find(function (item) { return item.guid === from; });
+        if (!portal) return;
+        var last = stops[stops.length - 1];
+        if (!last || last.portal.guid !== from) { last = { portal: portal, planVisit: true, blockers: [], links: [], routeTargetType: 'plan' }; stops.push(last); }
+        last.links.push(link);
+      });
+    }
     var unscheduled = [];
     var blocked = ap.getWorkBlockers();
     function linkVisit(link) {
+      if (sequence) return stops.findIndex(function (stop) { return stop.links.some(function (task) { return task.id === link.id; }); });
       var direction = ap.getLinkDirection(link);
       var candidates = direction ? [direction.from] : [link.a, link.b];
       return stops.findIndex(function (stop) { return stop.planVisit && candidates.indexOf(stop.portal.guid) !== -1; });
@@ -4740,7 +4916,7 @@ function wrapper(plugin_info) {
     (ap.runtime.links || []).filter(function (link) { return !link.existing; }).forEach(function (link) {
       var index = linkVisit(link);
       if (index < 0) unassigned.push(link);
-      else stops[index].links.push(link);
+      else if (!sequence) stops[index].links.push(link);
     });
     // Destinations and unused direction candidates carry no executable task.
     stops = stops.filter(function (stop) { return stop.links.length || stop.blockers.length; });
@@ -4791,6 +4967,8 @@ function wrapper(plugin_info) {
     location = ap.getWorkRouteLocation(location);
     var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat); });
     var start = location && location.latlng || null;
+    var spine = ap.getActiveSpinePlan();
+    if (spine) return ap.addWorkRouteStart(ap.buildWorkPlanForOrder(ap.sortedStats(false), start, location, {}, spine.links));
     if (start && ap.state.workRouteMode !== 'manual') {
       var remaining = base.slice(), sorted = [], point = start;
       while (remaining.length) {
@@ -4887,6 +5065,7 @@ function wrapper(plugin_info) {
       portals: ap.sortedStats(false).map(function (stat) { return [stat.guid, stat.lat, stat.lng, ap.ensureAnchorState(stat.guid).done]; }),
       selections: ap.state.blockerRoutePortals,
       tasks: ap.state.blockerTasks,
+      spine: ap.getActiveSpinePlan(),
       mode: ap.state.workRouteMode, start: ap.state.workRouteStart
     });
     var cached = ap.runtime.workPlan;
@@ -4927,6 +5106,7 @@ function wrapper(plugin_info) {
   };
 
   ap.workRouteLabel = function (location) {
+    if (ap.getActiveSpinePlan()) return ap.t('spine.routeOrder');
     if (ap.state.workRouteMode === 'portal') {
       var portal = ap.runtime.stats[ap.state.workRouteStart];
       return ap.workPoint(portal) ? ap.t('tasks.modePortal', { title: ap.displayPortalTitle(portal.title) }) : ap.t('tasks.startUnavailable');
@@ -4937,7 +5117,7 @@ function wrapper(plugin_info) {
   ap.getSuggestedLinkDirections = function () {
     var links = (ap.runtime.links || []).filter(function (link) { return link && !link.existing; });
     var ranks = Object.create(null), owned = Object.create(null), available = Object.create(null), sources = Object.create(null);
-    var plugin = ap.getKeysPlugin();
+    var plugin = ap.getKeysPlugin(), spine = ap.getActiveSpinePlan();
     ap.getWorkPlan().stops.forEach(function (stop, index) {
       if (stop.planVisit && ranks[stop.portal.guid] === undefined) ranks[stop.portal.guid] = index;
     });
@@ -4947,7 +5127,7 @@ function wrapper(plugin_info) {
         owned[guid] = plugin ? ap.getOwnedKeys(guid) : null;
         available[guid] = owned[guid];
         var stat = (ap.runtime.stats || {})[guid];
-        sources[guid] = ap.isOpenPlanPortal(stat) && !!ap.workPoint(stat);
+        sources[guid] = (!!spine || ap.isOpenPlanPortal(stat)) && !!ap.workPoint(stat);
       });
     });
     // Explicit open throws have first claim on inventory, even if their source was marked done.
@@ -4957,6 +5137,7 @@ function wrapper(plugin_info) {
     });
     var signature = JSON.stringify({
       links: links.map(function (link) { var direction = ap.getLinkDirection(link); return [link.id, link.a, link.b, direction && direction.from]; }).sort(function (a, b) { return String(a[0]).localeCompare(String(b[0])); }),
+      spine: ap.getActiveSpinePlan(),
       keys: Object.keys(owned).sort().map(function (guid) { return [guid, owned[guid], sources[guid]]; }),
       route: Object.keys(ranks).sort(function (a, b) { return ranks[a] - ranks[b]; })
     });
@@ -4967,6 +5148,8 @@ function wrapper(plugin_info) {
       var choices = [link.a, link.b].filter(function (from) { return sources[from]; }).map(function (from) {
         return { from: from, to: from === link.a ? link.b : link.a };
       }).sort(function (a, b) { return rank(a.from) - rank(b.from) || a.from.localeCompare(b.from); });
+      var step = spine && spine.links.find(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; });
+      if (step) choices.sort(function (a, b) { return Number(b.from === step[0]) - Number(a.from === step[0]); });
       return { id: link.id, choices: choices };
     }).sort(function (a, b) {
       return rank(a.choices[0] && a.choices[0].from) - rank(b.choices[0] && b.choices[0].from) || a.id.localeCompare(b.id);
@@ -5033,7 +5216,8 @@ function wrapper(plugin_info) {
     });
     var missing = direction && ap.runtime.stats[direction.to] && ap.getOwnedKeys(direction.to) !== null && ap.getOwnedKeys(direction.to) < 1;
     var status = link.existing ? 'tasks.existing' : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
-    var html = '<div class="ap-task-link"><span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
+    var spine = ap.getActiveSpinePlan(), step = spine ? spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; }) : -1;
+    var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
     if (!link.existing) {
       html += '<label>' + ap.escapeHtml(ap.t('tasks.direction')) + ' <select class="ap-task-direction" aria-label="' + ap.escapeHtml(ap.t('tasks.direction')) + '" data-link="' + index + '">';
       ['', link.a, link.b].forEach(function (from) {
@@ -5071,6 +5255,7 @@ function wrapper(plugin_info) {
     var html = '<div class="ap-task-toolbar"><button id="ap-task-next">' + ap.escapeHtml(ap.t('next.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
+    html += ap.spineNoticeHtml();
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
@@ -5098,7 +5283,7 @@ function wrapper(plugin_info) {
         html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
         html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (ap.getOwnedKeys(portal.guid) === null ? '' : ap.getOwnedKeys(portal.guid)) + '"' + (ap.getOwnedKeys(portal.guid) === null ? ' disabled placeholder="?"' : '') + '></label>';
         stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
-        html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
+        if (!ap.getActiveSpinePlan()) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
       html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button>';
       if (ap.workPoint(ap.runtime.stats[portal.guid])) html += '<button class="ap-task-start" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('tasks.startPortal')) + '</button>';
@@ -5200,6 +5385,7 @@ function wrapper(plugin_info) {
     var location = ap.getWorkRouteLocation(ap.getCurrentUserLocation()), plan = ap.getWorkPlan(location);
     var points = Object.create(null), keys = Object.create(null), edges = Object.create(null), formed = new Set();
     var built = [], fields = [], cleared = new Set(), trail = [], paths = [[]], distance = 0;
+    var spine = ap.getActiveSpinePlan();
     (ap.runtime.links || []).forEach(function (link) {
       var pointA = ap.workPoint(link.latlngA), pointB = ap.workPoint(link.latlngB);
       if (pointA) points[link.a] = { lat: pointA.lat, lng: pointA.lng };
@@ -5211,13 +5397,20 @@ function wrapper(plugin_info) {
       if (point) points[guid] = { lat: point.lat, lng: point.lng };
     });
     function closeTriangles(a, b, emit) {
+      var candidates = [];
       Object.keys(points).forEach(function (c) {
         if (c === a || c === b || !edges[ap.normalizedLinkId(a, c)] || !edges[ap.normalizedLinkId(b, c)]) return;
         var id = [a, b, c].sort().join('|');
         if (formed.has(id) || !points[a] || !points[b]) return;
         var p = points[a], q = points[b], r = points[c];
         if (Math.abs((q.lng-p.lng)*(r.lat-p.lat)-(q.lat-p.lat)*(r.lng-p.lng)) < 1e-12) return;
-        formed.add(id); if (emit) fields.push([p, q, r]);
+        if (spine && emit) candidates.push({ id: id, points: [p, q, r], area: ap.orientation(p, q, r) });
+        else { formed.add(id); if (emit) fields.push([p, q, r]); }
+      });
+      // Ingress closes at most the largest available triangle on each side.
+      if (spine && emit) [-1, 1].forEach(function (side) {
+        var candidate = candidates.filter(function (item) { return item.area * side > 0; }).sort(function (x, y) { return Math.abs(y.area) - Math.abs(x.area); })[0];
+        if (candidate) { formed.add(candidate.id); fields.push(candidate.points); }
       });
     }
     Object.keys(edges).forEach(function (id) { closeTriangles(edges[id][0], edges[id][1], false); });
@@ -5239,6 +5432,7 @@ function wrapper(plugin_info) {
         var target = direction && direction.to;
         if (!direction) status = 'walk.direction';
         else if (!point || !points[target]) status = 'walk.coordinates';
+        else if (spine && spine.links.slice(0, spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; })).some(function (edge) { return !edges[ap.normalizedLinkId(edge[0], edge[1])]; })) status = 'spine.prerequisite';
         else if (plan.blockers.some(function (item) { return item.links.some(function (other) { return other.id === link.id; }) && !cleared.has(item.id); })) status = 'walk.blocked';
         else {
           if (!Object.prototype.hasOwnProperty.call(keys, target)) keys[target] = ap.getOwnedKeys(target);
@@ -5279,7 +5473,30 @@ function wrapper(plugin_info) {
       return Array.isArray(field) && field.length === 3 && new Set(field).size === 3 && field.every(function (guid) { return !!byGuid[guid]; }) &&
         seen.has(ap.normalizedLinkId(field[0], field[1])) && seen.has(ap.normalizedLinkId(field[0], field[2])) && seen.has(ap.normalizedLinkId(field[1], field[2]));
     }).map(function (field) { return field.slice(); });
-    return { anchors: anchors, assignments: assignments, portals: portals, links: links, fields: fields, selectionAreaKey: typeof value.selectionAreaKey === 'string' ? value.selectionAreaKey : '', areaKeys: Array.isArray(value.areaKeys) ? value.areaKeys.filter(function (key) { return typeof key === 'string'; }).slice(0, 100) : [] };
+    var design = { anchors: anchors, assignments: assignments, portals: portals, links: links, fields: fields, selectionAreaKey: typeof value.selectionAreaKey === 'string' ? value.selectionAreaKey : '', areaKeys: Array.isArray(value.areaKeys) ? value.areaKeys.filter(function (key) { return typeof key === 'string'; }).slice(0, 100) : [] };
+    if (value.mode === 'spine') {
+      var spine = Array.isArray(value.spine) ? value.spine.filter(function (guid) { return !!byGuid[guid] && anchors.indexOf(guid) === -1; }) : [];
+      if (anchors.length !== 2 || !spine.length || new Set(spine).size !== spine.length) return null;
+      var expected = ap.spineLinkSequence(anchors, spine);
+      if (links.length !== expected.length || expected.some(function (edge, index) { return edge[0] !== links[index][0] || edge[1] !== links[index][1]; })) return null;
+      design.mode = 'spine'; design.spine = spine;
+    }
+    return design;
+  };
+  ap.spineLinkSequence = function (anchors, spine) {
+    var sequence = [[anchors[0], anchors[1]]];
+    spine.forEach(function (guid, index) {
+      sequence.push([guid, anchors[0]], [guid, anchors[1]]);
+      if (index) sequence.push([guid, spine[index - 1]]);
+    });
+    return sequence;
+  };
+  ap.getActiveSpinePlan = function () {
+    var plan = ap.getActiveFanPlan();
+    return plan && plan.mode === 'spine' ? plan : null;
+  };
+  ap.spineNoticeHtml = function () {
+    return ap.getActiveSpinePlan() ? '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('spine.workflow')) + '</p>' : '';
   };
   ap.isFanAreaLayer = function (layer) {
     return typeof L.Polygon === 'function' && layer instanceof L.Polygon || !!(layer.options && layer.options.fill === true && layer.getLatLngs);
@@ -5297,7 +5514,8 @@ function wrapper(plugin_info) {
     }
     return inside(a, c, d) || inside(b, c, d) || inside(c, a, b) || inside(d, a, b);
   };
-  ap.buildFanDesign = function (portals, anchorGuids, assignments) {
+  ap.buildFanDesign = function (portals, anchorGuids, assignments, mode) {
+    if (mode === 'spine') return ap.buildSpineDesign(portals, anchorGuids);
     var result = { anchors: [], assignments: {}, links: [], fields: [], errors: [], length: 0, existing: 0, blocked: 0 };
     var byGuid = Object.create(null), coordinates = new Set();
     if (portals.length < 3 || portals.length > 200) { result.errors.push('fan.limit'); return result; }
@@ -5379,6 +5597,71 @@ function wrapper(plugin_info) {
     result.errors = Array.from(new Set(result.errors));
     return result;
   };
+  // First draft: one strictly nested chain on one side of a shared baseline.
+  // Dynamic programming maximizes chain length for a fixed anchor pair.
+  ap.buildSpineDesign = function (portals, anchorGuids) {
+    var result = { mode: 'spine', anchors: [], assignments: {}, spine: [], links: [], fields: [], unused: [], errors: [], length: 0, existing: 0, blocked: 0 };
+    if (portals.length < 3 || portals.length > 200) { result.errors.push('fan.limit'); return result; }
+    var byGuid = Object.create(null), coordinates = new Set();
+    portals.forEach(function (p) {
+      if (!p || !ap.workPoint(p) || typeof p.guid !== 'string' || !p.guid || byGuid[p.guid] || coordinates.has(ap.latLngKey(p))) result.errors.push('fan.invalid');
+      else { byGuid[p.guid] = p; coordinates.add(ap.latLngKey(p)); }
+    });
+    var ids = Array.from(new Set(anchorGuids)).sort();
+    if (ids.length !== 2 || ids.some(function (id) { return !byGuid[id]; })) result.errors.push('spine.twoAnchors');
+    if (result.errors.length) return result;
+    result.anchors = ids.map(function (id) { return byGuid[id]; });
+    var a = result.anchors[0], b = result.anchors[1];
+    function inside(inner, outer) {
+      var side = Math.sign(ap.orientation(a, b, outer));
+      return ap.orientation(a, b, inner) * side > 1e-12 && ap.orientation(b, outer, inner) * side > 1e-12 && ap.orientation(outer, a, inner) * side > 1e-12;
+    }
+    var candidates = portals.filter(function (p) { return ids.indexOf(p.guid) === -1 && Math.abs(ap.orientation(a, b, p)) > 1e-12; });
+    candidates.sort(function (x, y) { return Math.abs(ap.orientation(a, b, x)) - Math.abs(ap.orientation(a, b, y)) || x.guid.localeCompare(y.guid); });
+    var chains = [], best = [];
+    candidates.forEach(function (outer, index) {
+      var chain = [];
+      for (var i = 0; i < index; i++) if (chains[i].length > chain.length && inside(candidates[i], outer)) chain = chains[i];
+      chains[index] = chain.concat(outer);
+      if (chains[index].length > best.length) best = chains[index];
+    });
+    result.spine = best.map(function (p) { return p.guid; });
+    result.unused = portals.filter(function (p) { return ids.indexOf(p.guid) === -1 && result.spine.indexOf(p.guid) === -1; }).map(function (p) { return p.guid; });
+    if (!best.length) { result.errors.push('spine.noChain'); return result; }
+    var existing = ap.collectExistingLinkIds(portals.map(function (p) { return Object.assign({}, p, { latlng: ap.workPoint(p) }); }));
+    ap.spineLinkSequence(ids, result.spine).forEach(function (pair) {
+      var edge = { a: byGuid[pair[0]], b: byGuid[pair[1]], anchor: a.guid, id: ap.normalizedLinkId(pair[0], pair[1]) };
+      if (result.links.some(function (other) { return ap.fanEdgesConflict(edge, other); })) result.errors.push('fan.conflict');
+      edge.existing = ap.isUsableExistingLink(existing.map[edge.id]);
+      edge.blockers = existing.list.filter(function (real) { return real.latlngA && real.latlngB && (ap.factionRelation(real) === 'enemy' && edge.id === ap.normalizedLinkId(real.a, real.b) || ap.properSegmentsIntersect(edge.a, edge.b, real.latlngA, real.latlngB)); }).length;
+      result.links.push(edge); result.length += ap.workDistance(ap.workPoint(edge.a), ap.workPoint(edge.b));
+      if (edge.existing) result.existing++;
+      if (edge.blockers) result.blocked++;
+    });
+    best.forEach(function (p, index) {
+      result.fields.push([a, b, p]);
+      if (index) result.fields.push([a, best[index - 1], p], [b, best[index - 1], p]);
+    });
+    result.errors = Array.from(new Set(result.errors));
+    return result;
+  };
+  ap.suggestSpineAnchors = function (portals, pinned) {
+    var fixed = Array.from(new Set(pinned || [])), ids = new Set(portals.map(function (p) { return p.guid; }));
+    if (fixed.length > 2 || fixed.some(function (id) { return !ids.has(id); })) return { anchors: fixed, evaluations: 0 };
+    var candidates = portals.slice().sort(function (a, b) { return a.guid.localeCompare(b.guid); }), pairs = [];
+    candidates.forEach(function (a, index) { candidates.slice(index + 1).forEach(function (b) {
+      if (fixed.some(function (id) { return id !== a.guid && id !== b.guid; })) return;
+      pairs.push({ ids: [a.guid, b.guid], distance: ap.workDistance(ap.workPoint(a), ap.workPoint(b)) });
+    }); });
+    pairs.sort(function (a, b) { return b.distance - a.distance || a.ids.join('|').localeCompare(b.ids.join('|')); });
+    var best = null, anchors = [], evaluations = 0, budget = Math.min(80, Math.max(16, Math.floor(6000 / portals.length)));
+    pairs.slice(0, budget).forEach(function (pair) {
+      var plan = ap.buildSpineDesign(portals, pair.ids); evaluations++;
+      if (!best || plan.errors.length < best.errors.length || plan.errors.length === best.errors.length &&
+          (plan.spine.length > best.spine.length || plan.spine.length === best.spine.length && (plan.blocked < best.blocked || plan.blocked === best.blocked && (plan.existing > best.existing || plan.existing === best.existing && plan.length < best.length)))) { best = plan; anchors = pair.ids; }
+    });
+    return { anchors: anchors, evaluations: evaluations, limited: pairs.length > budget };
+  };
   ap.suggestFanAnchors = function (portals, count, pinned, assignments) {
     var anchors = Array.from(new Set((pinned || []).concat(Object.values(assignments || {}).filter(function (guid) { return !!guid; })))), evaluations = 0;
     var budget = Math.min(100, Math.max(3, Math.floor(600 / Math.max(1, portals.length))));
@@ -5423,14 +5706,15 @@ function wrapper(plugin_info) {
     }
     var count = Number(draft.count), max = portals.length - 1;
     var ids = new Set(portals.map(function (p) { return p.guid; }));
-    var fixed = new Set(draft.pinned.concat(Object.values(draft.assignments).filter(function (guid) { return !!guid; })).filter(function (guid) { return ids.has(guid); }));
+    var fixed = new Set(draft.pinned.concat(draft.mode === 'spine' ? [] : Object.values(draft.assignments).filter(function (guid) { return !!guid; })).filter(function (guid) { return ids.has(guid); }));
     if (!isFinite(count) || Math.floor(count) !== count || count < 1 || count > max) draft.countError = ap.t('fan.countInvalid', { max: max });
     else if (count < fixed.size) draft.countError = ap.t('fan.countPinned', { count: fixed.size });
+    if (draft.mode === 'spine' && (count !== 2 || fixed.size > 2)) draft.countError = ap.t('spine.twoAnchors');
     if (draft.countError) {
       ap.clearFanPreview(); draft.preview = null; ap.refreshFanPlanner(); return false;
     }
     draft.count = count; draft.countDirty = false;
-    draft.anchors = ap.suggestFanAnchors(portals, count, draft.pinned, draft.assignments).anchors;
+    draft.anchors = draft.mode === 'spine' ? ap.suggestSpineAnchors(portals, draft.pinned).anchors : ap.suggestFanAnchors(portals, count, draft.pinned, draft.assignments).anchors;
     ap.previewFanDesign(); return true;
   };
   ap.getFanAreas = function () {
@@ -5476,7 +5760,7 @@ function wrapper(plugin_info) {
     if (!draft) return;
     ap.clearFanPreview();
     var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
-    draft.preview = ap.buildFanDesign(portals, draft.anchors, draft.assignments);
+    draft.preview = ap.buildFanDesign(portals, draft.anchors, draft.assignments, draft.mode);
     if (draft.source === 'area' && !ap.getFanAreas().length) draft.preview.errors = ['fan.areaRequired'];
 
     // The native proposal is rendered directly, independently of Draw Tools.
@@ -5495,12 +5779,12 @@ function wrapper(plugin_info) {
     if (!draft || draft.countDirty || draft.countError || !draft.preview || draft.preview.errors.length) return false;
     if (ap.runtime.walkSimulation || ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('fan.busy')); return false; }
     var portals = draft.portals.filter(function (p) { return !draft.excluded[p.guid]; });
-    var plan = ap.buildFanDesign(portals, draft.anchors, draft.assignments);
+    var plan = ap.buildFanDesign(portals, draft.anchors, draft.assignments, draft.mode);
     if (plan.errors.length) return false;
     var previous = ap.state.fanDesign, previousSource = ap.state.planSource;
     ap.state.planSource = 'fan';
-    ap.state.fanDesign = ap.normalizeFanDesign({ anchors: plan.anchors.map(function (p) { return p.guid; }), assignments: plan.assignments,
-      portals: portals, links: plan.links.map(function (edge) { return [edge.a.guid, edge.b.guid]; }),
+    ap.state.fanDesign = ap.normalizeFanDesign({ mode: plan.mode, spine: plan.spine, anchors: plan.anchors.map(function (p) { return p.guid; }), assignments: plan.assignments,
+      portals: plan.mode === 'spine' ? portals.filter(function (p) { return plan.anchors.some(function (a) { return a.guid === p.guid; }) || plan.spine.indexOf(p.guid) !== -1; }) : portals, links: plan.links.map(function (edge) { return [edge.a.guid, edge.b.guid]; }),
       selectionAreaKey: draft.source === 'area' ? draft.areaKey || '' : '', fields: plan.fields.map(function (field) { return field.map(function (p) { return p.guid; }); }),
       areaKeys: Array.from(new Set((previous && previous.areaKeys || []).concat(draft.source === 'area' && draft.areaKey ? [draft.areaKey] : []))) });
     try { localStorage.setItem(ap.STORAGE_KEY, JSON.stringify(ap.state, function (key, value) { return key === 'ownedKeys' ? undefined : value; })); }
@@ -5685,7 +5969,8 @@ function wrapper(plugin_info) {
     }
   };
   ap.fanPlannerHtml = function () {
-    var draft = ap.runtime.fanDraft, html = ap.intelFieldControlsHtml() + '<p>' + ap.escapeHtml(ap.t('fan.help')) + '</p>';
+    var draft = ap.runtime.fanDraft, html = ap.intelFieldControlsHtml() + '<p>' + ap.escapeHtml(ap.t(draft.mode === 'spine' ? 'spine.help' : 'fan.help')) + '</p>';
+    html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('spine.mode')) + ' <select id="ap-fan-mode"><option value="fan"' + (draft.mode !== 'spine' ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('spine.separate')) + '</option><option value="spine"' + (draft.mode === 'spine' ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('spine.title')) + '</option></select></label></div>';
     if (ap.runtime.nameLoader) html += '<p>' + ap.escapeHtml(ap.t('message.namesLoadingAuto', { current: ap.runtime.nameLoader.index, total: ap.runtime.nameLoader.queue.length })) + '</p>';
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
     var sourceKeys = { map: 'fan.source.map', area: 'fan.source.area' };
@@ -5697,7 +5982,7 @@ function wrapper(plugin_info) {
       html += '</select></label>';
     }
     var maxAnchors = Math.max(1, Math.min(199, draft.portals.filter(function (p) { return !draft.excluded[p.guid]; }).length - 1));
-    html += '<fieldset class="ap-fan-anchor-options"><legend>' + ap.escapeHtml(ap.t('fan.suggest')) + '</legend><div class="ap-fan-controls"><label for="ap-fan-count">' + ap.escapeHtml(ap.t('fan.count')) + '</label><input id="ap-fan-count" type="number" inputmode="numeric" min="1" max="' + maxAnchors + '" step="1" value="' + ap.escapeHtml(draft.count) + '" aria-describedby="ap-fan-count-help ap-fan-count-feedback"><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button></div><small id="ap-fan-count-help">' + ap.escapeHtml(ap.t('fan.countHelp')) + '</small><p id="ap-fan-count-feedback" class="ap-task-warning">' + ap.escapeHtml(draft.countError || (draft.countDirty ? ap.t('fan.countChanged') : '')) + '</p></fieldset>';
+    html += '<fieldset class="ap-fan-anchor-options"><legend>' + ap.escapeHtml(ap.t('fan.suggest')) + '</legend><div class="ap-fan-controls"><label for="ap-fan-count">' + ap.escapeHtml(ap.t('fan.count')) + '</label><input id="ap-fan-count" type="number" inputmode="numeric" min="1" max="' + maxAnchors + '" step="1" value="' + ap.escapeHtml(draft.count) + '" aria-describedby="ap-fan-count-help ap-fan-count-feedback"><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button></div><small id="ap-fan-count-help">' + ap.escapeHtml(ap.t(draft.mode === 'spine' ? 'spine.countHelp' : 'fan.countHelp')) + '</small><p id="ap-fan-count-feedback" class="ap-task-warning">' + ap.escapeHtml(draft.countError || (draft.countDirty ? ap.t('fan.countChanged') : '')) + '</p></fieldset>';
     html += '<div class="ap-fan-controls"><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-use-saved">' + ap.escapeHtml(ap.t('fan.useSaved')) + '</button>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-clear">' + ap.escapeHtml(ap.t('fan.clear')) + '</button>';
@@ -5705,13 +5990,19 @@ function wrapper(plugin_info) {
       html += '<p><b>' + ap.escapeHtml(ap.t('fan.summary', { anchors: draft.preview.anchors.length, links: draft.preview.links.length, fields: draft.preview.fields.length, blocked: draft.preview.blocked, existing: draft.preview.existing })) + '</b></p>';
       if (!draft.preview.errors.length) html += ap.planMapLegendHtml(false);
       draft.preview.errors.forEach(function (error) { html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t(error)) + '</p>'; });
+      if (draft.mode === 'spine' && !draft.preview.errors.length) html += '<p>' + ap.escapeHtml(ap.t('spine.summary', { count: draft.preview.spine.length, unused: draft.preview.unused.length })) + '</p>';
     }
-    html += '<table><thead><tr><th>' + ap.escapeHtml(ap.t('tasks.columnPortal')) + '</th><th>' + ap.escapeHtml(ap.t('fan.role')) + '</th><th>' + ap.escapeHtml(ap.t('fan.assignment')) + '</th></tr></thead><tbody>';
+    html += '<table><thead><tr><th>' + ap.escapeHtml(ap.t('tasks.columnPortal')) + '</th><th>' + ap.escapeHtml(ap.t('fan.role')) + '</th><th>' + ap.escapeHtml(ap.t(draft.mode === 'spine' ? 'spine.position' : 'fan.assignment')) + '</th></tr></thead><tbody>';
     draft.portals.forEach(function (portal) {
-      var roleKeys = { leaf: 'fan.leaf', anchor: 'fan.anchor', exclude: 'fan.exclude' };
+      var roleKeys = { leaf: draft.mode === 'spine' ? 'spine.leaf' : 'fan.leaf', anchor: 'fan.anchor', exclude: 'fan.exclude' };
       var role = draft.anchors.indexOf(portal.guid) !== -1 ? 'anchor' : draft.excluded[portal.guid] ? 'exclude' : 'leaf';
       html += '<tr><td>' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + (draft.pinned.indexOf(portal.guid) !== -1 ? ' ★' : '') + '</td><td><select class="ap-fan-role" data-guid="' + ap.escapeHtml(portal.guid) + '">';
       ['leaf', 'anchor', 'exclude'].forEach(function (value) { html += '<option value="' + value + '"' + (role === value ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(roleKeys[value])) + '</option>'; });
+      if (draft.mode === 'spine') {
+        var position = draft.preview && draft.preview.spine ? draft.preview.spine.indexOf(portal.guid) : -1;
+        html += '</select></td><td>' + ap.escapeHtml(ap.t(role === 'anchor' ? 'fan.anchor' : position >= 0 ? 'spine.step' : 'spine.unused', { index: position + 1 })) + '</td></tr>';
+        return;
+      }
       html += '</select></td><td><select class="ap-fan-assignment" data-guid="' + ap.escapeHtml(portal.guid) + '"' + (role !== 'leaf' ? ' disabled' : '') + '><option value="">' + ap.escapeHtml(ap.t('tasks.automatic')) + '</option>';
       draft.anchors.forEach(function (guid) {
         var anchor = draft.portals.find(function (p) { return p.guid === guid; });
@@ -5728,6 +6019,12 @@ function wrapper(plugin_info) {
     if (!draft || !draft.open || !element) return;
     var scroll = element.scrollTop; element.innerHTML = ap.fanPlannerHtml(); element.scrollTop = scroll;
     ap.wireIntelFieldControls(element);
+    element.querySelector('#ap-fan-mode').onchange = function () {
+      ap.clearFanPreview(); draft.preview = null; draft.mode = this.value === 'spine' ? 'spine' : 'fan';
+      draft.countError = ''; draft.countDirty = true;
+      if (draft.mode === 'spine' && Number(draft.count) === 1) draft.count = 2;
+      ap.suggestFanDraft();
+    };
     element.querySelector('#ap-fan-source').onchange = function () { draft.source = this.value; element.querySelector('#ap-fan-load').onclick(); };
     var countInput = element.querySelector('#ap-fan-count');
     countInput.value = draft.count;
@@ -5780,7 +6077,7 @@ function wrapper(plugin_info) {
     ap.clearFanPreview();
     ap.runtime.fanDesigning = true;
     ap.renderOverlays();
-    var draft = { portals: portals, source: source, areaKey: areaKey, count: 1, anchors: [], pinned: [], excluded: {}, assignments: {}, preview: null, open: true };
+    var draft = { mode: 'fan', portals: portals, source: source, areaKey: areaKey, count: 1, anchors: [], pinned: [], excluded: {}, assignments: {}, preview: null, open: true };
     ap.runtime.fanDraft = draft;
     if (portals.length >= 3 && portals.length <= 200) draft.anchors = ap.suggestFanAnchors(portals, draft.count, [], {}).anchors;
     ap.renderPanel();
@@ -5795,6 +6092,7 @@ function wrapper(plugin_info) {
     var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length; });
     var stop = plan.stops[index];
     var html = '<div class="ap-next-toolbar"><button id="ap-next-all">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-next-scan"' + (ap.runtime.finalScan && ap.runtime.finalScan.running ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button></div>';
+    html += ap.spineNoticeHtml();
     html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + '</p>';
     if (!ap.getKeysPlugin()) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
@@ -5813,7 +6111,7 @@ function wrapper(plugin_info) {
       html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions);
       if (target) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>';
     });
-    if (stop.planVisit) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
+    if (stop.planVisit && !ap.getActiveSpinePlan()) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
     html += '<details data-next-id="notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p></details>';
     return html;
   };
@@ -5996,7 +6294,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = ap.spineNoticeHtml() + '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
@@ -8682,6 +8980,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-view-nav"><button id="ap-home">' + ap.escapeHtml(ap.t('ui.home')) + '</button><b>' + ap.escapeHtml(ap.t(fanView ? 'fan.title' : 'workspace.anchors')) + '</b><button id="ap-settings">' + ap.escapeHtml(ap.t('ui.settings')) + '</button></div>';
     if (!fanView && !(window.plugin && window.plugin.drawTools)) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('scan.drawToolsMissing')) + '</p>';
     html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(fanView ? 'ui.refreshFan' : 'action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
+    html += ap.spineNoticeHtml();
     if (fanView) html += '<div class="ap-fan-plan-actions"><button id="ap-fan-design">' + ap.escapeHtml(ap.t('ui.editFan')) + '</button><button id="ap-fan-remove-plan">' + ap.escapeHtml(ap.t('fan.clear')) + '</button></div>';
     html += '<div class="ap-next-entry"><button id="ap-next-task">' + ap.escapeHtml(ap.t('next.title')) + '</button></div>';
     html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
