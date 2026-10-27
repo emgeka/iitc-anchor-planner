@@ -15,7 +15,9 @@ function runtime(){
     L:{latLng:point,LayerGroup:Layer,polyline:(p,o)=>draw('line',p,o),polygon:(p,o)=>draw('field',p,o),circleMarker:(p,o)=>draw('head',p,o)},
     window:{bootPlugins:[],innerWidth:360,portals:{},map:{getCenter:()=>point(9,9),getZoom:()=>13,stop:()=>mapEvents.push(['stop']),panTo:(p,options)=>mapEvents.push(['pan',p,options]),setView:(p,z)=>mapEvents.push(['restore',p,z]),removeLayer:()=>mapEvents.push(['remove'])},alert:m=>mapEvents.push(['alert',m])}};
   vm.runInNewContext(wrapper+'\nwrapper({});',context);const ap=context.window.plugin.anchorPlanner;
-  const renderOverlays=ap.renderOverlays;
+  const renderOverlays=ap.renderOverlays,realOwnership=ap.getPortalOwnership;
+  // Baseline simulation fixtures have friendly portals; ownership-specific cases restore the real reader.
+  ap.getPortalOwnership=()=>({faction:'res',action:'',source:'fixture'});
   ap.state.language='en';ap.renderPanel=()=>{};ap.renderOverlays=()=>{};ap.refreshTaskList=()=>{};
   context.window.dialog=d=>context.dialog=d;
   context.window.plugin.keys={keys:{B:1,C:2},addKey(){throw new Error('Simulation must never write Keys');}};
@@ -28,7 +30,7 @@ function runtime(){
     {portal:ap.runtime.stats.B,planVisit:true,links:[bc],blockers:[]},
     {portal:ap.runtime.stats.A,planVisit:true,links:[],blockers:[]}],blockers:[blocker],unscheduled:[],unassigned:[]};
   ap.getWorkPlan=()=>plan;ap.getCurrentUserLocation=()=>({latlng:point(0,-2)});
-  return {ap,context,storage,timers,timerDelays,layers,mapEvents,plan,ab,ac,bc,renderOverlays};
+  return {ap,context,storage,timers,timerDelays,layers,mapEvents,plan,ab,ac,bc,renderOverlays,realOwnership};
 }
 {
   const {ap,context,storage}=runtime(),before=JSON.stringify(ap.state),inventory=JSON.stringify(context.window.plugin.keys.keys);
@@ -269,3 +271,23 @@ console.log('Walk simulation checks passed: independent target geometry, distinc
 
 
 console.log("Spine ordered fields, prerequisite propagation and real inventory isolation passed.");
+
+{
+  const {ap,context,storage,ab,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  ap.runtime.links=[ab];ap.runtime.stats={A:{guid:'A',title:'Source',lat:0,lng:0,openLinks:1,linkCount:1},B:{guid:'B',title:'Enemy target',lat:0,lng:1,openLinks:1,linkCount:1}};
+  for(const guid of ['A','B'])ap.ensureAnchorState(guid);
+  context.window.portals={A:{options:{team:'ENLIGHTENED'}},B:{options:{team:'ENLIGHTENED'}}};
+  ap.getWorkPlan=()=>ap.buildWorkPlan(null);const before=JSON.stringify(ap.state),portals=JSON.stringify(context.window.portals),keys=JSON.stringify(context.window.plugin.keys.keys);
+  let model=ap.createWalkSimulation();assert.equal(model.frames.flatMap(f=>f.actions).filter(a=>a.kind==='portal').length,2);assert.equal(model.frames.at(-1).links.length,1);
+  const targetCapture=model.frames.findIndex(f=>f.actions.some(a=>a.kind==='portal'&&a.title.includes('Enemy target'))),throwFrame=model.frames.findIndex(f=>f.links.length);
+  assert.ok(targetCapture<=throwFrame,'A destination-only enemy portal must be captured before the simulated link');
+  context.window.portals.B.options.team=999;model=ap.createWalkSimulation();assert.equal(model.frames.at(-1).links.length,0);assert.ok(model.frames.flatMap(f=>f.actions).some(a=>a.status==='portal.notReady'));
+  context.window.portals.B.options.team='MACHINA';context.window.plugin.keys.keys.B=0;model=ap.createWalkSimulation();
+  assert.equal(model.frames.flatMap(f=>f.actions).filter(a=>a.kind==='portal'&&a.status==='portal.simulated').length,2,'Captures are independent of missing link keys');assert.equal(model.frames.at(-1).links.length,0);
+  context.window.portals.B.options.team='ENLIGHTENED';context.window.plugin.keys.keys.B=1;
+  // Removing a blocker at A alone cannot capture B: bypass route insertion deliberately.
+  ap.getWorkPlan=()=>({stops:[{portal:ap.runtime.stats.A,portalTask:{action:'capture',faction:'enl'},links:[ab],blockers:[]}],blockers:[],unscheduled:[],unassigned:[]});
+  assert.equal(ap.createWalkSimulation().frames[0].links.length,0);
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.portals),portals);assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(storage.size,0);
+}
+console.log('Portal preview: explicit virtual capture, target prerequisites, unknown rejection, independent keys and no real ownership/completion writes passed.');

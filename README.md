@@ -28,7 +28,9 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.34
+### Beta testing: 0.2.0-beta.35
+
+Portal ownership now adds real work prerequisites independently of Keys: capture enemy/Machina portals, claim neutral portals, and verify unknown ownership at both ends before dependent throws. Destination-only portals receive preparation visits too. The preview explicitly simulates known captures/claims; unknown ownership blocks virtual throwing. Removing a blocker at one end never captures the other. Real ownership, inventory and completion remain unchanged. Existing friendly portals are assumed link-ready; deployment resources, range, link limits and linking under fields still require checking.
 
 Display and export now distinguish existing own-faction plan links, existing links with an unverified faction and open plan links. Coincident occupancy and crossings are explained; Resistance, Enlightened, Machina and unknown factions have explicit labels, distinct blocker counts and matching map colors. Key demand for unconfirmed directions is explicitly provisional. Extra actions open directly below **More**, above **Next task**.
 
@@ -57,8 +59,7 @@ Shared blockers occur once; work at the same portal is bundled where possible.
 your portal order while inserting required blocker stops. Small GPS changes
 keep the proposed order; movements over 100 m or changed tasks can rebuild it.
 Manual blocker reports remain separate from Intel observations. The route is
-a suggestion; capture, outgoing-link limits and building under fields are not
-yet validated. Plan preview previews the remaining work route on the map.
+a suggestion; ownership prerequisites are included, while deployment resources, outgoing-link limits and building under fields are not yet validated. Plan preview previews the remaining work route on the map.
 
 Install only one Anchor Planner variant per IITC instance. The beta shares the
 portal completion and settings; inventory comes exclusively from IITC Keys,
@@ -140,7 +141,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.34**
+- Development version: **0.2.0-beta.35**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

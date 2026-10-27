@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.34
+### Beta-Test: 0.2.0-beta.35
+
+Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
 
 Anzeige und Export unterscheiden jetzt eigene vorhandene Planlinks, vorhandene Verbindungen mit unbestätigter Fraktion und offene Planlinks. Gegenseitige Belegung und Kreuzungen werden erklärt; Resistance, Enlightened, Machina und unbekannte Fraktionen werden mit Namen, getrennten Blockerzahlen und passenden Kartenfarben angezeigt. Der Keybedarf bei offenen Wurfrichtungen ist ausdrücklich vorläufig. Die Zusatzaktionen stehen direkt unter **Mehr**, oberhalb von **Nächste Aufgabe**.
 
@@ -59,8 +61,7 @@ erhaltenen Aufgaben und Abbau-vor-Wurf-Abhängigkeiten werden übernommen.
 Reihenfolge** bewahrt die Portalreihenfolge und fügt nötige Abbau-Stopps ein.
 Kleine GPS-Änderungen behalten den Vorschlag bei; Bewegungen über 100 m oder
 geänderte Aufgaben können ihn neu berechnen. Manuelle Blocker-Meldungen bleiben
-von Intel-Beobachtungen getrennt. Die Route ist ein Vorschlag; Eroberung,
-ausgehende Linklimits und Bauen unter Feldern werden noch nicht validiert.
+von Intel-Beobachtungen getrennt. Die Route berücksichtigt Besitzvoraussetzungen; Ausbauressourcen, ausgehende Linklimits und Bauen unter Feldern bleiben ungeprüft.
 Planvorschau zeigt die verbleibende Aufgabenroute als Kartenvorschau.
 
 Nur eine Anchor-Planner-Variante je IITC-Instanz installieren. Die Beta verwendet
@@ -146,7 +147,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.34**
+- Entwicklungsversion: **0.2.0-beta.35**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

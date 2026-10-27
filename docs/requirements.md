@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.34
+# Anforderungen für Entwicklungsstand 0.2.0-beta.35
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -401,3 +401,9 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Identische gegnerische/Machina-Verbindung als Belegung der geplanten Verbindung erklären; Kreuzungen getrennt benennen. Text- und JSONexport müssen Fraktionen/Bezug/Grund enthalten; Blocker je Fraktion einmal zählen, auch bei mehreren betroffenen Planlinks.
 - Bei offenen Richtungen Keybedarf und Defizit als vorläufige Schätzung markieren, unveränderte Bedarfsermittlung und reale Keys erhalten.
 - Mehr erhält einen zugeordneten region-Bereich direkt unter dem Button und vor Spine-Hinweisen/Entwurfsaktionen/Nächste Aufgabe. ARIA-Ziel und Zustand synchron halten, Zusatzaktionen auf Desktop/Mobil umbrechen lassen. Keine Änderung von Planquelle, Routen oder Keys durch Auf-/Zuklappen.
+
+## Portalbesitz als unabhängige Arbeitsvoraussetzung (beta.35)
+
+Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
+
+Besitzaufgaben in Aufgabenübersicht/-details, Nächste Aufgabe, Einsatzcheck, Route und Export sichtbar halten. Ein fehlender Keybestand darf Eroberungen nicht verschwinden lassen. Unbekannte Spielerfraktion erlaubt keine eigene Besitzannahme. Manuelle Erledigung oder Blockerabbau sind kein Intel-Besitznachweis. Zielbesuche nur bei konkreter Besitzvoraussetzung, keine pauschalen Vorbereitungsplatzhalter.

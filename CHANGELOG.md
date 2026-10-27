@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.35
+
+### English
+- Portal ownership now adds real work prerequisites independently of Keys: capture enemy/Machina portals, claim neutral portals, and verify unknown ownership at both ends before dependent throws. Destination-only portals receive preparation visits too. The preview explicitly simulates known captures/claims; unknown ownership blocks virtual throwing. Removing a blocker at one end never captures the other. Real ownership, inventory and completion remain unchanged. Existing friendly portals are assumed link-ready; deployment resources, range, link limits and linking under fields still require checking.
+- Refresh cached routes when observed ownership changes; expose prerequisites in Tasks, Next task, readiness and exports. Preserve Spine throw order and explicit blocker choices.
+
+### Deutsch
+- Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
+- Routen bei beobachteten Besitzänderungen aktualisieren; Voraussetzungen in Aufgaben, Nächste Aufgabe, Einsatzcheck und Exporten zeigen. Spine-Wurffolge und ausdrückliche Blockerziele erhalten.
+
 ## 0.2.0-beta.34
 
 ### English

@@ -122,7 +122,7 @@ function createRuntime({ languages = [], language = '', pageLanguage = '', saved
   assert.deepEqual(Object.keys(exported), ['plugin', 'version', 'exportedAt', 'scan', 'planSource', 'fanDesign', 'playerFaction', 'linkSummary', 'blockedPlanLinks', 'plannedLinks', 'anchors']);
   assert.deepEqual(Object.keys(exported.anchors[0]), [
     'guid', 'title', 'address', 'lat', 'lng', 'linkCount', 'existingLinks', 'blockedLinks',
-    'openLinks', 'requiredKeys', 'ownedKeys', 'done', 'note', 'navigation'
+    'openLinks', 'requiredKeys', 'ownership', 'ownedKeys', 'done', 'note', 'navigation'
   ]);
   assert.equal(Object.hasOwn(exported, 'language'), false, 'Language selection must not alter the JSON schema.');
 }
