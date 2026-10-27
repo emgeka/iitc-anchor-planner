@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0-beta.34
+
+### English
+- Distinguish existing own plan links, unverified legacy matches, open plan links and loaded Intel links. Label faction, relative player relation and coincident/crossing blockers in UI, preview and exports; count RES/ENL/Machina/unknown separately with matching map colors. Never treat Machina as usable when player data is absent. Mark key shortages for open directions as estimates.
+- Place the More action region directly beneath its button, before Next task; preserve its state and improve primary-action wrapping. Keep plan field fills unchanged.
+
+### Deutsch
+- Eigene vorhandene Planlinks, unbestätigte Legacy-Treffer, offene Planlinks und eingelesene Intel-Links unterscheiden. Fraktion, Spielerbezug und Belegung/Kreuzung in UI, Vorschau und Exporten benennen; RES/ENL/Machina/unbekannt mit passenden Kartenfarben getrennt zählen. Machina auch ohne Spielerdaten nie als nutzbar werten. Keydefizite bei offenen Richtungen als Schätzung kennzeichnen.
+- Mehr-Aktionsbereich direkt unter dem Button und vor Nächste Aufgabe platzieren; Zustand erhalten und Hauptaktionen besser umbrechen. Planfeldfüllungen unverändert lassen.
+
 ## 0.2.0-beta.33
 
 ### English

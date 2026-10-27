@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.33
+// @version        0.2.0-beta.34
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261027170000';
+  plugin_info.dateTimeVersion = '20261027200000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.33';
+  ap.VERSION = '0.2.0-beta.34';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -101,12 +101,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Nicht bereit",
       "readiness.check": "Prüfen",
       "readiness.title": "Einsatzcheck:",
-      "readiness.unconfirmed.one": "{count} Planlink nicht bestätigt",
-      "readiness.unconfirmed.other": "{count} Planlinks nicht bestätigt",
+      "readiness.unconfirmed.one": "{count} Planlink noch nicht als eigener erkannt",
+      "readiness.unconfirmed.other": "{count} Planlinks noch nicht als eigene erkannt",
       "readiness.keyPortal.one": "Keys fehlen an {count} Portal",
       "readiness.keyPortal.other": "Keys fehlen an {count} Portalen",
-      "readiness.loadedLink.one": "{count} vorhandener Link geladen",
-      "readiness.loadedLink.other": "{count} vorhandene Links geladen",
+      "readiness.loadedLink.one": "{count} Intel-Link geladen (alle Fraktionen)",
+      "readiness.loadedLink.other": "{count} Intel-Links geladen (alle Fraktionen)",
       "readiness.unusableLoaded": "{count} davon nicht auswertbar",
       "readiness.finalScanPending": "finaler Blockercheck ausstehend",
       "readiness.finalScanIncomplete": "finaler Blockercheck unvollständig",
@@ -191,10 +191,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpunkt von {count} Blocklinks",
       "blocker.openPlanPortal": "bereits offenes Planportal",
       "blocker.donePlanPortal": "Planportal erledigt",
-      "blocker.mapLegend": "Blocker standardmäßig dezent: eigene gelb, gegnerische rot, unbekannte grau; blockierte Planlinks magenta. Auswahl hebt eine Verbindung samt gelbem Schnittpunkt hervor. „Alle Blocker anzeigen“ blendet die vollständigen Hervorhebungen ein. Alle erkannten Blocker bleiben Aufgaben.",
+      "blocker.mapLegend": "Intel-Blocker: Resistance blau, Enlightened grün, Machina rot, unbekannte Fraktion grau; blockierte Planlinks magenta. Auswahl hebt eine Verbindung samt gelbem Schnittpunkt hervor. „Alle Blocker anzeigen“ verstärkt die Linien. Alle erkannten Blocker bleiben Aufgaben.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
-      "row.existing": "vorhanden: {count}",
+      "row.existing": "als vorhanden gewertete Planlinks: {count}",
       "row.open": "offen: {count}",
       "row.blocked": "davon blockiert: {count}",
       "row.keysNeeded": "Keys benötigt",
@@ -210,20 +210,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} Links",
       "text.planPortalCount.one": "{count} Planportal",
       "text.planPortalCount.other": "{count} Planportale",
-      "text.existing": "Vorhandene Links: {existing} · nicht bestätigt: {unconfirmed}",
       "text.done": "Portale erledigt: {done}/{total}",
       "text.keys": "Keys: vorhanden {owned} / benötigt {required}",
       "text.blockers": "Blocker:",
       "text.planLink": "Planlink:",
-      "text.loadedLinksHint": "Hinweis: Geprüft wurden nur die aktuell in IITC geladenen vorhandenen Links.",
+      "text.loadedLinksHint": "Hinweis: Berücksichtigt sind die beim Scan und Finalcheck eingelesenen Intel-Links aller Fraktionen.",
       "text.doneSuffix": "erledigt",
       "text.address": "Adresse:",
-      "text.links": "Links: {total} · vorhanden: {existing} · offen: {open} · davon blockiert: {blocked}",
+      "text.links": "Links: {total} · als vorhanden gewertete Planlinks: {existing} · offen: {open} · davon blockiert: {blocked}",
       "text.keysPortal": "Keys: {owned}/{required}",
       "text.note": "Notiz:",
       "tasks.title": "Aufgaben",
       "tasks.chooseDirection": "Richtung wählen",
-      "tasks.existing": "Im Intel vorhanden",
+      "tasks.existing": "Eigener Planlink bereits im Intel vorhanden",
       "tasks.blocked": "Blockiert",
       "tasks.manualCheck": "Als erledigt gemeldet; Intel-Bestätigung ausstehend",
       "tasks.missingKey": "Key des Zielportals fehlt",
@@ -346,7 +345,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Anker vorschlagen",
       "fan.preview": "Vorschau",
       "fan.apply": "Plan übernehmen",
-      "fan.summary": "{anchors} Anker · {links} Links · {fields} geometrische Felder · {blocked} blockierte Links · {existing} vorhandene Links",
+      "fan.summary": "{anchors} Anker · {links} Links · {fields} geometrische Felder · {blocked} blockierte Planlinks · {existing} als vorhanden gewertete Planlinks",
       "fan.role": "Rolle",
       "fan.assignment": "Zugeordneter Anker",
       "fan.leaf": "Fächerportal",
@@ -377,17 +376,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Plan aktualisieren",
       "ui.settingsHelp": "Diese Einstellungen gelten für das gesamte Plugin. Daten löschen entfernt den gespeicherten Fächerplan sowie Portal- und Linkeinstellungen. Draw-Tools-Zeichnungen und der Bestand im Keys-Plugin bleiben erhalten.",
       "ui.fanScanHelp": "Plan aktualisieren, um den übernommenen Fächerplan und seine Aufgaben zu prüfen.",
-      "faction.own": "Eigener Blocker",
-      "faction.enemy": "Gegnerischer Blocker",
-      "faction.unknown": "Fraktion/Bezug unbekannt",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blau)",
+      "faction.enl": "Enlightened (grün)",
       "faction.mac": "Machina",
       "faction.noData": "Keine Fraktionsdaten",
       "faction.ownHint": "Entfernung oder Umfärben mit der eigenen Fraktion abstimmen.",
       "faction.enemyHint": "Abbau am gewählten Endportal einplanen.",
       "faction.unknownHint": "Fraktion vor Ort oder mit aktualisierten Intel-Daten prüfen.",
-      "faction.summary": "Eigene: {own} · Gegnerische: {enemy} · Unbekannt: {unknown}",
+      "faction.summary": "Unterschiedliche Intel-Blocker — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · Fraktion unbekannt: {unknown}",
       "fan.countHelp": "1 schlägt einen Anker vor; 2 oder mehr ergeben getrennte Fächer. Manuelle Anker (★) und fest zugeordnete Anker zählen zur Gesamtzahl.",
       "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
       "fan.countPinned": "{count} Anker sind manuell oder durch Zuordnungen festgelegt. Gesamtzahl erhöhen oder diese Festlegungen lösen.",
@@ -417,7 +413,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine-Baufolge: Basislinie zuerst, danach je Spine-Portal beide Anker und den Vorgänger verlinken. Richtungen einzeln bestätigen. Die Baufolge bleibt auch bei einer neuen Startposition erhalten. Vorhandene Links können das Feldergebnis verändern.",
       "spine.prerequisite": "Vorherige Spine-Würfe fehlen noch",
       "spine.throw": "Wurf {index}",
-      "spine.countHelp": "Für diesen Entwurf genau zwei Anker wählen. Manuelle Anker (★) bleiben fest; zusätzliche Anker zuerst freigeben."
+      "spine.countHelp": "Für diesen Entwurf genau zwei Anker wählen. Manuelle Anker (★) bleiben fest; zusätzliche Anker zuerst freigeben.",
+      "tasks.existingUnverified": "Als vorhanden gewertet; Fraktion unbestätigt",
+      "faction.player": "Deine Fraktion: {faction}",
+      "faction.relation.own": "eigene Fraktion",
+      "faction.relation.enemy": "gegnerische Spielerfraktion",
+      "faction.relation.unknown": "Bezug zur Spielerfraktion unbekannt",
+      "faction.machinaBlocker": "KI-Blocker (rot)",
+      "faction.machinaHint": "Machina-Verbindung an einem Endportal entfernen, bevor der abhängige Planlink gebaut wird.",
+      "links.summary": "Planlinks bereits vorhanden: eigene {ownExisting} · Fraktion unbestätigt {unverifiedExisting} · offen {open}",
+      "links.occupied": "Geplante Verbindungen derzeit belegt: gegnerische Spielerfraktion {enemyOccupied} · Machina {machinaOccupied}. Abbau erforderlich.",
+      "links.estimatedKeys": "Keybedarf vorläufig: Bei {count} Links sind die Wurfrichtungen unbestätigt; sie zählen an beiden möglichen Zielen. Ein tatsächlicher Wurf verbraucht nur einen Ziel-Key.",
+      "readiness.missingKeyEstimated.one": "geschätzt {count} Key fehlt (Richtungen offen)",
+      "readiness.missingKeyEstimated.other": "geschätzt {count} Keys fehlen (Richtungen offen)",
+      "blocker.sameConnection": "Eine gegnerische oder Machina-Verbindung belegt genau diesen Planlink. Sie zählt nicht als gebaut und muss zuerst entfernt werden.",
+      "blocker.reason.same": "belegt geplante Verbindung",
+      "blocker.reason.crossing": "kreuzt Planlink",
+      "links.unverified": "{count} als vorhanden gewertete Planlinks: Fraktion noch prüfen"
     },
     "en": {
       "language.label": "Language",
@@ -469,12 +481,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Not ready",
       "readiness.check": "Check",
       "readiness.title": "Readiness:",
-      "readiness.unconfirmed.one": "{count} plan link unconfirmed",
-      "readiness.unconfirmed.other": "{count} plan links unconfirmed",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Keys missing at {count} portal",
       "readiness.keyPortal.other": "Keys missing at {count} portals",
-      "readiness.loadedLink.one": "{count} existing link loaded",
-      "readiness.loadedLink.other": "{count} existing links loaded",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} of them cannot be evaluated",
       "readiness.finalScanPending": "final blocker check pending",
       "readiness.finalScanIncomplete": "final blocker check incomplete",
@@ -559,10 +571,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Endpoint of {count} blocking links",
       "blocker.openPlanPortal": "already an open plan portal",
       "blocker.donePlanPortal": "plan portal completed",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Keys {owned}/{required}",
       "row.links": "Links: {count}",
-      "row.existing": "existing: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "open: {count}",
       "row.blocked": "blocked: {count}",
       "row.keysNeeded": "Keys needed",
@@ -578,20 +590,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} links",
       "text.planPortalCount.one": "{count} plan portal",
       "text.planPortalCount.other": "{count} plan portals",
-      "text.existing": "Existing links: {existing} · unconfirmed: {unconfirmed}",
       "text.done": "Portals completed: {done}/{total}",
       "text.keys": "Keys: owned {owned} / needed {required}",
       "text.blockers": "Blockers:",
       "text.planLink": "Plan link:",
-      "text.loadedLinksHint": "Note: Only existing links currently loaded in IITC were checked.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "completed",
       "text.address": "Address:",
-      "text.links": "Links: {total} · existing: {existing} · open: {open} · blocked: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Keys: {owned}/{required}",
       "text.note": "Note:",
       "tasks.title": "Tasks",
       "tasks.chooseDirection": "Choose direction",
-      "tasks.existing": "Existing in Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Blocked",
       "tasks.manualCheck": "Reported done; Intel confirmation pending",
       "tasks.missingKey": "Destination key missing",
@@ -714,7 +725,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -745,17 +756,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -785,7 +793,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "es": {
       "language.label": "Idioma",
@@ -837,12 +861,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "No listo",
       "readiness.check": "Revisar",
       "readiness.title": "Comprobación:",
-      "readiness.unconfirmed.one": "{count} enlace sin confirmar",
-      "readiness.unconfirmed.other": "{count} enlaces sin confirmar",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Faltan llaves en {count} portal",
       "readiness.keyPortal.other": "Faltan llaves en {count} portales",
-      "readiness.loadedLink.one": "{count} enlace existente cargado",
-      "readiness.loadedLink.other": "{count} enlaces existentes cargados",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} no evaluables",
       "readiness.finalScanPending": "comprobación final de bloqueos pendiente",
       "readiness.finalScanIncomplete": "comprobación final de bloqueos incompleta",
@@ -927,10 +951,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extremo de {count} enlaces bloqueadores",
       "blocker.openPlanPortal": "ya es un portal abierto del plan",
       "blocker.donePlanPortal": "portal del plan completado",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Llaves {owned}/{required}",
       "row.links": "Enlaces: {count}",
-      "row.existing": "existentes: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "abiertos: {count}",
       "row.blocked": "bloqueados: {count}",
       "row.keysNeeded": "Llaves necesarias",
@@ -946,20 +970,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} enlaces",
       "text.planPortalCount.one": "{count} portal del plan",
       "text.planPortalCount.other": "{count} portales del plan",
-      "text.existing": "Enlaces existentes: {existing} · sin confirmar: {unconfirmed}",
       "text.done": "Portales completados: {done}/{total}",
       "text.keys": "Llaves: disponibles {owned} / necesarias {required}",
       "text.blockers": "Bloqueadores:",
       "text.planLink": "Enlace del plan:",
-      "text.loadedLinksHint": "Nota: solo se comprobaron los enlaces existentes cargados actualmente en IITC.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "hecho",
       "text.address": "Dirección:",
-      "text.links": "Enlaces: {total} · existentes: {existing} · abiertos: {open} · bloqueados: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Llaves: {owned}/{required}",
       "text.note": "Nota:",
       "tasks.title": "Tareas",
       "tasks.chooseDirection": "Elegir dirección",
-      "tasks.existing": "Existente en Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqueado",
       "tasks.manualCheck": "Marcado como hecho; confirmación de Intel pendiente",
       "tasks.missingKey": "Falta la llave del destino",
@@ -1082,7 +1105,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -1113,17 +1136,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -1153,7 +1173,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "fr": {
       "language.label": "Langue",
@@ -1205,12 +1241,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Pas prêt",
       "readiness.check": "Vérifier",
       "readiness.title": "Vérification :",
-      "readiness.unconfirmed.one": "{count} lien du plan non confirmé",
-      "readiness.unconfirmed.other": "{count} liens du plan non confirmés",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Clés manquantes sur {count} portail",
       "readiness.keyPortal.other": "Clés manquantes sur {count} portails",
-      "readiness.loadedLink.one": "{count} lien existant chargé",
-      "readiness.loadedLink.other": "{count} liens existants chargés",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} non analysables",
       "readiness.finalScanPending": "contrôle final des bloqueurs en attente",
       "readiness.finalScanIncomplete": "contrôle final des bloqueurs incomplet",
@@ -1295,10 +1331,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Extrémité de {count} liens bloqueurs",
       "blocker.openPlanPortal": "déjà un portail ouvert du plan",
       "blocker.donePlanPortal": "portail du plan terminé",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Clés {owned}/{required}",
       "row.links": "Liens : {count}",
-      "row.existing": "existants : {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "ouverts : {count}",
       "row.blocked": "bloqués : {count}",
       "row.keysNeeded": "Clés requises",
@@ -1314,20 +1350,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} liens",
       "text.planPortalCount.one": "{count} portail du plan",
       "text.planPortalCount.other": "{count} portails du plan",
-      "text.existing": "Liens existants : {existing} · non confirmés : {unconfirmed}",
       "text.done": "Portails terminés : {done}/{total}",
       "text.keys": "Clés : disponibles {owned} / requises {required}",
       "text.blockers": "Bloqueurs :",
       "text.planLink": "Lien du plan :",
-      "text.loadedLinksHint": "Note : seuls les liens existants actuellement chargés dans IITC ont été vérifiés.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "terminé",
       "text.address": "Adresse :",
-      "text.links": "Liens : {total} · existants : {existing} · ouverts : {open} · bloqués : {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Clés : {owned}/{required}",
       "text.note": "Note :",
       "tasks.title": "Tâches",
       "tasks.chooseDirection": "Choisir le sens",
-      "tasks.existing": "Présent dans Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqué",
       "tasks.manualCheck": "Signalé terminé ; confirmation Intel en attente",
       "tasks.missingKey": "Clé du portail cible manquante",
@@ -1450,7 +1485,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -1481,17 +1516,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -1521,7 +1553,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "it": {
       "language.label": "Lingua",
@@ -1573,12 +1621,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Non pronto",
       "readiness.check": "Controlla",
       "readiness.title": "Verifica:",
-      "readiness.unconfirmed.one": "{count} link del piano non confermato",
-      "readiness.unconfirmed.other": "{count} link del piano non confermati",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Chiavi mancanti in {count} portale",
       "readiness.keyPortal.other": "Chiavi mancanti in {count} portali",
-      "readiness.loadedLink.one": "{count} link esistente caricato",
-      "readiness.loadedLink.other": "{count} link esistenti caricati",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} non valutabili",
       "readiness.finalScanPending": "controllo finale dei blocchi in sospeso",
       "readiness.finalScanIncomplete": "controllo finale dei blocchi incompleto",
@@ -1663,10 +1711,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Estremo di {count} link blocker",
       "blocker.openPlanPortal": "già portale aperto del piano",
       "blocker.donePlanPortal": "portale del piano completato",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Chiavi {owned}/{required}",
       "row.links": "Link: {count}",
-      "row.existing": "esistenti: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "aperti: {count}",
       "row.blocked": "bloccati: {count}",
       "row.keysNeeded": "Chiavi richieste",
@@ -1682,20 +1730,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} link",
       "text.planPortalCount.one": "{count} portale del piano",
       "text.planPortalCount.other": "{count} portali del piano",
-      "text.existing": "Link esistenti: {existing} · non confermati: {unconfirmed}",
       "text.done": "Portali completati: {done}/{total}",
       "text.keys": "Chiavi: disponibili {owned} / richieste {required}",
       "text.blockers": "Blocker:",
       "text.planLink": "Link del piano:",
-      "text.loadedLinksHint": "Nota: sono stati controllati solo i link esistenti attualmente caricati in IITC.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "completato",
       "text.address": "Indirizzo:",
-      "text.links": "Link: {total} · esistenti: {existing} · aperti: {open} · bloccati: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Chiavi: {owned}/{required}",
       "text.note": "Nota:",
       "tasks.title": "Attività",
       "tasks.chooseDirection": "Scegli direzione",
-      "tasks.existing": "Presente in Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloccato",
       "tasks.manualCheck": "Segnalato completato; conferma Intel in attesa",
       "tasks.missingKey": "Manca la chiave del portale di destinazione",
@@ -1818,7 +1865,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -1849,17 +1896,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -1889,7 +1933,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "ja": {
       "language.label": "言語",
@@ -1941,12 +2001,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "未準備",
       "readiness.check": "要確認",
       "readiness.title": "準備状況:",
-      "readiness.unconfirmed.one": "未確認の計画リンク {count}本",
-      "readiness.unconfirmed.other": "未確認の計画リンク {count}本",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "キー不足ポータル {count}件",
       "readiness.keyPortal.other": "キー不足ポータル {count}件",
-      "readiness.loadedLink.one": "読込済み既存リンク {count}本",
-      "readiness.loadedLink.other": "読込済み既存リンク {count}本",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "うち判定不能 {count}本",
       "readiness.finalScanPending": "最終ブロッカー確認待ち",
       "readiness.finalScanIncomplete": "最終ブロッカー確認未完了",
@@ -2031,10 +2091,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "ブロックリンク {count}本の端点",
       "blocker.openPlanPortal": "未完了の計画ポータル",
       "blocker.donePlanPortal": "完了済み計画ポータル",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "キー {owned}/{required}",
       "row.links": "リンク: {count}",
-      "row.existing": "既存: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "未確認: {count}",
       "row.blocked": "ブロック: {count}",
       "row.keysNeeded": "必要キー",
@@ -2050,20 +2110,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "リンク {count}本",
       "text.planPortalCount.one": "計画ポータル {count}件",
       "text.planPortalCount.other": "計画ポータル {count}件",
-      "text.existing": "既存リンク: {existing} · 未確認: {unconfirmed}",
       "text.done": "完了ポータル: {done}/{total}",
       "text.keys": "キー: 所持 {owned} / 必要 {required}",
       "text.blockers": "ブロッカー:",
       "text.planLink": "計画リンク:",
-      "text.loadedLinksHint": "注: IITCに現在読み込まれている既存リンクのみ確認しました。",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "完了",
       "text.address": "住所:",
-      "text.links": "リンク: {total} · 既存: {existing} · 未確認: {open} · ブロック: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "キー: {owned}/{required}",
       "text.note": "メモ:",
       "tasks.title": "作業一覧",
       "tasks.chooseDirection": "方向を選択",
-      "tasks.existing": "Intelで確認済み",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "ブロック中",
       "tasks.manualCheck": "完了報告済み・Intel確認待ち",
       "tasks.missingKey": "リンク先のキーが不足",
@@ -2186,7 +2245,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -2217,17 +2276,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -2257,7 +2313,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "pl": {
       "language.label": "Język",
@@ -2309,12 +2381,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Niegotowe",
       "readiness.check": "Sprawdź",
       "readiness.title": "Gotowość:",
-      "readiness.unconfirmed.one": "{count} link planu niepotwierdzony",
-      "readiness.unconfirmed.other": "{count} linki planu niepotwierdzone",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Brak kluczy w {count} portalu",
       "readiness.keyPortal.other": "Brak kluczy w {count} portalach",
-      "readiness.loadedLink.one": "Wczytano {count} istniejący link",
-      "readiness.loadedLink.other": "Wczytano {count} istniejące linki",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} bez oceny",
       "readiness.finalScanPending": "końcowa kontrola blokad oczekuje",
       "readiness.finalScanIncomplete": "końcowa kontrola blokad niepełna",
@@ -2399,10 +2471,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Koniec {count} linków blokujących",
       "blocker.openPlanPortal": "już otwarty portal planu",
       "blocker.donePlanPortal": "ukończony portal planu",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Klucze {owned}/{required}",
       "row.links": "Linki: {count}",
-      "row.existing": "istniejące: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "otwarte: {count}",
       "row.blocked": "zablokowane: {count}",
       "row.keysNeeded": "Potrzebne klucze",
@@ -2418,20 +2490,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} linki",
       "text.planPortalCount.one": "{count} portal planu",
       "text.planPortalCount.other": "{count} portale planu",
-      "text.existing": "Istniejące linki: {existing} · niepotwierdzone: {unconfirmed}",
       "text.done": "Ukończone portale: {done}/{total}",
       "text.keys": "Klucze: posiadane {owned} / potrzebne {required}",
       "text.blockers": "Blokery:",
       "text.planLink": "Link planu:",
-      "text.loadedLinksHint": "Uwaga: sprawdzono tylko istniejące linki obecnie wczytane w IITC.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "ukończono",
       "text.address": "Adres:",
-      "text.links": "Linki: {total} · istniejące: {existing} · otwarte: {open} · zablokowane: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Klucze: {owned}/{required}",
       "text.note": "Notatka:",
       "tasks.title": "Zadania",
       "tasks.chooseDirection": "Wybierz kierunek",
-      "tasks.existing": "Istnieje w Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Zablokowany",
       "tasks.manualCheck": "Zgłoszono wykonanie; oczekuje na potwierdzenie Intel",
       "tasks.missingKey": "Brak klucza portalu docelowego",
@@ -2554,7 +2625,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -2585,17 +2656,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -2625,7 +2693,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2677,12 +2761,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Não pronto",
       "readiness.check": "Verificar",
       "readiness.title": "Verificação:",
-      "readiness.unconfirmed.one": "{count} link do plano não confirmado",
-      "readiness.unconfirmed.other": "{count} links do plano não confirmados",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Faltam chaves em {count} portal",
       "readiness.keyPortal.other": "Faltam chaves em {count} portais",
-      "readiness.loadedLink.one": "{count} link existente carregado",
-      "readiness.loadedLink.other": "{count} links existentes carregados",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} não avaliáveis",
       "readiness.finalScanPending": "verificação final de bloqueios pendente",
       "readiness.finalScanIncomplete": "verificação final de bloqueios incompleta",
@@ -2767,10 +2851,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Ponta de {count} links bloqueadores",
       "blocker.openPlanPortal": "já é portal aberto do plano",
       "blocker.donePlanPortal": "portal do plano concluído",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Chaves {owned}/{required}",
       "row.links": "Links: {count}",
-      "row.existing": "existentes: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "abertos: {count}",
       "row.blocked": "bloqueados: {count}",
       "row.keysNeeded": "Chaves necessárias",
@@ -2786,20 +2870,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} links",
       "text.planPortalCount.one": "{count} portal do plano",
       "text.planPortalCount.other": "{count} portais do plano",
-      "text.existing": "Links existentes: {existing} · não confirmados: {unconfirmed}",
       "text.done": "Portais concluídos: {done}/{total}",
       "text.keys": "Chaves: disponíveis {owned} / necessárias {required}",
       "text.blockers": "Bloqueadores:",
       "text.planLink": "Link do plano:",
-      "text.loadedLinksHint": "Nota: só foram verificados os links existentes atualmente carregados no IITC.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "concluído",
       "text.address": "Endereço:",
-      "text.links": "Links: {total} · existentes: {existing} · abertos: {open} · bloqueados: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Chaves: {owned}/{required}",
       "text.note": "Nota:",
       "tasks.title": "Tarefas",
       "tasks.chooseDirection": "Escolher direção",
-      "tasks.existing": "Existente no Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqueado",
       "tasks.manualCheck": "Marcado como concluído; confirmação do Intel pendente",
       "tasks.missingKey": "Falta a chave do portal de destino",
@@ -2922,7 +3005,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -2953,17 +3036,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -2993,7 +3073,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "ru": {
       "language.label": "Язык",
@@ -3045,12 +3141,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "Не готово",
       "readiness.check": "Проверить",
       "readiness.title": "Готовность:",
-      "readiness.unconfirmed.one": "{count} линк плана не подтверждён",
-      "readiness.unconfirmed.other": "{count} линков плана не подтверждено",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "Нет ключей на {count} портале",
       "readiness.keyPortal.other": "Нет ключей на {count} порталах",
-      "readiness.loadedLink.one": "Загружен {count} существующий линк",
-      "readiness.loadedLink.other": "Загружено {count} существующих линков",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "{count} нельзя проверить",
       "readiness.finalScanPending": "финальная проверка блокеров ожидается",
       "readiness.finalScanIncomplete": "финальная проверка блокеров не завершена",
@@ -3135,10 +3231,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "Конец {count} блокирующих линков",
       "blocker.openPlanPortal": "уже открытый портал плана",
       "blocker.donePlanPortal": "портал плана выполнен",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "Ключи {owned}/{required}",
       "row.links": "Линки: {count}",
-      "row.existing": "есть: {count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "открыто: {count}",
       "row.blocked": "блокеры: {count}",
       "row.keysNeeded": "Нужно ключей",
@@ -3154,20 +3250,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} линков",
       "text.planPortalCount.one": "{count} портал плана",
       "text.planPortalCount.other": "{count} порталов плана",
-      "text.existing": "Существующие линки: {existing} · не подтверждено: {unconfirmed}",
       "text.done": "Порталы выполнены: {done}/{total}",
       "text.keys": "Ключи: есть {owned} / нужно {required}",
       "text.blockers": "Блокеры:",
       "text.planLink": "Линк плана:",
-      "text.loadedLinksHint": "Примечание: проверены только существующие линки, сейчас загруженные в IITC.",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "готово",
       "text.address": "Адрес:",
-      "text.links": "Линки: {total} · есть: {existing} · открыто: {open} · блокеры: {blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "Ключи: {owned}/{required}",
       "text.note": "Заметка:",
       "tasks.title": "Задачи",
       "tasks.chooseDirection": "Выбрать направление",
-      "tasks.existing": "Есть в Intel",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Заблокирован",
       "tasks.manualCheck": "Отмечено выполнение; подтверждение Intel ожидается",
       "tasks.missingKey": "Нет ключа портала назначения",
@@ -3290,7 +3385,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -3321,17 +3416,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -3361,7 +3453,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3413,12 +3521,12 @@ function wrapper(plugin_info) {
       "readiness.notReady": "未就绪",
       "readiness.check": "需检查",
       "readiness.title": "行动检查：",
-      "readiness.unconfirmed.one": "{count} 条计划 Link 未确认",
-      "readiness.unconfirmed.other": "{count} 条计划 Link 未确认",
+      "readiness.unconfirmed.one": "{count} plan link not yet confirmed as your faction",
+      "readiness.unconfirmed.other": "{count} plan links not yet confirmed as your faction",
       "readiness.keyPortal.one": "{count} 个 Portal 缺钥匙",
       "readiness.keyPortal.other": "{count} 个 Portal 缺钥匙",
-      "readiness.loadedLink.one": "已加载 {count} 条现有 Link",
-      "readiness.loadedLink.other": "已加载 {count} 条现有 Link",
+      "readiness.loadedLink.one": "{count} Intel link loaded (all factions)",
+      "readiness.loadedLink.other": "{count} Intel links loaded (all factions)",
       "readiness.unusableLoaded": "其中 {count} 条无法判断",
       "readiness.finalScanPending": "最终阻挡检查待执行",
       "readiness.finalScanIncomplete": "最终阻挡检查未完成",
@@ -3503,10 +3611,10 @@ function wrapper(plugin_info) {
       "blocker.endpointOf.other": "{count} 条阻挡 Link 的端点",
       "blocker.openPlanPortal": "已是未完成计划 Portal",
       "blocker.donePlanPortal": "已完成计划 Portal",
-      "blocker.mapLegend": "Blockers are subdued by default: friendly amber, enemy red, unknown grey; blocked plan links magenta. Selection highlights one connection and its yellow crossing. Show all blockers enables the full highlights. All detected blockers remain tasks.",
+      "blocker.mapLegend": "Intel blockers: Resistance blue, Enlightened green, Machina red, unknown faction grey; blocked plan links magenta. Selection highlights a connection and its yellow crossing. Show all blockers strengthens the lines. All detected blockers remain tasks.",
       "row.keys": "钥匙 {owned}/{required}",
       "row.links": "Link：{count}",
-      "row.existing": "已有：{count}",
+      "row.existing": "plan links counted as existing: {count}",
       "row.open": "未确认：{count}",
       "row.blocked": "受阻：{count}",
       "row.keysNeeded": "所需钥匙",
@@ -3522,20 +3630,19 @@ function wrapper(plugin_info) {
       "text.planLinkCount.other": "{count} 条 Link",
       "text.planPortalCount.one": "{count} 个计划 Portal",
       "text.planPortalCount.other": "{count} 个计划 Portal",
-      "text.existing": "现有 Link：{existing} · 未确认：{unconfirmed}",
       "text.done": "已完成 Portal：{done}/{total}",
       "text.keys": "钥匙：已有 {owned} / 需要 {required}",
       "text.blockers": "阻挡：",
       "text.planLink": "计划 Link：",
-      "text.loadedLinksHint": "注意：仅检查了 IITC 当前已加载的现有 Link。",
+      "text.loadedLinksHint": "Note: Analysis covers Intel links of all factions loaded during scanning and the final check.",
       "text.doneSuffix": "已完成",
       "text.address": "地址：",
-      "text.links": "Link：{total} · 已有：{existing} · 未确认：{open} · 受阻：{blocked}",
+      "text.links": "Links: {total} · counted as existing plan links: {existing} · open: {open} · blocked: {blocked}",
       "text.keysPortal": "钥匙：{owned}/{required}",
       "text.note": "备注：",
       "tasks.title": "任务",
       "tasks.chooseDirection": "选择方向",
-      "tasks.existing": "Intel 中已存在",
+      "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "被阻挡",
       "tasks.manualCheck": "已报告完成；等待 Intel 确认",
       "tasks.missingKey": "缺少目标 Portal 的钥匙",
@@ -3658,7 +3765,7 @@ function wrapper(plugin_info) {
       "fan.suggest": "Suggest anchors",
       "fan.preview": "Preview",
       "fan.apply": "Use plan",
-      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked links · {existing} existing links",
+      "fan.summary": "{anchors} anchors · {links} links · {fields} geometric fields · {blocked} blocked plan links · {existing} plan links counted as existing",
       "fan.role": "Role",
       "fan.assignment": "Assigned anchor",
       "fan.leaf": "Fan portal",
@@ -3689,17 +3796,14 @@ function wrapper(plugin_info) {
       "ui.refreshFan": "Refresh plan",
       "ui.settingsHelp": "These settings apply to the whole plugin. Clear data removes the saved fan plan and portal/link settings. Draw Tools drawings and inventory in the Keys plugin are preserved.",
       "ui.fanScanHelp": "Refresh the accepted fan plan to review its portals and tasks.",
-      "faction.own": "Friendly blocker",
-      "faction.enemy": "Enemy blocker",
-      "faction.unknown": "Faction/relation unknown",
-      "faction.res": "Resistance",
-      "faction.enl": "Enlightened",
+      "faction.res": "Resistance (blue)",
+      "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
       "faction.ownHint": "Coordinate removal or flipping with your faction.",
       "faction.enemyHint": "Plan removal at the selected endpoint.",
       "faction.unknownHint": "Check the faction on site or refresh Intel data.",
-      "faction.summary": "Friendly: {own} · Enemy: {enemy} · Unknown: {unknown}",
+      "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
       "fan.countPinned": "{count} anchors are fixed manually or by assignments. Increase the total or release these choices.",
@@ -3729,7 +3833,23 @@ function wrapper(plugin_info) {
       "spine.workflow": "Spine build order: baseline first; then each spine portal to both anchors and its predecessor. Confirm directions individually. A different route origin preserves construction order. Existing links can change the field outcome.",
       "spine.prerequisite": "Earlier spine throws are still missing",
       "spine.throw": "Throw {index}",
-      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first."
+      "spine.countHelp": "Choose exactly two anchors for this draft. Manually fixed anchors (★) stay fixed; release any extra anchors first.",
+      "tasks.existingUnverified": "Counted as existing; faction unverified",
+      "faction.player": "Your faction: {faction}",
+      "faction.relation.own": "your faction",
+      "faction.relation.enemy": "opposing player faction",
+      "faction.relation.unknown": "relation to player unknown",
+      "faction.machinaBlocker": "AI blocker (red)",
+      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
+      "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
+      "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
+      "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
+      "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
+      "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
+      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.reason.same": "occupies the planned connection",
+      "blocker.reason.crossing": "crosses a plan link",
+      "links.unverified": "{count} plan links counted as existing: verify faction"
     }
   };
   // AP_LOCALES_END
@@ -5215,7 +5335,8 @@ function wrapper(plugin_info) {
       return item.links.some(function (candidate) { return candidate.id === link.id; });
     });
     var missing = direction && ap.runtime.stats[direction.to] && ap.getOwnedKeys(direction.to) !== null && ap.getOwnedKeys(direction.to) < 1;
-    var status = link.existing ? 'tasks.existing' : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
+    var existingOwn = ap.factionRelation((ap.runtime.existingLinkIds || {})[link.id]) === 'own';
+    var status = link.existing ? (existingOwn ? 'tasks.existing' : 'tasks.existingUnverified') : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
     var spine = ap.getActiveSpinePlan(), step = spine ? spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; }) : -1;
     var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
     if (!link.existing) {
@@ -5238,6 +5359,7 @@ function wrapper(plugin_info) {
     var titleB = ap.portalDisplayLabel(blocker.b, blocker.titleB, blocker.latlngB);
     var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + ap.escapeHtml(titleA + ' ↔ ' + titleB) + '</div><div class="ap-task-muted">' + ap.escapeHtml(ap.t(item.manual ? 'tasks.manualCheck' : 'tasks.observed')) + '</div>';
     html += ap.blockerFactionHtml(blocker, true);
+    if (item.links.some(function (link) { return ap.isSamePlanConnection(link, blocker); })) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('blocker.sameConnection')) + '</div>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.frees', { count: item.links.length })) + ': ' + item.links.map(function (link) { return ap.escapeHtml(ap.displayPortalTitle(link.titleA) + ' ↔ ' + ap.displayPortalTitle(link.titleB)); }).join(', ') + '</div>';
     html += '<label>' + ap.escapeHtml(ap.t('tasks.target')) + ' <select class="ap-task-target" aria-label="' + ap.escapeHtml(ap.t('tasks.target')) + '" data-blocker="' + index + '">';
     [['', ap.t('tasks.automatic')], [blocker.a, titleA], [blocker.b, titleB]].forEach(function (option) {
@@ -5255,7 +5377,7 @@ function wrapper(plugin_info) {
     var html = '<div class="ap-task-toolbar"><button id="ap-task-next">' + ap.escapeHtml(ap.t('next.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-task-manual">' + ap.escapeHtml(ap.t('tasks.manualOrder')) + '</button><button id="ap-task-check">' + ap.escapeHtml(ap.t('action.finalScan')) + '</button><button id="ap-task-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-task-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-task-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-task-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-task-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
-    html += ap.spineNoticeHtml();
+    html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
     html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
@@ -5425,7 +5547,7 @@ function wrapper(plugin_info) {
       } else { previous = null; paths.push([]); }
       stop.blockers.forEach(function (item) {
         cleared.add(item.id);
-        actions.push({ kind: 'blocker', title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) });
+        actions.push({ kind: 'blocker', title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) + ' · ' + ap.blockerFactionText(item.blocker) });
       });
       stop.links.forEach(function (link) {
         var direction = ap.getLinkDirection(link), status = 'walk.ready';
@@ -6092,7 +6214,7 @@ function wrapper(plugin_info) {
     var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length; });
     var stop = plan.stops[index];
     var html = '<div class="ap-next-toolbar"><button id="ap-next-all">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-next-scan"' + (ap.runtime.finalScan && ap.runtime.finalScan.running ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button></div>';
-    html += ap.spineNoticeHtml();
+    html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
     html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + '</p>';
     if (!ap.getKeysPlugin()) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
@@ -6402,26 +6524,60 @@ function wrapper(plugin_info) {
   };
   ap.factionRelation = function (link) {
     var faction = ap.normalizeFaction(link && link.faction), own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
+    if (faction === 'mac') return 'enemy';
     if (faction === 'unknown' || ['res', 'enl'].indexOf(own) === -1) return 'unknown';
     return faction === own ? 'own' : 'enemy';
   };
   ap.isUsableExistingLink = function (link) { return !!link && ap.factionRelation(link) !== 'enemy'; };
-  ap.blockerColor = function (link) { return { own: '#ffbf47', enemy: '#ff5b68', unknown: '#9faebc' }[ap.factionRelation(link)]; };
+  ap.blockerColor = function (link) { return { res: '#6ca8ff', enl: '#43d879', mac: '#ff5b68', unknown: '#9faebc' }[ap.normalizeFaction(link && link.faction)]; };
+  ap.factionDescription = function (faction) {
+    faction = ap.normalizeFaction(faction);
+    if (faction === 'mac') return ap.t('faction.mac') + ' · ' + ap.t('faction.machinaBlocker');
+    if (faction === 'unknown') return ap.t('faction.noData');
+    var relation = ap.factionRelation({ faction: faction });
+    return ap.t({ res:'faction.res', enl:'faction.enl' }[faction]) + ' · ' + ap.t({own:'faction.relation.own',enemy:'faction.relation.enemy',unknown:'faction.relation.unknown'}[relation]);
+  };
+  ap.blockerFactionText = function (link) { return ap.factionDescription(link && link.faction); };
+  ap.isSamePlanConnection = function (planned, real) {
+    return ap.normalizedLinkId(planned.a, planned.b) === ap.normalizedLinkId(real.a, real.b);
+  };
+  ap.getPlanLinkSummary = function () {
+    var counts = { ownExisting: 0, unverifiedExisting: 0, open: 0, enemyOccupied: 0, machinaOccupied: 0, openDirections: 0 };
+    (ap.runtime.links || []).forEach(function (link) {
+      if (link.existing) {
+        var real = (ap.runtime.existingLinkIds || {})[link.id];
+        if (ap.factionRelation(real) === 'own') counts.ownExisting++;
+        else counts.unverifiedExisting++;
+      } else {
+        counts.open++;
+        if (!ap.getLinkDirection(link)) counts.openDirections++;
+        var occupied = (link.blockers || []).filter(function (real) { return ap.isSamePlanConnection(link, real); });
+        if (occupied.some(function (real) { return ap.normalizeFaction(real.faction) === 'mac'; })) counts.machinaOccupied++;
+        else if (occupied.some(function (real) { return ap.factionRelation(real) === 'enemy'; })) counts.enemyOccupied++;
+      }
+    });
+    return counts;
+  };
+  ap.planLinkSummaryHtml = function () {
+    var counts = ap.getPlanLinkSummary();
+    var own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
+    return '<div class="ap-task-muted ap-link-summary"><p>' + ap.escapeHtml(ap.t('faction.player', { faction: ap.t(own === 'res' || own === 'enl' ? 'faction.' + own : 'faction.noData') })) + '</p><p>' +
+      ap.escapeHtml(ap.t('links.summary', counts)) + '</p>' + (counts.enemyOccupied || counts.machinaOccupied ? '<p>' + ap.escapeHtml(ap.t('links.occupied', counts)) + '</p>' : '') +
+      (counts.openDirections ? '<p>' + ap.escapeHtml(ap.t('links.estimatedKeys', { count: counts.openDirections })) + '</p>' : '') + '</div>';
+  };
   ap.blockerFactionHtml = function (link, hint) {
     var relation = ap.factionRelation(link), faction = ap.normalizeFaction(link && link.faction);
-    var relations = { own: 'faction.own', enemy: 'faction.enemy', unknown: 'faction.unknown' };
-    var labels = { res: 'faction.res', enl: 'faction.enl', mac: 'faction.mac', unknown: 'faction.noData' };
     var hints = { own: 'faction.ownHint', enemy: 'faction.enemyHint', unknown: 'faction.unknownHint' };
-    return '<div class="ap-blocker-faction ap-blocker-faction-' + relation + '">' + ap.escapeHtml(ap.t(relations[relation]) + ' · ' + ap.t(labels[faction])) +
-      (hint ? '<small>' + ap.escapeHtml(ap.t(hints[relation])) + '</small>' : '') + '</div>';
+    return '<div class="ap-blocker-faction ap-blocker-faction-' + relation + ' ap-blocker-faction-' + faction + '">' + ap.escapeHtml(ap.blockerFactionText(link)) +
+      (hint ? '<small>' + ap.escapeHtml(ap.t(faction === 'mac' ? 'faction.machinaHint' : hints[relation])) + '</small>' : '') + '</div>';
   };
   ap.blockerFactionSummary = function (blockers) {
-    var counts = { own: 0, enemy: 0, unknown: 0 }, seen = new Set();
+    var counts = { res: 0, enl: 0, mac: 0, unknown: 0 }, seen = new Set();
     (blockers || []).forEach(function (blocker) {
-      var id = blocker.guid || ap.normalizedLinkId(blocker.a, blocker.b); if (seen.has(id)) return;
-      seen.add(id); counts[ap.factionRelation(blocker)]++;
+      var id = blocker.guid || ap.normalizedLinkId(typeof blocker.a === 'object' ? blocker.a.guid : blocker.a, typeof blocker.b === 'object' ? blocker.b.guid : blocker.b); if (seen.has(id)) return;
+      seen.add(id); counts[ap.normalizeFaction(blocker.faction)]++;
     });
-    return ap.t('faction.summary', counts);
+    return ap.t('faction.summary', Object.assign(counts, { resLabel: ap.factionDescription('res'), enlLabel: ap.factionDescription('enl') }));
   };
   ap.collectExistingLinkIds = function (portals) {
     var map = {};
@@ -8013,6 +8169,8 @@ function wrapper(plugin_info) {
       summary: [],
       missingKeyPortals: 0,
       missingKeys: 0,
+      openDirections: ap.getPlanLinkSummary().openDirections,
+      unverifiedExisting: ap.getPlanLinkSummary().unverifiedExisting,
       missingNames: 0,
       unconfirmedLinks: Number(last.unconfirmedLinks) || 0,
       finalScanComplete: !!last.finalScanComplete,
@@ -8048,10 +8206,11 @@ function wrapper(plugin_info) {
     } else {
       if (unresolvedEndpoints) result.summary.push(ap.tp('readiness.openEndpoint', unresolvedEndpoints));
       if (blockedPlannedLinks) result.summary.push(ap.tp('readiness.blockedPlanLink', blockedPlannedLinks));
-      if (result.missingKeys) result.summary.push(ap.tp('readiness.missingKey', result.missingKeys));
+      if (result.missingKeys) result.summary.push(ap.tp(result.openDirections ? 'readiness.missingKeyEstimated' : 'readiness.missingKey', result.missingKeys));
       if (result.keysUnavailable) result.summary.push(ap.t('keys.needPlugin'));
       if (result.missingNames) result.summary.push(ap.tp('readiness.missingName', result.missingNames));
       if (result.unresolvedExistingLinks) result.summary.push(ap.tp('readiness.unusableLink', result.unresolvedExistingLinks));
+      if (result.unverifiedExisting) result.summary.push(ap.t('links.unverified', { count: result.unverifiedExisting }));
       if (finalScanPending) result.summary.push(ap.t('readiness.finalScanPending'));
       else if (finalScanIncomplete) result.summary.push(ap.t('readiness.finalScanIncomplete'));
       else if (result.unconfirmedLinks > 0 && result.finalScanComplete) result.summary.push(ap.t('readiness.finalScanComplete'));
@@ -8060,7 +8219,7 @@ function wrapper(plugin_info) {
       if (unresolvedEndpoints || blockedPlannedLinks || result.missingKeys) {
         result.key = 'blocked';
         result.label = ap.t('readiness.notReady');
-      } else if (result.keysUnavailable || result.missingNames || result.unresolvedExistingLinks || finalScanPending || finalScanIncomplete || noPlan) {
+      } else if (result.keysUnavailable || result.missingNames || result.unresolvedExistingLinks || result.unverifiedExisting || finalScanPending || finalScanIncomplete || noPlan) {
         result.key = 'check';
         result.label = ap.t('readiness.check');
       }
@@ -8610,8 +8769,10 @@ function wrapper(plugin_info) {
         },
         blockingLinks: link.blockers.map(function (blocker) {
           return {
+            guid: blocker.guid || '',
             faction: ap.normalizeFaction(blocker.faction),
             relation: ap.factionRelation(blocker),
+            reason: ap.isSamePlanConnection(link, blocker) ? 'same-connection' : 'crossing',
             a: ap.blockerEndpointExport(blocker.a, blocker.titleA, blocker.latlngA),
             b: ap.blockerEndpointExport(blocker.b, blocker.titleB, blocker.latlngB)
           };
@@ -8629,6 +8790,8 @@ function wrapper(plugin_info) {
       scan: ap.state.lastScan,
       planSource: ap.getActiveFanPlan() ? 'fan' : 'external',
       fanDesign: ap.normalizeFanDesign(ap.state.fanDesign),
+      playerFaction: ap.normalizeFaction(window.PLAYER && window.PLAYER.team),
+      linkSummary: ap.getPlanLinkSummary(),
       blockedPlanLinks: ap.buildBlockerExport(),
       plannedLinks: (ap.runtime.links || []).map(function (link) {
         var direction = ap.getLinkDirection(link);
@@ -8686,17 +8849,22 @@ function wrapper(plugin_info) {
       links: ap.tp('text.planLinkCount', last.plannedLinks || 0),
       portals: ap.tp('text.planPortalCount', stats.length)
     }));
-    lines.push(ap.t('text.existing', { existing: last.existingPlannedLinks || 0, unconfirmed: last.unconfirmedLinks || 0 }));
+    var ownFaction = ap.normalizeFaction(window.PLAYER && window.PLAYER.team), linkSummary = ap.getPlanLinkSummary();
+    lines.push(ap.t('faction.player', { faction: ap.t(ownFaction === 'res' || ownFaction === 'enl' ? 'faction.' + ownFaction : 'faction.noData') }));
+    lines.push(ap.t('links.summary', linkSummary));
+    if (linkSummary.enemyOccupied || linkSummary.machinaOccupied) lines.push(ap.t('links.occupied', linkSummary));
     lines.push(ap.t('text.done', { done: doneCount, total: stats.length }));
     lines.push(ap.t('text.keys', { owned: ap.getKeysPlugin() ? totalOwned : '?', required: totalRequired }));
+    if (linkSummary.openDirections) lines.push(ap.t('links.estimatedKeys', { count: linkSummary.openDirections }));
     lines.push('');
 
     if (blockedPlanLinks.length) {
       lines.push(ap.t('text.blockers'));
+      lines.push(ap.blockerFactionSummary(blockedPlanLinks.reduce(function (all, entry) { return all.concat(entry.blockingLinks); }, [])));
       blockedPlanLinks.forEach(function (entry) {
         lines.push(ap.t('text.planLink') + ' ' + entry.plannedLink.a.label + ' ↔ ' + entry.plannedLink.b.label);
         entry.blockingLinks.forEach(function (blocker) {
-          lines.push('  - ' + blocker.a.label + ' ↔ ' + blocker.b.label);
+          lines.push('  - ' + blocker.a.label + ' ↔ ' + blocker.b.label + ' [' + ap.blockerFactionText(blocker) + ' · ' + ap.t(blocker.reason === 'same-connection' ? 'blocker.reason.same' : 'blocker.reason.crossing') + ']');
         });
         lines.push('');
       });
@@ -8979,12 +9147,14 @@ function wrapper(plugin_info) {
 
     html += '<div class="ap-view-nav"><button id="ap-home">' + ap.escapeHtml(ap.t('ui.home')) + '</button><b>' + ap.escapeHtml(ap.t(fanView ? 'fan.title' : 'workspace.anchors')) + '</b><button id="ap-settings">' + ap.escapeHtml(ap.t('ui.settings')) + '</button></div>';
     if (!fanView && !(window.plugin && window.plugin.drawTools)) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('scan.drawToolsMissing')) + '</p>';
-    html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(fanView ? 'ui.refreshFan' : 'action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
+    html += '<div class="ap-primary-actions"><button id="ap-scan"' + (finalScanRunning ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(fanView ? 'ui.refreshFan' : 'action.scan')) + '</button><button id="ap-final-scan"' + ((!finalScanNeeded && !finalScanRunning) ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t(finalScanRunning ? 'action.finalScanPause' : (finalScanResumable ? 'action.finalScanResume' : 'action.finalScan'))) + '</button><button id="ap-tasks">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-more" aria-controls="ap-more-actions" aria-expanded="' + (moreOpen ? 'true' : 'false') + '">' + ap.escapeHtml(ap.t('action.more')) + '</button></div>';
+    html += '<div id="ap-more-actions" class="ap-more-actions ap-secondary" role="region" aria-label="' + ap.escapeHtml(ap.t('action.more')) + '">';
+    html += '<div class="ap-actions"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
+    if (!fanView) html += '<div class="ap-settings"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label></div>';
+    html += '</div>';
     html += ap.spineNoticeHtml();
     if (fanView) html += '<div class="ap-fan-plan-actions"><button id="ap-fan-design">' + ap.escapeHtml(ap.t('ui.editFan')) + '</button><button id="ap-fan-remove-plan">' + ap.escapeHtml(ap.t('fan.clear')) + '</button></div>';
     html += '<div class="ap-next-entry"><button id="ap-next-task">' + ap.escapeHtml(ap.t('next.title')) + '</button></div>';
-    html += '<div class="ap-actions ap-secondary"><button id="ap-loadnames">' + ap.escapeHtml(ap.t('action.loadNames')) + '</button><button id="ap-export">' + ap.escapeHtml(ap.t('action.exportShare')) + '</button><button id="ap-sort-location" title="' + ap.escapeHtml(ap.t('action.sortLocationTitle')) + '">' + ap.escapeHtml(ap.t('action.sortLocation')) + '</button><button id="ap-walk">' + ap.escapeHtml(ap.t('walk.title')) + '</button><button id="ap-key-list">' + ap.escapeHtml(ap.t('keys.list')) + '</button><button id="ap-key-import">' + ap.escapeHtml(ap.t('keys.import')) + '</button><button id="ap-key-reset">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><button id="ap-key-undo">' + ap.escapeHtml(ap.t('keys.undo')) + '</button></div>';
-    if (!fanView) html += '<div class="ap-settings ap-secondary"><label>' + ap.escapeHtml(ap.t('settings.tolerance')) + ' <input id="ap-tolerance" type="number" min="1" max="100" value="' + ap.escapeHtml(ap.state.tolerance) + '"> m' + (Number(ap.state.tolerance) === ap.DEFAULT_TOLERANCE_M ? ' · ' + ap.escapeHtml(ap.t('settings.standard')) : '') + '</label></div>';
     if (ap.runtime.suppressWalkObservations && !ap.runtime.walkSimulation) html += '<p>' + ap.escapeHtml(ap.t('walk.resumeScan')) + '</p>';
     if (ap.state.workRouteMode === 'portal') html += '<p>' + ap.escapeHtml(ap.workRouteLabel(nextLocation)) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p>' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
@@ -8998,6 +9168,7 @@ function wrapper(plugin_info) {
       if (readiness.unresolvedExistingLinks) html += ' · ' + ap.escapeHtml(ap.t('readiness.unusableLoaded', { count: readiness.unresolvedExistingLinks }));
       html += '</div></div></details>';
     }
+    html += ap.planLinkSummaryHtml();
     if (nextPortal) {
       html += '<div id="ap-next-target" class="ap-next-target">' + ap.routeTargetHtml(nextPortal, nextLocation, routeEstimate) + '</div>';
     } else if (stats.length) {
@@ -9313,8 +9484,8 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-head button{min-width:30px;min-height:30px;padding:3px 6px}
 #iitc-anchor-planner :is(.ap-view-nav,.ap-workspaces,.ap-primary-actions,.ap-fan-plan-actions,.ap-actions,.ap-settings,.ap-filters){display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:8px 12px;border-bottom:1px solid var(--ap-border)}
 #iitc-anchor-planner .ap-view-nav b{flex:1}
-#iitc-anchor-planner .ap-primary-actions button,#iitc-anchor-planner .ap-workspaces button{flex:1}
-#iitc-anchor-planner .ap-secondary{display:none}#iitc-anchor-planner.ap-show-more .ap-secondary{display:block}
+#iitc-anchor-planner .ap-primary-actions button,#iitc-anchor-planner .ap-workspaces button{flex:1}#iitc-anchor-planner .ap-primary-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#iitc-anchor-planner #ap-more{grid-column:1/-1}
+#iitc-anchor-planner .ap-link-summary{padding:8px 12px;border-bottom:1px solid var(--ap-border)}.ap-link-summary p{margin:4px 0}#iitc-anchor-planner .ap-secondary{display:none}#iitc-anchor-planner.ap-show-more .ap-secondary{display:block}
 #iitc-anchor-planner .ap-home-cards{display:grid;gap:12px;padding:12px}
 #iitc-anchor-planner .ap-home-cards button{text-align:left;min-height:102px;padding:12px;background:var(--ap-surface)}
 #iitc-anchor-planner .ap-home-cards :is(b,span){display:block}
@@ -9353,7 +9524,7 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner .ap-next-target span{flex:1}#iitc-anchor-planner .ap-next-target a{padding:6px 8px;border:1px solid var(--ap-border);border-radius:var(--ap-radius)}
 #iitc-anchor-planner .ap-route-remaining{font-size:12px;color:var(--ap-muted)}
 #iitc-anchor-planner .ap-list-empty{padding:12px;text-align:center;color:var(--ap-muted)}
-.ap-blocker-faction{font-weight:bold;margin:6px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}
+.ap-blocker-faction{font-weight:bold;margin:6px 0}.ap-blocker-faction small{display:block;font-weight:normal}.ap-blocker-faction-own{color:#ffbf47}.ap-blocker-faction-enemy{color:#ff5b68}.ap-blocker-faction-unknown{color:#b6c4ce}.ap-blocker-faction-res{color:#6ca8ff}.ap-blocker-faction-enl{color:#43d879}.ap-blocker-faction-mac{color:#ff5b68}
 /* Semantic portal colours and geographic marker geometry remain independent. */
 .ap-blocked{color:#ff3b30}.ap-status{display:inline-block;min-width:18px;text-align:center;font-weight:bold}
 .ap-missing{color:#ff9f43}.ap-partial{color:#f5d76e}.ap-ready{color:#ff6ad5}.ap-existing{color:#bdbdbd}.ap-done{color:#eee}
@@ -9365,7 +9536,7 @@ function wrapper(plugin_info) {
 .ap-map-badge{position:absolute!important;transform:translate(-50%,-50%)!important;min-width:24px!important;height:24px!important;padding:0 3px!important;border-radius:13px!important;border:3px solid #ff9f43!important;background:rgba(0,0,0,.88)!important;color:#fff!important;font:bold 10px/24px Arial,sans-serif!important;text-align:center!important;white-space:nowrap!important;box-sizing:border-box!important;text-shadow:0 1px 2px #000!important;z-index:2501!important}
 .ap-map-badge-next{box-shadow:0 0 0 3px #fff,0 0 0 6px rgba(0,0,0,.95),0 0 12px rgba(255,255,255,.9)!important}.ap-map-badge-done,.ap-map-badge-ready{font-size:14px!important}.ap-map-badge-partial{font-size:13px!important}
 @media(max-width:600px),(pointer:coarse){:is(#iitc-anchor-planner,.ap-ui,.ap-dialog){--ap-control-height:44px}.ap-ui button.ap-task-expand,.ap-ui button.ap-task-portal-name{min-height:40px}.ap-dialog .ui-dialog-titlebar-button{min-width:36px;min-height:36px}:where(#iitc-anchor-planner,.ap-ui) input:is([type=checkbox],[type=radio]){width:20px;height:20px}}
-@media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}#iitc-anchor-planner.ap-positioned{right:auto;width:calc(100vw - 10px)}#iitc-anchor-planner .ap-primary-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}#iitc-anchor-planner .ap-filters button{min-height:36px}.ap-dialog-body{padding:10px;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px)}#ap-task-list,#ap-next-work,#ap-fan-planner{max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}.ap-ui .ap-task-toolbar button{flex:1 1 120px}.ap-ui .ap-task-col-number{width:30px}.ap-ui .ap-task-col-keys{width:50px}.ap-ui .ap-task-col-count{width:36px}.ap-ui .ap-task-col-blockers{width:48px}.ap-ui .ap-task-table th,.ap-ui .ap-task-table td{padding:5px 3px}.ap-ui .ap-task-detail-content{padding:10px}.ap-ui .ap-task-table .ap-task-portal-name{font-size:12px}}
+@media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}#iitc-anchor-planner.ap-positioned{right:auto;width:calc(100vw - 10px)}#iitc-anchor-planner .ap-primary-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#iitc-anchor-planner .ap-filters button{min-height:36px}.ap-dialog-body{padding:10px;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px)}#ap-task-list,#ap-next-work,#ap-fan-planner{max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}.ap-ui .ap-task-toolbar button{flex:1 1 120px}.ap-ui .ap-task-col-number{width:30px}.ap-ui .ap-task-col-keys{width:50px}.ap-ui .ap-task-col-count{width:36px}.ap-ui .ap-task-col-blockers{width:48px}.ap-ui .ap-task-table th,.ap-ui .ap-task-table td{padding:5px 3px}.ap-ui .ap-task-detail-content{padding:10px}.ap-ui .ap-task-table .ap-task-portal-name{font-size:12px}}
 @media(prefers-reduced-motion:reduce){:is(#iitc-anchor-planner,.ap-ui,.ap-dialog) *{scroll-behavior:auto}}
 `).appendTo('head');
   };

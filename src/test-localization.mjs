@@ -108,17 +108,18 @@ function createRuntime({ languages = [], language = '', pageLanguage = '', saved
   };
   ap.state.lastScan = { plannedLinks: 1, existingPlannedLinks: 0, unconfirmedLinks: 1 };
   ap.state.language = 'en';
+  ap.runtime.links = [{id:'portalA|portalB',a:'portalA',b:'portalB',existing:false,blockers:[]}];
   const englishText = ap.buildPlanText();
   assert.match(englishText, /Plan: 1 link, 1 plan portal/);
-  assert.match(englishText, /Existing links: 0 · unconfirmed: 1/);
+  assert.match(englishText, /Plan links already present: own 0 · faction unverified 0 · open 1/);
 
   ap.state.language = 'de';
   const germanText = ap.buildPlanText();
   assert.match(germanText, /Plan: 1 Link, 1 Planportal/);
-  assert.match(germanText, /Vorhandene Links: 0 · nicht bestätigt: 1/);
+  assert.match(germanText, /Planlinks bereits vorhanden: eigene 0 · Fraktion unbestätigt 0 · offen 1/);
 
   const exported = ap.exportData();
-  assert.deepEqual(Object.keys(exported), ['plugin', 'version', 'exportedAt', 'scan', 'planSource', 'fanDesign', 'blockedPlanLinks', 'plannedLinks', 'anchors']);
+  assert.deepEqual(Object.keys(exported), ['plugin', 'version', 'exportedAt', 'scan', 'planSource', 'fanDesign', 'playerFaction', 'linkSummary', 'blockedPlanLinks', 'plannedLinks', 'anchors']);
   assert.deepEqual(Object.keys(exported.anchors[0]), [
     'guid', 'title', 'address', 'lat', 'lng', 'linkCount', 'existingLinks', 'blockedLinks',
     'openLinks', 'requiredKeys', 'ownedKeys', 'done', 'note', 'navigation'

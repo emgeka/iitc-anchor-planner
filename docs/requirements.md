@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.33
+# Anforderungen für Entwicklungsstand 0.2.0-beta.34
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -386,3 +386,18 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Gemeinsame Basis zuerst, anschließend je Spine-Portal beide Anker und dann Vorgänger. Modus/spine und geordnete links persistieren/exportieren. Aufgaben/Nächste Aufgabe/Vorschau müssen Reihenfolge einschließlich Rückbesuchen bei umgedrehter Richtung erhalten. Start/GPS/manuelle Reihenfolge dürfen sie nicht umgehen. Blocker davor einfügen; keine Aufgaben durch manuell erledigte Portale verlieren.
 - Vorschläge bestätigen keine Richtung. Bestehender Keymatcher darf bei knappen Keys alternative Richtungen vorschlagen; Wurfreihenfolge bleibt hart. Simulation blockiert abhängige Würfe bei fehlenden früheren Kanten und schließt im Spine-Modus höchstens das größte verfügbare Dreieck je Linkseite. Keine echten Bestands-/Erledigungswrites.
 - Zähler bleiben geometrische Ziele, keine AP- oder Baubarkeitsgarantie. Keine Linklimit-/Unterfeld-/Feldhistorienprüfung; weitere Seiten und Outbound-Strategien ausdrücklich außerhalb dieses ersten Entwurfs.
+
+## Vorgemerkt: optionale Planfeldfüllung (2026-10-27, noch nicht umgesetzt)
+- Option „Feldfüllung: normal / dezent / aus“ für die eigenen Planflächen vorsehen.
+- „Normal“ bleibt die heutige Darstellung und der Standard; übereinanderliegende Feldlagen dürfen ihre Füllung weiterhin sichtbar verstärken. Keine pauschale Abschwächung.
+- „Dezent“ reduziert nur die Deckkraft je Planfeld; die Anreicherung mehrerer Lagen bleibt erhalten.
+- „Aus“ zeigt Feldgrenzen und Planlinks ohne Flächenfüllung. Keine Änderung an Plangeometrie oder Berechnungen.
+- Unabhängig vom vorhandenen Schalter „Intel-Feldflächen ausblenden“ halten. Exakte Deckkraft und Platzierung der Auswahl bei der späteren Umsetzung visuell prüfen; noch keine Implementierung oder neue Version beauftragt.
+
+
+## Eindeutige Linkfraktionen und Mehr-Bereich (0.2.0-beta.34)
+- Eigene bereits vorhandene Planlinks, als vorhanden gewertete Verbindungen mit unbekannter Fraktion und noch offene Planlinks ausdrücklich trennen. Eingelesene Intel-Links aller Fraktionen separat benennen. Ohne Fraktionsbeleg keinen Link als sicher eigenen ausgeben; Legacy-Erkennung bleibt als unbestätigt markiert und verlangt Prüfung.
+- Blocker nach tatsächlicher Fraktion getrennt zählen und darstellen: Resistance blau, Enlightened grün, Machina rot, unbekannt grau. Spielerbezug eigene/gegnerische Spielerfraktion dynamisch aus PLAYER ableiten. Machina separat als KI-Blocker, auch ohne PLAYER niemals als nutzbare Verbindung. Keine Fraktion aus Kreuzblockern/Arbeitsplan ausfiltern.
+- Identische gegnerische/Machina-Verbindung als Belegung der geplanten Verbindung erklären; Kreuzungen getrennt benennen. Text- und JSONexport müssen Fraktionen/Bezug/Grund enthalten; Blocker je Fraktion einmal zählen, auch bei mehreren betroffenen Planlinks.
+- Bei offenen Richtungen Keybedarf und Defizit als vorläufige Schätzung markieren, unveränderte Bedarfsermittlung und reale Keys erhalten.
+- Mehr erhält einen zugeordneten region-Bereich direkt unter dem Button und vor Spine-Hinweisen/Entwurfsaktionen/Nächste Aufgabe. ARIA-Ziel und Zustand synchron halten, Zusatzaktionen auf Desktop/Mobil umbrechen lassen. Keine Änderung von Planquelle, Routen oder Keys durch Auf-/Zuklappen.

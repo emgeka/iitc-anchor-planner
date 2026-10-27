@@ -51,9 +51,9 @@ function planned(ap) {
   assert.equal(blockers.length, 4, 'Every crossing faction remains a blocker');
   assert.deepEqual(Array.from(blockers, blocker => blocker.faction), ['res', 'enl', 'mac', 'unknown']);
   link.blockers = blockers; link.blocked = true;
-  assert.match(ap.blockerFactionSummary([...blockers, blockers[0]]), /Friendly: 1 · Enemy: 2 · Unknown: 1/);
+  assert.match(ap.blockerFactionSummary([...blockers, blockers[0]]), /Resistance \(blue\) · your faction: 1 · Enlightened \(green\) · opposing player faction: 1 · Machina: 1 · unknown faction: 1/);
   const ownHtml = ap.taskBlockerHtml({ blocker: blockers[0], links: [link], manual: false, target: '' }, 0);
-  assert.ok(ownHtml.includes('Friendly blocker') && ownHtml.includes('Coordinate removal or flipping'));
+  assert.ok(ownHtml.includes('Resistance (blue) · your faction') && ownHtml.includes('Coordinate removal or flipping'));
   assert.notEqual(ap.blockerColor(blockers[0]), ap.blockerColor(blockers[1]));
   const rows = ap.getBlockerWorklist(null);
   assert.equal(rows.length, 8);
@@ -223,3 +223,48 @@ function fieldControls(){const button={attrs:{},setAttribute(k,v){this.attrs[k]=
   assert.equal(ap.runtime.hiddenIntelFields.size,0);
 }
 console.log('Blocker/overlay checks: Intel-fill hide/restore/live hooks/cleanup, synchronized display controls, preserved native data/inventory, blocker modes/factions and geographic badges passed.');
+
+{
+  const {ap,context,storage}=runtime();const base=planned(ap);
+  const own={...base,existing:true,blockers:[]};
+  const unknown={...base,id:'C|D',a:'C',b:'D',existing:true,blockers:[]};
+  const enemy={...base,id:'E|F',a:'E',b:'F',existing:false,blocked:true,blockers:[{guid:'green',a:'E',b:'F',faction:'enl',titleA:'Enemy E',titleB:'Enemy F'}]};
+  const machine={...base,id:'G|H',a:'G',b:'H',existing:false,blocked:true,blockers:[{guid:'red',a:'G',b:'H',faction:'mac',titleA:'Machina G',titleB:'Machina H'}]};
+  ap.runtime.links=[own,unknown,enemy,machine];ap.runtime.existingLinkIds={[own.id]:{faction:'res'},[unknown.id]:true};
+  ap.state.lastScan={plannedLinks:4,existingPlannedLinks:2,unconfirmedLinks:2,blockedPlannedLinks:2,finalScanComplete:true};
+  const counts=ap.getPlanLinkSummary();
+  assert.deepEqual(JSON.parse(JSON.stringify(counts)),{ownExisting:1,unverifiedExisting:1,open:2,enemyOccupied:1,machinaOccupied:1,openDirections:2});
+  const text=ap.buildPlanText();
+  assert.match(text,/Your faction: Resistance \(blue\)/);
+  assert.match(text,/own 1 · faction unverified 1 · open 2/);
+  assert.match(text,/opposing player faction 1 · Machina 1/);
+  assert.match(text,/Key demand is provisional/);
+  assert.match(text,/Enemy E ↔ Enemy F \[Enlightened \(green\) · opposing player faction · occupies the planned connection\]/);
+  assert.match(text,/Machina G ↔ Machina H \[Machina · AI blocker \(red\) · occupies the planned connection\]/);
+  const exported=ap.exportData();assert.equal(exported.playerFaction,'res');assert.equal(exported.linkSummary.machinaOccupied,1);
+  assert.equal(exported.blockedPlanLinks[1].blockingLinks[0].reason,'same-connection');
+  const fromExport=ap.blockerFactionSummary(exported.blockedPlanLinks.flatMap(e=>e.blockingLinks));
+  assert.match(fromExport,/opposing player faction: 1 · Machina: 1/,'Text-export summaries retain distinct JSON endpoint objects');
+  const colors=['res','enl','mac','unknown'].map(faction=>ap.blockerColor({faction}));assert.equal(new Set(colors).size,4);
+  assert.match(ap.blockerFactionHtml({faction:'mac'},true),/AI blocker \(red\)/);assert.match(ap.blockerFactionHtml({faction:'mac'},true),/Remove the Machina link/);
+  const task=ap.taskBlockerHtml({blocker:machine.blockers[0],links:[machine],manual:false,target:''},0);assert.match(task,/exact planned connection/);
+  context.window.PLAYER.team='ENLIGHTENED';assert.match(ap.blockerFactionText({faction:'enl'}),/your faction/);assert.match(ap.blockerFactionText({faction:'res'}),/opposing player faction/);
+  delete context.window.PLAYER;
+  assert.equal(ap.factionRelation({faction:'mac'}),'enemy');assert.equal(ap.isUsableExistingLink({faction:'mac'}),false,'Machina is never usable, even without player team');
+  assert.match(ap.blockerFactionText({faction:'res'}),/relation to player unknown/);
+  assert.equal(context.window.plugin.keys.keys.B,5);assert.equal(storage.size,0);
+}
+{
+  const {ap,context}=runtime();const link=planned(ap);delete ap.state.linkDirections[link.id];
+  ap.recalculateDirectedKeys();ap.state.lastScan={plannedLinks:1,unconfirmedLinks:1,finalScanComplete:true};context.window.plugin.keys.keys={};
+  assert.match(ap.getReadiness(Object.values(ap.runtime.stats)).summary.join(' '),/estimated shortage: 2 keys/);
+  ap.state.linkDirections[link.id]='A';ap.recalculateDirectedKeys();assert.match(ap.getReadiness(Object.values(ap.runtime.stats)).summary.join(' '),/1 key missing/);
+  link.existing=true;ap.runtime.existingLinkIds={[link.id]:{faction:'unknown'}};ap.recalculateDirectedKeys();ap.state.lastScan.unconfirmedLinks=0;
+  const readiness=ap.getReadiness(Object.values(ap.runtime.stats));assert.equal(readiness.key,'check');assert.match(readiness.summary.join(' '),/verify faction/);
+  for(const player of ['RESISTANCE','ENLIGHTENED',undefined]){
+    if(player)context.window.PLAYER={team:player};else delete context.window.PLAYER;
+    link.existing=false;context.window.links={machine:intel('A','B',3,point(0,0),point(0,2),10)};
+    ap.applyExistingLinkCoverage(ap.collectExistingLinkIds([]));assert.equal(link.existing,false);assert.equal(link.blockers.length,1);assert.equal(link.blockers[0].faction,'mac');
+  }
+}
+console.log('Faction clarity: own/ENL/RES/Machina/unknown, coincident blockers, unique export counts, provisional keys and missing-player safety passed.');

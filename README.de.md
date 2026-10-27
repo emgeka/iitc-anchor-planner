@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.33
+### Beta-Test: 0.2.0-beta.34
+
+Anzeige und Export unterscheiden jetzt eigene vorhandene Planlinks, vorhandene Verbindungen mit unbestätigter Fraktion und offene Planlinks. Gegenseitige Belegung und Kreuzungen werden erklärt; Resistance, Enlightened, Machina und unbekannte Fraktionen werden mit Namen, getrennten Blockerzahlen und passenden Kartenfarben angezeigt. Der Keybedarf bei offenen Wurfrichtungen ist ausdrücklich vorläufig. Die Zusatzaktionen stehen direkt unter **Mehr**, oberhalb von **Nächste Aufgabe**.
 
 Neu als Testentwurf: Im Fächerplaner zwischen **Getrennte Fächer** und **Spine-Felder · zwei Anker** wählen. Spine sucht eine ineinanderliegende Portalfolge auf einer Seite der Basislinie. Zwei Anker automatisch vorschlagen oder manuell festlegen; ausgelassene Portale werden markiert. Übernahme erhält Modus und nummerierte Wurfreihenfolge für Aufgaben, Nächste Aufgabe und Vorschau. Baufolge hat Vorrang vor Wegoptimierung, Blocker werden davor eingeplant, geänderte Wurfrichtungen können Rückbesuche erzeugen. Richtungen bleiben einzeln zu bestätigen, Keys unverändert. Offene Spine-Links bleiben trotz manuell erledigter Portale Aufgaben; Fertigmeldung erfolgt durch erkannte Intel-Links. Noch keine beidseitige Planung, Outbound-Strategie oder AP-Schätzung; ältere Betas verstehen die Spine-Abhängigkeiten nicht – vor Rückwechsel exportieren.
 
@@ -144,7 +146,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.33**
+- Entwicklungsversion: **0.2.0-beta.34**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

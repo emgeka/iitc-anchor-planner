@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.33
+# Bekannte Grenzen in 0.2.0-beta.34
 
 ## Portalzuordnung und Namen
 
@@ -339,3 +339,11 @@ Automatisierte Prüfungen decken individuell reversible Füllstärken, erhaltene
 - Echter IITC-/Mobile-Test mit Nutzerplan steht aus. Lokale Browserprüfung verwendet synthetische Portale und echte Leaflet-/IITC-Dialogdateien.
 
 Lokale Desktop-/360×800-Prüfung am 2026-10-27 erfolgreich: neue Planungsart, Fehler-/Übernahmesperre, nummerierte Aufgaben und vollständige Beispielsimulation. Kein echter Intel-Praxistest.
+
+
+## Fraktions-/Bestandsbeschriftung und Mehr beta.34
+Der Nutzerexport enthielt 48 Spine-Links/18 Portale, 0 nutzbare vorhandene Planlinks und 96 vorläufig benötigte Keys; grüne identische Gegnerverbindungen erschienen korrekt als Blocker, waren aber im Text nicht als ENL/gegnerisch/Belegung erkennbar. Der Nutzer bestätigt Resistance. Die neue Anzeige trennt diese Kategorien, Machina und Fraktionsunsicherheit explizit. 96 ist bei 48 offenen Richtungen eine konservative Endpunktzählung, kein bestätigter tatsächlicher Verbrauch. Unbekannte Legacy-Bestandslinks bleiben aus Kompatibilitätsgründen als vorhanden gewertet, aber als unbestätigt ausgewiesen und im Einsatzcheck prüfpflichtig.
+Machina mit fehlendem PLAYER wurde bisher unknown und damit möglicherweise nutzbar eingestuft; nun immer enemy und getrennt als KI bezeichnet. Alle Fraktionen bleiben physische Blocker. Kein Nachweis mehrerer übernommener Pläne aus dem gelieferten Text; native eigene Geometrie bleibt separat von Intel-/Draw-Tools-/FF3-Layern.
+Mehr-Buttons wurden bisher unter Nächste Aufgabe gerendert. beta.34 ordnet den zusammengehörigen Bereich direkt dem Mehr-Button zu, ohne Umdeutung der Aktionen. Echter Nutzer-IITC-/Mobile-Test für diese Darstellung weiterhin erforderlich. Feldfüllungen bleiben unverändert; die vorgemerkte normale/dezente/aus-Auswahl wird nicht umgesetzt.
+
+Lokaler Desktop-/360×800-Browsertest der Fraktionshinweise und Mehr-Zuordnung am 2026-10-27 erfolgreich; synthetische Daten. Nutzer-Praxistest weiterhin ausstehend.
