@@ -666,3 +666,8 @@ Automatisiert test-blockers-overlays, test-localization und test-workspaces-ui e
 - Spine-Wurffolge auch bei Richtungsumkehr, GPS-/festem Start und Rückbesuchen erhalten. ENL→RES-Update entfernt nur die betroffene Eroberung aus der neu berechneten Route.
 - Vorschau: bekannte Übernahme ausdrücklich virtuell, unbekannt sperrt Wurf, fehlende Keys sperren Wurf unabhängig davon. Zurück/Von vorn ändern keine echten Keys, Besitzdaten oder Erledigung.
 - Aufgaben, Nächste Aufgabe, Einsatzcheck und Export zeigen Besitz separat von Keys; Desktop und 360×800 prüfen. Echter IITC-/Mobile-Praxistest steht aus.
+
+
+## Responsive Einstellungen beta.36
+Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
+Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.

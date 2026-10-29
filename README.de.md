@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.35
+### Beta-Test: 0.2.0-beta.36
+
+Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
 
 Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
 
@@ -147,7 +149,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.35**
+- Entwicklungsversion: **0.2.0-beta.36**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

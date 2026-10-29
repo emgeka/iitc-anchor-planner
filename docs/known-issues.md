@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.35
+# Bekannte Grenzen in 0.2.0-beta.36
 
 ## Portalzuordnung und Namen
 
@@ -355,3 +355,8 @@ Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitspl
 Intel ist ein beobachteter Zustand, keine Zukunftsgarantie. Linkbasierte Besitzableitung kann veraltet sein; frische Marker-/Detaildaten haben Vorrang. Fehlende Koordinaten bleiben als nicht eingeplante Voraussetzung sichtbar. Eine unbekannte Fraktion muss durch aktuelle Intel-Daten geklärt werden; die Vorschau nimmt keine erfolgreiche Prüfung an. Bereits eigene Portale werden hinsichtlich Ausbau als wurffähig angenommen. Historische Abschnitte zu fehlender Eroberungsprüfung beschreiben frühere Betas. Lokale Desktop-/Mobilprüfung mit synthetischen Daten ersetzt keinen echten IITC-/IITC-Mobile-Test.
 
 Lokale Prüfung am 2026-10-27 erfolgreich: echte Leaflet-Karte und originale IITC-Dialoghülle mit synthetischem Spine-Plan, beiden ENL-Ankern und RES-Spieler. Aufgaben zeigen beide Eroberungen vor dem Basiswurf; Vorschau zeigt die explizite virtuelle Übernahme. Desktop 1280×720 und schmale Ansicht 360×800 visuell geprüft (Bedienung, Umbruch, sichtbare Hinweise). Automatisiert alle elf Suiten inklusive Besitz-/Key-Unabhängigkeit, Neutral/Machina/unbekannt, Zielbesuch, Live-Aktualisierung und Datenisolation erfolgreich. Echter IITC-/IITC-Mobile-Praxistest bleibt ausstehend.
+
+
+## Responsive Einstellungen beta.36
+Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
+Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.

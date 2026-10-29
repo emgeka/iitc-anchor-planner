@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.35
+// @version        0.2.0-beta.36
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261027210000';
+  plugin_info.dateTimeVersion = '20261029120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.35';
+  ap.VERSION = '0.2.0-beta.36';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -9281,9 +9281,9 @@ function wrapper(plugin_info) {
   };
   ap.showPluginSettings = function () {
     if (typeof window.dialog !== 'function') return;
-    var html = '<div id="ap-plugin-settings"><p>' + ap.escapeHtml(ap.t('ui.settingsHelp')) + '</p><label>' + ap.escapeHtml(ap.t('language.label')) +
-      ' <select id="ap-global-language">' + ap.languageOptionsHtml() + '</select></label><p><button id="ap-global-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></p></div>';
-    ap.openDialog({ id: 'anchor-planner-settings', title: ap.t('ui.settings'), html: html, width: Math.min(420, (window.innerWidth || 440) - 20) });
+    var html = '<div id="ap-plugin-settings"><p>' + ap.escapeHtml(ap.t('ui.settingsHelp')) + '</p><label class="ap-settings-field">' + ap.escapeHtml(ap.t('language.label')) +
+      ' <select id="ap-global-language">' + ap.languageOptionsHtml() + '</select></label><div class="ap-settings-actions"><button id="ap-global-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div></div>';
+    ap.openDialog({ id: 'anchor-planner-settings', dialogClass: 'ap-settings-dialog', title: ap.t('ui.settings'), html: html, width: Math.min(420, (window.innerWidth || 440) - 20) });
     var language = document.getElementById('ap-global-language');
     if (language) language.onchange = function () {
       ap.state.language = this.value === 'auto' ? 'auto' : ap.findAvailableLanguage(this.value) || 'auto';
@@ -9626,6 +9626,13 @@ function wrapper(plugin_info) {
 .ap-dialog .ui-dialog-buttonpane{margin:0;padding:8px 12px;background:var(--ap-surface);border:0;border-top:1px solid var(--ap-border);border-radius:0 0 8px 8px}
 .ap-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{display:flex;flex-wrap:wrap;gap:8px}
 .ap-dialog .ui-dialog-buttonpane .ui-button-text{padding:0;font:inherit;color:inherit}
+.ap-settings-dialog{max-width:calc(100vw - 20px)!important}
+#ap-plugin-settings{display:flex;flex-direction:column;gap:14px;min-width:0;overflow-wrap:anywhere}
+.ap-ui #ap-plugin-settings>p{margin:0}
+.ap-ui #ap-plugin-settings .ap-settings-field{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0;min-width:0}
+.ap-ui #ap-plugin-settings select{flex:1 1 160px;width:auto;min-width:0;max-width:100%}
+.ap-ui #ap-plugin-settings .ap-settings-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.ap-ui #ap-plugin-settings .ap-settings-actions button{max-width:100%;height:auto}
 .ap-dialog-body{padding:12px;max-height:calc(100vh - 160px);max-height:calc(100dvh - 160px);overflow:auto;-webkit-overflow-scrolling:touch}
 :where(#iitc-anchor-planner,.ap-ui) :is(button,input,select,textarea),.ap-dialog .ui-dialog-buttonpane button{font:inherit;max-width:100%;border:1px solid var(--ap-border);border-radius:var(--ap-radius);color:var(--ap-text);background:var(--ap-control)}
 :where(#iitc-anchor-planner,.ap-ui) :is(button,select,input:not([type=checkbox]):not([type=radio])),.ap-dialog .ui-dialog-buttonpane button{min-height:var(--ap-control-height);padding:7px 10px}

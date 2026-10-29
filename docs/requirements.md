@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.35
+# Anforderungen für Entwicklungsstand 0.2.0-beta.36
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -407,3 +407,8 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 Portalbesitz ergänzt unabhängig von Keys konkrete Voraussetzungen im Arbeitsplan: gegnerische/Machina-Portale erobern, neutrale übernehmen und unbekannten Besitz prüfen – an beiden Enden vor abhängigen Würfen. Auch reine Zielportale erhalten nötige Vorbereitungsbesuche. Die Vorschau simuliert bekannte Eroberungen/Übernahmen ausdrücklich; unbekannter Besitz sperrt virtuelle Würfe. Blockerabbau an einem Ende erobert das andere nicht. Echte Besitzdaten, Bestand und Erledigung bleiben unverändert. Bereits eigene Portale werden als linkfähig angenommen; Ausbauressourcen, Reichweite, Linklimits und Links unter Feldern bleiben zu prüfen.
 
 Besitzaufgaben in Aufgabenübersicht/-details, Nächste Aufgabe, Einsatzcheck, Route und Export sichtbar halten. Ein fehlender Keybestand darf Eroberungen nicht verschwinden lassen. Unbekannte Spielerfraktion erlaubt keine eigene Besitzannahme. Manuelle Erledigung oder Blockerabbau sind kein Intel-Besitznachweis. Zielbesuche nur bei konkreter Besitzvoraussetzung, keine pauschalen Vorbereitungsplatzhalter.
+
+
+## Responsive Einstellungen beta.36
+Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
+Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.

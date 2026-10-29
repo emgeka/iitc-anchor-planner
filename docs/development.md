@@ -149,7 +149,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.35` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.36` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +159,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.35` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.36` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -267,3 +267,10 @@ Lokale visuelle Prüfung am 2026-10-27 mit echten Leaflet-/IITC-Dialogdateien un
 feature/portal-ownership von beta, PR nach beta; 389 Locale-Schlüssel (neue Texte DE/EN, sonst EN-Fallback). anchors.ownership ergänzt den JSON-Export. Alle elf CI-Suiten, Syntax aller mjs/Userscript-Dateien, Locale-/Beta-Konsistenz und Branchpolicy prüfen. Lokale Leaflet-/originale IITC-Dialogansicht mit synthetischen RES/ENL/Machina/neutral/unbekannt-Portalen auf Desktop und 360×800 prüfen; tatsächlicher Nutzer-IITC-/Mobile-Test ausstehend. Stable 0.1.55 bleibt unverändert.
 
 Lokale Prüfung am 2026-10-27 erfolgreich: echte Leaflet-Karte und originale IITC-Dialoghülle mit synthetischem Spine-Plan, beiden ENL-Ankern und RES-Spieler. Aufgaben zeigen beide Eroberungen vor dem Basiswurf; Vorschau zeigt die explizite virtuelle Übernahme. Desktop 1280×720 und schmale Ansicht 360×800 visuell geprüft (Bedienung, Umbruch, sichtbare Hinweise). Automatisiert alle elf Suiten inklusive Besitz-/Key-Unabhängigkeit, Neutral/Machina/unbekannt, Zielbesuch, Live-Aktualisierung und Datenisolation erfolgreich. Echter IITC-/IITC-Mobile-Praxistest bleibt ausstehend.
+
+
+## Responsive Einstellungen beta.36
+Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
+Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.
+
+Lokale Browserprüfung am 2026-10-29 erfolgreich: originaler IITC-Dialog mit Leaflet-Testansicht, geöffnet breit und anschließend 360×800 → 280×650 → breit. Auswahlbreite ändert sich; Abstand zum Löschbutton jeweils 14 px, kein horizontaler Inhaltsüberlauf. Alle elf Suiten erfolgreich; tatsächlicher IITC-/Mobile-Praxistest ausstehend.
