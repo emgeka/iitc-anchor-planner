@@ -671,3 +671,11 @@ Automatisiert test-blockers-overlays, test-localization und test-workspaces-ui e
 ## Responsive Einstellungen beta.36
 Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
 Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.
+
+
+## Kompakte UI Beta 37
+- Frischer/alter Speicher: Hinweise aus, Füllung Normal. Checkbox und Normal/Dezent/Aus speichern/reloaden; invalide Werte sicher normalisieren.
+- Hinweise einzeln per Hover, Tastatur und Touch abrufen; global auf/zu, auch in offenen Dialogen. Besitzaufgaben/Keydefizite/Blocker/Fehler bleiben direkt sichtbar. Löschen-Bestätigung erhalten.
+- Fraktionspunkt Panel/Titelleisten RES, ENL, fehlender PLAYER; Keyboard/Antippen zeigt Namen, kein Paneldrag. Namen RES/ENL/Machina/neutral/unbekannt und Sonderzeichen in Planer/Tasks/Next/Links/Vorschau; native Optionslisten Klartext. Keine Farbänderung aufgrund virtueller Eroberung.
+- Desktop und 360×800, nachträglich 280×650: kompakte Breite/Höhe, scrollbare lange Tabellen, fokussierbare Controls, sichtbare Close-/Footerknöpfe.
+- Alle drei Füllungsstufen in Entwurf, aktivem Plan und laufender Vorschau/Zurück/Von vorn prüfen; native Intel-Füllungen, Kanten, Geometrie, Keys und Erledigung unverändert. Normal erhält Anreicherung.

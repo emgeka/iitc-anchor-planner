@@ -28,7 +28,9 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.36
+### Beta testing: 0.2.0-beta.37
+
+Beta 37 combines the six agreed UI changes: smaller initial dialogs and spacing with readable text and large touch targets; expandable recurring explanations with a saved Show detailed hints checkbox (off by default); an accessible faction dot in panel/dialog headers; portal names colored by observed ownership, including unknown indication; and saved Normal/Subtle/Off plan field fills. Normal preserves accumulated shading, Subtle uses one third opacity and Off retains edges. Apply fills to drafts, targets and simulated fields independently of native Intel fills. Actual tasks and warnings remain visible; Keys, routes and geometry are unchanged.
 
 Settings now separate the language field and data deletion action with consistent spacing. Controls wrap and resize to the available dialog width, including viewport changes after opening.
 
@@ -143,7 +145,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.36**
+- Development version: **0.2.0-beta.37**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`

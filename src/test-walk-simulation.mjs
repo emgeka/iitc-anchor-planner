@@ -291,3 +291,22 @@ console.log("Spine ordered fields, prerequisite propagation and real inventory i
   assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.portals),portals);assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(storage.size,0);
 }
 console.log('Portal preview: explicit virtual capture, target prerequisites, unknown rejection, independent keys and no real ownership/completion writes passed.');
+
+{
+  const {ap,context}=runtime();
+  class Polygon { constructor(){this.options={fillOpacity:.12};}setStyle(style){Object.assign(this.options,style);return this;} }
+  context.L.Polygon=Polygon;
+  const target=new Polygon(),progress=new Polygon(),draft=new Polygon(),native=new Polygon();
+  const group=polygon=>({eachLayer(fn){fn(polygon);}});
+  ap.showWalkSimulation();const session=ap.runtime.walkSimulation,model=JSON.stringify(session.model),keys=JSON.stringify(context.window.plugin.keys.keys);
+  session.targetLayer=group(target);session.layer=group(progress);ap.runtime.fanDraft={layer:group(draft)};
+  const geometry=JSON.stringify(ap.runtime.links);
+  for(const [mode,a,b] of [['subtle',.04,.2/3],['off',0,0],['normal',.12,.2]]) {
+    ap.state.planFieldFill=mode;ap.refreshPresentation();
+    assert.equal(target.options.fillOpacity,a);assert.equal(draft.options.fillOpacity,a);assert.equal(progress.options.fillOpacity,b);
+    assert.equal(native.options.fillOpacity,.12,'Intel fill is independent');
+    assert.equal(ap.runtime.walkSimulation,session);assert.equal(JSON.stringify(session.model),model);
+    assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(JSON.stringify(ap.runtime.links),geometry);
+  }
+}
+console.log('Live field fill preferences: draft/target/progress update without changing geometry, Intel fills, virtual progress or real keys passed.');

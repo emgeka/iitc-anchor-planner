@@ -271,7 +271,6 @@
   "walk.finalScan": "Pause the final check before starting Plan preview.",
   "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
   "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-  "walk.notes": "Preview notes",
   "walk.keysLeft": "Virtual stock left: {count} keys",
   "tasks.startPortal": "Route from this portal",
   "tasks.modePortal": "From portal: {title}",
@@ -387,5 +386,13 @@
   "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
   "portal.plannedLink": "Planned link",
   "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-  "portal.nextTask": "Next portal task:"
+  "portal.nextTask": "Next portal task:",
+  "ui.notes": "Hints",
+  "settings.verbose": "Show detailed hints",
+  "settings.planFill": "Plan field fills",
+  "settings.fill.normal": "Normal",
+  "settings.fill.subtle": "Subtle",
+  "settings.fill.off": "Off",
+  "faction.neutral": "Neutral",
+  "links.estimatedShort": "{count} directions open · key demand estimated"
 }

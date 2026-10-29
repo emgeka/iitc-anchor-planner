@@ -4,6 +4,15 @@
 
 ## English
 
+Agree explicitly with the user on creating a new revision and its scope before
+implementing features, changing functional code or bumping/publishing a plugin
+version. Discussing an idea or approving a concept alone is not implementation
+authorization. Record additional ideas for later agreement.
+
+Verbindliche Nutzerregel: Vor Featureeinbau oder funktionalen Änderungen erst
+ausdrücklich die Erzeugung einer neuen Revision und deren Umfang vereinbaren.
+Ideen, Konzeptzustimmung und Vormerkungen allein sind keine Einbaufreigabe.
+
 | Branch | Role | Pull request target |
 | --- | --- | --- |
 | `main` | Stable source and published distributions; default branch | — |
@@ -149,7 +158,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.36` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.37` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -159,7 +168,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.36` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.37` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -274,3 +283,9 @@ Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereiche
 Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.
 
 Lokale Browserprüfung am 2026-10-29 erfolgreich: originaler IITC-Dialog mit Leaflet-Testansicht, geöffnet breit und anschließend 360×800 → 280×650 → breit. Auswahlbreite ändert sich; Abstand zum Löschbutton jeweils 14 px, kein horizontaler Inhaltsüberlauf. Alle elf Suiten erfolgreich; tatsächlicher IITC-/Mobile-Praxistest ausstehend.
+
+
+## Beta 37 – vereinbarter Umfang
+feature/compact-beta37, PR nach beta. Der Nutzer beauftragte ausdrücklich alle sechs gesammelten UI-Punkte. 396 Locale-Schlüssel; neue Texte DE/EN, sonst EN-Fallback. Alle elf Testsuiten inklusive zusätzlicher Settings-Persistenz-/Escaping-/Besitzanzeige- und Live-Füllungs-/Datenisolationstests ausführen; bestehende Locale-/Metadaten-/Branchprüfungen erhalten. Keine Stable-Dateien ändern.
+
+Lokale Prüfung am 2026-10-29: originale IITC-Dialoghülle/Leaflet mit synthetischen Portalen auf Desktop, 360×800 und 280×650. Kompakte Breiten, sichere Namensfarben, Fragezeichen, Hinweise auf/zu per Checkbox und Tastatur, benannter Fraktionspunkt per Enter, erreichbare Settings ohne horizontalen Überlauf geprüft. Dezent zeichnet Planpolygone mit .04; native Intel-Füllungen .25/.4/.2 bleiben erhalten. Füllungsstufen und live Vorschauzustand zusätzlich automatisiert geprüft. Echter Nutzer-IITC-/Mobile-Test von Beta 37 steht aus.

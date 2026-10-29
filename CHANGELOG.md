@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.37
+
+### English
+- Beta 37 combines the six agreed UI changes: smaller initial dialogs and spacing with readable text and large touch targets; expandable recurring explanations with a saved Show detailed hints checkbox (off by default); an accessible faction dot in panel/dialog headers; portal names colored by observed ownership, including unknown indication; and saved Normal/Subtle/Off plan field fills. Normal preserves accumulated shading, Subtle uses one third opacity and Off retains edges. Apply fills to drafts, targets and simulated fields independently of native Intel fills. Actual tasks and warnings remain visible; Keys, routes and geometry are unchanged.
+
+### Deutsch
+- Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für Planer/Aufgaben (540 px), Vorschau (480 px) und Einstellungen (360 px), geringere Abstände und begrenzte Inhaltsflächen bei unveränderter Grundschrift. Desktop-Kontrollen kompakter, Touchziele bleiben groß. Allgemeine Erklärungen hinter Hinweise; gespeicherte Checkbox Ausführliche Hinweise anzeigen standardmäßig aus. Hinweise sind per Maus-Hover als Tooltip, Tastatur und Antippen abrufbar. Besitzaufgaben, Fehler und Statussummen bleiben sichtbar. Eigene Fraktion als benannter Punkt in Panel-/Dialogtitelleisten, unbekannt mit Fragezeichen. Portalnamen nach beobachtetem Besitzer färben (RES/ENL/Machina/neutral/unbekannt); Vorschau bewahrt den Besitz-Snapshot. Planfeldfüllung Normal/Dezent/Aus unter Einstellungen, Standard Normal; Dezent drittelt Deckkraft, Aus erhält Kanten. Die Auswahl gilt für Entwurf, aktiven Zielplan und simulierte Flächen, unabhängig von Intel-Füllungen. Keine Änderung an Keys, Routen oder gespeicherter Plangeometrie.
+
 ## 0.2.0-beta.36
 
 ### English
