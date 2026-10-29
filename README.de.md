@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.36
+### Beta-Test: 0.2.0-beta.37
+
+Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für Planer/Aufgaben (540 px), Vorschau (480 px) und Einstellungen (360 px), geringere Abstände und begrenzte Inhaltsflächen bei unveränderter Grundschrift. Desktop-Kontrollen kompakter, Touchziele bleiben groß. Allgemeine Erklärungen hinter Hinweise; gespeicherte Checkbox Ausführliche Hinweise anzeigen standardmäßig aus. Hinweise sind per Maus-Hover als Tooltip, Tastatur und Antippen abrufbar. Besitzaufgaben, Fehler und Statussummen bleiben sichtbar. Eigene Fraktion als benannter Punkt in Panel-/Dialogtitelleisten, unbekannt mit Fragezeichen. Portalnamen nach beobachtetem Besitzer färben (RES/ENL/Machina/neutral/unbekannt); Vorschau bewahrt den Besitz-Snapshot. Planfeldfüllung Normal/Dezent/Aus unter Einstellungen, Standard Normal; Dezent drittelt Deckkraft, Aus erhält Kanten. Die Auswahl gilt für Entwurf, aktiven Zielplan und simulierte Flächen, unabhängig von Intel-Füllungen. Keine Änderung an Keys, Routen oder gespeicherter Plangeometrie.
 
 Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
 
@@ -149,7 +151,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.36**
+- Entwicklungsversion: **0.2.0-beta.37**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

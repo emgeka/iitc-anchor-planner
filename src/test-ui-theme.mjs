@@ -88,3 +88,32 @@ function runtime(width = 360) {
   assert.equal(JSON.stringify(ap.state), state);
 }
 console.log('Shared UI: scoped current/legacy IITC dialog integration, viewport widths, preserved nodes/options/callbacks, main dialog coverage and unchanged state passed.');
+
+// Presentation preferences: safe defaults, persistence, escaping and field styles
+// must not change plan geometry, directions, keys or manual completion.
+{
+  const {ap,context}=runtime(1280);
+  assert.equal(ap.state.verboseHints,false);
+  assert.equal(ap.state.planFieldFill,'normal');
+  assert.ok(!ap.helpHtml('Example').includes(' open'));
+  ap.state.verboseHints=true;assert.ok(ap.helpHtml('Example').includes(' open'));
+  assert.ok(ap.helpHtml('<script>').includes('&lt;script&gt;'));
+  context.window.PLAYER={team:'RESISTANCE'};
+  context.window.portals={A:{options:{team:'ENLIGHTENED'}},B:{options:{team:'MACHINA'}},N:{options:{team:0}}};
+  assert.match(ap.portalNameHtml('A','<img onerror=x>'),/ap-owner-enl/);
+  assert.ok(!ap.portalNameHtml('A','<img onerror=x>').includes('<img'));
+  assert.match(ap.portalNameHtml('B','B'),/ap-owner-mac/);
+  assert.match(ap.portalNameHtml('N','N'),/ap-owner-neutral/);
+  assert.match(ap.portalNameHtml('U','U'),/<sup/);
+  assert.match(ap.factionBadgeHtml(),/ap-owner-res/);
+  delete context.window.PLAYER;assert.match(ap.factionBadgeHtml(),/\?/);
+  let stored=null;context.localStorage.setItem=(key,value)=>{stored=value};context.localStorage.getItem=()=>stored;
+  const geometry=JSON.stringify(ap.runtime.links),anchors=JSON.stringify(ap.state.anchors);
+  ap.state.planFieldFill='subtle';assert.equal(ap.planFillOpacity(.12),.04);assert.ok(Math.abs(ap.planFillOpacity(.2)-.2/3)<1e-10);
+  ap.save();ap.state.verboseHints=false;ap.state.planFieldFill='normal';ap.load();
+  assert.equal(ap.state.verboseHints,true);assert.equal(ap.state.planFieldFill,'subtle');
+  assert.equal(JSON.stringify(ap.runtime.links),geometry);assert.equal(JSON.stringify(ap.state.anchors),anchors);
+  ap.state.planFieldFill='off';assert.equal(ap.planFillOpacity(.12),0);assert.equal(ap.planFillOpacity(.2),0);
+  stored=JSON.stringify({verboseHints:'yes',planFieldFill:'bad'});ap.load();assert.equal(ap.state.verboseHints,false);assert.equal(ap.state.planFieldFill,'normal');
+}
+console.log('Presentation preferences: persistence, independent owners, safe names, unknown indication and unchanged plan state passed.');

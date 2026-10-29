@@ -25,6 +25,18 @@ versionierte Alt-Releases behalten ihren damaligen Stand.
 
 ## Vorgehen
 
+### Revisionen ausdrücklich abstimmen
+
+- Features nicht spontan implementieren. Ideen, Fragen, Zustimmung zu einem
+  Konzept und Vormerkungen sind keine Freigabe für den Einbau oder eine neue
+  Revision.
+- Erst mit dem Nutzer ausdrücklich vereinbaren, dass eine neue Revision
+  erzeugt wird und welche Änderungen sie umfasst. Innerhalb dieses vereinbarten
+  Umfangs arbeiten; weitere Features für eine spätere Abstimmung sammeln.
+- Ohne diese Vereinbarung keine funktionalen Änderungen oder Versionssprünge
+  vornehmen und keine neue Plugin-Revision veröffentlichen. Analyse, Entwürfe
+  und das Festhalten von Anforderungen bleiben möglich.
+
 1. Vor Änderungen zuerst `README.md`, `README.de.md`,
    `docs/requirements.md`, `docs/architecture.md`, `docs/known-issues.md` und
    `test-data/scenarios.md` lesen.
@@ -230,3 +242,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 - Besitz an beiden Enden jedes offenen Links unabhängig vom Keybestand berücksichtigen. Erobern/Übernehmen/Prüfen als echte Routenaufgaben vor abhängige Würfe einfügen, auch an reinen Zielen. Manuelles done oder Blockerabbau ersetzt keinen Besitznachweis. Unbekannt bleibt in der Vorschau ungeklärt; virtuelle Eroberung verändert keine echten Daten und erobert niemals das andere Ende. Live-Besitzänderungen invalidieren die Route. Routing-, Vorschau-, UI-, Locale-/Export- und Keytests gemeinsam prüfen.
 
 - Einstellungen als getrennte responsive Formular-/Aktionsbereiche pflegen: keine Abhängigkeit von Absatzabständen fremder IITC-Styles. Bei offenem Dialog schmale/breite Fenster und manuell verkleinerte Dialoge visuell prüfen.
+
+## Kompakte Oberfläche und Anzeigepräferenzen
+- Wiederkehrende Hilfe über helpHtml/details, wichtige Voraussetzungen/Fehler direkt sichtbar. Default verboseHints=false, Touch-/Tastaturzugang erhalten. Portalnamen mit portalNameHtml einzeln sicher darstellen; Farben zeigen beobachteten Besitzer, keine virtuelle Übernahme. Fraktionspunkt darf Paneldrag nicht auslösen. Planfüllung normal/subtle/off ausschließlich auf eigene Polygonlayer anwenden; Normal und reale Daten unverändert. Tests für Preference-Persistenz, Escaping und Live-Stiländerung bei unverändertem Vorschauzustand pflegen.

@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.36
+// @version        0.2.0-beta.37
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261029120000';
+  plugin_info.dateTimeVersion = '20261029130000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.36';
+  ap.VERSION = '0.2.0-beta.37';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -324,7 +324,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
       "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
       "walk.stopped": "Planvorschau beendet. Zum Neustart erneut öffnen.",
-      "walk.notes": "Vorschau: Hinweise",
       "walk.keysLeft": "Virtuell übrig: {count} Keys",
       "tasks.startPortal": "Route ab diesem Portal",
       "tasks.modePortal": "Ab Portal: {title}",
@@ -440,7 +439,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portalbesitz als Voraussetzung ungeklärt; nicht simuliert",
       "portal.plannedLink": "Geplanter Link",
       "portal.summary": "Portale vor dem Linkbau: erobern {capture} · neutral übernehmen {claim} · prüfen {verify}",
-      "portal.nextTask": "Nächste Portalaufgabe:"
+      "portal.nextTask": "Nächste Portalaufgabe:",
+      "ui.notes": "Hinweise",
+      "settings.verbose": "Ausführliche Hinweise anzeigen",
+      "settings.planFill": "Planfeldfüllung",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Dezent",
+      "settings.fill.off": "Aus",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt"
     },
     "en": {
       "language.label": "Language",
@@ -715,7 +722,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -831,7 +837,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "es": {
       "language.label": "Idioma",
@@ -1106,7 +1120,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -1222,7 +1235,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "fr": {
       "language.label": "Langue",
@@ -1497,7 +1518,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -1613,7 +1633,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "it": {
       "language.label": "Lingua",
@@ -1888,7 +1916,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -2004,7 +2031,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "ja": {
       "language.label": "言語",
@@ -2279,7 +2314,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -2395,7 +2429,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "pl": {
       "language.label": "Język",
@@ -2670,7 +2712,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -2786,7 +2827,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -3061,7 +3110,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -3177,7 +3225,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "ru": {
       "language.label": "Язык",
@@ -3452,7 +3508,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -3568,7 +3623,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3843,7 +3906,6 @@ function wrapper(plugin_info) {
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
       "walk.stopped": "Preview stopped. Reopen Plan preview to start again.",
-      "walk.notes": "Preview notes",
       "walk.keysLeft": "Virtual stock left: {count} keys",
       "tasks.startPortal": "Route from this portal",
       "tasks.modePortal": "From portal: {title}",
@@ -3959,7 +4021,15 @@ function wrapper(plugin_info) {
       "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
-      "portal.nextTask": "Next portal task:"
+      "portal.nextTask": "Next portal task:",
+      "ui.notes": "Hints",
+      "settings.verbose": "Show detailed hints",
+      "settings.planFill": "Plan field fills",
+      "settings.fill.normal": "Normal",
+      "settings.fill.subtle": "Subtle",
+      "settings.fill.off": "Off",
+      "faction.neutral": "Neutral",
+      "links.estimatedShort": "{count} directions open · key demand estimated"
     }
   };
   // AP_LOCALES_END
@@ -3982,6 +4052,8 @@ function wrapper(plugin_info) {
     fanDesign: null,
     planSource: 'auto',
     language: 'auto',
+    verboseHints: false,
+    planFieldFill: 'normal',
     panelPosition: null
   };
 
@@ -4042,7 +4114,16 @@ function wrapper(plugin_info) {
       var requested = typeof settings.width === 'number' && isFinite(settings.width) && settings.width > 0 ? settings.width : 600;
       settings.width = Math.min(requested, maximum);
     }
-    return window.dialog(settings);
+    var caps={'anchor-planner-settings':360,'anchor-planner-fan':540,'anchor-planner-tasks':540,'anchor-planner-walk':480,'anchor-planner-next-task':440,'anchor-planner-key-list':480,'anchor-planner-key-reset':420,'anchor-planner-key-undo':600,'anchor-planner-key-import':600,'anchor-planner-export':560};
+    if (caps[settings.id] && typeof settings.width==='number') settings.width=Math.min(settings.width,caps[settings.id]);
+    if (settings.minHeight==null) settings.minHeight=0;
+    var handle=window.dialog(settings);
+    try {
+      var widget=handle && typeof handle.dialog==='function' && handle.dialog('widget');
+      var root=widget && widget[0], title=root && root.querySelector('.ui-dialog-title');
+      if (title && !title.querySelector('.ap-faction-badge')) title.insertAdjacentHTML('beforeend',ap.factionBadgeHtml());
+    } catch (_) {}
+    return handle;
   };
 
   ap.escapeHtml = function (value) {
@@ -4193,6 +4274,8 @@ function wrapper(plugin_info) {
       var parsed = JSON.parse(raw);
       if (parsed && typeof parsed === 'object') {
         ap.state = Object.assign(ap.state, parsed);
+        ap.state.verboseHints = ap.state.verboseHints === true;
+        if (['normal','subtle','off'].indexOf(ap.state.planFieldFill) === -1) ap.state.planFieldFill = 'normal';
         ap.state.anchors = ap.state.anchors || {};
         ap.state.endpointAssignments = ap.state.endpointAssignments || {};
         ap.state.blockerRoutePortals = ap.state.blockerRoutePortals || {};
@@ -4310,7 +4393,7 @@ function wrapper(plugin_info) {
     var panel = ap.runtime.panel;
     var node = target;
     while (node && node !== panel) {
-      if (node.tagName && String(node.tagName).toLowerCase() === 'button') return false;
+      if (node.tagName && ['button','summary','input','select','a'].indexOf(String(node.tagName).toLowerCase()) >= 0) return false;
       if (node.classList && node.classList.contains('ap-head')) return true;
       node = node.parentNode;
     }
@@ -5010,6 +5093,35 @@ function wrapper(plugin_info) {
     return a.distanceTo(b);
   };
 
+
+  // Presentation preferences never alter geometry, route tasks or inventory.
+  ap.helpHtml = function (text, id, summary) {
+    return '<details class="ap-help"' + (id ? ' id="' + ap.escapeHtml(id) + '"' : '') + (ap.state.verboseHints ? ' open' : '') + '><summary title="' + ap.escapeHtml(text) + '">' + ap.escapeHtml(summary || ap.t('ui.notes')) + '</summary><div class="ap-help-content">' + ap.escapeHtml(text) + '</div></details>';
+  };
+  ap.portalNameHtml = function (guid, title, observedFaction) {
+    var faction = observedFaction || ap.getPortalOwnership(guid).faction;
+    var label = ap.t(({res:'faction.res',enl:'faction.enl',mac:'faction.mac',neutral:'faction.neutral'})[faction] || 'faction.noData');
+    return '<span class="ap-portal-name ap-owner-' + faction + '" title="' + ap.escapeHtml(label) + '">' + ap.escapeHtml(ap.displayPortalTitle(title)) + (faction==='unknown' ? '<sup aria-label="' + ap.escapeHtml(label) + '"> ?</sup>' : '') + '</span>';
+  };
+  ap.factionBadgeHtml = function () {
+    var faction = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
+    if (faction!=='res' && faction!=='enl') faction='unknown';
+    var label = ap.t('faction.player',{faction:ap.t(faction==='res'||faction==='enl'?'faction.'+faction:'faction.noData')});
+    return '<details class="ap-faction-badge ap-owner-' + faction + '"><summary title="' + ap.escapeHtml(label) + '" aria-label="' + ap.escapeHtml(label) + '">' + (faction==='unknown'?'?':'●') + '</summary><span class="ap-faction-caption">' + ap.escapeHtml(label) + '</span></details>';
+  };
+  ap.planFillOpacity = function (normal) { return ap.state.planFieldFill==='off' ? 0 : ap.state.planFieldFill==='subtle' ? normal/3 : normal; };
+  ap.refreshPresentation = function () {
+    ap.save(); ap.renderPanel(); ap.refreshTaskList(); ap.refreshFanPlanner(); ap.renderOverlays();
+    var draft=ap.runtime.fanDraft, session=ap.runtime.walkSimulation;
+    function restyle(group,opacity) {
+      if (group && typeof group.eachLayer==='function' && typeof L.Polygon==='function') group.eachLayer(function (layer) {
+        if (layer instanceof L.Polygon && typeof layer.setStyle==='function') layer.setStyle({fillOpacity:ap.planFillOpacity(opacity)});
+      });
+    }
+    restyle(draft && draft.layer,.12); restyle(session && session.targetLayer,.12); restyle(session && session.layer,.2);
+    if (document.querySelectorAll) Array.prototype.forEach.call(document.querySelectorAll('.ap-help'),function (node) { node.open=ap.state.verboseHints; });
+  };
+
   ap.getPortalOwnership = function (guid) {
     var marker = (window.portals || {})[guid], options = marker && marker.options || {}, data = options.data || {};
     var raw = options.team != null ? options.team : data.team;
@@ -5043,7 +5155,7 @@ function wrapper(plugin_info) {
     return label + (task.faction === 'res' || task.faction === 'enl' || task.faction === 'mac' ? ' · ' + ap.t({res:'faction.res',enl:'faction.enl',mac:'faction.mac'}[task.faction]) : '');
   };
   ap.portalTaskHtml = function (task) {
-    return task ? '<div class="ap-portal-task"><b>' + ap.escapeHtml(ap.portalTaskText(task)) + '</b><div class="ap-task-muted">' + ap.escapeHtml(ap.t('portal.beforeLinks')) + '</div></div>' : '';
+    return task ? '<div class="ap-portal-task"><b>' + ap.escapeHtml(ap.portalTaskText(task)) + '</b>' + ap.helpHtml(ap.t('portal.beforeLinks')) + '</div>' : '';
   };
   ap.getPortalTaskSummary = function () {
     var counts = {capture:0,claim:0,verify:0}, seen = new Set();
@@ -5534,7 +5646,7 @@ function wrapper(plugin_info) {
     var existingOwn = ap.factionRelation((ap.runtime.existingLinkIds || {})[link.id]) === 'own';
     var status = link.existing ? (existingOwn ? 'tasks.existing' : 'tasks.existingUnverified') : (!direction ? 'tasks.chooseDirection' : (blockers.some(function (item) { return !item.manual; }) ? 'tasks.blocked' : (blockers.length ? 'tasks.manualCheck' : (missing ? 'tasks.missingKey' : 'tasks.planned'))));
     var spine = ap.getActiveSpinePlan(), step = spine ? spine.links.findIndex(function (edge) { return ap.normalizedLinkId(edge[0], edge[1]) === link.id; }) : -1;
-    var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + ap.escapeHtml(direction && direction.from === link.b ? titleB + ' → ' + titleA : titleA + (direction ? ' → ' : ' ↔ ') + titleB) + '</div>';
+    var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + (direction && direction.from===link.b ? ap.portalNameHtml(link.b,titleB)+' → '+ap.portalNameHtml(link.a,titleA) : ap.portalNameHtml(link.a,titleA)+(direction?' → ':' ↔ ')+ap.portalNameHtml(link.b,titleB)) + '</div>';
     if (!link.existing) [link.a,link.b].forEach(function (guid) {
       var ownership = ap.getPortalOwnership(guid);
       if (ownership.action) html += '<p class="ap-task-warning">' + ap.escapeHtml((guid===link.a?titleA:titleB) + ': ' + ap.portalTaskText(ownership)) + '</p>';
@@ -5557,10 +5669,10 @@ function wrapper(plugin_info) {
     var blocker = item.blocker;
     var titleA = ap.portalDisplayLabel(blocker.a, blocker.titleA, blocker.latlngA);
     var titleB = ap.portalDisplayLabel(blocker.b, blocker.titleB, blocker.latlngB);
-    var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + ap.escapeHtml(titleA + ' ↔ ' + titleB) + '</div><div class="ap-task-muted">' + ap.escapeHtml(ap.t(item.manual ? 'tasks.manualCheck' : 'tasks.observed')) + '</div>';
+    var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + (ap.portalNameHtml(blocker.a,titleA)+' ↔ '+ap.portalNameHtml(blocker.b,titleB)) + '</div><div class="ap-task-muted">' + ap.escapeHtml(ap.t(item.manual ? 'tasks.manualCheck' : 'tasks.observed')) + '</div>';
     html += ap.blockerFactionHtml(blocker, true);
     if (item.links.some(function (link) { return ap.isSamePlanConnection(link, blocker); })) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('blocker.sameConnection')) + '</div>';
-    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.frees', { count: item.links.length })) + ': ' + item.links.map(function (link) { return ap.escapeHtml(ap.displayPortalTitle(link.titleA) + ' ↔ ' + ap.displayPortalTitle(link.titleB)); }).join(', ') + '</div>';
+    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.frees', { count: item.links.length })) + ': ' + item.links.map(function (link) { return ap.portalNameHtml(link.a,link.titleA)+' ↔ '+ap.portalNameHtml(link.b,link.titleB); }).join(', ') + '</div>';
     html += '<label>' + ap.escapeHtml(ap.t('tasks.target')) + ' <select class="ap-task-target" aria-label="' + ap.escapeHtml(ap.t('tasks.target')) + '" data-blocker="' + index + '">';
     [['', ap.t('tasks.automatic')], [blocker.a, titleA], [blocker.b, titleB]].forEach(function (option) {
       html += '<option value="' + ap.escapeHtml(option[0]) + '"' + (item.target === option[0] || (!item.target && !option[0]) ? ' selected' : '') + '>' + ap.escapeHtml(option[1]) + '</option>';
@@ -5578,7 +5690,7 @@ function wrapper(plugin_info) {
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
-    html += '<details class="ap-task-notes" data-stop="route-notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
+    html += '<details class="ap-task-notes ap-help" data-stop="route-notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t((plan.unscheduledPortals || []).length ? 'tasks.unresolved' : 'route.complete')) + '</div>';
@@ -5594,7 +5706,7 @@ function wrapper(plugin_info) {
       var title = ap.displayPortalTitle(portal.title);
       var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
       html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
-      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.escapeHtml(title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + '</th>';
+      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.portalNameHtml(portal.guid,title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + '</th>';
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
@@ -5750,7 +5862,7 @@ function wrapper(plugin_info) {
       } else { previous = null; paths.push([]); }
       if (stop.portalTask) {
         var verified = stop.portalTask.action !== 'verify';
-        actions.push({kind:'portal',title:ap.displayPortalTitle(stop.portal.title) + ' · ' + ap.portalTaskText(stop.portalTask),status:verified?'portal.simulated':'portal.verifyUnresolved'});
+        actions.push({kind:'portal',portals:[[stop.portal.guid,stop.portal.title,ownership[stop.portal.guid] && ownership[stop.portal.guid].faction]],suffix:ap.portalTaskText(stop.portalTask),title:ap.displayPortalTitle(stop.portal.title) + ' · ' + ap.portalTaskText(stop.portalTask),status:verified?'portal.simulated':'portal.verifyUnresolved'});
         if (verified) {
           prepared.add(stop.portal.guid);
           if (stop.portalTask.action==='capture') plan.blockers.forEach(function (item) {
@@ -5761,7 +5873,7 @@ function wrapper(plugin_info) {
       stop.blockers.forEach(function (item) {
         if (cleared.has(item.id)) return;
         cleared.add(item.id);
-        actions.push({ kind: 'blocker', title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) + ' · ' + ap.blockerFactionText(item.blocker) });
+        actions.push({ kind: 'blocker', portals:[[item.blocker.a,item.blocker.titleA,ap.getPortalOwnership(item.blocker.a).faction],[item.blocker.b,item.blocker.titleB,ap.getPortalOwnership(item.blocker.b).faction]], separator:' ↔ ',suffix:ap.blockerFactionText(item.blocker), title: ap.portalDisplayLabel(item.blocker.a, item.blocker.titleA) + ' ↔ ' + ap.portalDisplayLabel(item.blocker.b, item.blocker.titleB) + ' · ' + ap.blockerFactionText(item.blocker) });
       });
       stop.links.forEach(function (link) {
         var direction = ap.getLinkDirection(link), status = 'walk.ready';
@@ -5777,7 +5889,7 @@ function wrapper(plugin_info) {
           if (keys[target] === null) status = 'walk.unknownKeys';
           else if (keys[target] < 1) status = 'walk.missingKeys';
         }
-        actions.push({ kind: 'link', title: ap.displayPortalTitle(direction && direction.from === link.b ? link.titleB : link.titleA) + (direction ? ' → ' : ' ↔ ') + ap.displayPortalTitle(direction && direction.from === link.b ? link.titleA : link.titleB), status: status,
+        actions.push({ kind: 'link', portals:(direction && direction.from===link.b ? [[link.b,link.titleB],[link.a,link.titleA]] : [[link.a,link.titleA],[link.b,link.titleB]]).map(function (pair) { return [pair[0],pair[1],ownership[pair[0]] && ownership[pair[0]].faction]; }),separator:direction?' → ':' ↔ ', title: ap.displayPortalTitle(direction && direction.from === link.b ? link.titleB : link.titleA) + (direction ? ' → ' : ' ↔ ') + ap.displayPortalTitle(direction && direction.from === link.b ? link.titleA : link.titleB), status: status,
           owned: target && Object.prototype.hasOwnProperty.call(keys, target) ? (status === 'walk.ready' ? keys[target] - 1 : keys[target]) : null });
         if (status === 'walk.ready') {
           keys[target]--;
@@ -5786,7 +5898,7 @@ function wrapper(plugin_info) {
           closeTriangles(link.a, link.b, true);
         }
       });
-      return { index: index, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
+      return { index: index, guid:stop.portal.guid, faction:ownership[stop.portal.guid] && ownership[stop.portal.guid].faction, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
         routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
     return { frames: frames, target: ap.getPlanMapGeometry(), unresolved: plan.unscheduled.length + plan.unassigned.length + (plan.unscheduledPortals || []).length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
@@ -5834,7 +5946,7 @@ function wrapper(plugin_info) {
     return plan && plan.mode === 'spine' ? plan : null;
   };
   ap.spineNoticeHtml = function () {
-    return ap.getActiveSpinePlan() ? '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('spine.workflow')) + '</p>' : '';
+    return ap.getActiveSpinePlan() ? ap.helpHtml(ap.t('spine.workflow')) : '';
   };
   ap.isFanAreaLayer = function (layer) {
     return typeof L.Polygon === 'function' && layer instanceof L.Polygon || !!(layer.options && layer.options.fill === true && layer.getLatLngs);
@@ -6218,7 +6330,7 @@ function wrapper(plugin_info) {
   ap.renderPlanMapGeometry = function (group, geometry) {
     if (!group || !geometry) return;
     geometry.fields.forEach(function (vertices) { L.polygon(vertices,
-      ap.withOverlayPane({ color: ap.MAP_COLORS.target, weight: 1, opacity: .55, fillOpacity: .12, interactive: false }, ap.PLAN_PANE_NAME)).addTo(group); });
+      ap.withOverlayPane({ color: ap.MAP_COLORS.target, weight: 1, opacity: .55, fillOpacity: ap.planFillOpacity(.12), interactive: false }, ap.PLAN_PANE_NAME)).addTo(group); });
     geometry.links.forEach(function (edge) { (L.geodesicPolyline || L.polyline)(edge,
       ap.withOverlayPane({ color: ap.MAP_COLORS.target, weight: 2, opacity: .8, dashArray: '5,7', interactive: false }, ap.PLAN_PANE_NAME)).addTo(group); });
   };
@@ -6307,7 +6419,7 @@ function wrapper(plugin_info) {
     }
   };
   ap.fanPlannerHtml = function () {
-    var draft = ap.runtime.fanDraft, html = ap.intelFieldControlsHtml() + '<p>' + ap.escapeHtml(ap.t(draft.mode === 'spine' ? 'spine.help' : 'fan.help')) + '</p>';
+    var draft = ap.runtime.fanDraft, html = ap.helpHtml(ap.t(draft.mode === 'spine' ? 'spine.help' : 'fan.help')) + ap.intelFieldControlsHtml();
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('spine.mode')) + ' <select id="ap-fan-mode"><option value="fan"' + (draft.mode !== 'spine' ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('spine.separate')) + '</option><option value="spine"' + (draft.mode === 'spine' ? ' selected' : '') + '>' + ap.escapeHtml(ap.t('spine.title')) + '</option></select></label></div>';
     if (ap.runtime.nameLoader) html += '<p>' + ap.escapeHtml(ap.t('message.namesLoadingAuto', { current: ap.runtime.nameLoader.index, total: ap.runtime.nameLoader.queue.length })) + '</p>';
     html += '<div class="ap-fan-controls"><label>' + ap.escapeHtml(ap.t('fan.source')) + ' <select id="ap-fan-source">';
@@ -6320,7 +6432,7 @@ function wrapper(plugin_info) {
       html += '</select></label>';
     }
     var maxAnchors = Math.max(1, Math.min(199, draft.portals.filter(function (p) { return !draft.excluded[p.guid]; }).length - 1));
-    html += '<fieldset class="ap-fan-anchor-options"><legend>' + ap.escapeHtml(ap.t('fan.suggest')) + '</legend><div class="ap-fan-controls"><label for="ap-fan-count">' + ap.escapeHtml(ap.t('fan.count')) + '</label><input id="ap-fan-count" type="number" inputmode="numeric" min="1" max="' + maxAnchors + '" step="1" value="' + ap.escapeHtml(draft.count) + '" aria-describedby="ap-fan-count-help ap-fan-count-feedback"><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button></div><small id="ap-fan-count-help">' + ap.escapeHtml(ap.t(draft.mode === 'spine' ? 'spine.countHelp' : 'fan.countHelp')) + '</small><p id="ap-fan-count-feedback" class="ap-task-warning">' + ap.escapeHtml(draft.countError || (draft.countDirty ? ap.t('fan.countChanged') : '')) + '</p></fieldset>';
+    html += '<fieldset class="ap-fan-anchor-options"><legend>' + ap.escapeHtml(ap.t('fan.suggest')) + '</legend><div class="ap-fan-controls"><label for="ap-fan-count">' + ap.escapeHtml(ap.t('fan.count')) + '</label><input id="ap-fan-count" type="number" inputmode="numeric" min="1" max="' + maxAnchors + '" step="1" value="' + ap.escapeHtml(draft.count) + '" aria-describedby="ap-fan-count-help ap-fan-count-feedback"><button id="ap-fan-suggest">' + ap.escapeHtml(ap.t('fan.suggest')) + '</button></div>' + ap.helpHtml(ap.t(draft.mode === 'spine' ? 'spine.countHelp' : 'fan.countHelp'),'ap-fan-count-help') + '<p id="ap-fan-count-feedback" class="ap-task-warning">' + ap.escapeHtml(draft.countError || (draft.countDirty ? ap.t('fan.countChanged') : '')) + '</p></fieldset>';
     html += '<div class="ap-fan-controls"><button id="ap-fan-preview">' + ap.escapeHtml(ap.t('fan.preview')) + '</button><button id="ap-fan-apply"' + (!draft.preview || draft.preview.errors.length ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('fan.apply')) + '</button></div>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-use-saved">' + ap.escapeHtml(ap.t('fan.useSaved')) + '</button>';
     if (ap.getNativeFanPlan()) html += '<button id="ap-fan-clear">' + ap.escapeHtml(ap.t('fan.clear')) + '</button>';
@@ -6334,7 +6446,7 @@ function wrapper(plugin_info) {
     draft.portals.forEach(function (portal) {
       var roleKeys = { leaf: draft.mode === 'spine' ? 'spine.leaf' : 'fan.leaf', anchor: 'fan.anchor', exclude: 'fan.exclude' };
       var role = draft.anchors.indexOf(portal.guid) !== -1 ? 'anchor' : draft.excluded[portal.guid] ? 'exclude' : 'leaf';
-      html += '<tr><td>' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + (draft.pinned.indexOf(portal.guid) !== -1 ? ' ★' : '') + '</td><td><select class="ap-fan-role" data-guid="' + ap.escapeHtml(portal.guid) + '">';
+      html += '<tr><td>' + ap.portalNameHtml(portal.guid,portal.title) + (draft.pinned.indexOf(portal.guid) !== -1 ? ' ★' : '') + '</td><td><select class="ap-fan-role" data-guid="' + ap.escapeHtml(portal.guid) + '">';
       ['leaf', 'anchor', 'exclude'].forEach(function (value) { html += '<option value="' + value + '"' + (role === value ? ' selected' : '') + '>' + ap.escapeHtml(ap.t(roleKeys[value])) + '</option>'; });
       if (draft.mode === 'spine') {
         var position = draft.preview && draft.preview.spine ? draft.preview.spine.indexOf(portal.guid) : -1;
@@ -6348,7 +6460,7 @@ function wrapper(plugin_info) {
       });
       var assigned = draft.preview && draft.preview.assignments[portal.guid];
       var target = assigned && draft.portals.find(function (p) { return p.guid === assigned; });
-      html += '</select>' + (target ? '<small>' + ap.escapeHtml(ap.displayPortalTitle(target.title)) + '</small>' : '') + '</td></tr>';
+      html += '</select>' + (target ? '<small>' + ap.portalNameHtml(target.guid,target.title) + '</small>' : '') + '</td></tr>';
     });
     return html + '</tbody></table>';
   };
@@ -6439,7 +6551,7 @@ function wrapper(plugin_info) {
     if (plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
     if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
     var portal = stop.portal, nav = ap.navigationLinks(portal);
-    html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + '</button></h2>';
+    html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.portalNameHtml(portal.guid,portal.title) + '</button></h2>';
     if (location) html += '<p>' + ap.escapeHtml(ap.formatDistance(ap.distanceToPortal(location, portal))) + ' · ' + ap.escapeHtml(ap.t('route.aerial')) + '</p>';
     html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
     html += '<p>' + ap.escapeHtml(ap.t('tasks.columnBlockers')) + ': ' + stop.blockers.length + ' · ' + ap.escapeHtml(ap.t('tasks.columnLinks')) + ': ' + stop.links.length + '</p>';
@@ -6451,7 +6563,7 @@ function wrapper(plugin_info) {
       if (target) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>';
     });
     if (stop.planVisit && !ap.getActiveSpinePlan()) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
-    html += '<details data-next-id="notes"><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p></details>';
+    html += '<details class="ap-help" data-next-id="notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p></details>';
     return html;
   };
   ap.wireNextTask = function (element) {
@@ -6537,10 +6649,10 @@ function wrapper(plugin_info) {
     var html = '';
     if (!frame) html = '<p>' + ap.escapeHtml(ap.t('walk.empty')) + '</p>';
     else {
-      html = '<p><b>' + ap.escapeHtml(ap.t('walk.stop', { index: session.index + 1, count: session.model.frames.length })) + ' · ' + ap.escapeHtml(frame.title) + '</b></p>';
+      html = '<p><b>' + ap.escapeHtml(ap.t('walk.stop', { index: session.index + 1, count: session.model.frames.length })) + ' · ' + ap.portalNameHtml(frame.guid,frame.title,frame.faction) + '</b></p>';
       html += '<p>' + ap.escapeHtml(ap.t('walk.totals', { links: frame.links.length, fields: frame.fields.length, distance: ap.formatDistance(frame.distance) })) + '</p><ol>';
       frame.actions.forEach(function (action) {
-        html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'portal' ? 'portal.action' : action.kind === 'blocker' ? 'walk.remove' : action.status === 'walk.ready' ? 'walk.throw' : 'portal.plannedLink')) + ': ' + ap.escapeHtml(action.title);
+        html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'portal' ? 'portal.action' : action.kind === 'blocker' ? 'walk.remove' : action.status === 'walk.ready' ? 'walk.throw' : 'portal.plannedLink')) + ': ' + (action.portals ? action.portals.map(function (pair) { return ap.portalNameHtml(pair[0],pair[1],pair[2]); }).join(action.separator || '') + (action.suffix?' · '+ap.escapeHtml(action.suffix):'') : ap.escapeHtml(action.title));
         if (action.status) html += ' · ' + ap.escapeHtml(ap.t(action.status));
         if (action.owned !== null && action.owned !== undefined) html += ' · ' + ap.escapeHtml(ap.t('walk.keysLeft', { count: action.owned }));
         html += '</li>';
@@ -6584,7 +6696,7 @@ function wrapper(plugin_info) {
       L.polyline(frame.links[linkIndex], ap.withOverlayPane({ color: ap.MAP_COLORS.progress, weight: 3, opacity: 1, interactive: false }, ap.BUILD_PANE_NAME)).addTo(session.layer);
     }
     for (var fieldIndex = previous ? previous.fields.length : 0; fieldIndex < frame.fields.length; fieldIndex++) {
-      L.polygon(frame.fields[fieldIndex], ap.withOverlayPane({ color: ap.MAP_COLORS.progress, weight: 2, fillOpacity: .2, interactive: false }, ap.BUILD_PANE_NAME)).addTo(session.layer);
+      L.polygon(frame.fields[fieldIndex], ap.withOverlayPane({ color: ap.MAP_COLORS.progress, weight: 2, fillOpacity: ap.planFillOpacity(.2), interactive: false }, ap.BUILD_PANE_NAME)).addTo(session.layer);
     }
     if (frame.point) {
       if (session.head) session.head.setLatLng(frame.point);
@@ -6633,7 +6745,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = ap.spineNoticeHtml() + '<details><summary>' + ap.escapeHtml(ap.t('walk.notes')) + '</summary><p>' + ap.escapeHtml(ap.t('walk.notice')) + '</p></details>' + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = ap.spineNoticeHtml() + ap.helpHtml(ap.t('walk.notice')) + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
@@ -6778,9 +6890,9 @@ function wrapper(plugin_info) {
   ap.planLinkSummaryHtml = function () {
     var counts = ap.getPlanLinkSummary();
     var own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
-    return '<div class="ap-task-muted ap-link-summary"><p>' + ap.escapeHtml(ap.t('faction.player', { faction: ap.t(own === 'res' || own === 'enl' ? 'faction.' + own : 'faction.noData') })) + '</p><p>' +
+    return '<div class="ap-task-muted ap-link-summary"><p>' +
       ap.escapeHtml(ap.t('links.summary', counts)) + '</p>' + (counts.enemyOccupied || counts.machinaOccupied ? '<p>' + ap.escapeHtml(ap.t('links.occupied', counts)) + '</p>' : '') +
-      (counts.openDirections ? '<p>' + ap.escapeHtml(ap.t('links.estimatedKeys', { count: counts.openDirections })) + '</p>' : '') + '</div>';
+      (counts.openDirections ? '<div>' + ap.escapeHtml(ap.t('links.estimatedShort', { count: counts.openDirections })) + ap.helpHtml(ap.t('links.estimatedKeys', { count: counts.openDirections }),'') + '</div>' : '') + '</div>';
   };
   ap.blockerFactionHtml = function (link, hint) {
     var relation = ap.factionRelation(link), faction = ap.normalizeFaction(link && link.faction);
@@ -7520,7 +7632,7 @@ function wrapper(plugin_info) {
     if (!filtered.length) return html + '<p>' + ap.escapeHtml(ap.t(rows.length ? 'keys.listNoMatch' : 'keys.listEmpty')) + '</p>';
     html += '<table class="ap-table-inventory"><thead><tr><th>' + ap.escapeHtml(ap.t('keys.portal')) + '</th><th class="ap-numeric ap-col-count">' + ap.escapeHtml(ap.t('keys.current')) + '</th></tr></thead><tbody>';
     filtered.forEach(function (row) {
-      html += '<tr><td>' + ap.escapeHtml(row.title) + '</td><td class="ap-numeric">' + row.count + '</td></tr>';
+      html += '<tr><td>' + ap.portalNameHtml(row.guid,row.title) + '</td><td class="ap-numeric">' + row.count + '</td></tr>';
     });
     return html + '</tbody></table>';
   };
@@ -8084,7 +8196,7 @@ function wrapper(plugin_info) {
     var distanceLabel = location ? ap.formatDistance(ap.distanceToPortal(location, target)) : '';
     var estimateLabel = estimate ? ap.formatDistance(estimate.distance) : '';
     var nav = ap.navigationLinks(target);
-    return '<span><b>' + ap.escapeHtml(ap.routeTargetLabel(target, !!location && ap.state.workRouteMode !== 'portal')) + '</b> ' + ap.escapeHtml(ap.displayPortalTitle(target.title)) + (distanceLabel ? ' <span class="ap-next-distance" title="' + ap.escapeHtml(ap.t('route.distanceTitle')) + '">· ' + ap.escapeHtml(distanceLabel) + '</span>' : '') + (estimateLabel ? ' <span class="ap-route-remaining" title="' + ap.escapeHtml(ap.t('route.remainingTitle')) + '">· ' + ap.escapeHtml(ap.t('route.remaining', { distance: estimateLabel })) + ' · ' + ap.escapeHtml(ap.tp('route.target', estimate.targetCount)) + '</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
+    return '<span><b>' + ap.escapeHtml(ap.routeTargetLabel(target, !!location && ap.state.workRouteMode !== 'portal')) + '</b> ' + ap.portalNameHtml(target.guid,target.title) + (distanceLabel ? ' <span class="ap-next-distance" title="' + ap.escapeHtml(ap.t('route.distanceTitle')) + '">· ' + ap.escapeHtml(distanceLabel) + '</span>' : '') + (estimateLabel ? ' <span class="ap-route-remaining" title="' + ap.escapeHtml(ap.t('route.remainingTitle')) + '">· ' + ap.escapeHtml(ap.t('route.remaining', { distance: estimateLabel })) + ' · ' + ap.escapeHtml(ap.tp('route.target', estimate.targetCount)) + '</span>' : '') + '</span><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a>';
   };
 
   ap.updateBlockerWorklistDistances = function (location) {
@@ -8666,7 +8778,7 @@ function wrapper(plugin_info) {
       // Alle erkannten Planportale sichtbar markieren.
 
       var status = ap.getStatus(guid, stat);
-      var title = ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: ap.keyCountLabel(guid), required: stat.requiredKeys }));
+      var title = ap.portalNameHtml(stat.guid,stat.title) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: ap.keyCountLabel(guid), required: stat.requiredKeys }));
       ap.addHtmlStatusMarker(stat, status, title, !!(nextPortal && nextPortal.guid === guid));
     });
     var routeGuids = {};
@@ -8791,7 +8903,7 @@ function wrapper(plugin_info) {
     if (!stat) return;
     var nav = ap.navigationLinks(stat);
     var html = '';
-    html += '<div><b>' + ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '</b></div>';
+    html += '<div><b>' + ap.portalNameHtml(stat.guid,stat.title) + '</b></div>';
     if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
     html += '<div class="ap-action-label">' + ap.escapeHtml(ap.t('share.section')) + '</div>';
     html += '<div class="ap-share-grid ap-share-grid-single">';
@@ -9161,7 +9273,7 @@ function wrapper(plugin_info) {
     html += '</div>';
 
     if (typeof window.dialog === 'function') {
-      ap.runtime.exportDialog = ap.openDialog({ title: ap.t('export.dialogTitle') + ' · ' + ap.t(ap.getActiveFanPlan() ? 'fan.title' : 'workspace.anchors'), html: html, width: 720 });
+      ap.runtime.exportDialog = ap.openDialog({ id:'anchor-planner-export', title: ap.t('export.dialogTitle') + ' · ' + ap.t(ap.getActiveFanPlan() ? 'fan.title' : 'workspace.anchors'), html: html, width: 720 });
       setTimeout(function () {
         var root = document.querySelector('.ui-dialog');
         if (!root) return;
@@ -9281,8 +9393,9 @@ function wrapper(plugin_info) {
   };
   ap.showPluginSettings = function () {
     if (typeof window.dialog !== 'function') return;
-    var html = '<div id="ap-plugin-settings"><p>' + ap.escapeHtml(ap.t('ui.settingsHelp')) + '</p><label class="ap-settings-field">' + ap.escapeHtml(ap.t('language.label')) +
+    var html = '<div id="ap-plugin-settings">' + ap.helpHtml(ap.t('ui.settingsHelp')) + '<label class="ap-settings-field">' + ap.escapeHtml(ap.t('language.label')) +
       ' <select id="ap-global-language">' + ap.languageOptionsHtml() + '</select></label><div class="ap-settings-actions"><button id="ap-global-clear">' + ap.escapeHtml(ap.t('action.clearData')) + '</button></div></div>';
+    html=html.replace('<div class="ap-settings-actions">','<label class="ap-settings-field"><input id="ap-verbose-hints" type="checkbox"' + (ap.state.verboseHints?' checked':'') + '> ' + ap.escapeHtml(ap.t('settings.verbose')) + '</label><label class="ap-settings-field">' + ap.escapeHtml(ap.t('settings.planFill')) + ' <select id="ap-plan-fill">' + ['normal','subtle','off'].map(function (mode) { return '<option value="'+mode+'"'+(ap.state.planFieldFill===mode?' selected':'')+'>'+ap.escapeHtml(ap.t({normal:'settings.fill.normal',subtle:'settings.fill.subtle',off:'settings.fill.off'}[mode]))+'</option>'; }).join('') + '</select></label><div class="ap-settings-actions">');
     ap.openDialog({ id: 'anchor-planner-settings', dialogClass: 'ap-settings-dialog', title: ap.t('ui.settings'), html: html, width: Math.min(420, (window.innerWidth || 440) - 20) });
     var language = document.getElementById('ap-global-language');
     if (language) language.onchange = function () {
@@ -9290,11 +9403,15 @@ function wrapper(plugin_info) {
       ap.runtime.nextTargetKey = null;
       ap.save(); ap.renderOverlays(); ap.renderPanel(); ap.refreshTaskList(); ap.refreshFanPlanner(); ap.showPluginSettings();
     };
+    var verbose=document.getElementById('ap-verbose-hints');
+    if (verbose) verbose.onchange=function () { ap.state.verboseHints=this.checked; ap.refreshPresentation(); };
+    var fill=document.getElementById('ap-plan-fill');
+    if (fill) fill.onchange=function () { if (['normal','subtle','off'].indexOf(this.value)<0) return; ap.state.planFieldFill=this.value; ap.refreshPresentation(); };
     var clear = document.getElementById('ap-global-clear'); if (clear) clear.onclick = ap.clearData;
   };
   ap.renderWorkspaceLanding = function (panel, view) {
     var fan = view === 'fan';
-    var html = '<div class="ap-head"><b>Anchor Planner</b><span>v' + ap.VERSION + '</span><button id="ap-collapse">' + (ap.state.panelCollapsed ? '▴' : '▾') + '</button></div>';
+    var html = '<div class="ap-head"><b>Anchor Planner</b>' + ap.factionBadgeHtml() + '<span>v' + ap.VERSION + '</span><button id="ap-collapse">' + (ap.state.panelCollapsed ? '▴' : '▾') + '</button></div>';
     if (ap.state.panelCollapsed) html += '<div class="ap-mini">' + ap.escapeHtml(ap.t(fan ? 'fan.title' : 'ui.choose')) + '</div>';
     else {
       html += '<div class="ap-view-nav">' + (fan ? '<button id="ap-home">' + ap.escapeHtml(ap.t('ui.home')) + '</button><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b>' : '<b>' + ap.escapeHtml(ap.t('ui.choose')) + '</b>') + '<button id="ap-settings">' + ap.escapeHtml(ap.t('ui.settings')) + '</button></div>';
@@ -9363,7 +9480,7 @@ function wrapper(plugin_info) {
     ap.runtime.nextTargetKey = (nextUsesLocation ? 'location:' : 'route:') + (nextPortal ? nextPortal.guid + ':' + nextPortal.routeTargetType : 'complete') + ':' + nextDistanceLabel + ':' + routeEstimateLabel;
 
     var html = '';
-    html += '<div class="ap-head"><b>Anchor Planner</b><span>v' + ap.VERSION + '</span><button id="ap-collapse">' + (ap.state.panelCollapsed ? '▴' : '▾') + '</button></div>';
+    html += '<div class="ap-head"><b>Anchor Planner</b>' + ap.factionBadgeHtml() + '<span>v' + ap.VERSION + '</span><button id="ap-collapse">' + (ap.state.panelCollapsed ? '▴' : '▾') + '</button></div>';
     if (ap.state.panelCollapsed) {
       html += '<div class="ap-mini">' + ap.escapeHtml(ap.tp('panel.planPortal', planPortalCount)) + '</div>';
       panel.innerHTML = html;
@@ -9471,7 +9588,7 @@ function wrapper(plugin_info) {
           var blockerDistance = ap.formatDistance(candidate.distance);
           html += '<div class="ap-blocker-work-row" data-guid="' + ap.escapeHtml(candidate.guid) + '" data-lat="' + ap.escapeHtml(candidate.lat) + '" data-lng="' + ap.escapeHtml(candidate.lng) + '">';
           html += '<div class="ap-blocker-work-main">';
-          if (candidate.isOpenPlanPortal) html += '<span class="ap-blocker-work-plan">✓</span> <b>' + ap.escapeHtml(candidate.title) + '</b>';
+          if (candidate.isOpenPlanPortal) html += '<span class="ap-blocker-work-plan">✓</span> <b>' + ap.portalNameHtml(candidate.guid,candidate.title) + '</b>';
           else html += '<label class="ap-blocker-work-select"><input type="checkbox" class="ap-blocker-route-check" data-guid="' + ap.escapeHtml(candidate.guid) + '"' + (candidate.selected ? ' checked' : '') + '> <b>' + ap.escapeHtml(candidate.title) + '</b></label>';
           html += '</div>';
           html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.tp('blocker.endpointOf', candidate.blockerCount)) + (candidate.isOpenPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.openPlanPortal')) : (candidate.isPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.donePlanPortal')) : '')) + '<span class="ap-blocker-work-distance">' + (blockerDistance ? ' · ' + ap.escapeHtml(blockerDistance) + ' ' + ap.escapeHtml(ap.t('route.aerial')) : '') + '</span></div>';
@@ -9489,7 +9606,7 @@ function wrapper(plugin_info) {
       var status = ap.getStatus(stat.guid, stat);
       var nav = ap.navigationLinks(stat);
       html += '<details class="ap-row ap-planportal" data-guid="' + ap.escapeHtml(stat.guid) + '"' + (expandedPortals[stat.guid] ? ' open' : '') + '>';
-      html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.escapeHtml(ap.displayPortalTitle(stat.title)) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys })) + '</span></summary>';
+      html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.portalNameHtml(stat.guid,stat.title) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys })) + '</span></summary>';
       if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
       html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + (ap.getOwnedKeys(stat.guid) === null ? '' : ap.getOwnedKeys(stat.guid)) + '"' + (ap.getOwnedKeys(stat.guid) === null ? ' disabled placeholder="?"' : '') + '> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
       html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
@@ -9772,6 +9889,41 @@ function wrapper(plugin_info) {
 @media(max-width:600px),(pointer:coarse){:is(#iitc-anchor-planner,.ap-ui,.ap-dialog){--ap-control-height:44px}.ap-ui button.ap-task-expand,.ap-ui button.ap-task-portal-name{min-height:40px}.ap-dialog .ui-dialog-titlebar-button{min-width:36px;min-height:36px}:where(#iitc-anchor-planner,.ap-ui) input:is([type=checkbox],[type=radio]){width:20px;height:20px}}
 @media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}#iitc-anchor-planner.ap-positioned{right:auto;width:calc(100vw - 10px)}#iitc-anchor-planner .ap-primary-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#iitc-anchor-planner .ap-filters button{min-height:36px}.ap-dialog-body{padding:10px;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px)}#ap-task-list,#ap-next-work,#ap-fan-planner{max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}.ap-ui .ap-task-toolbar button{flex:1 1 120px}.ap-ui .ap-task-col-number{width:30px}.ap-ui .ap-task-col-keys{width:50px}.ap-ui .ap-task-col-count{width:36px}.ap-ui .ap-task-col-blockers{width:48px}.ap-ui .ap-task-table th,.ap-ui .ap-task-table td{padding:5px 3px}.ap-ui .ap-task-detail-content{padding:10px}.ap-ui .ap-task-table .ap-task-portal-name{font-size:12px}}
 @media(prefers-reduced-motion:reduce){:is(#iitc-anchor-planner,.ap-ui,.ap-dialog) *{scroll-behavior:auto}}
+
+.ap-help{margin:4px 0;min-width:0;font-size:12px;color:var(--ap-muted)}
+.ap-help>summary{width:fit-content;max-width:100%;font-size:12px;min-height:28px;padding:2px 0}
+.ap-help-content{margin:4px 0;overflow-wrap:anywhere}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-res{color:#6ca8ff}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-enl{color:#43d879}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-mac{color:#ff5b68}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-neutral{color:#d7dfe5}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-unknown{color:#aebbc7}
+.ap-faction-badge{position:relative;display:inline-block;vertical-align:middle;margin:0 5px;font-weight:normal;flex:none}
+.ap-faction-badge>summary{list-style:none;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:28px;padding:0;cursor:pointer;font-size:16px}
+.ap-faction-badge>summary::-webkit-details-marker{display:none}
+.ap-faction-caption{position:absolute;top:100%;right:0;min-width:180px;max-width:240px;z-index:10010;padding:6px;background:var(--ap-bg);border:1px solid var(--ap-border);border-radius:4px;font:12px/1.4 Arial,sans-serif}
+.ap-dialog .ui-dialog-title{overflow:visible;white-space:normal}
+#iitc-anchor-planner .ap-head .ap-faction-caption{color:var(--ap-text)}
+#iitc-anchor-planner>.ap-help{padding:4px 8px;border-bottom:1px solid var(--ap-border)}
+.ap-dialog{max-width:calc(100vw - 20px)!important}
+.ap-dialog-body{padding:8px;max-height:60vh;max-height:60dvh}
+.ap-ui :is(.ap-toolbar,.ap-task-toolbar,.ap-task-actions,.ap-next-toolbar,.ap-fan-controls,.ap-export-tabs,.ap-export-actions){gap:5px}
+.ap-ui .ap-toolbar{margin:6px 0}
+:where(#iitc-anchor-planner,.ap-ui) p{margin-bottom:6px}
+:where(#iitc-anchor-planner,.ap-ui) fieldset{padding:6px;margin:6px 0}
+.ap-ui th,.ap-ui td{padding:4px}
+.ap-ui .ap-task-detail-content{padding:6px}
+#ap-fan-planner .ap-fan-controls{margin:4px 0}
+.ap-ui .ap-task-toolbar{position:static;padding-bottom:6px;margin-bottom:6px}
+.ap-ui .ap-task-toolbar button{min-width:96px}
+#ap-task-list,#ap-next-work,#ap-fan-planner{max-height:52vh;max-height:52dvh}
+#ap-plugin-settings{gap:10px}
+#iitc-anchor-planner .ap-home-cards{gap:6px;padding:8px}
+#iitc-anchor-planner .ap-home-cards button{min-height:64px;padding:8px}
+#iitc-anchor-planner .ap-head{gap:4px;padding:5px 8px}
+#iitc-anchor-planner :is(.ap-view-nav,.ap-workspaces,.ap-primary-actions,.ap-fan-plan-actions,.ap-actions,.ap-settings,.ap-filters,.ap-readiness,.ap-row,.ap-message,.ap-mini,.ap-next-entry){padding:5px 8px;gap:5px}
+@media(min-width:601px) and (pointer:fine){#iitc-anchor-planner{width:320px;max-height:65vh;max-height:65dvh}:is(#iitc-anchor-planner,.ap-ui,.ap-dialog){--ap-control-height:30px}:where(#iitc-anchor-planner,.ap-ui) :is(button,select,input:not([type=checkbox]):not([type=radio])){padding:4px 7px}}
+@media(max-width:600px),(pointer:coarse){.ap-help>summary,.ap-faction-badge>summary{min-height:40px}.ap-ui .ap-task-toolbar button{flex:1 1 100px}}
 `).appendTo('head');
   };
 

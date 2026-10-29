@@ -271,7 +271,6 @@
   "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
   "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
   "walk.stopped": "Planvorschau beendet. Zum Neustart erneut öffnen.",
-  "walk.notes": "Vorschau: Hinweise",
   "walk.keysLeft": "Virtuell übrig: {count} Keys",
   "tasks.startPortal": "Route ab diesem Portal",
   "tasks.modePortal": "Ab Portal: {title}",
@@ -387,5 +386,13 @@
   "portal.notReady": "Portalbesitz als Voraussetzung ungeklärt; nicht simuliert",
   "portal.plannedLink": "Geplanter Link",
   "portal.summary": "Portale vor dem Linkbau: erobern {capture} · neutral übernehmen {claim} · prüfen {verify}",
-  "portal.nextTask": "Nächste Portalaufgabe:"
+  "portal.nextTask": "Nächste Portalaufgabe:",
+  "ui.notes": "Hinweise",
+  "settings.verbose": "Ausführliche Hinweise anzeigen",
+  "settings.planFill": "Planfeldfüllung",
+  "settings.fill.normal": "Normal",
+  "settings.fill.subtle": "Dezent",
+  "settings.fill.off": "Aus",
+  "faction.neutral": "Neutral",
+  "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt"
 }

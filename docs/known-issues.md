@@ -1,4 +1,6 @@
-# Bekannte Grenzen in 0.2.0-beta.36
+# Bekannte Grenzen in 0.2.0-beta.37
+
+Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Einstellungen speichern ausführliche Hinweise und eigene Planfeldfüllung. Native Auswahlmenüs behalten systembedingt Klartext; farbige Namen stehen außerhalb der Optionslisten. Besitzfarben zeigen Beobachtungen, keine simulierte Eroberung. Die Anordnung der Settings in Beta 36 wurde vom Nutzer bestätigt; Testplattform unbekannt.
 
 ## Portalzuordnung und Namen
 
@@ -360,3 +362,10 @@ Lokale Prüfung am 2026-10-27 erfolgreich: echte Leaflet-Karte und originale IIT
 ## Responsive Einstellungen beta.36
 Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
 Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.
+
+
+## Kompakte Oberfläche Beta 37
+Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für Planer/Aufgaben (540 px), Vorschau (480 px) und Einstellungen (360 px), geringere Abstände und begrenzte Inhaltsflächen bei unveränderter Grundschrift. Desktop-Kontrollen kompakter, Touchziele bleiben groß. Allgemeine Erklärungen hinter Hinweise; gespeicherte Checkbox Ausführliche Hinweise anzeigen standardmäßig aus. Hinweise sind per Maus-Hover als Tooltip, Tastatur und Antippen abrufbar. Besitzaufgaben, Fehler und Statussummen bleiben sichtbar. Eigene Fraktion als benannter Punkt in Panel-/Dialogtitelleisten, unbekannt mit Fragezeichen. Portalnamen nach beobachtetem Besitzer färben (RES/ENL/Machina/neutral/unbekannt); Vorschau bewahrt den Besitz-Snapshot. Planfeldfüllung Normal/Dezent/Aus unter Einstellungen, Standard Normal; Dezent drittelt Deckkraft, Aus erhält Kanten. Die Auswahl gilt für Entwurf, aktiven Zielplan und simulierte Flächen, unabhängig von Intel-Füllungen. Keine Änderung an Keys, Routen oder gespeicherter Plangeometrie.
+Native select-Options bleiben Klartext (keine mehrfarbigen Optionsinhalte). Tooltip zeigt den Besitzer zusätzlich; Farbe ist nicht alleiniger Träger erforderlicher Aufgaben. Echter Nutzer-IITC-/Mobile-Praxistest steht aus.
+
+Lokale Prüfung am 2026-10-29: originale IITC-Dialoghülle/Leaflet mit synthetischen Portalen auf Desktop, 360×800 und 280×650. Kompakte Breiten, sichere Namensfarben, Fragezeichen, Hinweise auf/zu per Checkbox und Tastatur, benannter Fraktionspunkt per Enter, erreichbare Settings ohne horizontalen Überlauf geprüft. Dezent zeichnet Planpolygone mit .04; native Intel-Füllungen .25/.4/.2 bleiben erhalten. Füllungsstufen und live Vorschauzustand zusätzlich automatisiert geprüft. Echter Nutzer-IITC-/Mobile-Test von Beta 37 steht aus.

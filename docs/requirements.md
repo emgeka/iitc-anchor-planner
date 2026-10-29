@@ -1,4 +1,35 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.36
+# Anforderungen für Entwicklungsstand 0.2.0-beta.37
+
+## Abgestimmte UI-Anforderungen (2026-10-29, umgesetzt in Beta 37)
+
+Der Nutzer hat ausdrücklich Beta 37 mit diesen sechs Punkten beauftragt.
+Weitere Features bleiben separat abzustimmen.
+
+- Fenster wesentlich kompakter gestalten: kleinere inhaltsgerechte
+  Ausgangsbreiten/-höhen, weniger Innenabstand, Zeilenabstand und Leerraum.
+  Kurze Dialoge dürfen keine große ungenutzte Fläche belegen; die Karte soll
+  möglichst frei bleiben. Lange Listen bedarfsgerecht scrollen und Details
+  aufklappen statt das ganze Fenster aufzublähen. Größenanpassung und Umbruch
+  erhalten. Lesbarkeit, wichtige Statushinweise und Touchbedienbarkeit bewahren;
+  Kompaktheit nicht nur durch kleinere Schrift erzielen.
+- Wiederkehrende Erläuterungen standardmäßig reduzieren. Globale gespeicherte
+  Checkbox „Ausführliche Hinweise anzeigen“, standardmäßig aus; einzelne
+  Hinweise aufklappbar. Kurzhilfe per Hover, Tastaturfokus und Antippen;
+  wesentliche Aufgaben, Fehler und Voraussetzungen immer sichtbar. Buttons
+  behalten verständliche Textbeschriftungen statt reiner Icons.
+- Eigene Fraktion als farbiger Punkt in der Titelleiste, mit abrufbarem Namen;
+  unbekannt grau mit Fragezeichen. Wiederholte eigene Fraktionstextzeile dadurch
+  ersetzen, konkrete Portal-/Blockerfraktionen erhalten.
+- Portalnamen nach beobachtetem Besitzer einfärben: RES blau, ENL grün,
+  Machina rot, neutral hellgrau; unbekannt zusätzlich kennzeichnen. Einheitlich
+  in Übersichten, Aufgaben, Fächerplaner und Vorschau, Linkenden separat.
+  Simulierte Eroberung überschreibt diese reale Besitzanzeige nicht.
+- Eigene Planfeldfüllung normal/dezent/aus ist in Beta 37 auswählbar;
+  Normal erhält die aktuelle Anreicherung überlagerter Füllungen.
+
+Beta 36: Der Nutzer bestätigt die funktionierende Anordnung der
+Einstellungsfelder im Praxistest. Plattform nicht genannt; daraus keine
+vollständige Desktop-/Mobile-Testabdeckung ableiten.
 
 Stabile Veröffentlichung: 0.1.55. Der folgende Entwicklungsstand benötigt noch
 bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
@@ -387,12 +418,12 @@ Eintritt in Fächerplaner darf keinen gespeicherten Arbeitsplan automatisch akti
 - Vorschläge bestätigen keine Richtung. Bestehender Keymatcher darf bei knappen Keys alternative Richtungen vorschlagen; Wurfreihenfolge bleibt hart. Simulation blockiert abhängige Würfe bei fehlenden früheren Kanten und schließt im Spine-Modus höchstens das größte verfügbare Dreieck je Linkseite. Keine echten Bestands-/Erledigungswrites.
 - Zähler bleiben geometrische Ziele, keine AP- oder Baubarkeitsgarantie. Keine Linklimit-/Unterfeld-/Feldhistorienprüfung; weitere Seiten und Outbound-Strategien ausdrücklich außerhalb dieses ersten Entwurfs.
 
-## Vorgemerkt: optionale Planfeldfüllung (2026-10-27, noch nicht umgesetzt)
+## Eigene Planfeldfüllung (seit Beta 37 umgesetzt; ursprünglicher Entwurf 2026-10-27)
 - Option „Feldfüllung: normal / dezent / aus“ für die eigenen Planflächen vorsehen.
 - „Normal“ bleibt die heutige Darstellung und der Standard; übereinanderliegende Feldlagen dürfen ihre Füllung weiterhin sichtbar verstärken. Keine pauschale Abschwächung.
 - „Dezent“ reduziert nur die Deckkraft je Planfeld; die Anreicherung mehrerer Lagen bleibt erhalten.
 - „Aus“ zeigt Feldgrenzen und Planlinks ohne Flächenfüllung. Keine Änderung an Plangeometrie oder Berechnungen.
-- Unabhängig vom vorhandenen Schalter „Intel-Feldflächen ausblenden“ halten. Exakte Deckkraft und Platzierung der Auswahl bei der späteren Umsetzung visuell prüfen; noch keine Implementierung oder neue Version beauftragt.
+- Unabhängig vom vorhandenen Schalter „Intel-Feldflächen ausblenden“ halten. Auswahl unter Einstellungen; Normal .12 Zielplan/.2 Fortschritt, Dezent jeweils ein Drittel, Aus 0. Flächengrenzen und Kanten bleiben.
 
 
 ## Eindeutige Linkfraktionen und Mehr-Bereich (0.2.0-beta.34)
@@ -412,3 +443,8 @@ Besitzaufgaben in Aufgabenübersicht/-details, Nächste Aufgabe, Einsatzcheck, R
 ## Responsive Einstellungen beta.36
 Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
 Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbruch, vollständige erreichbare Buttons und erhaltene Sprachauswahl. Manuell verkleinerte Dialogbreite ebenfalls prüfen. Echter IITC-/Mobile-Test ausstehend.
+
+
+## Kompakte Oberfläche Beta 37
+Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für Planer/Aufgaben (540 px), Vorschau (480 px) und Einstellungen (360 px), geringere Abstände und begrenzte Inhaltsflächen bei unveränderter Grundschrift. Desktop-Kontrollen kompakter, Touchziele bleiben groß. Allgemeine Erklärungen hinter Hinweise; gespeicherte Checkbox Ausführliche Hinweise anzeigen standardmäßig aus. Hinweise sind per Maus-Hover als Tooltip, Tastatur und Antippen abrufbar. Besitzaufgaben, Fehler und Statussummen bleiben sichtbar. Eigene Fraktion als benannter Punkt in Panel-/Dialogtitelleisten, unbekannt mit Fragezeichen. Portalnamen nach beobachtetem Besitzer färben (RES/ENL/Machina/neutral/unbekannt); Vorschau bewahrt den Besitz-Snapshot. Planfeldfüllung Normal/Dezent/Aus unter Einstellungen, Standard Normal; Dezent drittelt Deckkraft, Aus erhält Kanten. Die Auswahl gilt für Entwurf, aktiven Zielplan und simulierte Flächen, unabhängig von Intel-Füllungen. Keine Änderung an Keys, Routen oder gespeicherter Plangeometrie.
+Native select-Options bleiben Klartext (keine mehrfarbigen Optionsinhalte). Tooltip zeigt den Besitzer zusätzlich; Farbe ist nicht alleiniger Träger erforderlicher Aufgaben. Echter Nutzer-IITC-/Mobile-Praxistest steht aus.
