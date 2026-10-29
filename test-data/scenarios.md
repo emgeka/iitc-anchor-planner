@@ -679,3 +679,11 @@ Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbru
 - Fraktionspunkt Panel/Titelleisten RES, ENL, fehlender PLAYER; Keyboard/Antippen zeigt Namen, kein Paneldrag. Namen RES/ENL/Machina/neutral/unbekannt und Sonderzeichen in Planer/Tasks/Next/Links/Vorschau; native Optionslisten Klartext. Keine Farbänderung aufgrund virtueller Eroberung.
 - Desktop und 360×800, nachträglich 280×650: kompakte Breite/Höhe, scrollbare lange Tabellen, fokussierbare Controls, sichtbare Close-/Footerknöpfe.
 - Alle drei Füllungsstufen in Entwurf, aktivem Plan und laufender Vorschau/Zurück/Von vorn prüfen; native Intel-Füllungen, Kanten, Geometrie, Keys und Erledigung unverändert. Normal erhält Anreicherung.
+
+
+## Fenster Beta 38
+- Aufgaben weit nach unten scrollen: Titel, Footer und obere Aktionen bleiben sichtbar; keine übereinanderliegenden Scrollbereiche.
+- Dialog an Ecke und Rand größer/kleiner ziehen, über ursprüngliche Breite/Höhe hinaus. Inhalt wächst mit, keine leere Fläche durch alte VH-Kappen; Viewportgrenzen erhalten. Pointerabbruch und Pfeiltasten prüfen.
+- Nach Resize ein-/aufklappen und verschieben: gewählte Maße erhalten, Titelknöpfe funktionieren. Live-Taskrefresh verändert Maße/Scroll nicht.
+- Fenster schmal öffnen, Viewport verbreitern, über alte Anfangsgrenze hinaus vergrößern. 360×800/280×650: Umbruch, Griffe, Close/OK erreichbar. Hauptpanelkopf beim Scrollen sichtbar.
+- Schließen räumt Dialogobserver/-listener auf; keine Änderung von Geometrie, Keys, Erledigung, Anzeigepräferenzen.

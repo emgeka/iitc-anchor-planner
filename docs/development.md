@@ -158,7 +158,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.37` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.38` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -168,7 +168,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.37` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.38` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -289,3 +289,9 @@ Lokale Browserprüfung am 2026-10-29 erfolgreich: originaler IITC-Dialog mit Lea
 feature/compact-beta37, PR nach beta. Der Nutzer beauftragte ausdrücklich alle sechs gesammelten UI-Punkte. 396 Locale-Schlüssel; neue Texte DE/EN, sonst EN-Fallback. Alle elf Testsuiten inklusive zusätzlicher Settings-Persistenz-/Escaping-/Besitzanzeige- und Live-Füllungs-/Datenisolationstests ausführen; bestehende Locale-/Metadaten-/Branchprüfungen erhalten. Keine Stable-Dateien ändern.
 
 Lokale Prüfung am 2026-10-29: originale IITC-Dialoghülle/Leaflet mit synthetischen Portalen auf Desktop, 360×800 und 280×650. Kompakte Breiten, sichere Namensfarben, Fragezeichen, Hinweise auf/zu per Checkbox und Tastatur, benannter Fraktionspunkt per Enter, erreichbare Settings ohne horizontalen Überlauf geprüft. Dezent zeichnet Planpolygone mit .04; native Intel-Füllungen .25/.4/.2 bleiben erhalten. Füllungsstufen und live Vorschauzustand zusätzlich automatisiert geprüft. Echter Nutzer-IITC-/Mobile-Test von Beta 37 steht aus.
+
+
+## Beta 38 – ausdrücklich vereinbarte Fensterkorrekturen
+feature/resizable-beta38 nach beta. Umfang: sichtbare Titel-/Aktionsleisten, freie Größenänderung und mitwachsender Inhalt; Beta-37-Features erhalten. 397 Locale-Schlüssel. Alle elf Suiten, Syntax, Locale-/Beta-Konsistenz, Metadaten/Branchpolicy und Whitespace prüfen. UI-Tests für Pointerdrag/Abbruch, Tastatur, Viewportgrenzen, Widgetmaß-Synchronisierung und Listenercleanup erweitert. Native Maus-/Rand-/Eckgriffe, Scrollleisten, Collapse/Expand und schmale Ansichten lokal prüfen; echter Nutzer-IITC-/Mobile-Test steht aus. Stable-Dateien unverändert.
+
+Lokale Browserprüfung am 2026-10-29 mit originalen IITC-Dialogen und Leaflet erfolgreich: Aufgabenliste gescrollt (657 px), Titel und Toolbarposition unverändert. Mausziehen am rechten Rand vergrößert nur die Breite; Eckziehen vergrößert auch die nutzbare Inhaltshöhe (682×575 px, Inhalt = verfügbar 472,1 px). Einklappen auf 53 px und Aufklappen stellt gewählte Maße wieder her; Verschieben erhält 682×575 px. 360×800 und 280×650 geprüft, Titel/OK im Viewport; Größenänderung zusätzlich per Pfeiltasten geprüft. Keine echte IITC-/Mobile-Nutzerabnahme für Beta 38; synthetische Daten.

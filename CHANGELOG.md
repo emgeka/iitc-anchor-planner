@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.38
+
+### English
+- Beta 38 fixes the agreed window behavior: titles and upper action toolbars stay visible while scrolling. Compact dimensions are opening sizes; resize dialogs using edges or the corner grip, also accessible with arrow keys. Content fills the selected size instead of remaining capped to a percentage of the viewport. Collapse/expand restores the selected size. Keep windows within the visible viewport; no permanent size storage or changes to plans, Keys or completion.
+
+### Deutsch
+- Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
+
 ## 0.2.0-beta.37
 
 ### English

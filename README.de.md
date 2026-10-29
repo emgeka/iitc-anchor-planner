@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.37
+### Beta-Test: 0.2.0-beta.38
+
+Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
 
 Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für Planer/Aufgaben (540 px), Vorschau (480 px) und Einstellungen (360 px), geringere Abstände und begrenzte Inhaltsflächen bei unveränderter Grundschrift. Desktop-Kontrollen kompakter, Touchziele bleiben groß. Allgemeine Erklärungen hinter Hinweise; gespeicherte Checkbox Ausführliche Hinweise anzeigen standardmäßig aus. Hinweise sind per Maus-Hover als Tooltip, Tastatur und Antippen abrufbar. Besitzaufgaben, Fehler und Statussummen bleiben sichtbar. Eigene Fraktion als benannter Punkt in Panel-/Dialogtitelleisten, unbekannt mit Fragezeichen. Portalnamen nach beobachtetem Besitzer färben (RES/ENL/Machina/neutral/unbekannt); Vorschau bewahrt den Besitz-Snapshot. Planfeldfüllung Normal/Dezent/Aus unter Einstellungen, Standard Normal; Dezent drittelt Deckkraft, Aus erhält Kanten. Die Auswahl gilt für Entwurf, aktiven Zielplan und simulierte Flächen, unabhängig von Intel-Füllungen. Keine Änderung an Keys, Routen oder gespeicherter Plangeometrie.
 
@@ -151,7 +153,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.37**
+- Entwicklungsversion: **0.2.0-beta.38**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
