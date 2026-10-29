@@ -245,3 +245,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Kompakte Oberfläche und Anzeigepräferenzen
 - Wiederkehrende Hilfe über helpHtml/details, wichtige Voraussetzungen/Fehler direkt sichtbar. Default verboseHints=false, Touch-/Tastaturzugang erhalten. Portalnamen mit portalNameHtml einzeln sicher darstellen; Farben zeigen beobachteten Besitzer, keine virtuelle Übernahme. Fraktionspunkt darf Paneldrag nicht auslösen. Planfüllung normal/subtle/off ausschließlich auf eigene Polygonlayer anwenden; Normal und reale Daten unverändert. Tests für Preference-Persistenz, Escaping und Live-Stiländerung bei unverändertem Vorschauzustand pflegen.
+
+## Fenstergrößen und feste Leisten
+- Kompakte Maße nur als Anfangsgrößen behandeln. Titel und obere Aktionsleisten beim Inhaltsscrollen sichtbar halten; Resize darf keine ungenutzten inneren Höhenkappen behalten. Native IITC-Resize-/Collapse-/Close-Funktionen und Callbackzuständigkeit erhalten. Gewählte Maße nach Ein-/Aufklappen restaurieren; UI-Observer/-listener aufräumen. Mausdrag an Rand/Ecke, Tastatur und schmale Ansichten prüfen; keine Plan-/Bestandsänderung oder ungefragte dauerhafte Größenpersistenz.

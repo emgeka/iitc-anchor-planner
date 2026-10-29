@@ -25,7 +25,8 @@ function runtime(width = 360) {
   assert.equal(ap.openDialog(options), returned, 'Keep the original IITC handle and lifecycle');
   const actual = opened[0];
   assert.equal(actual.width, 340, 'All callers fit a narrow viewport');
-  assert.equal(actual.maxWidth, 340);
+  assert.equal(actual.maxWidth, undefined, 'Viewport limits the opening size, not later expansion');
+  assert.equal(actual.resizable, true);
   assert.deepEqual(actual.classes['ui-dialog'].split(' ').sort(), ['ap-dialog', 'existing', 'legacy']);
   assert.equal(actual.dialogClass, actual.classes['ui-dialog'], 'Old and current IITC get the same widget scope');
   assert.equal(actual.classes['ui-dialog-titlebar'], 'title-role');
@@ -117,3 +118,28 @@ console.log('Shared UI: scoped current/legacy IITC dialog integration, viewport 
   stored=JSON.stringify({verboseHints:'yes',planFieldFill:'bad'});ap.load();assert.equal(ap.state.verboseHints,false);assert.equal(ap.state.planFieldFill,'normal');
 }
 console.log('Presentation preferences: persistence, independent owners, safe names, unknown indication and unchanged plan state passed.');
+
+{
+  const {ap,context}=runtime(1280);context.window.innerHeight=800;
+  const events={},tokens=new Set(),captures=new Set();let grip=null,observerCallback,disconnected=0,removed=0,options={};
+  context.window.ResizeObserver=class {constructor(fn){observerCallback=fn;}observe(){}disconnect(){disconnected++;}};
+  context.window.addEventListener=()=>{};context.window.removeEventListener=()=>{removed++;};
+  const root={style:{},classList:{add:c=>tokens.add(c),contains:c=>tokens.has(c)},querySelector:()=>grip,
+    getBoundingClientRect(){const width=parseFloat(this.style.width)||540,height=parseFloat(this.style.height)||400,left=parseFloat(this.style.left)||100,top=parseFloat(this.style.top)||80;return {width,height,left,top,right:left+width,bottom:top+height};},
+    ownerDocument:{createElement(){return {setAttribute(){},setPointerCapture:id=>captures.add(id),hasPointerCapture:id=>captures.has(id),releasePointerCapture:id=>captures.delete(id)};}},appendChild:n=>{grip=n;}};
+  const handle={on:(name,fn)=>{events[name]=fn;},dialog:(method,value)=>{if(method==='option')options=value;}};
+  const before=JSON.stringify(ap.state);ap.wireDialogResize(handle,root);
+  const event={button:0,pointerId:1,clientX:0,clientY:0,preventDefault(){},stopPropagation(){}};
+  grip.onpointerdown(event);grip.onpointermove({...event,clientX:140,clientY:80});
+  assert.equal(root.style.width,'680px');assert.equal(root.style.height,'480px');assert.equal(options.width,680);
+  assert.ok(tokens.has('ap-user-sized'));assert.ok(captures.has(1));
+  grip.onpointercancel(event);assert.equal(captures.size,0);grip.onpointermove({...event,clientX:900});assert.equal(root.style.width,'680px');
+  grip.onkeydown({...event,key:'ArrowLeft'});assert.equal(root.style.width,'660px');
+  grip.onkeydown({...event,key:'ArrowDown'});assert.equal(root.style.height,'500px');
+  grip.onpointerdown(event);grip.onpointermove({...event,clientX:9000,clientY:9000});
+  assert.equal(root.style.width,'1260px');assert.equal(root.style.height,'780px');
+  assert.equal(root.style.left,'10px');assert.equal(root.style.top,'10px');
+  root.style.height='auto';observerCallback();assert.equal(root.style.height,'780px','A widget size reset after expand restores the chosen size');assert.equal(JSON.stringify(ap.state),before,'Window resizing must not persist or alter plan/inventory state');
+  events['dialogclose.ap-window']();assert.equal(disconnected,1);assert.equal(removed,1);
+}
+console.log('Window sizing: pointer drag/cancel, keyboard, viewport limits, widget size synchronization and observer cleanup passed.');

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.37
+# Bekannte Grenzen in 0.2.0-beta.38
 
 Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Einstellungen speichern ausführliche Hinweise und eigene Planfeldfüllung. Native Auswahlmenüs behalten systembedingt Klartext; farbige Namen stehen außerhalb der Optionslisten. Besitzfarben zeigen Beobachtungen, keine simulierte Eroberung. Die Anordnung der Settings in Beta 36 wurde vom Nutzer bestätigt; Testplattform unbekannt.
 
@@ -369,3 +369,10 @@ Beta 37 bündelt die sechs abgestimmten UI-Punkte: kleinere Ausgangsbreiten für
 Native select-Options bleiben Klartext (keine mehrfarbigen Optionsinhalte). Tooltip zeigt den Besitzer zusätzlich; Farbe ist nicht alleiniger Träger erforderlicher Aufgaben. Echter Nutzer-IITC-/Mobile-Praxistest steht aus.
 
 Lokale Prüfung am 2026-10-29: originale IITC-Dialoghülle/Leaflet mit synthetischen Portalen auf Desktop, 360×800 und 280×650. Kompakte Breiten, sichere Namensfarben, Fragezeichen, Hinweise auf/zu per Checkbox und Tastatur, benannter Fraktionspunkt per Enter, erreichbare Settings ohne horizontalen Überlauf geprüft. Dezent zeichnet Planpolygone mit .04; native Intel-Füllungen .25/.4/.2 bleiben erhalten. Füllungsstufen und live Vorschauzustand zusätzlich automatisiert geprüft. Echter Nutzer-IITC-/Mobile-Test von Beta 37 steht aus.
+
+
+## Fensterkorrektur Beta 38
+Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
+Native IITC-/jQuery-UI-Resizegriffe ausdrücklich aktivieren; zusätzlicher Pointer-/Tastaturgriff als Fallback ohne zusätzliche Bibliothek. Desktop-/Mobile-Praxistest beim Nutzer steht aus.
+
+Lokale Browserprüfung am 2026-10-29 mit originalen IITC-Dialogen und Leaflet erfolgreich: Aufgabenliste gescrollt (657 px), Titel und Toolbarposition unverändert. Mausziehen am rechten Rand vergrößert nur die Breite; Eckziehen vergrößert auch die nutzbare Inhaltshöhe (682×575 px, Inhalt = verfügbar 472,1 px). Einklappen auf 53 px und Aufklappen stellt gewählte Maße wieder her; Verschieben erhält 682×575 px. 360×800 und 280×650 geprüft, Titel/OK im Viewport; Größenänderung zusätzlich per Pfeiltasten geprüft. Keine echte IITC-/Mobile-Nutzerabnahme für Beta 38; synthetische Daten.

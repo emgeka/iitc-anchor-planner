@@ -394,5 +394,6 @@
   "settings.fill.subtle": "Subtle",
   "settings.fill.off": "Off",
   "faction.neutral": "Neutral",
-  "links.estimatedShort": "{count} directions open · key demand estimated"
+  "links.estimatedShort": "{count} directions open · key demand estimated",
+  "ui.resize": "Resize window – drag or use arrow keys"
 }

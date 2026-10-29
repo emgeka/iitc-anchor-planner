@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.37
+// @version        0.2.0-beta.38
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261029130000';
+  plugin_info.dateTimeVersion = '20261029140000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.37';
+  ap.VERSION = '0.2.0-beta.38';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -447,7 +447,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Dezent",
       "settings.fill.off": "Aus",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt"
+      "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt",
+      "ui.resize": "Fenstergröße ändern – ziehen oder Pfeiltasten verwenden"
     },
     "en": {
       "language.label": "Language",
@@ -845,7 +846,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "es": {
       "language.label": "Idioma",
@@ -1243,7 +1245,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "fr": {
       "language.label": "Langue",
@@ -1641,7 +1644,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "it": {
       "language.label": "Lingua",
@@ -2039,7 +2043,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "ja": {
       "language.label": "言語",
@@ -2437,7 +2442,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "pl": {
       "language.label": "Język",
@@ -2835,7 +2841,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -3233,7 +3240,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "ru": {
       "language.label": "Язык",
@@ -3631,7 +3639,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -4029,7 +4038,8 @@ function wrapper(plugin_info) {
       "settings.fill.subtle": "Subtle",
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
-      "links.estimatedShort": "{count} directions open · key demand estimated"
+      "links.estimatedShort": "{count} directions open · key demand estimated",
+      "ui.resize": "Resize window – drag or use arrow keys"
     }
   };
   // AP_LOCALES_END
@@ -4109,21 +4119,111 @@ function wrapper(plugin_info) {
     var viewport = Number(window.innerWidth);
     var maximum = isFinite(viewport) && viewport > 0 ? Math.max(1, Math.floor(viewport) - 20) : 600;
     if (typeof settings.maxWidth === 'number' && isFinite(settings.maxWidth) && settings.maxWidth > 0) maximum = Math.min(maximum, settings.maxWidth);
-    settings.maxWidth = maximum;
+    // Clamp the opening size only. CSS tracks the live viewport during resizing.
+    if (settings.maxWidth != null) settings.maxWidth = maximum;
+    settings.resizable = true;
     if (typeof settings.width === 'number' || settings.width == null) {
       var requested = typeof settings.width === 'number' && isFinite(settings.width) && settings.width > 0 ? settings.width : 600;
       settings.width = Math.min(requested, maximum);
     }
     var caps={'anchor-planner-settings':360,'anchor-planner-fan':540,'anchor-planner-tasks':540,'anchor-planner-walk':480,'anchor-planner-next-task':440,'anchor-planner-key-list':480,'anchor-planner-key-reset':420,'anchor-planner-key-undo':600,'anchor-planner-key-import':600,'anchor-planner-export':560};
     if (caps[settings.id] && typeof settings.width==='number') settings.width=Math.min(settings.width,caps[settings.id]);
-    if (settings.minHeight==null) settings.minHeight=0;
+    if (settings.minHeight==null) settings.minHeight=Math.min(140,Math.max(1,(Number(window.innerHeight)||800)-20));
+    if (settings.minWidth==null) settings.minWidth=Math.min(220,maximum);
     var handle=window.dialog(settings);
     try {
       var widget=handle && typeof handle.dialog==='function' && handle.dialog('widget');
       var root=widget && widget[0], title=root && root.querySelector('.ui-dialog-title');
       if (title && !title.querySelector('.ap-faction-badge')) title.insertAdjacentHTML('beforeend',ap.factionBadgeHtml());
+      if (root) ap.wireDialogResize(handle,root);
     } catch (_) {}
     return handle;
+  };
+
+
+  ap.wireDialogResize = function (handle, root) {
+    // Native IITC/jQuery UI resizing remains enabled. The corner grip also works
+    // in builds without the optional resizable module, including keyboard use.
+    if (!root || !root.ownerDocument || root.querySelector('.ap-dialog-grip')) return;
+    var grip=root.ownerDocument.createElement('div'), drag=null;
+    grip.className='ap-dialog-grip'; grip.tabIndex=0; grip.setAttribute('role','button');
+    grip.setAttribute('aria-label',ap.t('ui.resize')); grip.title=ap.t('ui.resize'); root.appendChild(grip);
+    function clampToViewport() {
+      if (root.apUserWindowSize && root.style.height==='auto' && !root.classList.contains('ap-window-collapsed')) {
+        root.style.width=root.apUserWindowSize.width;root.style.height=root.apUserWindowSize.height;
+      }
+      if (root.style.height && root.style.height!=='auto') {
+        root.classList.add('ap-user-sized');root.apUserWindowSize={width:root.style.width,height:root.style.height};
+      }
+      var box=root.getBoundingClientRect(),viewport=ap.getViewportSize();
+      if (box.bottom>(viewport.height || 800)-10 || box.top<0) root.style.top=Math.max(10,Math.min(box.top,(viewport.height || 800)-box.height-10))+'px';
+      if (box.right>(viewport.width || 1000)-10 || box.left<0) root.style.left=Math.max(10,Math.min(box.left,(viewport.width || 1000)-box.width-10))+'px';
+    }
+    clampToViewport();
+    if (!root.apWindowResizeCleanup) {
+      var collapse=function (event) {
+        var button=event.target && event.target.closest && event.target.closest('.ui-dialog-titlebar-button-collapse');
+        if (button) {
+          root.classList.toggle('ap-window-collapsed',button.classList.contains('ui-dialog-titlebar-button-collapse-collapsed'));
+          clampToViewport();
+        }
+      };
+      var nativeStart=function (event) {
+        if (!event.target || !event.target.closest || !event.target.closest('.ui-resizable-handle')) return;
+        var box=root.getBoundingClientRect();
+        root.style.width=box.width+'px';root.style.height=box.height+'px';
+        root.apUserWindowSize={width:root.style.width,height:root.style.height};root.classList.add('ap-user-sized');
+      };
+      if (root.addEventListener) {
+        root.addEventListener('click',collapse);
+        root.addEventListener('pointerdown',nativeStart,true);root.addEventListener('mousedown',nativeStart,true);
+      }
+      var observer=typeof window.ResizeObserver==='function' ? new window.ResizeObserver(clampToViewport) : null;
+      if (observer) observer.observe(root);
+      if (window.addEventListener) window.addEventListener('resize',clampToViewport);
+      root.apWindowResizeCleanup=function () {
+        if (observer) observer.disconnect();
+        if (root.removeEventListener) {
+          root.removeEventListener('click',collapse);root.removeEventListener('pointerdown',nativeStart,true);root.removeEventListener('mousedown',nativeStart,true);
+        }
+        if (window.removeEventListener) window.removeEventListener('resize',clampToViewport);
+        root.apWindowResizeCleanup=null;
+      };
+      if (handle && typeof handle.on==='function') handle.on('dialogclose.ap-window',root.apWindowResizeCleanup);
+    }
+    function fit(width,height) {
+      var box=root.getBoundingClientRect(), view=ap.getViewportSize();
+      var maxWidth=Math.max(140,(view.width || 1000)-20);
+      var maxHeight=Math.max(110,(view.height || 800)-20);
+      root.classList.add('ap-user-sized');
+      var nextWidth=Math.max(Math.min(220,maxWidth),Math.min(width,maxWidth));
+      var nextHeight=Math.max(Math.min(140,maxHeight),Math.min(height,maxHeight));
+      if (handle && typeof handle.dialog==='function') handle.dialog('option',{width:nextWidth,height:nextHeight});
+      root.style.width=nextWidth+'px';root.style.height=nextHeight+'px';
+      root.apUserWindowSize={width:root.style.width,height:root.style.height};
+      root.style.right='auto';root.style.bottom='auto';
+      root.style.left=Math.max(10,Math.min(box.left,(view.width || 1000)-nextWidth-10))+'px';
+      root.style.top=Math.max(10,Math.min(box.top,(view.height || 800)-nextHeight-10))+'px';
+    }
+    grip.onpointerdown=function (event) {
+      if (event.button!=null && event.button!==0) return;
+      var box=root.getBoundingClientRect(); drag={x:event.clientX,y:event.clientY,width:box.width,height:box.height,id:event.pointerId};
+      event.preventDefault(); event.stopPropagation();
+      if (grip.setPointerCapture) grip.setPointerCapture(event.pointerId);
+    };
+    grip.onpointermove=function (event) { if (!drag || event.pointerId!==drag.id) return; fit(drag.width+event.clientX-drag.x,drag.height+event.clientY-drag.y); };
+    function end(event) {
+      if (!drag || event.pointerId!==drag.id) return;
+      if (grip.releasePointerCapture && (!grip.hasPointerCapture || grip.hasPointerCapture(drag.id))) grip.releasePointerCapture(drag.id);
+      drag=null;
+    }
+    grip.onpointerup=end;grip.onpointercancel=end;grip.onlostpointercapture=function () {drag=null;};
+    grip.onkeydown=function (event) {
+      var delta={ArrowLeft:[-20,0],ArrowRight:[20,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[event.key];
+      if (!delta) return; event.preventDefault();event.stopPropagation();
+      var box=root.getBoundingClientRect();fit(box.width+delta[0],box.height+delta[1]);
+    };
+    if (handle && typeof handle.on==='function') handle.on('dialogresize.ap-window',function () {root.classList.add('ap-user-sized');});
   };
 
   ap.escapeHtml = function (value) {
@@ -9423,7 +9523,7 @@ function wrapper(plugin_info) {
       }
       else html += '<div class="ap-home-cards"><button id="ap-home-anchors"><b>' + ap.escapeHtml(ap.t('workspace.anchors')) + '</b><span>' + ap.escapeHtml(ap.t('ui.anchorsHelp')) + '</span></button><button id="ap-home-fan"><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b><span>' + ap.escapeHtml(ap.t('ui.fanHelp')) + '</span></button></div>';
     }
-    panel.innerHTML = html; panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
+    panel.innerHTML = html; ap.wireDialogResize(null,panel); panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
     ap.wireIntelFieldControls(panel);
     document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = !ap.state.panelCollapsed; ap.save(); ap.renderPanel(); };
     var settings = document.getElementById('ap-settings'); if (settings) settings.onclick = ap.showPluginSettings;
@@ -9914,7 +10014,7 @@ function wrapper(plugin_info) {
 .ap-ui th,.ap-ui td{padding:4px}
 .ap-ui .ap-task-detail-content{padding:6px}
 #ap-fan-planner .ap-fan-controls{margin:4px 0}
-.ap-ui .ap-task-toolbar{position:static;padding-bottom:6px;margin-bottom:6px}
+.ap-ui .ap-task-toolbar{position:sticky;top:0;z-index:3;padding-bottom:6px;margin-bottom:6px}
 .ap-ui .ap-task-toolbar button{min-width:96px}
 #ap-task-list,#ap-next-work,#ap-fan-planner{max-height:52vh;max-height:52dvh}
 #ap-plugin-settings{gap:10px}
@@ -9924,6 +10024,31 @@ function wrapper(plugin_info) {
 #iitc-anchor-planner :is(.ap-view-nav,.ap-workspaces,.ap-primary-actions,.ap-fan-plan-actions,.ap-actions,.ap-settings,.ap-filters,.ap-readiness,.ap-row,.ap-message,.ap-mini,.ap-next-entry){padding:5px 8px;gap:5px}
 @media(min-width:601px) and (pointer:fine){#iitc-anchor-planner{width:320px;max-height:65vh;max-height:65dvh}:is(#iitc-anchor-planner,.ap-ui,.ap-dialog){--ap-control-height:30px}:where(#iitc-anchor-planner,.ap-ui) :is(button,select,input:not([type=checkbox]):not([type=radio])){padding:4px 7px}}
 @media(max-width:600px),(pointer:coarse){.ap-help>summary,.ap-faction-badge>summary{min-height:40px}.ap-ui .ap-task-toolbar button{flex:1 1 100px}}
+
+.ap-dialog.ap-window-collapsed{height:auto!important;resize:none}
+.ap-dialog.ap-window-collapsed>:is(.ui-dialog-content,.ui-dialog-buttonpane,.ap-dialog-grip,.ui-resizable-handle){display:none!important}
+/* One scroll container: header/footer stay outside it; sticky actions inside it. */
+.ap-dialog{display:flex!important;flex-direction:column;resize:both;overflow:hidden;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
+.ap-dialog>.ui-dialog-titlebar,.ap-dialog>.ui-dialog-buttonpane{flex:none;position:relative;z-index:4}
+.ap-dialog>.ui-dialog-content{flex:1 1 auto;min-height:0;height:auto!important;max-height:none!important;overflow:hidden!important;display:flex!important;flex-direction:column}
+.ap-dialog .ap-dialog-body{flex:1 1 auto;min-height:0;overflow:auto}
+.ap-dialog :is(#ap-task-list,#ap-next-work,#ap-fan-planner):not(.ap-dialog-body){max-height:none;overflow:visible}
+.ap-dialog.ap-user-sized .ap-dialog-body{max-height:none!important}
+.ap-dialog.ap-user-sized :is(.ap-walk-content,.ap-key-list-content,.ap-key-review,.ap-scroll-table){max-height:none;overflow:visible}
+.ap-dialog .ui-resizable-handle{position:absolute;display:block;z-index:8;touch-action:none}
+.ap-dialog :is(.ui-resizable-e,.ui-resizable-w){top:10px;bottom:10px;width:8px;cursor:ew-resize}
+.ap-dialog .ui-resizable-e{right:0}.ap-dialog .ui-resizable-w{left:0}
+.ap-dialog :is(.ui-resizable-n,.ui-resizable-s){left:10px;right:10px;height:8px;cursor:ns-resize}
+.ap-dialog .ui-resizable-n{top:0}.ap-dialog .ui-resizable-s{bottom:0}
+.ap-dialog :is(.ui-resizable-ne,.ui-resizable-nw,.ui-resizable-se,.ui-resizable-sw){width:12px;height:12px}
+.ap-dialog .ui-resizable-ne{right:0;top:0;cursor:nesw-resize}.ap-dialog .ui-resizable-nw{left:0;top:0;cursor:nwse-resize}
+.ap-dialog .ui-resizable-se{right:0;bottom:0;cursor:nwse-resize}.ap-dialog .ui-resizable-sw{left:0;bottom:0;cursor:nesw-resize}
+.ap-dialog-grip{position:absolute;right:1px;bottom:1px;width:18px;height:18px;z-index:10;cursor:nwse-resize;touch-action:none;background:repeating-linear-gradient(135deg,transparent 0 3px,var(--ap-muted) 3px 4px);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.ap-dialog-grip:focus-visible{outline:2px solid var(--ap-accent);clip-path:none}
+#iitc-anchor-planner{resize:both}
+#iitc-anchor-planner.ap-user-sized{max-height:calc(100vh - 20px)!important;max-height:calc(100dvh - 20px)!important}
+.ap-dialog :is(.ap-next-toolbar,.ap-toolbar,.ap-export-tabs){position:sticky;top:0;z-index:3;background:var(--ap-bg)}
+#iitc-anchor-planner .ap-head{position:sticky;top:0;z-index:5}
 `).appendTo('head');
   };
 

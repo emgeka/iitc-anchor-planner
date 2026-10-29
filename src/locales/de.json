@@ -394,5 +394,6 @@
   "settings.fill.subtle": "Dezent",
   "settings.fill.off": "Aus",
   "faction.neutral": "Neutral",
-  "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt"
+  "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt",
+  "ui.resize": "Fenstergröße ändern – ziehen oder Pfeiltasten verwenden"
 }
