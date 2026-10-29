@@ -228,3 +228,5 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Portalbesitz vor Linkbau
 - Besitz an beiden Enden jedes offenen Links unabhängig vom Keybestand berücksichtigen. Erobern/Übernehmen/Prüfen als echte Routenaufgaben vor abhängige Würfe einfügen, auch an reinen Zielen. Manuelles done oder Blockerabbau ersetzt keinen Besitznachweis. Unbekannt bleibt in der Vorschau ungeklärt; virtuelle Eroberung verändert keine echten Daten und erobert niemals das andere Ende. Live-Besitzänderungen invalidieren die Route. Routing-, Vorschau-, UI-, Locale-/Export- und Keytests gemeinsam prüfen.
+
+- Einstellungen als getrennte responsive Formular-/Aktionsbereiche pflegen: keine Abhängigkeit von Absatzabständen fremder IITC-Styles. Bei offenem Dialog schmale/breite Fenster und manuell verkleinerte Dialoge visuell prüfen.

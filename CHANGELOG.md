@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.36
+
+### English
+- Separate settings language and deletion controls into responsive rows with stable spacing and a flexible language selector; constrain the settings window on viewport changes. Preserve existing actions.
+
+### Deutsch
+- Einstellungen: Sprachauswahl und Datenlöschung in getrennten flexiblen Bereichen mit konstantem Abstand. Auswahl und Beschriftung umbrechen nach verfügbarer Dialogbreite; die Auswahl passt sich an, der Löschbutton bleibt in eigener Zeile. Die maximale Settings-Dialogbreite folgt auch nach dem Öffnen der Fensterbreite. Keine Änderung an Spracheinstellung oder Löschfunktion.
+
 ## 0.2.0-beta.35
 
 ### English
