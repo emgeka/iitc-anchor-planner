@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.39
+### Beta-Test: 0.2.0-beta.40
+
+Beta 40 bündelt Portalvorbereitung, Blockerabbau und Würfe in gemeinsamen Besuchen. Unabhängige Würfe können beim früheren Besuch erledigt werden; gesperrte Aufgaben bleiben hinter ihren Voraussetzungen. Die Routenbewertung berücksichtigt Rückbesuche und erlaubt dafür nur kleine, begrenzte Umwege. Die lokale Bündelung funktioniert auch ohne GPS und außerhalb der größeren Reihenfolgensuche. Bestätigte Quellen, gewählte Abbauportale und manuelle/Spine-Wurffolgen bleiben verbindlich. Verbleibende Rückbesuche erhalten einen kurzen Grund in Aufgaben, Nächste Aufgabe und Planvorschau. Bestand, Erledigung und Plangeometrie bleiben unverändert.
 
 Beta 39 bereinigt wiederholte Routinetexte in Aufgaben, Blockern, Nächste Aufgabe, Vorschau und Keydialogen. Konkrete Tätigkeiten, Fraktionen, Besitzvoraussetzungen, fehlende Intel-Bestätigung und unvollständige Prüfungen bleiben sichtbar. Entsperrte Linklisten, Scan-/Herkunftsdiagnosen und allgemeine Anleitungen sind aufklappbar. Nächste Aufgabe beginnt mit Portal und Navigation. Simulation wird einmal gekennzeichnet; Überschreib-, Reset- und Rücknahmefolgen bleiben ausdrücklich sichtbar. Namensladen meldet nur tatsächlich verbleibende Lücken. Exportberichte behalten ihren eigenständigen Kontext. Routing, Plangeometrie und Keybuchungsregeln bleiben unverändert.
 
@@ -155,7 +157,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.39**
+- Entwicklungsversion: **0.2.0-beta.40**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

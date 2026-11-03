@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.40
+
+### English
+- Beta 40 bundles portal preparation, blocker removal and throws into shared visits. Independent throws can move to an earlier visit; blocked work stays behind its prerequisites. Route scoring now accounts for return visits, with a small, capped distance trade-off. Local consolidation also runs without GPS and outside the larger permutation search. Confirmed sources, explicit removal targets and manual/Spine throw order are preserved. Remaining return visits carry a short reason in Tasks, Next task and Plan preview. Inventory, completion and plan geometry remain unchanged.
+
+### Deutsch
+- Beta 40 bündelt Portalvorbereitung, Blockerabbau und Würfe in gemeinsamen Besuchen. Unabhängige Würfe können beim früheren Besuch erledigt werden; gesperrte Aufgaben bleiben hinter ihren Voraussetzungen. Die Routenbewertung berücksichtigt Rückbesuche und erlaubt dafür nur kleine, begrenzte Umwege. Die lokale Bündelung funktioniert auch ohne GPS und außerhalb der größeren Reihenfolgensuche. Bestätigte Quellen, gewählte Abbauportale und manuelle/Spine-Wurffolgen bleiben verbindlich. Verbleibende Rückbesuche erhalten einen kurzen Grund in Aufgaben, Nächste Aufgabe und Planvorschau. Bestand, Erledigung und Plangeometrie bleiben unverändert.
+
 ## 0.2.0-beta.39
 
 ### English

@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.39
+# Anforderungen für Entwicklungsstand 0.2.0-beta.40
 
 ## Abgestimmte UI-Anforderungen (2026-10-29, umgesetzt in Beta 37)
 
@@ -121,7 +121,7 @@ bestätigte Praxistests auf Desktop-IITC und IITC Mobile.
   Blocker vor dem ersten abhängigen Wurfauftrag mit geringem Umweg einordnen.
   Automatische Endportalwahl durch eine ausdrückliche Wahl überschreibbar machen.
   Vorschlagsreihenfolge bei Bewegungen bis 100 m stabil halten; gespeicherte
-  manuelle Portalreihenfolge respektieren. Ohne Standort diese Reihenfolge nutzen.
+  manuelle Portalreihenfolge respektieren. Ohne Standort diese Reihenfolge als Ausgangspunkt für die automatische Aufgabenbündelung nutzen.
 - Aufgabenliste, nächstes Ziel, Kartenhervorhebung und Reststrecke müssen
   dieselbe Reihenfolge verwenden. Manuelle Erledigung darf keine Intel-Blocker
   oder vorhandenen Planlinks umdeuten. Fehlende Koordinaten und erledigte
@@ -457,3 +457,10 @@ Native IITC-/jQuery-UI-Resizegriffe ausdrücklich aktivieren; zusätzlicher Poin
 
 ## Textbereinigung Beta 39
 Beta 39 bereinigt wiederholte Routinetexte in Aufgaben, Blockern, Nächste Aufgabe, Vorschau und Keydialogen. Konkrete Tätigkeiten, Fraktionen, Besitzvoraussetzungen, fehlende Intel-Bestätigung und unvollständige Prüfungen bleiben sichtbar. Entsperrte Linklisten, Scan-/Herkunftsdiagnosen und allgemeine Anleitungen sind aufklappbar. Nächste Aufgabe beginnt mit Portal und Navigation. Simulation wird einmal gekennzeichnet; Überschreib-, Reset- und Rücknahmefolgen bleiben ausdrücklich sichtbar. Namensladen meldet nur tatsächlich verbleibende Lücken. Exportberichte behalten ihren eigenständigen Kontext. Routing, Plangeometrie und Keybuchungsregeln bleiben unverändert. Allgemeine Hilfe pro Arbeitsbereich bündeln, auch bei verboseHints=true. Keine Pflichtinformation ausschließlich per Hover oder Farbe vermitteln. Vollständige Betroffenheit vor Bestandsänderungen sichtbar halten.
+
+
+## Besuchsorientiertes Routing Beta 40
+Beta 40 bündelt Portalvorbereitung, Blockerabbau und Würfe in gemeinsamen Besuchen. Unabhängige Würfe können beim früheren Besuch erledigt werden; gesperrte Aufgaben bleiben hinter ihren Voraussetzungen. Die Routenbewertung berücksichtigt Rückbesuche und erlaubt dafür nur kleine, begrenzte Umwege. Die lokale Bündelung funktioniert auch ohne GPS und außerhalb der größeren Reihenfolgensuche. Bestätigte Quellen, gewählte Abbauportale und manuelle/Spine-Wurffolgen bleiben verbindlich. Verbleibende Rückbesuche erhalten einen kurzen Grund in Aufgaben, Nächste Aufgabe und Planvorschau. Bestand, Erledigung und Plangeometrie bleiben unverändert.
+- Alle offenen Würfe genau einmal erhalten; Besitzaufgaben an beiden Enden und erforderlichen Abbau vor jedem abhängigen Wurf prüfen. Bei gleichem Einfügepreis einen vorhandenen Portalbesuch bevorzugen. Kein pauschaler separater Vorbereitungsdurchlauf.
+- Nicht alle Aufgaben sind beim ersten Besuch ausführbar: unabhängige Würfe vorziehen, notwendige Rückkehr erhalten. Unbekannter Besitz bleibt ungeklärt, Vorschau bucht keine echten Keys. Manuelle Vorgaben dürfen keine verlorenen oder zu früh ausgeführten Aufgaben verursachen.
+- Die frühere Vorgabe ausschließlich strikt kürzerer Varianten und unveränderter automatischer Reihenfolge ohne GPS wird durch die begrenzte Besuchsoptimierung ersetzt; ausdrücklich manuelle Wurffolgen bleiben geschützt.

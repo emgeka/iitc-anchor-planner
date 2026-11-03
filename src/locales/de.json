@@ -400,5 +400,11 @@
   "ui.links.summary": "Planlinks: {open} offen · {ownExisting} eigene vorhanden · {unverifiedExisting} ungeprüft",
   "ui.links.occupied": "Belegt: Gegner {enemyOccupied} · Machina {machinaOccupied}",
   "tasks.frees.one": "Entsperrt {count} Link",
-  "tasks.frees.other": "Entsperrt {count} Links"
+  "tasks.frees.other": "Entsperrt {count} Links",
+  "tasks.modeNoLocation": "Arbeitsroute ohne Standort",
+  "tasks.returnBuildOrder": "Rückbesuch · feste Baufolge",
+  "tasks.returnManualOrder": "Rückbesuch · gespeicherte Reihenfolge",
+  "tasks.returnPrerequisites": "Rückbesuch · zuvor andere Portal- oder Blockeraufgaben",
+  "tasks.returnDistance": "Rückbesuch · kürzere Gesamtstrecke",
+  "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag"
 }

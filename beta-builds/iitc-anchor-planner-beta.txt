@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner Beta
 // @category       Layer
-// @version        0.2.0-beta.39
+// @version        0.2.0-beta.40
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261103120000';
+  plugin_info.dateTimeVersion = '20261103140000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.39';
+  ap.VERSION = '0.2.0-beta.40';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -453,7 +453,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Planlinks: {open} offen · {ownExisting} eigene vorhanden · {unverifiedExisting} ungeprüft",
       "ui.links.occupied": "Belegt: Gegner {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Entsperrt {count} Link",
-      "tasks.frees.other": "Entsperrt {count} Links"
+      "tasks.frees.other": "Entsperrt {count} Links",
+      "tasks.modeNoLocation": "Arbeitsroute ohne Standort",
+      "tasks.returnBuildOrder": "Rückbesuch · feste Baufolge",
+      "tasks.returnManualOrder": "Rückbesuch · gespeicherte Reihenfolge",
+      "tasks.returnPrerequisites": "Rückbesuch · zuvor andere Portal- oder Blockeraufgaben",
+      "tasks.returnDistance": "Rückbesuch · kürzere Gesamtstrecke",
+      "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag"
     },
     "en": {
       "language.label": "Language",
@@ -857,7 +863,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "es": {
       "language.label": "Idioma",
@@ -1261,7 +1273,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "fr": {
       "language.label": "Langue",
@@ -1665,7 +1683,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "it": {
       "language.label": "Lingua",
@@ -2069,7 +2093,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "ja": {
       "language.label": "言語",
@@ -2473,7 +2503,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "pl": {
       "language.label": "Język",
@@ -2877,7 +2913,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -3281,7 +3323,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "ru": {
       "language.label": "Язык",
@@ -3685,7 +3733,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -4089,7 +4143,13 @@ function wrapper(plugin_info) {
       "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
       "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
       "tasks.frees.one": "Unblocks {count} link",
-      "tasks.frees.other": "Unblocks {count} links"
+      "tasks.frees.other": "Unblocks {count} links",
+      "tasks.modeNoLocation": "Work route without location",
+      "tasks.returnBuildOrder": "Return visit · required build order",
+      "tasks.returnManualOrder": "Return visit · saved order",
+      "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+      "tasks.returnDistance": "Return visit · shorter overall route",
+      "tasks.returnLimited": "Return visit · bounded route proposal"
     }
   };
   // AP_LOCALES_END
@@ -5338,7 +5398,7 @@ function wrapper(plugin_info) {
         var same = stops[index].portal.guid === guid;
         var before = index ? ap.workPoint(stops[index-1].portal) : start, after = ap.workPoint(stops[index].portal);
         var cost = same ? 0 : ap.workDistance(before,endpoint)+ap.workDistance(endpoint,after)-ap.workDistance(before,after);
-        if (!best || cost < best.cost-.001) best = {index:index,same:same,cost:cost};
+        if (!best || cost < best.cost-.001 || Math.abs(cost-best.cost)<=.001 && same && !best.same) best = {index:index,same:same,cost:cost};
       }
       if (best.same) stops[best.index].portalTask = item.ownership;
       else stops.splice(best.index,0,{portal:item.portal,portalTask:item.ownership,planVisit:false,routeTargetType:'portal',links:[],blockers:[]});
@@ -5498,7 +5558,181 @@ function wrapper(plugin_info) {
     });
     stops = stops.filter(function (stop) { return stop.links.length || stop.blockers.length || stop.portalTask; });
     if (targets) stops = ap.refineBlockerStops(stops, start);
-    return { stops: stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned, unscheduledPortals: preparation.unresolved };
+    var bundled = ap.bundleWorkStops(stops, start, blocked, !!sequence || ap.state.workRouteMode === 'manual');
+    return { stops: bundled.stops, blockers: blocked, unscheduled: unscheduled, unassigned: unassigned, unscheduledPortals: preparation.unresolved, visitOptimization: bundled.optimization };
+  };
+
+  ap.measureWorkRoute = function (stops, start) {
+    var previous = start, distance = 0, seen = new Set(), revisits = 0, visits = 0;
+    stops.forEach(function (stop) {
+      var point = ap.workPoint(stop.portal);
+      if (!point) distance = Infinity;
+      else distance += ap.workDistance(previous, point);
+      previous = point;
+      if (stop.routeTargetType === 'start') return;
+      visits++;
+      if (seen.has(stop.portal.guid)) revisits++;
+      seen.add(stop.portal.guid);
+    });
+    return { distance: distance, revisits: revisits, visits: visits };
+  };
+  ap.workRouteReference = function (metrics) {
+    // Charge a repeat visit a quarter of an average leg (25–250 m).
+    // The reference stays fixed throughout a search, preventing accumulating detours.
+    return { distance: metrics.distance, returnCost: Math.min(250, Math.max(25, metrics.distance / Math.max(1, metrics.visits) / 4)) };
+  };
+  ap.betterWorkRoute = function (next, current, reference) {
+    if (!isFinite(next.distance) || next.distance > reference.distance * 1.05 + .001) return false;
+    var gain = current.distance + current.revisits * reference.returnCost - next.distance - next.revisits * reference.returnCost;
+    return gain > .001 || Math.abs(gain) <= .001 && (next.revisits < current.revisits || next.revisits === current.revisits && next.visits < current.visits);
+  };
+
+  // Bundle real work rather than treating preparation and throws as unrelated stops.
+  // Every candidate retains all tasks, ownership prerequisites, removal deadlines and
+  // confirmed sources. Manual/Spine throw order remains exact. No persisted state changes.
+  ap.bundleWorkStops = function (original, start, blockers, fixedOrder) {
+    var stops = original.map(function (stop) { return Object.assign({}, stop, { links: stop.links.slice(), blockers: stop.blockers.slice() }); });
+    var initial = ap.measureWorkRoute(stops, start), metrics = initial, reference = ap.workRouteReference(initial);
+    var order = [], directions = Object.create(null), needs = new Set(), expectedRemovals = new Set(), dependencies = Object.create(null);
+    var evaluations = 0, limit = 192, capped = stops.length > 400;
+    stops.forEach(function (stop) {
+      stop.links.forEach(function (link) {
+        order.push(link.id); directions[link.id] = ap.getLinkDirection(link);
+        [link.a, link.b].forEach(function (guid) { if (ap.getPortalOwnership(guid).action) needs.add(guid); });
+      });
+      stop.blockers.forEach(function (item) { expectedRemovals.add(item.id); });
+    });
+    var expectedLinks = new Set(order), manual = new Set();
+    blockers.forEach(function (item) {
+      if (item.manual) manual.add(item.id);
+      item.links.forEach(function (link) { (dependencies[link.id] || (dependencies[link.id] = [])).push(item.id); });
+    });
+    var captureRemovals = blockers.filter(function (item) {
+      return expectedRemovals.has(item.id) && !item.manual && !item.target &&
+        !(ap.state.blockerRoutePortals || {})[item.blocker.a] && !(ap.state.blockerRoutePortals || {})[item.blocker.b];
+    });
+    function atCaptures(route) {
+      var captures = Object.create(null), deadlines = Object.create(null), removals = Object.create(null), moves = Object.create(null);
+      route.forEach(function (stop,index) {
+        if (stop.portalTask && stop.portalTask.action==='capture' && captures[stop.portal.guid]===undefined) captures[stop.portal.guid]=index;
+        stop.links.forEach(function (link) { deadlines[link.id]=index; });
+        stop.blockers.forEach(function (item) { removals[item.id]=index; });
+      });
+      captureRemovals.forEach(function (item) {
+        var deadline = Math.min.apply(null,item.links.map(function (link) { return deadlines[link.id]===undefined ? Infinity : deadlines[link.id]; }));
+        var index = Math.min(captures[item.blocker.a]===undefined ? Infinity : captures[item.blocker.a], captures[item.blocker.b]===undefined ? Infinity : captures[item.blocker.b]);
+        if (isFinite(index) && index<=deadline && index!==removals[item.id]) moves[item.id]={index:index,item:item};
+      });
+      var ids = Object.keys(moves);
+      if (!ids.length) return route;
+      return route.map(function (stop,index) {
+        var next = stop.blockers.filter(function (item) { return !moves[item.id]; });
+        ids.forEach(function (id) { if (moves[id].index===index) next.push(moves[id].item); });
+        return next.length!==stop.blockers.length || next.some(function (item,i) { return item!==stop.blockers[i]; }) ? Object.assign({},stop,{blockers:next}) : stop;
+      }).filter(function (stop) { return stop.links.length || stop.blockers.length || stop.portalTask; });
+    }
+    function invalid(candidate) {
+      var prepared = new Set(), cleared = new Set(manual), links = [], removals = new Set();
+      for (var i=0;i<candidate.length;i++) {
+        var stop = candidate[i], guid = stop.portal.guid;
+        if (stop.portalTask) prepared.add(guid);
+        for (var b=0;b<stop.blockers.length;b++) {
+          var item = stop.blockers[b];
+          if (removals.has(item.id) || guid !== item.blocker.a && guid !== item.blocker.b) return 'tasks';
+          removals.add(item.id); cleared.add(item.id);
+        }
+        for (var l=0;l<stop.links.length;l++) {
+          var link = stop.links[l], direction = directions[link.id];
+          if (!expectedLinks.has(link.id) || (direction ? guid !== direction.from : guid !== link.a && guid !== link.b)) return 'tasks';
+          if ([link.a,link.b].some(function (id) { return needs.has(id) && !prepared.has(id); }) ||
+              (dependencies[link.id] || []).some(function (id) { return !cleared.has(id); })) return 'prerequisites';
+          links.push(link.id);
+        }
+      }
+      if (links.length !== order.length || new Set(links).size !== expectedLinks.size || removals.size !== expectedRemovals.size ||
+          Array.from(expectedRemovals).some(function (id) { return !removals.has(id); })) return 'tasks';
+      if (fixedOrder && links.some(function (id,index) { return id !== order[index]; })) return 'order';
+      return '';
+    }
+    function merge(route, left, right, atRight) {
+      var a = route[left], b = route[right];
+      var combined = Object.assign({}, a.planVisit ? a : b, {
+        planVisit: a.planVisit || b.planVisit, portalTask: a.portalTask || b.portalTask,
+        links: a.links.concat(b.links), blockers: a.blockers.concat(b.blockers)
+      });
+      combined.portal = ap.runtime.stats[combined.portal.guid] || combined.portal;
+      combined.routeTargetType = combined.planVisit ? 'plan' : combined.portalTask ? 'portal' : 'blocker';
+      return atCaptures(route.reduce(function (out,stop,index) {
+        if (index === (atRight ? right : left)) out.push(combined);
+        else if (index !== left && index !== right) out.push(stop);
+        return out;
+      }, []));
+    }
+    var baselineValid = !invalid(stops);
+    if (baselineValid && isFinite(initial.distance) && !capped) {
+      for (var pass=0;pass<3 && evaluations<limit;pass++) {
+        var changed = false, groups = Object.create(null), pairs = [];
+        stops.forEach(function (stop) { (groups[stop.portal.guid] || (groups[stop.portal.guid] = [])).push(stop); });
+        Object.keys(groups).forEach(function (guid) {
+          var visits = groups[guid];
+          if (visits.length>2) pairs.push([visits[0],visits[visits.length-1]]);
+          for (var i=1;i<visits.length;i++) pairs.push([visits[i-1],visits[i]]);
+        });
+        pairs.forEach(function (pair) {
+          var left = stops.indexOf(pair[0]), right = stops.indexOf(pair[1]);
+          if (left<0 || right<0) return;
+          var route = stops;
+          [false,true].forEach(function (atRight) {
+            if (evaluations>=limit) return;
+            var candidate = merge(route,left,right,atRight); evaluations++;
+            if (invalid(candidate)) return;
+            var next = ap.measureWorkRoute(candidate,start);
+            if (ap.betterWorkRoute(next,metrics,reference)) { stops=candidate; metrics=next; changed=true; }
+          });
+        });
+        if (!changed) break;
+      }
+      // If a later visit cannot disappear entirely, still do its independent
+      // throws on the earlier visit. Leave dependent throws for the return.
+      var visits = stops.slice();
+      visits.forEach(function (later) {
+        later.links.slice().forEach(function (link) {
+          var right = stops.findIndex(function (stop) { return stop.links.some(function (task) { return task.id===link.id; }); });
+          if (right<0) return;
+          later=stops[right];
+          for (var left=0;left<right && evaluations<limit;left++) {
+            if (stops[left].portal.guid !== later.portal.guid) continue;
+            var candidate = stops.slice(); evaluations++;
+            candidate[left] = Object.assign({}, stops[left], { portal:ap.runtime.stats[later.portal.guid] || later.portal, planVisit:true, routeTargetType:'plan', links:stops[left].links.concat([link]) });
+            candidate[right] = Object.assign({}, later, { links:later.links.filter(function (item) { return item.id !== link.id; }) });
+            candidate = atCaptures(candidate.filter(function (stop) { return stop.links.length || stop.blockers.length || stop.portalTask; }));
+            if (invalid(candidate)) continue;
+            var next = ap.measureWorkRoute(candidate,start);
+            var equal = Math.abs(next.distance-metrics.distance)<=.001 && next.revisits===metrics.revisits && next.visits===metrics.visits;
+            if (equal || ap.betterWorkRoute(next,metrics,reference)) { stops=candidate; metrics=next; break; }
+          }
+        });
+      });
+    }
+    var seen = Object.create(null);
+    stops.forEach(function (stop,index) {
+      var previous = seen[stop.portal.guid];
+      delete stop.returnReason;
+      if (previous !== undefined) {
+        if (!baselineValid || !isFinite(initial.distance) || capped) stop.returnReason='tasks.returnLimited';
+        else {
+          var early = merge(stops,previous,index,false), late = merge(stops,previous,index,true);
+          var earlyReason = invalid(early), lateReason = invalid(late);
+          if (!earlyReason || !lateReason) {
+            var better = !earlyReason && ap.betterWorkRoute(ap.measureWorkRoute(early,start),metrics,reference) || !lateReason && ap.betterWorkRoute(ap.measureWorkRoute(late,start),metrics,reference);
+            stop.returnReason = better ? 'tasks.returnLimited' : 'tasks.returnDistance';
+          } else if (fixedOrder && (earlyReason==='order' || lateReason==='order')) stop.returnReason = ap.state.workRouteMode==='manual' && !ap.getActiveSpinePlan() ? 'tasks.returnManualOrder' : 'tasks.returnBuildOrder';
+          else stop.returnReason='tasks.returnPrerequisites';
+        }
+      }
+      seen[stop.portal.guid]=index;
+    });
+    return { stops:stops, optimization:{ evaluations:evaluations, limited:capped || evaluations>=limit, before:initial, after:metrics, reference:reference } };
   };
 
   ap.refineBlockerStops = function (stops, start) {
@@ -5574,7 +5808,9 @@ function wrapper(plugin_info) {
     }
     var initialDistance = routeDistance(baseline);
     if (!isFinite(initialDistance)) return ap.addWorkRouteStart(baseline);
-    var best = { order: base, targets: {}, plan: baseline, distance: initialDistance };
+    var baselineMetrics = ap.measureWorkRoute(baseline.stops,start);
+    var reference = baseline.visitOptimization.reference;
+    var best = { order: base, targets: {}, plan: baseline, distance: initialDistance, metrics:baselineMetrics };
     var budget = Math.min(160, Math.max(8, Math.floor(100000 / ((base.length + baseline.blockers.length + 1) * (baseline.blockers.length + 1)))));
     var evaluations = 0, seen = Object.create(null), groups = Object.create(null);
     // Explore shared removal endpoints together, rather than greedily per link.
@@ -5600,10 +5836,11 @@ function wrapper(plugin_info) {
       // A shorter route must not obtain its saving by dropping unresolved work.
       if (plan.unscheduled.length > baseline.unscheduled.length || plan.unassigned.length > baseline.unassigned.length || plan.unscheduledPortals.length > baseline.unscheduledPortals.length) return;
       var distance = routeDistance(plan);
-      if (distance < best.distance - 0.001) best = { order: order, targets: targets, plan: plan, distance: distance };
+      var metrics = ap.measureWorkRoute(plan.stops,start);
+      if (ap.betterWorkRoute(metrics,best.metrics,reference)) best = { order: order, targets: targets, plan: plan, distance: distance, metrics:metrics };
     }
     for (var pass = 0; pass < 4 && evaluations < budget; pass++) {
-      var before = best.distance;
+      var before = best;
       evaluate(best.order, best.targets);
       groupGuids.forEach(function (guid) {
         var targets = Object.assign({}, best.targets);
@@ -5628,9 +5865,9 @@ function wrapper(plugin_info) {
           });
         }
       }
-      if (best.distance >= before - 0.001) break;
+      if (best === before) break;
     }
-    best.plan.optimization = { evaluations: evaluations, improved: best.distance < initialDistance - 0.001 };
+    best.plan.optimization = { evaluations: evaluations, improved: ap.betterWorkRoute(best.metrics,baselineMetrics,reference) };
     return ap.addWorkRouteStart(best.plan);
   };
 
@@ -5689,7 +5926,7 @@ function wrapper(plugin_info) {
       var portal = ap.runtime.stats[ap.state.workRouteStart];
       return ap.workPoint(portal) ? ap.t('tasks.modePortal', { title: ap.displayPortalTitle(portal.title) }) : ap.t('tasks.startUnavailable');
     }
-    return ap.t(ap.state.workRouteMode === 'manual' || !location ? 'tasks.modeManual' : 'tasks.modeLocation');
+    return ap.t(ap.state.workRouteMode === 'manual' ? 'tasks.modeManual' : !location ? 'tasks.modeNoLocation' : 'tasks.modeLocation');
   };
 
   ap.getSuggestedLinkDirections = function () {
@@ -5856,7 +6093,7 @@ function wrapper(plugin_info) {
       var title = ap.displayPortalTitle(portal.title);
       var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
       html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
-      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.portalNameHtml(portal.guid,title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + '</th>';
+      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.portalNameHtml(portal.guid,title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + (stop.returnReason ? '<small>' + ap.escapeHtml(ap.t(stop.returnReason)) + '</small>' : '') + '</th>';
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
@@ -6049,7 +6286,7 @@ function wrapper(plugin_info) {
         }
       });
       return { index: index, guid:stop.portal.guid, faction:ownership[stop.portal.guid] && ownership[stop.portal.guid].faction, title: ap.displayPortalTitle(stop.portal.title), point: point ? { lat: point.lat, lng: point.lng } : null,
-        routeTargetType: stop.routeTargetType, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
+        routeTargetType: stop.routeTargetType, returnReason:stop.returnReason || null, actions: actions, distance: distance, trail: trail.slice(), paths: paths.map(function (path) { return path.slice(); }), links: built.slice(), fields: fields.slice() };
     });
     return { frames: frames, target: ap.getPlanMapGeometry(), unresolved: plan.unscheduled.length + plan.unassigned.length + (plan.unscheduledPortals || []).length, origin: location && location.latlng ? { lat: location.latlng.lat, lng: location.latlng.lng } : null };
   };
@@ -6711,6 +6948,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
     html += statusHtml;
     if (!ap.getKeysPlugin()) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
+    if (stop.returnReason) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t(stop.returnReason)) + '</p>';
     html += ap.portalTaskHtml(stop.portalTask);
     stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
     var keyTargets = new Set();
@@ -6807,6 +7045,7 @@ function wrapper(plugin_info) {
     if (!frame) html = '<p>' + ap.escapeHtml(ap.t('walk.empty')) + '</p>';
     else {
       html = '<p><b>' + ap.escapeHtml(ap.t('walk.stop', { index: session.index + 1, count: session.model.frames.length })) + ' · ' + ap.portalNameHtml(frame.guid,frame.title,frame.faction) + '</b></p>';
+      if (frame.returnReason) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t(frame.returnReason)) + '</p>';
       html += '<p>' + ap.escapeHtml(ap.t('walk.totals', { links: frame.links.length, fields: frame.fields.length, distance: ap.formatDistance(frame.distance) })) + '</p><ol>';
       frame.actions.forEach(function (action) {
         html += '<li>' + ap.escapeHtml(ap.t(action.kind === 'portal' ? 'portal.action' : action.kind === 'blocker' ? 'walk.remove' : action.status === 'walk.ready' ? 'walk.throw' : 'portal.plannedLink')) + ': ' + (action.portals ? action.portals.map(function (pair) { return ap.portalNameHtml(pair[0],pair[1],pair[2]); }).join(action.separator || '') + (action.suffix?' · '+ap.escapeHtml(action.suffix):'') : ap.escapeHtml(action.title));

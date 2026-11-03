@@ -251,3 +251,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Textausgaben
 - Konkrete Aufgaben, Unsicherheit und Bestandsfolgen direkt zeigen. Routinetexte und identische Erklärungen auch im ausführlichen Modus nicht pro Zeile vervielfachen. Besitzaufgabe des Besuchs einmal, andere Endportalvoraussetzungen erhalten. Linklisten/Diagnosen aufklappbar, Exporte eigenständig verständlich halten. Namensabschluss nur nach tatsächlichem Ergebnis melden. Textänderungen mit Aufgaben-/Vorschau-/Key-/Locale- und UI-Prüfungen absichern.
+
+## Besuchsorientiertes Routing
+- Vorbereitung, Abbau und Würfe je Portal zusammen optimieren. Jeder offene Wurf/Abbau bleibt genau einmal erhalten; Besitz/Abbau vor abhängigen Würfen, bestätigte Quellen, gewählte Endportale und manuelle/Spine-Wurffolge prüfen. Unabhängige Würfe früher erledigen; automatische inzidente Blocker dürfen mit Eroberung umziehen. Kleine Umwege nur innerhalb unveränderlicher Bezugsgrenzen, keine kumulative Ausweitung. Suchbudget/Fallback und Rückbesuchsgründe ehrlich benennen. Keine gespeicherten Richtungen/Reihenfolgen, Keys oder Erledigung als Optimierungsnebenwirkung ändern. Routing-, Vorschau-, Fraktions-, Workspace- und Keytests gemeinsam prüfen.
