@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.38
+### Beta-Test: 0.2.0-beta.39
+
+Beta 39 bereinigt wiederholte Routinetexte in Aufgaben, Blockern, Nächste Aufgabe, Vorschau und Keydialogen. Konkrete Tätigkeiten, Fraktionen, Besitzvoraussetzungen, fehlende Intel-Bestätigung und unvollständige Prüfungen bleiben sichtbar. Entsperrte Linklisten, Scan-/Herkunftsdiagnosen und allgemeine Anleitungen sind aufklappbar. Nächste Aufgabe beginnt mit Portal und Navigation. Simulation wird einmal gekennzeichnet; Überschreib-, Reset- und Rücknahmefolgen bleiben ausdrücklich sichtbar. Namensladen meldet nur tatsächlich verbleibende Lücken. Exportberichte behalten ihren eigenständigen Kontext. Routing, Plangeometrie und Keybuchungsregeln bleiben unverändert.
 
 Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
 
@@ -153,7 +155,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.38**
+- Entwicklungsversion: **0.2.0-beta.39**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`

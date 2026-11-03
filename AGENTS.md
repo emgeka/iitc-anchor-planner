@@ -248,3 +248,6 @@ maßgeblichen Projektsatzes gilt trotzdem.
 
 ## Fenstergrößen und feste Leisten
 - Kompakte Maße nur als Anfangsgrößen behandeln. Titel und obere Aktionsleisten beim Inhaltsscrollen sichtbar halten; Resize darf keine ungenutzten inneren Höhenkappen behalten. Native IITC-Resize-/Collapse-/Close-Funktionen und Callbackzuständigkeit erhalten. Gewählte Maße nach Ein-/Aufklappen restaurieren; UI-Observer/-listener aufräumen. Mausdrag an Rand/Ecke, Tastatur und schmale Ansichten prüfen; keine Plan-/Bestandsänderung oder ungefragte dauerhafte Größenpersistenz.
+
+## Textausgaben
+- Konkrete Aufgaben, Unsicherheit und Bestandsfolgen direkt zeigen. Routinetexte und identische Erklärungen auch im ausführlichen Modus nicht pro Zeile vervielfachen. Besitzaufgabe des Besuchs einmal, andere Endportalvoraussetzungen erhalten. Linklisten/Diagnosen aufklappbar, Exporte eigenständig verständlich halten. Namensabschluss nur nach tatsächlichem Ergebnis melden. Textänderungen mit Aufgaben-/Vorschau-/Key-/Locale- und UI-Prüfungen absichern.

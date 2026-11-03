@@ -53,7 +53,7 @@ function planned(ap) {
   link.blockers = blockers; link.blocked = true;
   assert.match(ap.blockerFactionSummary([...blockers, blockers[0]]), /Resistance \(blue\) · your faction: 1 · Enlightened \(green\) · opposing player faction: 1 · Machina: 1 · unknown faction: 1/);
   const ownHtml = ap.taskBlockerHtml({ blocker: blockers[0], links: [link], manual: false, target: '' }, 0);
-  assert.ok(ownHtml.includes('Resistance (blue) · your faction') && ownHtml.includes('Coordinate removal or flipping'));
+  assert.ok(ownHtml.includes('Resistance (blue) · your faction') && ownHtml.includes('Own link · coordinate removal'));
   assert.notEqual(ap.blockerColor(blockers[0]), ap.blockerColor(blockers[1]));
   const rows = ap.getBlockerWorklist(null);
   assert.equal(rows.length, 8);
@@ -246,8 +246,8 @@ console.log('Blocker/overlay checks: Intel-fill hide/restore/live hooks/cleanup,
   const fromExport=ap.blockerFactionSummary(exported.blockedPlanLinks.flatMap(e=>e.blockingLinks));
   assert.match(fromExport,/opposing player faction: 1 · Machina: 1/,'Text-export summaries retain distinct JSON endpoint objects');
   const colors=['res','enl','mac','unknown'].map(faction=>ap.blockerColor({faction}));assert.equal(new Set(colors).size,4);
-  assert.match(ap.blockerFactionHtml({faction:'mac'},true),/AI blocker \(red\)/);assert.match(ap.blockerFactionHtml({faction:'mac'},true),/Remove the Machina link/);
-  const task=ap.taskBlockerHtml({blocker:machine.blockers[0],links:[machine],manual:false,target:''},0);assert.match(task,/exact planned connection/);
+  assert.match(ap.blockerFactionHtml({faction:'mac'},true),/AI blocker \(red\)/);assert.doesNotMatch(ap.blockerFactionHtml({faction:'mac'},true),/<small>/,'Machina is identified without repeating a generic removal instruction');
+  const task=ap.taskBlockerHtml({blocker:machine.blockers[0],links:[machine],manual:false,target:''},0);assert.match(task,/Planned connection occupied/);
   context.window.PLAYER.team='ENLIGHTENED';assert.match(ap.blockerFactionText({faction:'enl'}),/your faction/);assert.match(ap.blockerFactionText({faction:'res'}),/opposing player faction/);
   delete context.window.PLAYER;
   assert.equal(ap.factionRelation({faction:'mac'}),'enemy');assert.equal(ap.isUsableExistingLink({faction:'mac'}),false,'Machina is never usable, even without player team');
@@ -268,3 +268,34 @@ console.log('Blocker/overlay checks: Intel-fill hide/restore/live hooks/cleanup,
   }
 }
 console.log('Faction clarity: own/ENL/RES/Machina/unknown, coincident blockers, unique export counts, provisional keys and missing-player safety passed.');
+
+// Compact blocker cards retain decisions and uncertainty, even in detailed mode.
+{
+  const {ap,context,storage}=runtime(), link=planned(ap);
+  const real={guid:'enemy',a:'A',b:'B',titleA:'<West>',titleB:'East',faction:'enl',latlngA:point(0,0),latlngB:point(0,2)};
+  link.blockers=[real];ap.runtime.stats.A.title='<West>';
+  const before=JSON.stringify(ap.state), stock=JSON.stringify(context.window.plugin.keys.keys);
+  for(const verbose of [false,true]) {
+    ap.state.verboseHints=verbose;
+    const item={blocker:real,links:[link],manual:false,target:'A'}, html=ap.taskBlockerHtml(item,0);
+    assert.doesNotMatch(html,/Present in the last scan|Schedule removal at|She counts|must first be removed/);
+    assert.match(html,/Remove blocker link/);assert.match(html,/Enlightened/);assert.match(html,/Planned connection occupied/);
+    assert.match(html,/<details class="ap-blocker-links"><summary>Unblocks 1 link<\/summary>/,'Long affected-link lists start collapsed regardless of verbose hints');
+    assert.match(html,/&lt;West&gt;/);assert.match(html,/<option value="A" selected>/);
+    assert.doesNotMatch(html,/Intel confirmation pending/);
+    assert.match(ap.taskBlockerHtml({...item,manual:true},0),/Intel confirmation pending/,'Manual completion remains unconfirmed, never silently accepted');
+    assert.match(ap.blockerFactionHtml({faction:'res'},true),/coordinate removal/);
+    assert.match(ap.blockerFactionHtml({faction:'unknown'},true),/Check faction/);
+  }
+  delete ap.state.verboseHints;
+  // Restore the presentation preference for the state-isolation comparison.
+  const after=JSON.parse(before);if('verboseHints' in after)ap.state.verboseHints=after.verboseHints;
+  assert.deepEqual(JSON.parse(JSON.stringify(ap.state)),JSON.parse(before));assert.equal(JSON.stringify(context.window.plugin.keys.keys),stock);assert.equal(storage.size,0);
+  ap.runtime.stats.A.title='A';
+  context.window.portals={A:{options:{team:'ENLIGHTENED'}},B:{options:{team:'MACHINA'}}};
+  const perThrow=ap.taskLinkHtml(link,0,{},'A');
+  assert.doesNotMatch(perThrow,/A: Capture and deploy/,'Current visit already states its ownership action');
+  assert.match(perThrow,/B: Capture and deploy/,'The other endpoint prerequisite is still explicit');
+  assert.match(ap.taskLinkHtml(link,0,{}),/A: Capture and deploy/,'Standalone and unassigned links retain both prerequisites');
+}
+console.log('Concise blocker cards preserve factions, removal targets, pending confirmation, endpoint requirements and inventory isolation.');

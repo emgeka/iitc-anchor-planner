@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.38
+# Architekturübersicht 0.2.0-beta.39
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -570,3 +570,7 @@ Auch Keyliste (480 px), Reset (420 px), Undo/Import (600 px) und Export (560 px)
 ## Fenstergrößen und Scrollbereiche Beta 38
 Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
 openDialog aktiviert resizable, begrenzt nur die Anfangsbreite und erzwingt ohne explizite Caller-Vorgabe kein beim Öffnen eingefrorenes maxWidth. Flex-Dialograhmen hält Titel/Fuß außerhalb des einzigen Inhaltsscrollbereichs; verschachtelte Listen-VH-Limits entfallen nach manueller Größenänderung. Aktionsleisten sticky im Inhaltsbereich; Hauptpanelkopf ebenfalls sticky. wireDialogResize ergänzt einen Pointer-Capture-/Pfeiltastengriff, synchronisiert die Widget-Optionen mit gewählten Maßen und respektiert Viewportgrenzen. ResizeObserver markiert native/CSS-Größenänderungen, korrigiert überlaufende Positionen nach dynamischer Befüllung und stellt manuelle Maße nach IITC sizeFix wieder her. Collapse-Klasse folgt dem vorhandenen Buttonzustand ohne neue collapseCallbacks. Observer und Fenster-/Clicklistener bei dialogclose aufräumen; Panelregistrierung nur einmal pro dauerhaftem Root. Keine Änderungen an gespeicherten Plugin-/Spielzuständen.
+
+
+## Textbereinigung Beta 39
+Darstellungskorrekturen in taskBlockerHtml/taskLinkHtml/nextTaskHtml: Besitzaufgabe des aktuellen Besuchs nicht zusätzlich je Wurf wiederholen; andere Endportalvoraussetzungen bleiben erhalten. portal.beforeLinks einmal je Aufgabenbereich. Affected-Linklisten sind eigene details und bleiben auch im ausführlichen Modus geschlossen. Separate ui.links.*-Texte für kompakte Übersichten; Export verwendet unveränderte links.*-Texte. Scan- und Herkunftswerte in Details. refreshMissingNames prüft Restlücken nach Abschluss; keine automatische Erfolgsmeldung. Keine Änderung an Plan-/Buchungs-/Besitzalgorithmen.

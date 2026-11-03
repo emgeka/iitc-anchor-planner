@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.39
+
+### English
+- Beta 39 removes repetitive routine text across tasks, blockers, Next task, preview and Key dialogs. Keep concrete actions, factions, ownership prerequisites, missing Intel confirmation and incomplete checks visible. Affected-link lists, scan/source diagnostics and general instructions expand on demand. Next task starts with the portal and navigation. Simulation is labeled once; inventory overwrite/reset/undo consequences remain explicit. Name loading reports remaining gaps only when present. Export reports retain their standalone context. Routing, plan geometry and Key booking rules are unchanged.
+
+### Deutsch
+- Beta 39 bereinigt wiederholte Routinetexte in Aufgaben, Blockern, Nächste Aufgabe, Vorschau und Keydialogen. Konkrete Tätigkeiten, Fraktionen, Besitzvoraussetzungen, fehlende Intel-Bestätigung und unvollständige Prüfungen bleiben sichtbar. Entsperrte Linklisten, Scan-/Herkunftsdiagnosen und allgemeine Anleitungen sind aufklappbar. Nächste Aufgabe beginnt mit Portal und Navigation. Simulation wird einmal gekennzeichnet; Überschreib-, Reset- und Rücknahmefolgen bleiben ausdrücklich sichtbar. Namensladen meldet nur tatsächlich verbleibende Lücken. Exportberichte behalten ihren eigenständigen Kontext. Routing, Plangeometrie und Keybuchungsregeln bleiben unverändert.
+
 ## 0.2.0-beta.38
 
 ### English
