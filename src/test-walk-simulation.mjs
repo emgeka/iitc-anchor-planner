@@ -310,3 +310,11 @@ console.log('Portal preview: explicit virtual capture, target prerequisites, unk
   }
 }
 console.log('Live field fill preferences: draft/target/progress update without changing geometry, Intel fills, virtual progress or real keys passed.');
+
+{
+  const {ap,plan}=runtime();plan.stops[3].returnReason='tasks.returnBuildOrder';
+  ap.showWalkSimulation();const session=ap.runtime.walkSimulation;
+  assert.equal(session.model.frames[3].returnReason,'tasks.returnBuildOrder');
+  plan.stops[3].returnReason='tasks.returnDistance';ap.seekWalkSimulation(3);
+  assert.match(session.element.querySelector('.ap-walk-content').innerHTML,/Return visit · required build order/,'The reason is part of the immutable route snapshot');
+}

@@ -1,4 +1,4 @@
-# Architekturübersicht 0.2.0-beta.39
+# Architekturübersicht 0.2.0-beta.40
 
 Entwicklungsstand; Stable bleibt 0.1.55. Ankeranzahl und keybewusste Richtungen am
 2026-10-22 vom Nutzer praktisch bestätigt, Plattform nicht genannt. Praxistest
@@ -180,7 +180,7 @@ Vor dieser Grenze werden beide Endportale und alle Einfügepositionen anhand
 zusätzlicher Luftlinienstrecke bewertet. Explizite Endportalwahl hat Vorrang;
 eine einzelne bestehende Vormerkung wird ebenfalls berücksichtigt. Passende
 vorhandene Stopps erhalten zusätzliche Abbauaufgaben. Ein separater früher
-Abbaubesuch darf einen späteren Planportalbesuch nicht ersetzen.
+Abbaubesuch darf einen späteren Planportalbesuch nicht als erledigt ersetzen. Seit Beta 40 dürfen beide Besuche bei erhaltenen Abhängigkeiten mitsamt ihren Aufgaben zusammengelegt werden.
 
 Manuelle Erledigt-Meldungen überspringen den Abbauschritt, bleiben aber als
 ungeprüfte Meldung sichtbar; `link.blocked`, Intel-Links und Einsatzcheck werden
@@ -436,7 +436,7 @@ renderWalkSimulation hält renderedIndex, pathLayers und head nur in der Session
 ### Gemeinsame Routenverbesserung
 Im automatischen Modus mit gültigem GPS- oder Portalursprung bewertet buildWorkPlan die komplette Luftlinie ab Standort. Der ursprüngliche buildWorkPlanForOrder-Lauf ohne Suchziele bleibt Baseline. Kandidaten verändern Portalbesuchsreihenfolge durch Relokation und wählen automatische Blocker-Endpunkte auch gemeinsam für mehrere Blocker. Geteilte Endpunkte werden zusätzlich mit anderen Portalreihenfolgen kombiniert, damit eine Verbesserung nicht an getrennten lokalen Entscheidungen scheitert. Explizite Ziele/einzelne Vormerkungen bleiben geschützt.
 refineBlockerStops verschiebt reine Abbau-Stopps innerhalb ihrer Abhängigkeiten und bündelt gleiche Portale, wenn die Gesamtstrecke sinkt; Planbesuche bleiben eigene Aktionen, Abbau am Wurfstopp erfolgt vor seinen Links. Höchstens zwei Durchgänge und 256 Positionsversuche je Kandidat. Linkaufträge werden für jede Portalreihenfolge neu zugewiesen; offene Richtung bindet Abbau konservativ an den frühesten Planbesuch.
-Die Hauptsuche läuft höchstens vier Durchgänge und 8–160 Kandidaten, angepasst an Portal-/Blockerzahl. Nur Verbesserungen über 1 mm, keine höhere Zahl nicht eingeplanter Aufgaben; Cache identischer Kandidaten, deterministische Reihenfolge. Über 40 Planportale/80 Blocker, ohne gültigen Routenursprung, im manuellen Modus oder bei fehlender Plankoordinate keine gemeinsame Suche. Ausgangsvorschlag bleibt erhalten, wenn die Suche keinen besseren gültigen Kandidaten findet. optimization ist reine Laufzeitdiagnose mit evaluations/improved; keine Migration, gespeicherte Reihenfolge/Ziele unverändert.
+Die Hauptsuche läuft höchstens vier Durchgänge und 8–160 Kandidaten, angepasst an Portal-/Blockerzahl. Seit Beta 40 Besuchsbewertung mit begrenztem Umweg statt ausschließlich kürzerer Strecke; keine höhere Zahl nicht eingeplanter Aufgaben; Cache identischer Kandidaten, deterministische Reihenfolge. Über 40 Planportale/80 Blocker, ohne gültigen Routenursprung, im manuellen Modus oder bei fehlender Plankoordinate keine große Reihenfolgensuche; die begrenzte lokale Besuchsbündelung bleibt bis zu ihrer eigenen Grenze aktiv. Ausgangsvorschlag bleibt erhalten, wenn die Suche keinen besseren gültigen Kandidaten findet. optimization ist reine Laufzeitdiagnose mit evaluations/improved; keine Migration, gespeicherte Reihenfolge/Ziele unverändert.
 
 ### Fester Portalstart und Planvorschau
 workRouteMode ergänzt portal; workRouteStart speichert ausschließlich eine Planportal-GUID. load validiert die Typen und erhält alte location/manual-Zustände. getWorkRouteLocation löst den Punkt aus runtime.stats auf: GPS im Portalmodus ignorieren, fehlendes Startportal liefert null statt Ersatzkoordinate. build/getWorkPlan, getRouteEstimate und createWalkSimulation verwenden denselben Ursprung. Die Cache-Signatur enthält Start-GUID; GPS-Bewegung verändert einen Portalursprung nicht.
@@ -574,3 +574,10 @@ openDialog aktiviert resizable, begrenzt nur die Anfangsbreite und erzwingt ohne
 
 ## Textbereinigung Beta 39
 Darstellungskorrekturen in taskBlockerHtml/taskLinkHtml/nextTaskHtml: Besitzaufgabe des aktuellen Besuchs nicht zusätzlich je Wurf wiederholen; andere Endportalvoraussetzungen bleiben erhalten. portal.beforeLinks einmal je Aufgabenbereich. Affected-Linklisten sind eigene details und bleiben auch im ausführlichen Modus geschlossen. Separate ui.links.*-Texte für kompakte Übersichten; Export verwendet unveränderte links.*-Texte. Scan- und Herkunftswerte in Details. refreshMissingNames prüft Restlücken nach Abschluss; keine automatische Erfolgsmeldung. Keine Änderung an Plan-/Buchungs-/Besitzalgorithmen.
+
+
+## Besuchsorientiertes Routing Beta 40
+buildWorkPlanForOrder ruft nach Abbauzuordnung/refineBlockerStops die zustandsfreie bundleWorkStops-Stufe auf. Sie vergleicht Zusammenlegungen am frühen/späten Besuch; ein Validator erhält Link-/Abbaumengen, bestätigte Quellen, Besitzaufgaben und sämtliche Blockertermine. Bei Spine/manuell zusätzlich exakt dieselbe Wurffolge. Automatische inzidente Abbauaufgaben können mit vorgezogener Eroberung umziehen; ausdrückliche Ziele und Legacy-Vormerkungen bleiben geschützt. Danach können einzelne unabhängige Würfe vorgezogen werden. Kandidaten kopieren Stopps/Arrays und verändern weder persistierten Zustand noch andere Kandidaten.
+measureWorkRoute zählt Luftlinie, Besuche und Mehrfachbesuche ohne reinen Routenstart. betterWorkRoute bewertet Strecke plus Rückbesuchskosten: Viertel der mittleren Ausgangsetappe, begrenzt auf 25–250 m je Rückbesuch. Zusätzlich maximal 5 % mehr Strecke als die unveränderliche Bezugsroute; keine schrittweise Vergrößerung dieses Budgets. Bei Gleichstand weniger Rückbesuche/Stopps. Dieselbe Bewertung gilt für die größere Reihenfolgen-/Endpunktsuche. Ohne Ursprung ist die erste Anfahrt unbekannt; nur Strecken zwischen Stopps vergleichen, Standortangaben nicht erfinden.
+Bündelung: höchstens drei Durchgänge und insgesamt 192 Änderungsversuche je Kandidatenplan, zusätzlich zwei diagnostische Zusammenlegungsprüfungen je Rückbesuch. Über 400 Stopps oder bei fehlenden Koordinaten bleibt die gültige Ausgangsroute; unvollständige Voraussetzungen verhindern eine unsichere Zusammenlegung. Die bisherige 40-Portal-/80-Blocker-Grenze betrifft weiterhin nur die größere Reihenfolgensuche. visitOptimization enthält before/after/reference/evaluations/limited ausschließlich zur Laufzeit.
+returnReason unterscheidet feste Baufolge, manuelle Wurffolge, Portal-/Blockervoraussetzungen, Streckenabwägung und begrenzten Vorschlag. Letzterer behauptet keine fachliche Notwendigkeit des Rückbesuchs. Aufgaben und Next zeigen nur tatsächliche Wiederbesuche; der Vorschausnapshot übernimmt deren Gründe unveränderlich. Sechs neue Locale-Schlüssel, kein Persistenz-/Exportschemawechsel.

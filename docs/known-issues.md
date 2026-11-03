@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.39
+# Bekannte Grenzen in 0.2.0-beta.40
 
 Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Einstellungen speichern ausführliche Hinweise und eigene Planfeldfüllung. Native Auswahlmenüs behalten systembedingt Klartext; farbige Namen stehen außerhalb der Optionslisten. Besitzfarben zeigen Beobachtungen, keine simulierte Eroberung. Die Anordnung der Settings in Beta 36 wurde vom Nutzer bestätigt; Testplattform unbekannt.
 
@@ -65,7 +65,7 @@ Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Eins
 - Die standortbezogene Routenplanung für Plan- und Blocker-Portale
   funktioniert nur mit dem offiziellen IITC-User-Location-Plugin und einem von
   diesem gelieferten gültigen Standort.
-- Ohne Standort bleibt die gespeicherte manuelle Reihenfolge maßgeblich.
+- Ohne Standort dient die gespeicherte Reihenfolge als Ausgangspunkt für die automatische Aufgabenbündelung. Eine ausdrücklich gewählte manuelle Wurffolge bleibt maßgeblich.
 - Der Anchor Planner erhält keine unabhängige Aussage zur GPS-Genauigkeit. Das
   geografisch nächste Portal kann bei ungenauer IITC-Position falsch sein.
 - Zielentfernung und geschätzte Reststrecke sind Luftlinien-Näherungen und keine
@@ -382,3 +382,10 @@ Lokale Browserprüfung am 2026-10-29 mit originalen IITC-Dialogen und Leaflet er
 Beta 39 verändert die Textdarstellung, keine Baubarkeitsprüfung. Allgemeine Erklärungen sind weiterhin per Tastatur/Touch erreichbar; nur Diagnose- und globale Detailwerte können eingeklappt sein. Fehlende Bestandsdaten, unvollständiger Finalcheck und lokale Voraussetzungen bleiben sichtbar. DE/EN gepflegt, andere Sprachen verwenden für geänderte Texte teilweise EN-Fallback. Echter IITC-/Mobile-Nutzertest bleibt ausstehend.
 
 Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit synthetischem Plan auf Desktop und 360×800. Kompakte nächste Aufgabe, direkt sichtbarer Keymangel/Finalcheck, Machina-Belegung und aufklappbare betroffene Links geprüft. Ausführliche Hinweise erzeugen keine Hilfe pro Portal; Linklisten bleiben geschlossen. Resetdialog nennt alle Keys einschließlich außerhalb des Plans und Sicherungsersatz direkt. Kein horizontaler Inhaltsüberlauf (340 px Dialog), keine Browserfehler; Viewport zurückgesetzt. Keine echte IITC-/Mobile-Nutzerabnahme.
+
+
+## Besuchsorientiertes Routing Beta 40
+Lokale Heuristik, keine Garantie für einen einzigen Besuch je Portal oder ein globales Optimum. Aufgabenzyklen, bestätigte Richtungen, manuelle/Spine-Wurffolgen und Abbauvorgaben können Rückkehr erfordern. Ein Rückbesuch kann zugunsten einer kürzeren Strecke bleiben; Suchbegrenzung wird als Vorschlag statt als zwingende Voraussetzung benannt. Kleine Umwege zum Einsparen von Rückbesuchen sind auf 5 % der Bezugsstrecke und die Besuchsbewertung (25–250 m je Rückbesuch) begrenzt. Ohne GPS keine Aussage über die erste Anfahrt. Bis 400 Stopps lokale Bündelung; größere/inkonsistente Routen behalten ihre Aufgaben ohne zusätzliche Suche. Die volle Reihenfolgensuche bleibt auf 40 Planportale/80 Blocker begrenzt.
+Keys beeinflussen weiter gesonderte Richtungsvorschläge; diese Fassung dreht keine bestätigten Links um und plant kein Farmen/Verteilen von Keys. Eigene Portale gelten weiterhin als ausgebaut; Wege/Zugang, ausgehende Limits, Reichweite und Linken unter Feldern werden nicht neu validiert. Echter IITC-/Mobile-Nutzertest von Beta 40 steht aus.
+
+Lokale Beta-40-Prüfung am 2026-11-03 mit originalen IITC-Dialogdateien/Leaflet: automatische Route ohne Standort zeigt B (Eroberung und Wurf) → A, gespeicherte Reihenfolge B (Eroberung) → A → B mit Rückbesuchsgrund. Vorschau übernimmt denselben Grund und simuliert bei fehlendem Ziel-Key keinen Wurf. Desktop und 360×800, 340-px-Dialog ohne horizontalen Inhaltsüberlauf, keine Browserfehler; Viewport zurückgesetzt. Zusätzlich 40 deterministische synthetische Besitz-/Richtungsfälle ohne verlorene Würfe oder Zustandsänderung und ein 200-Portal-/199-Link-Fall geprüft: 299 auf 203 Stopps, 192 Versuche, Begrenzung ausgewiesen und alle Links erhalten. Kein echter IITC-/Mobile-Nutzertest.

@@ -400,5 +400,11 @@
   "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
   "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
   "tasks.frees.one": "Unblocks {count} link",
-  "tasks.frees.other": "Unblocks {count} links"
+  "tasks.frees.other": "Unblocks {count} links",
+  "tasks.modeNoLocation": "Work route without location",
+  "tasks.returnBuildOrder": "Return visit · required build order",
+  "tasks.returnManualOrder": "Return visit · saved order",
+  "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
+  "tasks.returnDistance": "Return visit · shorter overall route",
+  "tasks.returnLimited": "Return visit · bounded route proposal"
 }

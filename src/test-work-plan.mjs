@@ -623,3 +623,127 @@ console.log('Portal prerequisites: both endpoints, independent keys, captures/ne
   assert.match(html,/ap-task-warning[^>]*>Inventory unknown/,'Missing Keys integration is visible independently of expanded statistics');
   assert.equal((html.match(/Required at both ends before any dependent link/g)||[]).length,1,'Explain ownership prerequisites once per area');
 }
+
+// Beta 40: all work at a portal is considered together, with exact dependency checks.
+function assertVisitPrerequisites(ap,plan) {
+  const prepared=new Set(),cleared=new Set(plan.blockers.filter(b=>b.manual).map(b=>b.id)),throws=[];
+  for(const stop of plan.stops) {
+    if(stop.portalTask)prepared.add(stop.portal.guid);
+    for(const item of stop.blockers){assert.ok(!cleared.has(item.id));cleared.add(item.id);assert.ok([item.blocker.a,item.blocker.b].includes(stop.portal.guid));}
+    for(const task of stop.links) {
+      throws.push(task.id);const direction=ap.getLinkDirection(task);
+      if(direction)assert.equal(stop.portal.guid,direction.from,'Do not change a confirmed source to save a visit');
+      for(const id of [task.a,task.b])if(ap.getPortalOwnership(id).action)assert.ok(prepared.has(id),'Both endpoints must have preparation scheduled before throwing');
+      for(const item of plan.blockers)if(item.links.some(l=>l.id===task.id))assert.ok(cleared.has(item.id),'Removal precedes every dependent throw');
+    }
+  }
+  assert.deepEqual(throws.slice().sort(),Array.from(ap.runtime.links.filter(l=>!l.existing),l=>l.id).sort(),'Every open throw remains scheduled exactly once');
+}
+{
+  const {ap,context,realOwnership,storage}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x] of [['A',0],['B',.01],['C',.02]]){portal(ap,id,x);context.window.portals[id]={options:{team:id==='B'?'ENLIGHTENED':'RESISTANCE'}};}
+  const ab=link(ap,'A','B'),bc=link(ap,'B','C');direction(ap,ab,'A');direction(ap,bc,'B');
+  const before=JSON.stringify(ap.state),ownership=JSON.stringify(context.window.portals);
+  const plan=ap.buildWorkPlan(null);
+  assert.deepEqual(Array.from(plan.stops,s=>s.portal.guid),['B','A'],'Capture and throw at B in one visit, then throw A→B');
+  assert.ok(plan.stops[0].portalTask);assert.equal(plan.stops[0].links[0].id,bc.id);assert.equal(plan.stops[0].planVisit,true);
+  assert.equal(plan.stops.filter(s=>s.portal.guid==='B').length,1);assertVisitPrerequisites(ap,plan);
+  assert.match(ap.workRouteLabel(null),/without location/);
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.portals),ownership);assert.equal(storage.size,0);
+  ap.state.workRouteMode='manual';const manual=ap.buildWorkPlan(null);
+  assert.deepEqual(Array.from(manual.stops,s=>s.portal.guid),['B','A','B'],'Saved throw order can require a return');
+  assert.equal(manual.stops.at(-1).returnReason,'tasks.returnManualOrder');assertVisitPrerequisites(ap,manual);
+}
+{
+  const {ap,context,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x]of [['Q',.02],['P',.01],['R',.03]]){portal(ap,id,x);context.window.portals[id]={options:{team:id==='P'?'MACHINA':'RESISTANCE'}};}
+  const qr=link(ap,'Q','R'),pr=link(ap,'P','R');direction(ap,qr,'Q');direction(ap,pr,'P');
+  const origin=point(0,0),sequence=[['Q','R'],['P','R']],plan=ap.buildWorkPlanForOrder(ap.sortedStats(false),origin,{latlng:origin},{},sequence);
+  assert.deepEqual(Array.from(plan.stops,s=>s.portal.guid),['Q','P'],'Equal-cost preparation belongs to the existing visit');
+  assert.deepEqual(Array.from(plan.stops.flatMap(s=>s.links),l=>l.id),[qr.id,pr.id],'A fixed throw order is unchanged');
+  assert.ok(plan.stops[1].portalTask);assertVisitPrerequisites(ap,plan);
+}
+{
+  const {ap,context,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x]of [['A',0],['B',.01],['C',.02],['D',.03]]){portal(ap,id,x);context.window.portals[id]={options:{team:id==='B'?'ENLIGHTENED':'RESISTANCE'}};}
+  const late=blocker('late','A',0,'Y',.04);
+  const ab=link(ap,'A','B'),bc=link(ap,'B','C'),bd=link(ap,'B','D',[late]);
+  direction(ap,ab,'A');direction(ap,bc,'B');direction(ap,bd,'B');
+  const plan=ap.buildWorkPlan(null),bVisits=plan.stops.filter(s=>s.portal.guid==='B');
+  assert.equal(bVisits.length,2,'One dependent throw still requires a return');
+  assert.deepEqual(Array.from(bVisits[0].links,l=>l.id),[bc.id],'Do an independent throw immediately during capture');
+  assert.deepEqual(Array.from(bVisits[1].links,l=>l.id),[bd.id],'Do not pull a blocked throw forward');
+  assert.equal(bVisits[1].returnReason,'tasks.returnPrerequisites');assertVisitPrerequisites(ap,plan);
+  assert.match(ap.taskListHtml(),/other portal or blocker tasks required first/);
+}
+{
+  const {ap,context,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x,y]of [['A',0,0],['B',.01,0],['C',.005,.01]]){portal(ap,id,x,y);context.window.portals[id]={options:{team:'ENLIGHTENED'}};}
+  for(const [a,b]of [['A','B'],['B','C'],['C','A']])direction(ap,link(ap,a,b),a);
+  const plan=ap.buildWorkPlan(null);assertVisitPrerequisites(ap,plan);
+  assert.ok(ap.measureWorkRoute(plan.stops,null).revisits>=1,'A directed ownership cycle cannot invent a single-visit plan');
+  assert.equal(plan.stops.filter(s=>s.portalTask).length,3);
+}
+{
+  const {ap}=runtime();
+  const current={distance:1000,revisits:1,visits:10},reference=ap.workRouteReference(current);
+  assert.equal(ap.betterWorkRoute({distance:1010,revisits:0,visits:9},current,reference),true,'A small detour may save a return visit');
+  assert.equal(ap.betterWorkRoute({distance:1000,revisits:0,visits:9},current,reference),true,'Always prefer fewer returns at equal distance');
+  assert.equal(ap.betterWorkRoute({distance:1060,revisits:0,visits:9},current,reference),false,'Never trade a return for more than 5% additional distance');
+  assert.equal(ap.betterWorkRoute({distance:1026,revisits:0,visits:9},current,reference),false,'The detour must also pay for itself in saved visits');
+  assert.equal(ap.betterWorkRoute({distance:Infinity,revisits:0,visits:9},current,reference),false);
+  portal(ap,'A',0);portal(ap,'B',1);const ab=link(ap,'A','B');direction(ap,ab,'A');
+  const plan=ap.buildWorkPlan(null);assert.ok(plan.visitOptimization.evaluations<=192);assert.equal(plan.visitOptimization.after.revisits,0);
+}
+console.log('Visit bundling: one-visit capture/throws, no-GPS planning, fixed/manual order, immediate independent work, ownership cycles, reasons and bounded detours passed.');
+
+{
+  // An earlier capture also removes automatic incident blockers, without a separate X visit.
+  const {ap,context,realOwnership}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x]of [['P',0],['A',.01],['B',.03],['C',.04],['X',.02]]){portal(ap,id,x);context.window.portals[id]={options:{team:id==='P'?'ENLIGHTENED':'RESISTANCE'}};}
+  const first=blocker('first','P',0,'Z',-.01),incident=blocker('incident','P',0,'X',.02);
+  const ab=link(ap,'A','B',[first,incident]),pc=link(ap,'P','C');direction(ap,ab,'A');direction(ap,pc,'P');
+  const items=ap.getWorkBlockers(),one=items.find(i=>i.id==='first'),two=items.find(i=>i.id==='incident');
+  function stops(){return[
+    {portal:ap.runtime.stats.P,planVisit:false,links:[],blockers:[one]},
+    {portal:ap.runtime.stats.X,planVisit:false,links:[],blockers:[two]},
+    {portal:ap.runtime.stats.A,planVisit:true,links:[ab],blockers:[]},
+    {portal:ap.runtime.stats.P,planVisit:true,portalTask:ap.getPortalOwnership('P'),links:[pc],blockers:[]}
+  ];}
+  const original=stops(),snapshot=JSON.stringify(original),auto=ap.bundleWorkStops(original,null,items,false);
+  assert.deepEqual(Array.from(auto.stops,s=>s.portal.guid),['P','A']);
+  assert.equal(auto.stops[0].blockers.length,2);assert.ok(auto.stops[0].portalTask);assert.equal(auto.stops[0].links[0].id,pc.id);
+  assert.equal(JSON.stringify(original),snapshot,'Candidate normalization must never mutate another candidate');
+  two.target='X';let explicit=ap.bundleWorkStops(stops(),null,items,false);
+  assert.equal(explicit.stops.find(s=>s.blockers.some(i=>i.id==='incident')).portal.guid,'X','Respect the explicit endpoint despite an incidental capture');
+  two.target='';ap.state.blockerRoutePortals.X=true;explicit=ap.bundleWorkStops(stops(),null,items,false);
+  assert.equal(explicit.stops.find(s=>s.blockers.some(i=>i.id==='incident')).portal.guid,'X','Respect legacy endpoint selections too');
+}
+{
+  const {ap,context,realOwnership,storage}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(const [id,x]of [['A',0],['B',.01],['C',.02]]){portal(ap,id,x);context.window.portals[id]={options:{team:id==='B'?'ENLIGHTENED':'RESISTANCE'}};}
+  const ab=link(ap,'A','B'),bc=link(ap,'B','C');direction(ap,ab,'A');direction(ap,bc,'B');
+  context.window.plugin.keys={keys:{B:1,C:1},addKey(){throw Error('No inventory writes from route or preview');}};
+  ap.getCurrentUserLocation=()=>null;const before=JSON.stringify(ap.state),keys=JSON.stringify(context.window.plugin.keys.keys),owners=JSON.stringify(context.window.portals);
+  const model=ap.createWalkSimulation();
+  assert.deepEqual(Array.from(model.frames,f=>f.guid),['B','A']);
+  assert.deepEqual(Array.from(model.frames[0].actions,a=>a.kind),['portal','link'],'Capture and actual virtual throwing happen during one stop');
+  assert.equal(model.frames.at(-1).links.length,2);assert.ok(model.frames.flatMap(f=>f.actions).filter(a=>a.kind==='link').every(a=>a.status==='walk.ready'));
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(JSON.stringify(context.window.plugin.keys.keys),keys);assert.equal(JSON.stringify(context.window.portals),owners);assert.equal(storage.size,0);
+}
+{
+  // Even large routes get bounded consolidation, independently of the 40-portal permutation search.
+  const {ap}=runtime();for(let i=0;i<50;i++)portal(ap,'P'+i,i/100);
+  const edges=[];for(let i=0;i<49;i++){const edge=link(ap,'P'+i,'P49');direction(ap,edge,'P'+i);edges.push(edge);}
+  const original=edges.map(edge=>({portal:ap.runtime.stats[edge.a],planVisit:false,links:[],blockers:[],portalTask:{action:'verify',faction:'unknown'}}))
+    .concat(edges.map(edge=>({portal:ap.runtime.stats[edge.a],planVisit:true,links:[edge],blockers:[]})));
+  const bundled=ap.bundleWorkStops(original,null,[],false);
+  assert.ok(bundled.optimization.evaluations<=192);assert.ok(bundled.stops.length<original.length);
+  assert.deepEqual(Array.from(bundled.stops.flatMap(s=>s.links),l=>l.id).sort(),edges.map(e=>e.id).sort());
+  assert.equal(original.length,98);
+}
+
+{
+  const {ap}=runtime(),reference=ap.workRouteReference({distance:1000,visits:10,revisits:3});
+  assert.equal(ap.betterWorkRoute({distance:1060,visits:8,revisits:1},{distance:1040,visits:9,revisits:2},reference),false,'Several accepted steps cannot accumulate more than the original detour budget');
+}

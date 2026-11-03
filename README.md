@@ -28,7 +28,9 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.39
+### Beta testing: 0.2.0-beta.40
+
+Beta 40 bundles portal preparation, blocker removal and throws into shared visits. Independent throws can move to an earlier visit; blocked work stays behind its prerequisites. Route scoring now accounts for return visits, with a small, capped distance trade-off. Local consolidation also runs without GPS and outside the larger permutation search. Confirmed sources, explicit removal targets and manual/Spine throw order are preserved. Remaining return visits carry a short reason in Tasks, Next task and Plan preview. Inventory, completion and plan geometry remain unchanged.
 
 Beta 39 removes repetitive routine text across tasks, blockers, Next task, preview and Key dialogs. Keep concrete actions, factions, ownership prerequisites, missing Intel confirmation and incomplete checks visible. Affected-link lists, scan/source diagnostics and general instructions expand on demand. Next task starts with the portal and navigation. Simulation is labeled once; inventory overwrite/reset/undo consequences remain explicit. Name loading reports remaining gaps only when present. Export reports retain their standalone context. Routing, plan geometry and Key booking rules are unchanged.
 
@@ -149,7 +151,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.39**
+- Development version: **0.2.0-beta.40**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
