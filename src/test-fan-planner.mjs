@@ -563,3 +563,22 @@ console.log('Fan planner: shared violet draft/target geometry and legend, user-s
 
 
 console.log("Spine geometry, bounded pair selection, pins, UI modes, 200 portals and native persistence passed.");
+
+// Loader completion reports actual remaining gaps, not a boilerplate caveat on success.
+{
+  const {ap,context}=runtime();let missing=['A'],messages=[];
+  ap.collectMissingPortalNameGuids=()=>missing;
+  ap.setMessage=text=>messages.push(text);
+  ap.requestPortalDetails=(guid,callback)=>{missing=[];callback({title:'Resolved'});};
+  ap.updatePortalTitle=()=>{};ap.getPortalTitleFromMarker=()=> 'Resolved';
+  ap.renderOverlays=ap.refreshFanPlanner=ap.refreshTaskList=()=>{};
+  ap.renderPanel=()=>messages.push('scan restored');
+  context.setTimeout=callback=>callback();
+  ap.refreshMissingNames(true);
+  assert.equal(messages.at(-1),'scan restored','Automatic success restores normal scan content without a completion message');
+  assert.ok(!messages.includes(ap.t('message.namesUnavailable')));
+  missing=['A'];ap.refreshMissingNames(false);
+  assert.equal(messages.at(-1),ap.t('message.namesLoaded'),'An explicit request gets completion feedback');
+  missing=['A'];ap.requestPortalDetails=(guid,callback)=>callback({});ap.refreshMissingNames(true);
+  assert.equal(messages.at(-1),ap.t('message.namesUnavailable'),'Unresolved data is still reported');
+}

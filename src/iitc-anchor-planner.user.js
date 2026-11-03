@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.38
+// @version        0.2.0-beta.39
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261029140000';
+  plugin_info.dateTimeVersion = '20261103120000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.38';
+  ap.VERSION = '0.2.0-beta.39';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -76,8 +76,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools nicht gefunden. Bitte Draw Tools aktivieren.",
       "scan.finalPending": "finaler Blockercheck ausstehend",
       "scan.finalIncomplete": "finaler Blockercheck unvollständig",
-      "scan.finalComplete": "finaler Blockercheck abgeschlossen",
-      "scan.finalPaused": "finaler Blockercheck pausiert",
       "status.done": "abgearbeitet",
       "status.blocked": "blockiert",
       "status.existing": "keine Keys nötig",
@@ -115,9 +113,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "Keine fehlenden Portalnamen im aktuellen Scan.",
       "message.namesLoadingAuto": "Lade Portalnamen automatisch nach: {current}/{total} …",
       "message.namesLoading": "Lade Portalnamen nach: {current}/{total} …",
-      "message.namesLoadedAuto": "Portalnamen automatisch nachgeladen.",
       "message.namesLoaded": "Portalnamen nachgeladen.",
-      "message.namesUnavailable": "Falls noch Namen fehlen, sind die Details nicht verfügbar.",
+      "message.namesUnavailable": "Einige Portalnamen konnten nicht geladen werden.",
       "message.portalDetailsUnavailable": "Für dieses Portal sind in IITC keine Portaldetails verfügbar.",
       "message.copied": "In die Zwischenablage kopiert.",
       "message.finalScanNoUnconfirmed": "Für keinen unbestätigten Planlink ist ein Finalcheck nötig.",
@@ -143,7 +140,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Planübersicht kopieren:",
       "export.copyJsonPrompt": "JSON kopieren:",
       "export.planPrompt": "Anchor Planner – Planübersicht",
-      "confirm.clearData": "Anchor-Planner-Daten löschen? Draw-Tools-Zeichnungen bleiben unverändert.",
+      "confirm.clearData": "Gespeicherten Fächerplan, Portal-/Linkeinstellungen und Aufgabenfortschritt löschen? Draw Tools und Keys-Bestand bleiben erhalten.",
       "confirm.clearAssignments": "Alle manuellen Endpunkt-Zuordnungen löschen?",
       "panel.planPortal.one": "{count} Planportal",
       "panel.planPortal.other": "{count} Planportale",
@@ -224,14 +221,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Richtung wählen",
       "tasks.existing": "Eigener Planlink bereits im Intel vorhanden",
       "tasks.blocked": "Blockiert",
-      "tasks.manualCheck": "Als erledigt gemeldet; Intel-Bestätigung ausstehend",
+      "tasks.manualCheck": "Intel-Bestätigung fehlt",
       "tasks.missingKey": "Key des Zielportals fehlt",
-      "tasks.planned": "Geplant; Baubedingungen prüfen",
+      "tasks.planned": "Geplant",
       "tasks.direction": "Wurfrichtung",
       "tasks.directionOpen": "Richtung offen",
       "tasks.removeBlocker": "Blocklink beseitigen",
-      "tasks.observed": "Im letzten Scan vorhanden",
-      "tasks.frees": "Gibt {count} Planlinks frei",
       "tasks.target": "Abbauportal",
       "tasks.automatic": "Automatisch",
       "tasks.manualDone": "Manuell als erledigt melden",
@@ -240,7 +235,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Arbeitsroute als Luftlinienvorschlag. Beobachteter Portalbesitz ergänzt Eroberungs-/Übernahme-/Prüfaufgaben vor abhängigen Würfen an beiden Enden. Tatsächliche Eroberung, Ausbauressourcen, ausgehende Linklimits, Reichweite und Links unter Feldern weiter vor Ort prüfen. Manuelle Erledigung bestätigt keine Intel-Daten.",
       "tasks.modeManual": "Gespeicherte Portalreihenfolge mit Blocker-Stopps",
       "tasks.modeLocation": "Ab IITC-Standort; kleine GPS-Änderungen behalten die Reihenfolge",
-      "tasks.planVisit": "Linkaufgaben",
       "tasks.estimatedKeys": "Schätzung: Wurfrichtungen teilweise offen",
       "tasks.portalDone": "Portalarbeit manuell erledigt",
       "tasks.unresolved": "Nicht alle Aufgaben einplanbar: Koordinaten, Richtungen und erledigte Wurfportale prüfen.",
@@ -266,7 +260,7 @@ function wrapper(plugin_info) {
       "keys.current": "Bestand",
       "keys.recognized": "Erkannt",
       "keys.needed": "Bedarf",
-      "keys.review": "Namen und Mengen prüfen. ⚠ kennzeichnet widersprüchliche Erkennungen; leer bedeutet nicht erkannt. Nicht ausgewählte Portale bleiben unverändert. Erkannter Text erscheint beim Zeigen auf den Namen.",
+      "keys.review": "Namen und Mengen prüfen. Leer = nicht erkannt.",
       "keys.failed": "Erkennung fehlgeschlagen. Dateiformat und Internetverbindung für OCR-Downloads prüfen.",
       "keys.cancelled": "Erkennung abgebrochen.",
       "keys.limits": "1–10 Bilder oder Videos wählen, je höchstens 150 MB. Videos dürfen höchstens 2 Minuten lang sein.",
@@ -277,7 +271,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Alle Keys zurücksetzen",
       "keys.undo": "Keyänderung rückgängig",
       "keys.resetConfirm": "{count} Keys an {portals} Portalen auf null setzen? Dies umfasst alle Portale in IITC Keys, auch außerhalb dieses Plans. Zum Abbrechen diesen Dialog schließen.",
-      "keys.undoNotice": "Der letzte Import oder das Zurücksetzen kann auch nach einem IITC-Refresh rückgängig gemacht werden. Ein neuer Import oder Reset ersetzt die Sicherung. Direkte manuelle Änderungen erzeugen keine Sicherung.",
+      "keys.undoNotice": "Der letzte Import oder Reset bleibt auch nach Refresh rücknehmbar. Direkte manuelle Änderungen erzeugen keine Sicherung.",
       "keys.backupFailed": "Die Sicherung für die Rücknahme konnte nicht gespeichert werden. Vor einem erneuten Versuch den Browserspeicher prüfen.",
       "keys.inventoryChanged": "Bestand oder Sicherung wurde geändert. Diesen Dialog schließen und zur erneuten Prüfung wieder öffnen.",
       "keys.noUndo": "Keine gespeicherte Keyänderung zum Rückgängigmachen.",
@@ -315,11 +309,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Blocker abbauen",
       "walk.throw": "Link werfen",
       "walk.ready": "Simuliert; ein Key verbraucht",
-      "walk.direction": "Richtung unbestätigt; nicht simuliert",
-      "walk.coordinates": "Koordinaten fehlen; nicht simuliert",
-      "walk.blocked": "Blocker noch nicht abgebaut; nicht simuliert",
-      "walk.unknownKeys": "Keybestand unbekannt; nicht simuliert",
-      "walk.missingKeys": "Kein Key in der Vorschau übrig; nicht simuliert",
+      "walk.direction": "Richtung unbestätigt",
+      "walk.coordinates": "Koordinaten fehlen",
+      "walk.blocked": "Blocker noch nicht abgebaut",
+      "walk.unknownKeys": "Keybestand unbekannt",
+      "walk.missingKeys": "Kein virtueller Key übrig",
       "walk.unresolved": "{count} Aufgaben konnten nicht eingeplant werden. Aufgaben prüfen.",
       "walk.finalScan": "Vor der Planvorschau den Finalcheck pausieren.",
       "walk.resumeScan": "Nach der Planvorschau die echte Karte erneut scannen, um automatische Link- und Keybeobachtungen fortzusetzen.",
@@ -379,9 +373,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (grün)",
       "faction.mac": "Machina",
       "faction.noData": "Keine Fraktionsdaten",
-      "faction.ownHint": "Entfernung oder Umfärben mit der eigenen Fraktion abstimmen.",
-      "faction.enemyHint": "Abbau am gewählten Endportal einplanen.",
-      "faction.unknownHint": "Fraktion vor Ort oder mit aktualisierten Intel-Daten prüfen.",
+      "faction.ownHint": "Eigener Link · Abbau abstimmen",
+      "faction.unknownHint": "Fraktion prüfen",
       "faction.summary": "Unterschiedliche Intel-Blocker — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · Fraktion unbekannt: {unknown}",
       "fan.countHelp": "1 schlägt einen Anker vor; 2 oder mehr ergeben getrennte Fächer. Manuelle Anker (★) und fest zugeordnete Anker zählen zur Gesamtzahl.",
       "fan.countInvalid": "Für die ausgewählten Portale eine ganze Ankeranzahl zwischen 1 und {max} eingeben.",
@@ -400,10 +393,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planungsart",
       "spine.separate": "Getrennte Fächer",
       "spine.title": "Spine-Felder · zwei Anker",
-      "spine.help": "Entwurf: Genau zwei Anker manuell oder über „Anker vorschlagen“ wählen. Der Planer sucht eine ineinanderliegende Portalfolge auf einer Seite ihrer Basislinie. Jedes Spine-Portal wird mit beiden Ankern und ab dem zweiten mit seinem Vorgänger verbunden. Ungeeignete Portale werden nicht übernommen. Erst Vorschau prüfen; Richtungen bleiben unbestätigt. Die Feldzahl ist ein geometrisches Ziel, keine Baugarantie oder AP-Schätzung.",
+      "spine.help": "Entwurf: Genau zwei Anker manuell oder über „Anker vorschlagen“ wählen. Der Planer sucht eine ineinanderliegende Portalfolge auf einer Seite ihrer Basislinie. Jedes Spine-Portal wird mit beiden Ankern und ab dem zweiten mit seinem Vorgänger verbunden. Ungeeignete Portale werden nicht übernommen. Erst Vorschau prüfen; Richtungen bleiben unbestätigt. Die Feldzahl ist ein geometrisches Ziel, keine Baugarantie oder AP-Schätzung. Ankerpaare werden mit begrenztem Suchbudget vorgeschlagen.",
       "spine.twoAnchors": "Spine-Felder benötigen genau zwei Anker. Anzahl auf 2 setzen und höchstens zwei Anker manuell festlegen.",
       "spine.noChain": "Für dieses Ankerpaar wurde keine geeignete Spine gefunden. Andere Anker oder Portale wählen.",
-      "spine.summary": "Spine-Portale: {count} · ausgelassene Portale: {unused}. Eine Seite der Basislinie; Ankerpaar-Vorschläge verwenden eine begrenzte Suche.",
+      "spine.summary": "Spine-Portale: {count} · ausgelassen: {unused}",
       "spine.position": "Spine-Position",
       "spine.step": "Spine {index}",
       "spine.unused": "Nicht im Vorschlag",
@@ -419,24 +412,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "gegnerische Spielerfraktion",
       "faction.relation.unknown": "Bezug zur Spielerfraktion unbekannt",
       "faction.machinaBlocker": "KI-Blocker (rot)",
-      "faction.machinaHint": "Machina-Verbindung an einem Endportal entfernen, bevor der abhängige Planlink gebaut wird.",
       "links.summary": "Planlinks bereits vorhanden: eigene {ownExisting} · Fraktion unbestätigt {unverifiedExisting} · offen {open}",
       "links.occupied": "Geplante Verbindungen derzeit belegt: gegnerische Spielerfraktion {enemyOccupied} · Machina {machinaOccupied}. Abbau erforderlich.",
       "links.estimatedKeys": "Keybedarf vorläufig: Bei {count} Links sind die Wurfrichtungen unbestätigt; sie zählen an beiden möglichen Zielen. Ein tatsächlicher Wurf verbraucht nur einen Ziel-Key.",
       "readiness.missingKeyEstimated.one": "geschätzt {count} Key fehlt (Richtungen offen)",
       "readiness.missingKeyEstimated.other": "geschätzt {count} Keys fehlen (Richtungen offen)",
-      "blocker.sameConnection": "Eine gegnerische oder Machina-Verbindung belegt genau diesen Planlink. Sie zählt nicht als gebaut und muss zuerst entfernt werden.",
+      "blocker.sameConnection": "Geplante Verbindung belegt · Abbau erforderlich",
       "blocker.reason.same": "belegt geplante Verbindung",
       "blocker.reason.crossing": "kreuzt Planlink",
       "links.unverified": "{count} als vorhanden gewertete Planlinks: Fraktion noch prüfen",
-      "portal.capture": "Portal erobern und linkfähig ausbauen",
-      "portal.claim": "Neutrales Portal übernehmen und linkfähig ausbauen",
-      "portal.verify": "Portalfraktion vor dem Linkbau prüfen",
+      "portal.capture": "Erobern und ausbauen",
+      "portal.claim": "Übernehmen und ausbauen",
+      "portal.verify": "Fraktion prüfen",
       "portal.beforeLinks": "Vor jedem abhängigen Link an beiden Enden erforderlich. Linkabbau an einem Endportal erobert das andere Endportal nicht. Diese Besitzaufgabe benötigt keine Keys.",
-      "portal.action": "Portalvoraussetzung",
-      "portal.simulated": "Eroberung/Ausbau simuliert; echter Portalzustand unverändert",
-      "portal.verifyUnresolved": "Fraktion unbekannt; keine Eroberung oder Ausbau angenommen",
-      "portal.notReady": "Portalbesitz als Voraussetzung ungeklärt; nicht simuliert",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtuell übernommen",
+      "portal.verifyUnresolved": "Fraktion ungeklärt",
+      "portal.notReady": "Portalbesitz ungeklärt",
       "portal.plannedLink": "Geplanter Link",
       "portal.summary": "Portale vor dem Linkbau: erobern {capture} · neutral übernehmen {claim} · prüfen {verify}",
       "portal.nextTask": "Nächste Portalaufgabe:",
@@ -448,7 +440,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Aus",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} Wurfrichtungen offen · Keybedarf geschätzt",
-      "ui.resize": "Fenstergröße ändern – ziehen oder Pfeiltasten verwenden"
+      "ui.resize": "Fenstergröße ändern – ziehen oder Pfeiltasten verwenden",
+      "walk.simulation": "Simulation · keine Änderung an Portalen, Keys oder Erledigung",
+      "keys.inventoryScope": "Gesamter IITC-Keys-Bestand, auch außerhalb des Plans",
+      "keys.usageShort": "Neue eigene Intel-Planlinks verbrauchen automatisch einen Ziel-Key – auch bei Bau durch andere Spieler.",
+      "keys.backupReplace": "Import oder Reset ersetzt die bisherige Rücknahmesicherung.",
+      "keys.importOverwrite": "Übernehmen überschreibt die ausgewählten Bestände mit den geprüften Mengen.",
+      "keys.undoOverwrite": "Ausgewählte Bestände werden wiederhergestellt. Ausgewählte Konflikte überschreiben spätere Änderungen.",
+      "keys.reviewConflicts": "Widersprüchliche Erkennungen (⚠): Namen und Mengen vor Übernahme prüfen. Leer = nicht erkannt.",
+      "diagnostics.scan": "Scandetails",
+      "diagnostics.source": "Datenherkunft",
+      "ui.links.summary": "Planlinks: {open} offen · {ownExisting} eigene vorhanden · {unverifiedExisting} ungeprüft",
+      "ui.links.occupied": "Belegt: Gegner {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Entsperrt {count} Link",
+      "tasks.frees.other": "Entsperrt {count} Links"
     },
     "en": {
       "language.label": "Language",
@@ -475,8 +480,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools not found. Please enable Draw Tools.",
       "scan.finalPending": "final blocker check pending",
       "scan.finalIncomplete": "final blocker check incomplete",
-      "scan.finalComplete": "final blocker check complete",
-      "scan.finalPaused": "final blocker check paused",
       "status.done": "completed",
       "status.blocked": "blocked",
       "status.existing": "no keys needed",
@@ -514,9 +517,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "No portal names are missing from the current scan.",
       "message.namesLoadingAuto": "Loading portal names automatically: {current}/{total} …",
       "message.namesLoading": "Loading portal names: {current}/{total} …",
-      "message.namesLoadedAuto": "Portal names loaded automatically.",
       "message.namesLoaded": "Portal names loaded.",
-      "message.namesUnavailable": "If names are still missing, their details are unavailable.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "IITC portal details are unavailable for this portal.",
       "message.copied": "Copied to the clipboard.",
       "message.finalScanNoUnconfirmed": "No unconfirmed plan links require a final check.",
@@ -542,7 +544,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Copy plan overview:",
       "export.copyJsonPrompt": "Copy JSON:",
       "export.planPrompt": "Anchor Planner – Plan overview",
-      "confirm.clearData": "Delete Anchor Planner data? Draw Tools drawings will remain unchanged.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Delete all manual endpoint assignments?",
       "panel.planPortal.one": "{count} plan portal",
       "panel.planPortal.other": "{count} plan portals",
@@ -623,14 +625,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Choose direction",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Blocked",
-      "tasks.manualCheck": "Reported done; Intel confirmation pending",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Destination key missing",
-      "tasks.planned": "Planned; check build conditions",
+      "tasks.planned": "Planned",
       "tasks.direction": "Link direction",
       "tasks.directionOpen": "Direction open",
       "tasks.removeBlocker": "Remove blocker link",
-      "tasks.observed": "Present in the last scan",
-      "tasks.frees": "Frees {count} planned links",
       "tasks.target": "Removal portal",
       "tasks.automatic": "Automatic",
       "tasks.manualDone": "Report manually completed",
@@ -639,7 +639,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Saved portal order with blocker stops",
       "tasks.modeLocation": "From IITC location; small GPS changes keep the order",
-      "tasks.planVisit": "Link tasks",
       "tasks.estimatedKeys": "Estimate: some directions remain open",
       "tasks.portalDone": "Portal work manually completed",
       "tasks.unresolved": "Cannot schedule all tasks: check coordinates, directions and completed source portals.",
@@ -665,7 +664,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -676,7 +675,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -714,11 +713,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -778,9 +777,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -799,10 +797,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -818,24 +816,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -847,7 +844,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "es": {
       "language.label": "Idioma",
@@ -874,8 +884,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "No se encontró Draw Tools. Actívalo.",
       "scan.finalPending": "comprobación final de bloqueos pendiente",
       "scan.finalIncomplete": "comprobación final de bloqueos incompleta",
-      "scan.finalComplete": "comprobación final de bloqueos completa",
-      "scan.finalPaused": "comprobación final de bloqueos pausada",
       "status.done": "completado",
       "status.blocked": "bloqueado",
       "status.existing": "sin llaves",
@@ -913,9 +921,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "No faltan nombres en el escaneo actual.",
       "message.namesLoadingAuto": "Cargando nombres: {current}/{total}…",
       "message.namesLoading": "Cargando nombres: {current}/{total}…",
-      "message.namesLoadedAuto": "Nombres cargados automáticamente.",
       "message.namesLoaded": "Nombres cargados.",
-      "message.namesUnavailable": "Si aún faltan nombres, sus detalles no están disponibles.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "Los detalles del portal no están disponibles en IITC.",
       "message.copied": "Copiado al portapapeles.",
       "message.finalScanNoUnconfirmed": "Ningún enlace del plan sin confirmar requiere una comprobación final.",
@@ -941,7 +948,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Copiar resumen del plan:",
       "export.copyJsonPrompt": "Copiar JSON:",
       "export.planPrompt": "Anchor Planner – Resumen del plan",
-      "confirm.clearData": "¿Borrar los datos de Anchor Planner? Los dibujos de Draw Tools se conservarán.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "¿Borrar todas las asignaciones manuales de extremos?",
       "panel.planPortal.one": "{count} portal del plan",
       "panel.planPortal.other": "{count} portales del plan",
@@ -1022,14 +1029,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Elegir dirección",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqueado",
-      "tasks.manualCheck": "Marcado como hecho; confirmación de Intel pendiente",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Falta la llave del destino",
-      "tasks.planned": "Planificado; comprobar condiciones",
+      "tasks.planned": "Planned",
       "tasks.direction": "Dirección del enlace",
       "tasks.directionOpen": "Dirección sin definir",
       "tasks.removeBlocker": "Eliminar enlace bloqueador",
-      "tasks.observed": "Presente en el último escaneo",
-      "tasks.frees": "Libera {count} enlaces del plan",
       "tasks.target": "Portal de eliminación",
       "tasks.automatic": "Automático",
       "tasks.manualDone": "Marcar como completado manualmente",
@@ -1038,7 +1043,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Orden guardado con paradas de bloqueadores",
       "tasks.modeLocation": "Desde la ubicación IITC; pequeños cambios GPS mantienen el orden",
-      "tasks.planVisit": "Tareas de enlaces",
       "tasks.estimatedKeys": "Estimación: algunas direcciones sin definir",
       "tasks.portalDone": "Trabajo del portal completado manualmente",
       "tasks.unresolved": "No se pueden ordenar todas las tareas: comprobar coordenadas, direcciones y portales de origen completados.",
@@ -1064,7 +1068,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -1075,7 +1079,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -1113,11 +1117,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1177,9 +1181,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -1198,10 +1201,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -1217,24 +1220,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -1246,7 +1248,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "fr": {
       "language.label": "Langue",
@@ -1273,8 +1288,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools introuvable. Activez-le.",
       "scan.finalPending": "contrôle final des bloqueurs en attente",
       "scan.finalIncomplete": "contrôle final des bloqueurs incomplet",
-      "scan.finalComplete": "contrôle final des bloqueurs terminé",
-      "scan.finalPaused": "contrôle final des bloqueurs en pause",
       "status.done": "terminé",
       "status.blocked": "bloqué",
       "status.existing": "aucune clé requise",
@@ -1312,9 +1325,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "Aucun nom ne manque dans l’analyse actuelle.",
       "message.namesLoadingAuto": "Chargement des noms : {current}/{total}…",
       "message.namesLoading": "Chargement des noms : {current}/{total}…",
-      "message.namesLoadedAuto": "Noms chargés automatiquement.",
       "message.namesLoaded": "Noms chargés.",
-      "message.namesUnavailable": "Si des noms manquent encore, leurs détails sont indisponibles.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "Les détails de ce portail sont indisponibles dans IITC.",
       "message.copied": "Copié dans le presse-papiers.",
       "message.finalScanNoUnconfirmed": "Aucun lien du plan non confirmé ne nécessite de contrôle final.",
@@ -1340,7 +1352,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Copier l’aperçu du plan :",
       "export.copyJsonPrompt": "Copier JSON :",
       "export.planPrompt": "Anchor Planner – Aperçu du plan",
-      "confirm.clearData": "Supprimer les données d’Anchor Planner ? Les dessins Draw Tools seront conservés.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Supprimer toutes les affectations manuelles d’extrémités ?",
       "panel.planPortal.one": "{count} portail du plan",
       "panel.planPortal.other": "{count} portails du plan",
@@ -1421,14 +1433,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Choisir le sens",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqué",
-      "tasks.manualCheck": "Signalé terminé ; confirmation Intel en attente",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Clé du portail cible manquante",
-      "tasks.planned": "Prévu ; vérifier les conditions",
+      "tasks.planned": "Planned",
       "tasks.direction": "Sens du lien",
       "tasks.directionOpen": "Sens non défini",
       "tasks.removeBlocker": "Supprimer le lien bloquant",
-      "tasks.observed": "Présent au dernier scan",
-      "tasks.frees": "Libère {count} liens prévus",
       "tasks.target": "Portail de destruction",
       "tasks.automatic": "Automatique",
       "tasks.manualDone": "Signaler terminé manuellement",
@@ -1437,7 +1447,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordre enregistré avec arrêts pour les obstacles",
       "tasks.modeLocation": "Depuis la position IITC ; les petits changements GPS gardent l’ordre",
-      "tasks.planVisit": "Tâches de liens",
       "tasks.estimatedKeys": "Estimation : certains sens restent ouverts",
       "tasks.portalDone": "Travail du portail terminé manuellement",
       "tasks.unresolved": "Impossible de planifier toutes les tâches : vérifier coordonnées, sens et portails de départ terminés.",
@@ -1463,7 +1472,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -1474,7 +1483,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -1512,11 +1521,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1576,9 +1585,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -1597,10 +1605,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -1616,24 +1624,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -1645,7 +1652,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "it": {
       "language.label": "Lingua",
@@ -1672,8 +1692,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools non trovato. Attivalo.",
       "scan.finalPending": "controllo finale dei blocchi in sospeso",
       "scan.finalIncomplete": "controllo finale dei blocchi incompleto",
-      "scan.finalComplete": "controllo finale dei blocchi completato",
-      "scan.finalPaused": "controllo finale dei blocchi in pausa",
       "status.done": "completato",
       "status.blocked": "bloccato",
       "status.existing": "nessuna chiave",
@@ -1711,9 +1729,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "Nessun nome mancante nella scansione attuale.",
       "message.namesLoadingAuto": "Caricamento nomi: {current}/{total}…",
       "message.namesLoading": "Caricamento nomi: {current}/{total}…",
-      "message.namesLoadedAuto": "Nomi caricati automaticamente.",
       "message.namesLoaded": "Nomi caricati.",
-      "message.namesUnavailable": "Se mancano ancora nomi, i dettagli non sono disponibili.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "I dettagli di questo portale non sono disponibili in IITC.",
       "message.copied": "Copiato negli appunti.",
       "message.finalScanNoUnconfirmed": "Nessun link del piano non confermato richiede un controllo finale.",
@@ -1739,7 +1756,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Copia riepilogo piano:",
       "export.copyJsonPrompt": "Copia JSON:",
       "export.planPrompt": "Anchor Planner – Riepilogo piano",
-      "confirm.clearData": "Eliminare i dati di Anchor Planner? I disegni Draw Tools resteranno invariati.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Eliminare tutte le assegnazioni manuali degli estremi?",
       "panel.planPortal.one": "{count} portale del piano",
       "panel.planPortal.other": "{count} portali del piano",
@@ -1820,14 +1837,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Scegli direzione",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloccato",
-      "tasks.manualCheck": "Segnalato completato; conferma Intel in attesa",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Manca la chiave del portale di destinazione",
-      "tasks.planned": "Pianificato; verificare le condizioni",
+      "tasks.planned": "Planned",
       "tasks.direction": "Direzione del link",
       "tasks.directionOpen": "Direzione non definita",
       "tasks.removeBlocker": "Rimuovere il link bloccante",
-      "tasks.observed": "Presente nell’ultima scansione",
-      "tasks.frees": "Libera {count} link pianificati",
       "tasks.target": "Portale di rimozione",
       "tasks.automatic": "Automatico",
       "tasks.manualDone": "Segnala completamento manuale",
@@ -1836,7 +1851,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordine salvato con soste per i blocchi",
       "tasks.modeLocation": "Dalla posizione IITC; piccoli cambiamenti GPS mantengono l’ordine",
-      "tasks.planVisit": "Attività dei link",
       "tasks.estimatedKeys": "Stima: alcune direzioni non definite",
       "tasks.portalDone": "Lavoro del portale completato manualmente",
       "tasks.unresolved": "Non tutte le attività sono pianificabili: verificare coordinate, direzioni e portali di partenza completati.",
@@ -1862,7 +1876,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -1873,7 +1887,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -1911,11 +1925,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -1975,9 +1989,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -1996,10 +2009,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -2015,24 +2028,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -2044,7 +2056,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "ja": {
       "language.label": "言語",
@@ -2071,8 +2096,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Toolsが見つかりません。有効にしてください。",
       "scan.finalPending": "最終ブロッカー確認待ち",
       "scan.finalIncomplete": "最終ブロッカー確認未完了",
-      "scan.finalComplete": "最終ブロッカー確認完了",
-      "scan.finalPaused": "最終ブロッカー確認を一時停止",
       "status.done": "完了",
       "status.blocked": "ブロック中",
       "status.existing": "キー不要",
@@ -2110,9 +2133,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "現在のスキャンに名前不足はありません。",
       "message.namesLoadingAuto": "名前を読込中: {current}/{total}…",
       "message.namesLoading": "名前を読込中: {current}/{total}…",
-      "message.namesLoadedAuto": "名前を自動読込しました。",
       "message.namesLoaded": "名前を読込しました。",
-      "message.namesUnavailable": "まだ名前がない場合、詳細は取得できません。",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "このポータルの詳細は IITC で利用できません。",
       "message.copied": "クリップボードにコピーしました。",
       "message.finalScanNoUnconfirmed": "最終確認が必要な未確認の計画リンクはありません。",
@@ -2138,7 +2160,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "計画概要をコピー:",
       "export.copyJsonPrompt": "JSONをコピー:",
       "export.planPrompt": "Anchor Planner – 計画概要",
-      "confirm.clearData": "Anchor Plannerのデータを削除しますか？Draw Toolsの図形は残ります。",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "端点の手動割当をすべて削除しますか？",
       "panel.planPortal.one": "計画ポータル {count}件",
       "panel.planPortal.other": "計画ポータル {count}件",
@@ -2219,14 +2241,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "方向を選択",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "ブロック中",
-      "tasks.manualCheck": "完了報告済み・Intel確認待ち",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "リンク先のキーが不足",
-      "tasks.planned": "予定・構築条件を確認",
+      "tasks.planned": "Planned",
       "tasks.direction": "リンク方向",
       "tasks.directionOpen": "方向未設定",
       "tasks.removeBlocker": "ブロッカーリンクを除去",
-      "tasks.observed": "前回のスキャンで存在",
-      "tasks.frees": "計画リンク{count}本を解放",
       "tasks.target": "除去するポータル",
       "tasks.automatic": "自動",
       "tasks.manualDone": "手動で完了を報告",
@@ -2235,7 +2255,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "保存されたポータル順序とブロッカー停止地点",
       "tasks.modeLocation": "IITC現在地から・小さなGPS変動では順序を維持",
-      "tasks.planVisit": "リンクのタスク",
       "tasks.estimatedKeys": "推定：未設定の方向があります",
       "tasks.portalDone": "ポータル作業の手動完了",
       "tasks.unresolved": "すべての作業を配置できません。座標、方向、完了済みのリンク元を確認してください。",
@@ -2261,7 +2280,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -2272,7 +2291,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -2310,11 +2329,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2374,9 +2393,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -2395,10 +2413,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -2414,24 +2432,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -2443,7 +2460,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "pl": {
       "language.label": "Język",
@@ -2470,8 +2500,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Nie znaleziono Draw Tools. Włącz wtyczkę.",
       "scan.finalPending": "końcowa kontrola blokad oczekuje",
       "scan.finalIncomplete": "końcowa kontrola blokad niepełna",
-      "scan.finalComplete": "końcowa kontrola blokad zakończona",
-      "scan.finalPaused": "końcowa kontrola blokad wstrzymana",
       "status.done": "ukończono",
       "status.blocked": "zablokowany",
       "status.existing": "bez kluczy",
@@ -2509,9 +2537,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "W bieżącym skanie nie brakuje nazw.",
       "message.namesLoadingAuto": "Wczytywanie nazw: {current}/{total}…",
       "message.namesLoading": "Wczytywanie nazw: {current}/{total}…",
-      "message.namesLoadedAuto": "Nazwy wczytano automatycznie.",
       "message.namesLoaded": "Nazwy wczytane.",
-      "message.namesUnavailable": "Jeśli nadal brakuje nazw, ich szczegóły są niedostępne.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "Szczegóły tego portalu są niedostępne w IITC.",
       "message.copied": "Skopiowano do schowka.",
       "message.finalScanNoUnconfirmed": "Żaden niepotwierdzony link planu nie wymaga kontroli końcowej.",
@@ -2537,7 +2564,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Kopiuj podsumowanie planu:",
       "export.copyJsonPrompt": "Kopiuj JSON:",
       "export.planPrompt": "Anchor Planner – Podsumowanie planu",
-      "confirm.clearData": "Usunąć dane Anchor Planner? Rysunki Draw Tools pozostaną bez zmian.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Usunąć wszystkie ręczne przypisania końców?",
       "panel.planPortal.one": "{count} portal planu",
       "panel.planPortal.other": "{count} portale planu",
@@ -2618,14 +2645,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Wybierz kierunek",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Zablokowany",
-      "tasks.manualCheck": "Zgłoszono wykonanie; oczekuje na potwierdzenie Intel",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Brak klucza portalu docelowego",
-      "tasks.planned": "Zaplanowany; sprawdź warunki",
+      "tasks.planned": "Planned",
       "tasks.direction": "Kierunek linku",
       "tasks.directionOpen": "Kierunek nieokreślony",
       "tasks.removeBlocker": "Usuń blokujący link",
-      "tasks.observed": "Obecny podczas ostatniego skanu",
-      "tasks.frees": "Odblokowuje {count} planowanych linków",
       "tasks.target": "Portal do usunięcia linku",
       "tasks.automatic": "Automatycznie",
       "tasks.manualDone": "Zgłoś ręczne wykonanie",
@@ -2634,7 +2659,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Zapisana kolejność z przystankami blokad",
       "tasks.modeLocation": "Od pozycji IITC; małe zmiany GPS zachowują kolejność",
-      "tasks.planVisit": "Zadania linków",
       "tasks.estimatedKeys": "Szacunek: część kierunków nieokreślona",
       "tasks.portalDone": "Praca przy portalu wykonana ręcznie",
       "tasks.unresolved": "Nie można zaplanować wszystkich zadań: sprawdź współrzędne, kierunki i ukończone portale źródłowe.",
@@ -2660,7 +2684,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -2671,7 +2695,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -2709,11 +2733,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -2773,9 +2797,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -2794,10 +2817,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -2813,24 +2836,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -2842,7 +2864,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -2869,8 +2904,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools não encontrado. Ative-o.",
       "scan.finalPending": "verificação final de bloqueios pendente",
       "scan.finalIncomplete": "verificação final de bloqueios incompleta",
-      "scan.finalComplete": "verificação final de bloqueios concluída",
-      "scan.finalPaused": "verificação final de bloqueios pausada",
       "status.done": "concluído",
       "status.blocked": "bloqueado",
       "status.existing": "sem chaves",
@@ -2908,9 +2941,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "Nenhum nome ausente no escaneamento atual.",
       "message.namesLoadingAuto": "Carregando nomes: {current}/{total}…",
       "message.namesLoading": "Carregando nomes: {current}/{total}…",
-      "message.namesLoadedAuto": "Nomes carregados automaticamente.",
       "message.namesLoaded": "Nomes carregados.",
-      "message.namesUnavailable": "Se ainda faltarem nomes, os detalhes estão indisponíveis.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "Os detalhes deste portal não estão disponíveis no IITC.",
       "message.copied": "Copiado para a área de transferência.",
       "message.finalScanNoUnconfirmed": "Nenhum link do plano não confirmado requer verificação final.",
@@ -2936,7 +2968,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Copiar resumo do plano:",
       "export.copyJsonPrompt": "Copiar JSON:",
       "export.planPrompt": "Anchor Planner – Resumo do plano",
-      "confirm.clearData": "Excluir dados do Anchor Planner? Os desenhos do Draw Tools serão mantidos.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Excluir todas as atribuições manuais de pontas?",
       "panel.planPortal.one": "{count} portal do plano",
       "panel.planPortal.other": "{count} portais do plano",
@@ -3017,14 +3049,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Escolher direção",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Bloqueado",
-      "tasks.manualCheck": "Marcado como concluído; confirmação do Intel pendente",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Falta a chave do portal de destino",
-      "tasks.planned": "Planejado; verificar condições",
+      "tasks.planned": "Planned",
       "tasks.direction": "Direção do link",
       "tasks.directionOpen": "Direção indefinida",
       "tasks.removeBlocker": "Remover link bloqueador",
-      "tasks.observed": "Presente na última varredura",
-      "tasks.frees": "Libera {count} links planejados",
       "tasks.target": "Portal de remoção",
       "tasks.automatic": "Automático",
       "tasks.manualDone": "Informar conclusão manual",
@@ -3033,7 +3063,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Ordem salva com paradas para bloqueadores",
       "tasks.modeLocation": "Da posição IITC; pequenas mudanças GPS mantêm a ordem",
-      "tasks.planVisit": "Tarefas de links",
       "tasks.estimatedKeys": "Estimativa: algumas direções indefinidas",
       "tasks.portalDone": "Trabalho no portal concluído manualmente",
       "tasks.unresolved": "Nem todas as tarefas podem ser planejadas: verifique coordenadas, direções e portais de origem concluídos.",
@@ -3059,7 +3088,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -3070,7 +3099,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -3108,11 +3137,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -3172,9 +3201,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -3193,10 +3221,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -3212,24 +3240,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -3241,7 +3268,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "ru": {
       "language.label": "Язык",
@@ -3268,8 +3308,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "Draw Tools не найден. Включите плагин.",
       "scan.finalPending": "финальная проверка блокеров ожидается",
       "scan.finalIncomplete": "финальная проверка блокеров не завершена",
-      "scan.finalComplete": "финальная проверка блокеров завершена",
-      "scan.finalPaused": "финальная проверка блокеров приостановлена",
       "status.done": "выполнено",
       "status.blocked": "заблокировано",
       "status.existing": "ключи не нужны",
@@ -3307,9 +3345,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "В текущем скане все названия загружены.",
       "message.namesLoadingAuto": "Загрузка названий: {current}/{total}…",
       "message.namesLoading": "Загрузка названий: {current}/{total}…",
-      "message.namesLoadedAuto": "Названия загружены автоматически.",
       "message.namesLoaded": "Названия загружены.",
-      "message.namesUnavailable": "Если названий всё ещё нет, данные недоступны.",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "Данные этого портала недоступны в IITC.",
       "message.copied": "Скопировано в буфер обмена.",
       "message.finalScanNoUnconfirmed": "Нет неподтверждённых линков плана, требующих финальной проверки.",
@@ -3335,7 +3372,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "Копировать обзор плана:",
       "export.copyJsonPrompt": "Копировать JSON:",
       "export.planPrompt": "Anchor Planner — Обзор плана",
-      "confirm.clearData": "Удалить данные Anchor Planner? Рисунки Draw Tools сохранятся.",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "Удалить все ручные назначения концов?",
       "panel.planPortal.one": "{count} портал плана",
       "panel.planPortal.other": "{count} порталов плана",
@@ -3416,14 +3453,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "Выбрать направление",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "Заблокирован",
-      "tasks.manualCheck": "Отмечено выполнение; подтверждение Intel ожидается",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "Нет ключа портала назначения",
-      "tasks.planned": "Запланировано; проверьте условия",
+      "tasks.planned": "Planned",
       "tasks.direction": "Направление линка",
       "tasks.directionOpen": "Направление не задано",
       "tasks.removeBlocker": "Устранить блокирующий линк",
-      "tasks.observed": "Присутствовал при последнем сканировании",
-      "tasks.frees": "Освобождает {count} плановых линков",
       "tasks.target": "Портал для устранения",
       "tasks.automatic": "Автоматически",
       "tasks.manualDone": "Отметить ручное выполнение",
@@ -3432,7 +3467,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "Сохранённый порядок с остановками для блокировок",
       "tasks.modeLocation": "От позиции IITC; небольшие изменения GPS сохраняют порядок",
-      "tasks.planVisit": "Задачи по линкам",
       "tasks.estimatedKeys": "Оценка: часть направлений не задана",
       "tasks.portalDone": "Работа на портале выполнена вручную",
       "tasks.unresolved": "Не все задачи можно запланировать: проверьте координаты, направления и завершённые порталы отправления.",
@@ -3458,7 +3492,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -3469,7 +3503,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -3507,11 +3541,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -3571,9 +3605,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -3592,10 +3625,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -3611,24 +3644,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -3640,7 +3672,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -3667,8 +3712,6 @@ function wrapper(plugin_info) {
       "scan.drawToolsMissing": "未找到 Draw Tools，请启用。",
       "scan.finalPending": "最终阻挡检查待执行",
       "scan.finalIncomplete": "最终阻挡检查未完成",
-      "scan.finalComplete": "最终阻挡检查已完成",
-      "scan.finalPaused": "最终阻挡检查已暂停",
       "status.done": "已完成",
       "status.blocked": "受阻",
       "status.existing": "无需钥匙",
@@ -3706,9 +3749,8 @@ function wrapper(plugin_info) {
       "message.namesNoneMissing": "当前扫描没有缺失名称。",
       "message.namesLoadingAuto": "正在加载名称：{current}/{total}…",
       "message.namesLoading": "正在加载名称：{current}/{total}…",
-      "message.namesLoadedAuto": "名称已自动加载。",
       "message.namesLoaded": "名称已加载。",
-      "message.namesUnavailable": "若仍缺名称，则详情不可用。",
+      "message.namesUnavailable": "Some portal names could not be loaded.",
       "message.portalDetailsUnavailable": "此传送门的详情在 IITC 中不可用。",
       "message.copied": "已复制到剪贴板。",
       "message.finalScanNoUnconfirmed": "没有需要最终检查的未确认计划 Link。",
@@ -3734,7 +3776,7 @@ function wrapper(plugin_info) {
       "export.copyPlanPrompt": "复制计划概览：",
       "export.copyJsonPrompt": "复制 JSON：",
       "export.planPrompt": "Anchor Planner – 计划概览",
-      "confirm.clearData": "删除 Anchor Planner 数据？Draw Tools 绘图会保留。",
+      "confirm.clearData": "Delete the saved fan plan, portal/link settings and task progress? Draw Tools and Key inventory remain unchanged.",
       "confirm.clearAssignments": "删除所有手动端点指定？",
       "panel.planPortal.one": "{count} 个计划 Portal",
       "panel.planPortal.other": "{count} 个计划 Portal",
@@ -3815,14 +3857,12 @@ function wrapper(plugin_info) {
       "tasks.chooseDirection": "选择方向",
       "tasks.existing": "Own plan link already in Intel",
       "tasks.blocked": "被阻挡",
-      "tasks.manualCheck": "已报告完成；等待 Intel 确认",
+      "tasks.manualCheck": "Intel confirmation pending",
       "tasks.missingKey": "缺少目标 Portal 的钥匙",
-      "tasks.planned": "已计划；请检查建造条件",
+      "tasks.planned": "Planned",
       "tasks.direction": "链接方向",
       "tasks.directionOpen": "方向未设置",
       "tasks.removeBlocker": "移除阻挡链接",
-      "tasks.observed": "上次扫描中仍存在",
-      "tasks.frees": "释放 {count} 条计划链接",
       "tasks.target": "拆除 Portal",
       "tasks.automatic": "自动",
       "tasks.manualDone": "手动报告完成",
@@ -3831,7 +3871,6 @@ function wrapper(plugin_info) {
       "tasks.routeNote": "Straight-line work route. Observed portal ownership adds capture/claim/check tasks before dependent throws at either endpoint. Real capture, deployment resources, outgoing-link limits, range and linking under fields still need on-site checking. Manual completion does not confirm Intel.",
       "tasks.modeManual": "已保存的 Portal 顺序及阻挡停靠点",
       "tasks.modeLocation": "从 IITC 位置开始；轻微 GPS 变化保持顺序",
-      "tasks.planVisit": "连线任务",
       "tasks.estimatedKeys": "估计：部分方向未设置",
       "tasks.portalDone": "Portal 工作已手动完成",
       "tasks.unresolved": "无法安排所有任务：请检查坐标、方向和已完成的发链 Portal。",
@@ -3857,7 +3896,7 @@ function wrapper(plugin_info) {
       "keys.current": "Owned",
       "keys.recognized": "Recognized",
       "keys.needed": "Needed",
-      "keys.review": "Review names and counts. ⚠ marks conflicting observations; blank means not recognized. Unselected portals stay unchanged. Hover over a name to view recognized text.",
+      "keys.review": "Review names and counts. Blank = not recognized.",
       "keys.failed": "Recognition failed. Check the file format and network connection for OCR downloads.",
       "keys.cancelled": "Recognition cancelled.",
       "keys.limits": "Choose 1–10 images or videos, at most 150 MB each. Videos must be at most 2 minutes.",
@@ -3868,7 +3907,7 @@ function wrapper(plugin_info) {
       "keys.reset": "Reset all keys",
       "keys.undo": "Undo key change",
       "keys.resetConfirm": "Set {count} keys at {portals} portals to zero? This includes every portal in IITC Keys, also outside this plan. Close this dialog to cancel.",
-      "keys.undoNotice": "The last import or reset can be undone after an IITC refresh. A new import or reset replaces that backup. Direct manual changes do not create a backup.",
+      "keys.undoNotice": "The last import or reset can be undone after refresh. Direct manual edits do not create a backup.",
       "keys.backupFailed": "Could not save the undo backup. Check browser storage before trying again.",
       "keys.inventoryChanged": "Inventory or backup changed. Close and reopen this dialog to review the current values.",
       "keys.noUndo": "No saved key change to undo.",
@@ -3906,11 +3945,11 @@ function wrapper(plugin_info) {
       "walk.remove": "Remove blocker",
       "walk.throw": "Throw link",
       "walk.ready": "Simulated; one key used",
-      "walk.direction": "Direction unconfirmed; not simulated",
-      "walk.coordinates": "Coordinates unavailable; not simulated",
-      "walk.blocked": "Blocker not cleared yet; not simulated",
-      "walk.unknownKeys": "Key inventory unknown; not simulated",
-      "walk.missingKeys": "No key remaining in preview; not simulated",
+      "walk.direction": "Direction unconfirmed",
+      "walk.coordinates": "Coordinates missing",
+      "walk.blocked": "Blockers not removed",
+      "walk.unknownKeys": "Key inventory unknown",
+      "walk.missingKeys": "No virtual Key remaining",
       "walk.unresolved": "{count} tasks could not be scheduled. Review Tasks.",
       "walk.finalScan": "Pause the final check before starting Plan preview.",
       "walk.resumeScan": "After Plan preview, scan the real map again to resume automatic link and key observations.",
@@ -3970,9 +4009,8 @@ function wrapper(plugin_info) {
       "faction.enl": "Enlightened (green)",
       "faction.mac": "Machina",
       "faction.noData": "No faction data",
-      "faction.ownHint": "Coordinate removal or flipping with your faction.",
-      "faction.enemyHint": "Plan removal at the selected endpoint.",
-      "faction.unknownHint": "Check the faction on site or refresh Intel data.",
+      "faction.ownHint": "Own link · coordinate removal",
+      "faction.unknownHint": "Check faction",
       "faction.summary": "Distinct Intel blockers — {resLabel}: {res} · {enlLabel}: {enl} · Machina: {mac} · unknown faction: {unknown}",
       "fan.countHelp": "1 proposes one anchor; 2 or more propose separate fans. Manual anchors (★) and assigned anchors count toward this total.",
       "fan.countInvalid": "Enter a whole anchor count between 1 and {max} for the selected portals.",
@@ -3991,10 +4029,10 @@ function wrapper(plugin_info) {
       "spine.mode": "Planning pattern",
       "spine.separate": "Separate fans",
       "spine.title": "Spine fields · two anchors",
-      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate.",
+      "spine.help": "Draft: select exactly two anchors, manually or with Suggest anchors. The planner finds a nested portal chain on one side of their baseline. Each spine portal links to both anchors and, after the first, its predecessor. Unsuitable portals stay out of the accepted plan. Preview first; directions remain unconfirmed. Field count is a geometric target, not a guaranteed build or AP estimate. Anchor pair suggestions use a bounded search budget.",
       "spine.twoAnchors": "Spine fields require exactly two anchors. Set the count to 2 and keep at most two manually fixed anchors.",
       "spine.noChain": "No suitable spine found for this anchor pair. Choose different anchors or portals.",
-      "spine.summary": "{count} spine portals · {unused} unsuitable portals omitted. One side of the baseline; anchor-pair suggestions use a bounded search.",
+      "spine.summary": "Spine portals: {count} · omitted: {unused}",
       "spine.position": "Spine position",
       "spine.step": "Spine {index}",
       "spine.unused": "Not in proposal",
@@ -4010,24 +4048,23 @@ function wrapper(plugin_info) {
       "faction.relation.enemy": "opposing player faction",
       "faction.relation.unknown": "relation to player unknown",
       "faction.machinaBlocker": "AI blocker (red)",
-      "faction.machinaHint": "Remove the Machina link at an endpoint before building the dependent plan link.",
       "links.summary": "Plan links already present: own {ownExisting} · faction unverified {unverifiedExisting} · open {open}",
       "links.occupied": "Planned connections currently occupied: opposing player faction {enemyOccupied} · Machina {machinaOccupied}. Removal required.",
       "links.estimatedKeys": "Key demand is provisional: {count} links have unconfirmed directions and are counted at both possible targets. Each actual throw consumes only one target key.",
       "readiness.missingKeyEstimated.one": "estimated shortage: {count} key (directions open)",
       "readiness.missingKeyEstimated.other": "estimated shortage: {count} keys (directions open)",
-      "blocker.sameConnection": "An opposing or Machina link occupies this exact planned connection. It is not a completed plan link and needs removal first.",
+      "blocker.sameConnection": "Planned connection occupied · removal required",
       "blocker.reason.same": "occupies the planned connection",
       "blocker.reason.crossing": "crosses a plan link",
       "links.unverified": "{count} plan links counted as existing: verify faction",
-      "portal.capture": "Capture portal and fully deploy for linking",
-      "portal.claim": "Claim neutral portal and fully deploy for linking",
-      "portal.verify": "Check portal faction before linking",
+      "portal.capture": "Capture and deploy",
+      "portal.claim": "Claim and deploy",
+      "portal.verify": "Check ownership",
       "portal.beforeLinks": "Required at both ends before any dependent link. Removing a link at one end does not capture its other endpoint. No keys are needed for this ownership task.",
-      "portal.action": "Portal prerequisite",
-      "portal.simulated": "Capture/deployment simulated; real portal state unchanged",
-      "portal.verifyUnresolved": "Faction unknown; no capture or deployment assumed",
-      "portal.notReady": "Portal ownership prerequisite unresolved; not simulated",
+      "portal.action": "Portal",
+      "portal.simulated": "Virtually captured",
+      "portal.verifyUnresolved": "Ownership unresolved",
+      "portal.notReady": "Portal ownership unresolved",
       "portal.plannedLink": "Planned link",
       "portal.summary": "Portals before linking: capture {capture} · claim neutral {claim} · verify {verify}",
       "portal.nextTask": "Next portal task:",
@@ -4039,7 +4076,20 @@ function wrapper(plugin_info) {
       "settings.fill.off": "Off",
       "faction.neutral": "Neutral",
       "links.estimatedShort": "{count} directions open · key demand estimated",
-      "ui.resize": "Resize window – drag or use arrow keys"
+      "ui.resize": "Resize window – drag or use arrow keys",
+      "walk.simulation": "Simulation · portals, Keys and completion stay unchanged",
+      "keys.inventoryScope": "Entire IITC Keys inventory, including portals outside this plan",
+      "keys.usageShort": "New own-faction Intel plan links automatically consume one destination Key, including links built by other players.",
+      "keys.backupReplace": "An import or reset replaces the previous undo backup.",
+      "keys.importOverwrite": "Apply overwrites selected inventory counts with the reviewed quantities.",
+      "keys.undoOverwrite": "Selected counts will be restored. Selecting conflicts overwrites later changes.",
+      "keys.reviewConflicts": "Conflicting observations (⚠): review names and counts before applying. Blank = not recognized.",
+      "diagnostics.scan": "Scan details",
+      "diagnostics.source": "Data source",
+      "ui.links.summary": "Plan links: {open} open · {ownExisting} own existing · {unverifiedExisting} unverified",
+      "ui.links.occupied": "Occupied: opponents {enemyOccupied} · Machina {machinaOccupied}",
+      "tasks.frees.one": "Unblocks {count} link",
+      "tasks.frees.other": "Unblocks {count} links"
     }
   };
   // AP_LOCALES_END
@@ -5255,7 +5305,7 @@ function wrapper(plugin_info) {
     return label + (task.faction === 'res' || task.faction === 'enl' || task.faction === 'mac' ? ' · ' + ap.t({res:'faction.res',enl:'faction.enl',mac:'faction.mac'}[task.faction]) : '');
   };
   ap.portalTaskHtml = function (task) {
-    return task ? '<div class="ap-portal-task"><b>' + ap.escapeHtml(ap.portalTaskText(task)) + '</b>' + ap.helpHtml(ap.t('portal.beforeLinks')) + '</div>' : '';
+    return task ? '<div class="ap-portal-task"><b>' + ap.escapeHtml(ap.portalTaskText(task)) + '</b></div>' : '';
   };
   ap.getPortalTaskSummary = function () {
     var counts = {capture:0,claim:0,verify:0}, seen = new Set();
@@ -5735,7 +5785,7 @@ function wrapper(plugin_info) {
     return ap.getSuggestedLinkDirections()[link.id] || null;
   };
 
-  ap.taskLinkHtml = function (link, index, suggestions) {
+  ap.taskLinkHtml = function (link, index, suggestions, visitTaskGuid) {
     var direction = ap.getLinkDirection(link);
     var suggestion = !direction && !link.existing && (suggestions ? suggestions[link.id] || null : ap.getSuggestedLinkDirection(link));
     var titleA = ap.displayPortalTitle(link.titleA), titleB = ap.displayPortalTitle(link.titleB);
@@ -5749,7 +5799,7 @@ function wrapper(plugin_info) {
     var html = '<div class="ap-task-link">' + (step >= 0 ? '<b>' + ap.escapeHtml(ap.t('spine.throw', { index: step + 1 })) + '</b> · ' : '') + '<span class="ap-task-status">' + ap.escapeHtml(ap.t(status)) + '</span><div>' + (direction && direction.from===link.b ? ap.portalNameHtml(link.b,titleB)+' → '+ap.portalNameHtml(link.a,titleA) : ap.portalNameHtml(link.a,titleA)+(direction?' → ':' ↔ ')+ap.portalNameHtml(link.b,titleB)) + '</div>';
     if (!link.existing) [link.a,link.b].forEach(function (guid) {
       var ownership = ap.getPortalOwnership(guid);
-      if (ownership.action) html += '<p class="ap-task-warning">' + ap.escapeHtml((guid===link.a?titleA:titleB) + ': ' + ap.portalTaskText(ownership)) + '</p>';
+      if (ownership.action && guid !== visitTaskGuid) html += '<p class="ap-task-warning">' + ap.escapeHtml((guid===link.a?titleA:titleB) + ': ' + ap.portalTaskText(ownership)) + '</p>';
     });
     if (!link.existing) {
       html += '<label>' + ap.escapeHtml(ap.t('tasks.direction')) + ' <select class="ap-task-direction" aria-label="' + ap.escapeHtml(ap.t('tasks.direction')) + '" data-link="' + index + '">';
@@ -5769,10 +5819,10 @@ function wrapper(plugin_info) {
     var blocker = item.blocker;
     var titleA = ap.portalDisplayLabel(blocker.a, blocker.titleA, blocker.latlngA);
     var titleB = ap.portalDisplayLabel(blocker.b, blocker.titleB, blocker.latlngB);
-    var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + (ap.portalNameHtml(blocker.a,titleA)+' ↔ '+ap.portalNameHtml(blocker.b,titleB)) + '</div><div class="ap-task-muted">' + ap.escapeHtml(ap.t(item.manual ? 'tasks.manualCheck' : 'tasks.observed')) + '</div>';
+    var html = '<div class="ap-task-blocker"><b>' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '</b><div>' + (ap.portalNameHtml(blocker.a,titleA)+' ↔ '+ap.portalNameHtml(blocker.b,titleB)) + '</div>' + (item.manual ? '<div class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.manualCheck')) + '</div>' : '');
     html += ap.blockerFactionHtml(blocker, true);
     if (item.links.some(function (link) { return ap.isSamePlanConnection(link, blocker); })) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('blocker.sameConnection')) + '</div>';
-    html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.frees', { count: item.links.length })) + ': ' + item.links.map(function (link) { return ap.portalNameHtml(link.a,link.titleA)+' ↔ '+ap.portalNameHtml(link.b,link.titleB); }).join(', ') + '</div>';
+    html += '<details class="ap-blocker-links"><summary>' + ap.escapeHtml(ap.tp('tasks.frees', item.links.length)) + '</summary><ul>' + item.links.map(function (link) { return '<li>'+ap.portalNameHtml(link.a,link.titleA)+' ↔ '+ap.portalNameHtml(link.b,link.titleB)+'</li>'; }).join('') + '</ul></details>';
     html += '<label>' + ap.escapeHtml(ap.t('tasks.target')) + ' <select class="ap-task-target" aria-label="' + ap.escapeHtml(ap.t('tasks.target')) + '" data-blocker="' + index + '">';
     [['', ap.t('tasks.automatic')], [blocker.a, titleA], [blocker.b, titleB]].forEach(function (option) {
       html += '<option value="' + ap.escapeHtml(option[0]) + '"' + (item.target === option[0] || (!item.target && !option[0]) ? ' selected' : '') + '>' + ap.escapeHtml(option[1]) + '</option>';
@@ -5790,7 +5840,7 @@ function wrapper(plugin_info) {
     if (!ap.getKeysPlugin()) html += '<p>' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
-    html += '<details class="ap-task-notes ap-help" data-stop="route-notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p></details>';
+    html += '<details class="ap-task-notes ap-help" data-stop="route-notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</div><p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.directionKeyHelp')) + '</p><p>' + ap.escapeHtml(ap.t('portal.beforeLinks')) + '</p></details>';
     html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + (estimate ? ' · ' + ap.escapeHtml(ap.t('route.remaining', { distance: ap.formatDistance(estimate.distance) })) : '') + '</div>';
     if (ap.state.workRouteMode === 'portal') html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.portalStartNote')) + '</p>';
     if (!plan.stops.length) html += '<div class="ap-task-empty">' + ap.escapeHtml(ap.t((plan.unscheduledPortals || []).length ? 'tasks.unresolved' : 'route.complete')) + '</div>';
@@ -5810,14 +5860,14 @@ function wrapper(plugin_info) {
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
-      html += ap.portalTaskHtml(stop.portalTask);
+      // The always-visible overview row already names this visit task.
       if (stop.routeTargetType === 'start') html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('walk.start')) + '</div>';
-      if (stop.planVisit) html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('tasks.planVisit')) + '</div>';
+
       stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       if (stop.planVisit) {
         html += '<div class="ap-task-muted">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 })) + (portal.uncertainKeys ? ' · ' + ap.escapeHtml(ap.t('tasks.estimatedKeys')) : '') + '</div>';
         html += '<label>' + ap.escapeHtml(ap.t('tasks.ownedKeys')) + ' <input class="ap-task-owned" type="number" min="0" data-guid="' + ap.escapeHtml(portal.guid) + '" value="' + (ap.getOwnedKeys(portal.guid) === null ? '' : ap.getOwnedKeys(portal.guid)) + '"' + (ap.getOwnedKeys(portal.guid) === null ? ' disabled placeholder="?"' : '') + '></label>';
-        stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
+        stop.links.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions, stop.portalTask ? portal.guid : null); });
         if (!ap.getActiveSpinePlan()) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
       }
       html += '<div class="ap-task-actions"><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button>';
@@ -6642,28 +6692,35 @@ function wrapper(plugin_info) {
     var index = plan.stops.findIndex(function (stop) { return stop.blockers.length || stop.links.length || stop.portalTask; });
     var stop = plan.stops[index];
     var html = '<div class="ap-next-toolbar"><button id="ap-next-all">' + ap.escapeHtml(ap.t('tasks.title')) + '</button><button id="ap-task-reroute">' + ap.escapeHtml(ap.t('tasks.reroute')) + '</button><button id="ap-next-scan"' + (ap.runtime.finalScan && ap.runtime.finalScan.running ? ' disabled' : '') + '>' + ap.escapeHtml(ap.t('action.scan')) + '</button></div>';
-    html += ap.spineNoticeHtml() + ap.planLinkSummaryHtml();
-    html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.workRouteLabel(location)) + '</p>';
-    if (!ap.getKeysPlugin()) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     if (ap.runtime.keyUsageError) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.runtime.keyUsageError) + '</p>';
     var readiness = ap.getReadiness(ap.sortedStats(false));
-    if (readiness && readiness.key !== 'ready') html += '<p class="ap-task-warning">' + ap.escapeHtml(readiness.label + ' · ' + readiness.summary.join(' · ')) + '</p>';
+    var statusReasons = [];
+    if (readiness) {
+      if (readiness.missingKeys) statusReasons.push(ap.tp(readiness.openDirections ? 'readiness.missingKeyEstimated' : 'readiness.missingKey', readiness.missingKeys));
+      if (readiness.unresolvedExistingLinks) statusReasons.push(ap.tp('readiness.unusableLink', readiness.unresolvedExistingLinks));
+      if (readiness.unverifiedExisting) statusReasons.push(ap.t('links.unverified', { count: readiness.unverifiedExisting }));
+      if (readiness.unconfirmedLinks && !readiness.finalScanComplete) statusReasons.push(ap.t(ap.state.lastScan.finalScanAt ? 'scan.finalIncomplete' : 'scan.finalPending'));
+    }
+    var statusHtml = readiness ? '<details class="ap-next-status"><summary>' + ap.escapeHtml([readiness.label].concat(statusReasons).join(' · ')) + '</summary><p>' + ap.escapeHtml(readiness.summary.join(' · ')) + '</p>' + ap.planLinkSummaryHtml() + '</details>' : '';
+    if (!stop) html += statusHtml;
     if (plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
     if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
     var portal = stop.portal, nav = ap.navigationLinks(portal);
     html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.portalNameHtml(portal.guid,portal.title) + '</button></h2>';
     if (location) html += '<p>' + ap.escapeHtml(ap.formatDistance(ap.distanceToPortal(location, portal))) + ' · ' + ap.escapeHtml(ap.t('route.aerial')) + '</p>';
     html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
-    html += '<p>' + ap.escapeHtml(ap.t('tasks.columnBlockers')) + ': ' + stop.blockers.length + ' · ' + ap.escapeHtml(ap.t('tasks.columnLinks')) + ': ' + stop.links.length + '</p>';
+    html += statusHtml;
+    if (!ap.getKeysPlugin()) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('keys.needPlugin')) + '</p>';
     html += ap.portalTaskHtml(stop.portalTask);
     stop.blockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
+    var keyTargets = new Set();
     stop.links.forEach(function (link) {
       var direction = ap.getLinkDirection(link), target = direction && ap.runtime.stats[direction.to];
-      html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions);
-      if (target) html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>';
+      html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions, stop.portalTask ? portal.guid : null);
+      if (target && !keyTargets.has(target.guid)) { keyTargets.add(target.guid); html += '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('next.targetKeys', { title: ap.displayPortalTitle(target.title), owned: ap.keyCountLabel(target.guid), required: target.requiredKeys || 0 })) + '</p>'; }
     });
     if (stop.planVisit && !ap.getActiveSpinePlan()) html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '"> ' + ap.escapeHtml(ap.t('tasks.portalDone')) + '</label>';
-    html += '<details class="ap-help" data-next-id="notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p></details>';
+    html += '<details class="ap-help" data-next-id="notes"' + (ap.state.verboseHints?' open':'') + '><summary>' + ap.escapeHtml(ap.t('tasks.routeHelp')) + '</summary><p>' + ap.escapeHtml(ap.workRouteLabel(location)) + '</p><p>' + ap.escapeHtml(ap.t('tasks.routeNote')) + '</p><p>' + ap.escapeHtml(ap.t('portal.beforeLinks')) + '</p></details>' + ap.spineNoticeHtml();
     return html;
   };
   ap.wireNextTask = function (element) {
@@ -6845,7 +6902,7 @@ function wrapper(plugin_info) {
     if (ap.runtime.finalScan && ap.runtime.finalScan.running) { window.alert(ap.t('walk.finalScan')); return; }
     ap.stopWalkSimulation();
     var model = ap.createWalkSimulation(), element = document.createElement('div');
-    element.innerHTML = ap.spineNoticeHtml() + ap.helpHtml(ap.t('walk.notice')) + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
+    element.innerHTML = '<p class="ap-task-muted">' + ap.escapeHtml(ap.t('walk.simulation')) + '</p>' + ap.spineNoticeHtml() + ap.helpHtml(ap.t('walk.notice')) + ap.planMapLegendHtml(true, model.target) + ap.intelFieldControlsHtml() + ap.blockerMapControlsHtml() + '<div class="ap-toolbar"><button class="ap-walk-previous">' + ap.escapeHtml(ap.t('walk.previous')) + '</button><button class="ap-walk-next">' + ap.escapeHtml(ap.t('walk.next')) + '</button><button class="ap-walk-play">' + ap.escapeHtml(ap.t('walk.play')) + '</button><button class="ap-walk-restart">' + ap.escapeHtml(ap.t('walk.restart')) + '</button></div><div class="ap-walk-content" aria-live="polite"></div>';
     var session = { model: model, element: element, index: 0, playing: false, layer: null, view: null };
     if (window.map && typeof L.LayerGroup === 'function') {
       session.view = { center: window.map.getCenter(), zoom: window.map.getZoom() };
@@ -6991,14 +7048,14 @@ function wrapper(plugin_info) {
     var counts = ap.getPlanLinkSummary();
     var own = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
     return '<div class="ap-task-muted ap-link-summary"><p>' +
-      ap.escapeHtml(ap.t('links.summary', counts)) + '</p>' + (counts.enemyOccupied || counts.machinaOccupied ? '<p>' + ap.escapeHtml(ap.t('links.occupied', counts)) + '</p>' : '') +
+      ap.escapeHtml(ap.t('ui.links.summary', counts)) + '</p>' + (counts.enemyOccupied || counts.machinaOccupied ? '<p>' + ap.escapeHtml(ap.t('ui.links.occupied', counts)) + '</p>' : '') +
       (counts.openDirections ? '<div>' + ap.escapeHtml(ap.t('links.estimatedShort', { count: counts.openDirections })) + ap.helpHtml(ap.t('links.estimatedKeys', { count: counts.openDirections }),'') + '</div>' : '') + '</div>';
   };
   ap.blockerFactionHtml = function (link, hint) {
     var relation = ap.factionRelation(link), faction = ap.normalizeFaction(link && link.faction);
-    var hints = { own: 'faction.ownHint', enemy: 'faction.enemyHint', unknown: 'faction.unknownHint' };
+    var hints = { own: 'faction.ownHint', unknown: 'faction.unknownHint' };
     return '<div class="ap-blocker-faction ap-blocker-faction-' + relation + ' ap-blocker-faction-' + faction + '">' + ap.escapeHtml(ap.blockerFactionText(link)) +
-      (hint ? '<small>' + ap.escapeHtml(ap.t(faction === 'mac' ? 'faction.machinaHint' : hints[relation])) + '</small>' : '') + '</div>';
+      (hint && (relation === 'own' || faction === 'unknown') ? '<small>' + ap.escapeHtml(ap.t(hints[relation])) + '</small>' : '') + '</div>';
   };
   ap.blockerFactionSummary = function (blockers) {
     var counts = { res: 0, enl: 0, mac: 0, unknown: 0 }, seen = new Set();
@@ -7746,7 +7803,7 @@ function wrapper(plugin_info) {
   };
   ap.showKeyList = function () {
     var element = document.createElement('div');
-    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.listNotice')) + '</p><p>' + ap.escapeHtml(ap.t('keys.usageNotice')) + '</p><div class="ap-toolbar"><input type="search" class="ap-search" aria-label="' + ap.escapeHtml(ap.t('keys.listSearch')) + '" placeholder="' + ap.escapeHtml(ap.t('keys.listSearch')) + '"><select aria-label="' + ap.escapeHtml(ap.t('keys.listSort')) + '"><option value="name">' + ap.escapeHtml(ap.t('keys.listSortName')) + '</option><option value="count">' + ap.escapeHtml(ap.t('keys.listSortCount')) + '</option></select><button>' + ap.escapeHtml(ap.t('keys.listRefresh')) + '</button></div><div class="ap-key-list-content" aria-live="polite"></div>';
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.inventoryScope')) + '</p>' + ap.helpHtml(ap.t('keys.listNotice')) + '<p>' + ap.escapeHtml(ap.t('keys.usageShort')) + '</p>' + ap.helpHtml(ap.t('keys.usageNotice')) + '<div class="ap-toolbar"><input type="search" class="ap-search" aria-label="' + ap.escapeHtml(ap.t('keys.listSearch')) + '" placeholder="' + ap.escapeHtml(ap.t('keys.listSearch')) + '"><select aria-label="' + ap.escapeHtml(ap.t('keys.listSort')) + '"><option value="name">' + ap.escapeHtml(ap.t('keys.listSortName')) + '</option><option value="count">' + ap.escapeHtml(ap.t('keys.listSortCount')) + '</option></select><button>' + ap.escapeHtml(ap.t('keys.listRefresh')) + '</button></div><div class="ap-key-list-content" aria-live="polite"></div>';
     ap.runtime.keyListElement = element;
     element.querySelector('input').oninput = ap.refreshKeyList;
     element.querySelector('select').onchange = ap.refreshKeyList;
@@ -7824,7 +7881,7 @@ function wrapper(plugin_info) {
     var reviewed;
     try { reviewed = ap.keyInventory(); } catch (error) { window.alert(error.message); return; }
     var element = document.createElement('div');
-    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.resetConfirm', { portals: reviewed.length, count: reviewed.reduce(function (sum, row) { return sum + row.count; }, 0) })) + '</p><p>' + ap.escapeHtml(ap.t('keys.undoNotice')) + '</p><button class="ap-key-reset-confirm">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><p role="status"></p>';
+    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.resetConfirm', { portals: reviewed.length, count: reviewed.reduce(function (sum, row) { return sum + row.count; }, 0) })) + '</p><p>' + ap.escapeHtml(ap.t('keys.backupReplace')) + '</p>' + ap.helpHtml(ap.t('keys.undoNotice')) + '<button class="ap-key-reset-confirm">' + ap.escapeHtml(ap.t('keys.reset')) + '</button><p role="status"></p>';
     var button = element.querySelector('button'); button.disabled = !reviewed.length;
     button.onclick = function () {
       try { var count = ap.resetAllKeys(reviewed); element.querySelector('[role="status"]').textContent = ap.t('keys.applied', { count: count }); }
@@ -7841,7 +7898,7 @@ function wrapper(plugin_info) {
       rows = ap.keyUndoRows(backup);
     } catch (error) { window.alert(error.message); return; }
     var element = document.createElement('div');
-    var html = '<p>' + ap.escapeHtml(ap.t('keys.undoReview')) + '</p><div class="ap-scroll-table"><table><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.restore', 'keys.undoStatus'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    var html = '<p>' + ap.escapeHtml(ap.t('keys.undoOverwrite')) + '</p>' + ap.helpHtml(ap.t('keys.undoReview')) + '<div class="ap-scroll-table"><table><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.restore', 'keys.undoStatus'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
     rows.forEach(function (row, index) {
       html += '<tr><td><input type="checkbox" data-index="' + index + '" aria-label="' + ap.escapeHtml(ap.t('keys.select')) + '"' + (row.selected ? ' checked' : '') + (row.restored || row.current === null ? ' disabled' : '') + '></td><td>' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + '</td><td>' + (row.current === null ? '?' : row.current) + '</td><td>' + row.before + '</td><td>' + ap.escapeHtml(ap.t(row.restored ? 'keys.alreadyRestored' : row.conflict ? 'keys.undoConflict' : 'keys.undoReady')) + '</td></tr>';
     });
@@ -7989,7 +8046,7 @@ function wrapper(plugin_info) {
   ap.showKeyImport = function () {
     if (!ap.getKeysPlugin()) { window.alert(ap.t('keys.needPlugin')); return; }
     var element = document.createElement('div'), job = null, rows = [], signature;
-    element.innerHTML = '<p>' + ap.escapeHtml(ap.t('keys.notice')) + '</p><p>' + ap.escapeHtml(ap.t('keys.undoNotice')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
+    element.innerHTML = ap.helpHtml(ap.t('keys.notice') + ' ' + ap.t('keys.undoNotice')) + '<p>' + ap.escapeHtml(ap.t('keys.importOverwrite')) + '</p><p>' + ap.escapeHtml(ap.t('keys.backupReplace')) + '</p><input class="ap-key-files" aria-label="' + ap.escapeHtml(ap.t('keys.import')) + '" type="file" accept="image/*,video/*" multiple><select class="ap-key-language"><option value="eng">English</option><option value="deu">Deutsch</option></select><p><button class="ap-key-start">' + ap.escapeHtml(ap.t('keys.start')) + '</button> <button class="ap-key-cancel">' + ap.escapeHtml(ap.t('keys.cancel')) + '</button></p><p class="ap-key-progress" role="status"></p><div class="ap-key-review"></div><button class="ap-key-apply" disabled>' + ap.escapeHtml(ap.t('keys.apply')) + '</button>';
     element.querySelector('.ap-key-language').value = ap.getLanguage() === 'de' ? 'deu' : 'eng';
     var start = element.querySelector('.ap-key-start'), apply = element.querySelector('.ap-key-apply'), status = element.querySelector('.ap-key-progress');
     function cancel() {
@@ -8010,7 +8067,7 @@ function wrapper(plugin_info) {
         var html = '<table><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.recognized', 'keys.needed'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
         rows.forEach(function (row, i) { html += '<tr><td><input type="checkbox" data-index="' + i + '"' + (row.selected ? ' checked' : '') + '></td><td title="' + ap.escapeHtml(row.evidence) + '">' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + (row.conflict ? ' ⚠' : '') + '</td><td>' + ap.keyCountLabel(row.guid) + '</td><td><input type="number" min="0" step="1" class="ap-count-input" data-index="' + i + '" value="' + (row.count === null ? '' : row.count) + '"></td><td>' + row.required + '</td></tr>'; });
         element.querySelector('.ap-key-review').innerHTML = html + '</tbody></table>';
-        status.textContent = ap.t('keys.review'); apply.disabled = !rows.length;
+        status.textContent = ap.t(rows.some(function (row) { return row.conflict; }) ? 'keys.reviewConflicts' : 'keys.review'); apply.disabled = !rows.length;
       } catch (error) { status.textContent = job.signal.aborted ? ap.t('keys.cancelled') : error.message; }
       finally { start.disabled = false; }
     };
@@ -9153,7 +9210,7 @@ function wrapper(plugin_info) {
       missing.forEach(function (guid) { if (!ap.runtime.nameLoader.seen.has(guid)) { ap.runtime.nameLoader.seen.add(guid); ap.runtime.nameLoader.queue.push(guid); } });
       return;
     }
-    if (!missing.length) { ap.setMessage(ap.t('message.namesNoneMissing')); return; }
+    if (!missing.length) { if (!auto) ap.setMessage(ap.t('message.namesNoneMissing')); return; }
     var loader = { queue: missing.slice(), seen: new Set(missing), index: 0 };
     ap.runtime.nameLoader = loader;
     ap.setMessage(ap.t(auto ? 'message.namesLoadingAuto' : 'message.namesLoading', { current: 0, total: loader.queue.length }));
@@ -9166,8 +9223,10 @@ function wrapper(plugin_info) {
       }
       if (!guid) {
         ap.runtime.nameLoader = null;
-        ap.setMessage(ap.t(auto ? 'message.namesLoadedAuto' : 'message.namesLoaded') + ' ' + ap.t('message.namesUnavailable'));
-        ap.renderOverlays(); ap.renderPanel(); ap.refreshFanPlanner(); ap.refreshTaskList(); return;
+        var unresolvedNames = ap.collectMissingPortalNameGuids().length;
+        ap.renderOverlays(); ap.renderPanel(); ap.refreshFanPlanner(); ap.refreshTaskList();
+        if (unresolvedNames || !auto) ap.setMessage(ap.t(unresolvedNames ? 'message.namesUnavailable' : 'message.namesLoaded'));
+        return;
       }
       ap.requestPortalDetails(guid, function (data) {
         var marker = window.portals && window.portals[guid], title = ap.getPortalTitleFromMarker(guid, marker);
@@ -9637,9 +9696,9 @@ function wrapper(plugin_info) {
       var scanLinks = Number(last.plannedLinks) || 0;
       var scanPortals = Number(last.resolvedPortals) || 0;
       var scanOpenEndpoints = Number(last.unresolvedEndpoints) || 0;
-      html += 'Scan: ' + ap.escapeHtml(ap.tp('scan.summaryLink', scanLinks)) + ' · ' + ap.escapeHtml(ap.tp('scan.summaryPortal', scanPortals));
+      html += '<details class="ap-scan-details"><summary>' + ap.escapeHtml(ap.t('diagnostics.scan')) + '</summary>' + ap.escapeHtml(ap.tp('scan.summaryLink', scanLinks)) + ' · ' + ap.escapeHtml(ap.tp('scan.summaryPortal', scanPortals));
       if (scanOpenEndpoints) html += ' · ' + ap.escapeHtml(ap.tp('scan.summaryEndpoint', scanOpenEndpoints));
-      if ((Number(last.unconfirmedLinks) || 0) > 0) html += ' · ' + ap.escapeHtml(ap.t(last.finalScanComplete ? 'scan.finalComplete' : (finalScanIncomplete ? 'scan.finalIncomplete' : (finalScanResumable ? 'scan.finalPaused' : 'scan.finalPending'))));
+      html += '</details>';
       if (finalScanIncomplete && (Number(last.unconfirmedLinks) || 0) > 0) {
         var finalReason = finalScanResumable && last.finalScanTimedOut ? 'message.finalScanRetry' :
           (Number(last.finalScanTotalViews) > ap.FINAL_SCAN_MAX_VIEWS ? 'message.finalScanLimit' : 'message.finalScanIncomplete');
@@ -9647,7 +9706,7 @@ function wrapper(plugin_info) {
       }
       if (last.unresolvedSample && last.unresolvedSample.length) {
         html += '<div class="ap-unresolved"><b>' + ap.escapeHtml(ap.t('diagnostics.openEndpoints')) + '</b>';
-        html += '<div class="ap-hint">' + ap.escapeHtml(ap.t('diagnostics.help')) + '</div>';
+        html += '<div class="ap-hint">' + ap.helpHtml(ap.t('diagnostics.help')) + '</div>';
         last.unresolvedSample.forEach(function (u) {
           html += '<div class="ap-unresolved-item">' + ap.escapeHtml(ap.t('diagnostics.segment', { segment: u.segment, end: u.end })) + ' ' + ap.escapeHtml(Number(u.lat).toFixed(6)) + ',' + ap.escapeHtml(Number(u.lng).toFixed(6));
           if (u.nearestTitle) html += ' · ' + ap.escapeHtml(ap.t('diagnostics.nearestPortal', { title: ap.displayPortalTitle(u.nearestTitle), distance: u.nearestDistance }));
@@ -9708,7 +9767,7 @@ function wrapper(plugin_info) {
       html += '<details class="ap-row ap-planportal" data-guid="' + ap.escapeHtml(stat.guid) + '"' + (expandedPortals[stat.guid] ? ' open' : '') + '>';
       html += '<summary class="ap-row-title"><span class="ap-route-number">' + ap.escapeHtml((local.routeOrder == null ? 0 : local.routeOrder) + 1) + '.</span> <span class="ap-status ' + status.cls + '">' + status.symbol + '</span> <b>' + ap.portalNameHtml(stat.guid,stat.title) + '</b><span class="ap-row-keys">' + ap.escapeHtml(ap.t('row.keys', { owned: ap.keyCountLabel(stat.guid), required: stat.requiredKeys })) + '</span></summary>';
       if (stat.address) html += '<div class="ap-address">' + ap.escapeHtml(stat.address) + '</div>';
-      html += '<div class="ap-meta">' + (stat.source ? ap.escapeHtml(stat.source) + ' · ' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + (ap.getOwnedKeys(stat.guid) === null ? '' : ap.getOwnedKeys(stat.guid)) + '"' + (ap.getOwnedKeys(stat.guid) === null ? ' disabled placeholder="?"' : '') + '> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
+      html += '<div class="ap-meta">' + (stat.source ? '<details class="ap-source-details"><summary>' + ap.escapeHtml(ap.t('diagnostics.source')) + '</summary>' + ap.escapeHtml(stat.source) + '</details>' : '') + ap.escapeHtml(ap.t('row.links', { count: stat.linkCount })) + ' · ' + ap.escapeHtml(ap.t('row.existing', { count: stat.existingLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.open', { count: stat.openLinks || stat.requiredKeys || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.blocked', { count: stat.blockedLinks || 0 })) + ' · ' + ap.escapeHtml(ap.t('row.keysNeeded')) + ' <input class="ap-owned" type="number" min="0" value="' + (ap.getOwnedKeys(stat.guid) === null ? '' : ap.getOwnedKeys(stat.guid)) + '"' + (ap.getOwnedKeys(stat.guid) === null ? ' disabled placeholder="?"' : '') + '> / ' + ap.escapeHtml(stat.requiredKeys) + ' · ' + ap.escapeHtml(status.label) + '</div>';
       html += '<div class="ap-controls"><button class="ap-move-up" title="' + ap.escapeHtml(ap.t('row.moveUp')) + '">↑</button><button class="ap-move-down" title="' + ap.escapeHtml(ap.t('row.moveDown')) + '">↓</button> <label><input class="ap-done-check" type="checkbox" ' + (local.done ? 'checked' : '') + '> ' + ap.escapeHtml(ap.t('row.done')) + '</label> <button class="ap-show-details">' + ap.escapeHtml(ap.t('row.showDetails')) + '</button> <button class="ap-share">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
       if (ap.workPoint(stat)) html += '<button class="ap-start-route">' + ap.escapeHtml(ap.t('tasks.startPortal')) + '</button>';
       html += '<input class="ap-note" type="hidden" value="' + ap.escapeHtml(local.note || '') + '">';

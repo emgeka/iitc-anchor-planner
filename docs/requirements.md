@@ -1,4 +1,4 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.38
+# Anforderungen für Entwicklungsstand 0.2.0-beta.39
 
 ## Abgestimmte UI-Anforderungen (2026-10-29, umgesetzt in Beta 37)
 
@@ -453,3 +453,7 @@ Native select-Options bleiben Klartext (keine mehrfarbigen Optionsinhalte). Tool
 ## Fensterkorrektur Beta 38
 Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und obere Aktionsleisten bleiben beim Scrollen sichtbar. Kompakte Maße sind Ausgangsgrößen; Dialoge können über Randgriffe beziehungsweise die Ecke verändert werden, die Ecke zusätzlich per Pfeiltasten. Nach Größenänderung entfällt die innere Prozenthöhenbegrenzung, der Inhalt nutzt den verfügbaren Platz. Ein-/Aufklappen stellt die gewählte Größe wieder her. Fenster werden im sichtbaren Viewport gehalten; keine dauerhafte Speicherung von Fenstergrößen und keine Änderung an Plan, Keys oder Erledigung.
 Native IITC-/jQuery-UI-Resizegriffe ausdrücklich aktivieren; zusätzlicher Pointer-/Tastaturgriff als Fallback ohne zusätzliche Bibliothek. Desktop-/Mobile-Praxistest beim Nutzer steht aus.
+
+
+## Textbereinigung Beta 39
+Beta 39 bereinigt wiederholte Routinetexte in Aufgaben, Blockern, Nächste Aufgabe, Vorschau und Keydialogen. Konkrete Tätigkeiten, Fraktionen, Besitzvoraussetzungen, fehlende Intel-Bestätigung und unvollständige Prüfungen bleiben sichtbar. Entsperrte Linklisten, Scan-/Herkunftsdiagnosen und allgemeine Anleitungen sind aufklappbar. Nächste Aufgabe beginnt mit Portal und Navigation. Simulation wird einmal gekennzeichnet; Überschreib-, Reset- und Rücknahmefolgen bleiben ausdrücklich sichtbar. Namensladen meldet nur tatsächlich verbleibende Lücken. Exportberichte behalten ihren eigenständigen Kontext. Routing, Plangeometrie und Keybuchungsregeln bleiben unverändert. Allgemeine Hilfe pro Arbeitsbereich bündeln, auch bei verboseHints=true. Keine Pflichtinformation ausschließlich per Hover oder Farbe vermitteln. Vollständige Betroffenheit vor Bestandsänderungen sichtbar halten.

@@ -62,7 +62,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.32` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.39` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -71,7 +71,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.32` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.39` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -158,7 +158,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.38` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.39` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -168,7 +168,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.38` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.39` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -295,3 +295,9 @@ Lokale Prüfung am 2026-10-29: originale IITC-Dialoghülle/Leaflet mit synthetis
 feature/resizable-beta38 nach beta. Umfang: sichtbare Titel-/Aktionsleisten, freie Größenänderung und mitwachsender Inhalt; Beta-37-Features erhalten. 397 Locale-Schlüssel. Alle elf Suiten, Syntax, Locale-/Beta-Konsistenz, Metadaten/Branchpolicy und Whitespace prüfen. UI-Tests für Pointerdrag/Abbruch, Tastatur, Viewportgrenzen, Widgetmaß-Synchronisierung und Listenercleanup erweitert. Native Maus-/Rand-/Eckgriffe, Scrollleisten, Collapse/Expand und schmale Ansichten lokal prüfen; echter Nutzer-IITC-/Mobile-Test steht aus. Stable-Dateien unverändert.
 
 Lokale Browserprüfung am 2026-10-29 mit originalen IITC-Dialogen und Leaflet erfolgreich: Aufgabenliste gescrollt (657 px), Titel und Toolbarposition unverändert. Mausziehen am rechten Rand vergrößert nur die Breite; Eckziehen vergrößert auch die nutzbare Inhaltshöhe (682×575 px, Inhalt = verfügbar 472,1 px). Einklappen auf 53 px und Aufklappen stellt gewählte Maße wieder her; Verschieben erhält 682×575 px. 360×800 und 280×650 geprüft, Titel/OK im Viewport; Größenänderung zusätzlich per Pfeiltasten geprüft. Keine echte IITC-/Mobile-Nutzerabnahme für Beta 38; synthetische Daten.
+
+
+## Textbereinigung Beta 39
+feature/concise-beta39 von beta; ausdrücklich freigegebene Textbereinigung auf Grundlage docs/text-review-beta38.md. 402 Locale-Schlüssel. Alle elf Suiten, Syntax aller Quellen, Locale-/Beta-Konsistenz, Branchpolicy, Whitespace und unveränderte Stable-Dateien prüfen. Regressionen für kompakte Blocker, Bestätigungsunsicherheit, beide Endportalvoraussetzungen, Namensabschluss und unveränderten Exportkontext ergänzen. Keine zusätzliche Funktion außerhalb der Textbereinigung.
+
+Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit synthetischem Plan auf Desktop und 360×800. Kompakte nächste Aufgabe, direkt sichtbarer Keymangel/Finalcheck, Machina-Belegung und aufklappbare betroffene Links geprüft. Ausführliche Hinweise erzeugen keine Hilfe pro Portal; Linklisten bleiben geschlossen. Resetdialog nennt alle Keys einschließlich außerhalb des Plans und Sicherungsersatz direkt. Kein horizontaler Inhaltsüberlauf (340 px Dialog), keine Browserfehler; Viewport zurückgesetzt. Keine echte IITC-/Mobile-Nutzerabnahme.

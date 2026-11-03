@@ -590,7 +590,7 @@ console.log("Spine throw sequence, alternate directions, removal deadlines and m
   assert.equal(plan.stops.filter(s=>s.portalTask?.action==='capture').length,2,'Both enemy ends need capture, independently of key stock');
   for(const guid of ['A','B'])assert.ok(plan.stops.findIndex(s=>s.portal.guid===guid&&s.portalTask)<=throwIndex);
   assert.equal(plan.stops.flatMap(s=>s.blockers).length,1,'Capture can remove an incident shared blocker without another automatic detour');
-  assert.equal(ap.getPortalTaskSummary().capture,2);assert.match(ap.nextTaskHtml(),/Capture portal/);assert.match(ap.routeTargetLabel(ap.getRouteTasks(null)[0],false),/Next portal task/);
+  assert.equal(ap.getPortalTaskSummary().capture,2);assert.match(ap.nextTaskHtml(),/Capture and deploy/);assert.match(ap.routeTargetLabel(ap.getRouteTasks(null)[0],false),/Next portal task/);
   const before=JSON.stringify(context.window.portals);ap.ensureAnchorState('B').done=true;ap.runtime.workPlan=null;
   assert.equal(ap.getWorkPlan(null).stops.filter(s=>s.portalTask).length,2,'Manual portal done is no proof of capture');
   context.window.portals.B.options.team='RESISTANCE';const updated=ap.getWorkPlan(null);
@@ -612,4 +612,14 @@ console.log('Portal prerequisites: both endpoints, independent keys, captures/ne
   assert.equal(ap.getPortalOwnership('cached').action,'capture');assert.equal(ap.getPortalOwnership('cached').source,'details');
   fresh=false;assert.equal(ap.getPortalOwnership('cached').action,'verify');assert.equal(requests,0,'Ownership reads must never request Intel data themselves');
   context.window.portalDetail.get=()=>{throw Error('unavailable')};fresh=true;assert.equal(ap.getPortalOwnership('cached').action,'verify');
+}
+
+{
+  const {ap}=runtime();portal(ap,'A',0);portal(ap,'B',2);const ab=link(ap,'A','B');direction(ap,ab,'A');
+  ap.state.lastScan={plannedLinks:1,unconfirmedLinks:1,finalScanAt:'2026-11-03',finalScanComplete:false};
+  const html=ap.nextTaskHtml();
+  assert.ok(html.indexOf('<h2>')<html.indexOf('ap-next-status'),'Start with the current portal, not a plan-wide report');
+  assert.match(html,/<summary>[^<]*final blocker check incomplete/,'Incomplete validation stays visible without expanding');
+  assert.match(html,/ap-task-warning[^>]*>Inventory unknown/,'Missing Keys integration is visible independently of expanded statistics');
+  assert.equal((html.match(/Required at both ends before any dependent link/g)||[]).length,1,'Explain ownership prerequisites once per area');
 }

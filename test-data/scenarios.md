@@ -687,3 +687,9 @@ Bei offenem Dialog breit → 360 px → 280 px → breit prüfen: Abstand, Umbru
 - Nach Resize ein-/aufklappen und verschieben: gewählte Maße erhalten, Titelknöpfe funktionieren. Live-Taskrefresh verändert Maße/Scroll nicht.
 - Fenster schmal öffnen, Viewport verbreitern, über alte Anfangsgrenze hinaus vergrößern. 360×800/280×650: Umbruch, Griffe, Close/OK erreichbar. Hauptpanelkopf beim Scrollen sichtbar.
 - Schließen räumt Dialogobserver/-listener auf; keine Änderung von Geometrie, Keys, Erledigung, Anzeigepräferenzen.
+
+
+## Textbereinigung Beta 39
+Kompakt und ausführlich vergleichen: Blockerkarten ohne Standard-Scanzeile/pauschale Abbauanweisung; Fraktion, Belegung, konkretes Abbauziel und manuelle Intel-Bestätigung sichtbar. Entsperrte Linkliste auf-/zuklappen. Besuchseigene Eroberung einmal, anderes Linkende weiterhin warnen. Nächste Aufgabe beginnt mit Portal/Navigation; unsicheren Finalcheck und fehlendes Keys-Plugin direkt anzeigen. Vorschau klar als Simulation, Sperrgründe weiter vorhanden. Keyimport/Reset/Rücknahme zeigen Überschreibumfang und Sicherungsersatz, Konflikte/Teilfehler erhalten. Namensladen: automatischer Erfolg still, expliziter Erfolg bestätigt, echte Restlücke gemeldet. Desktop und schmale Fenster, Tastatur/Touch, Resize-/Titelverhalten erhalten. Exporte mit vollständigem Kontext und echte Bestände unverändert.
+
+Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit synthetischem Plan auf Desktop und 360×800. Kompakte nächste Aufgabe, direkt sichtbarer Keymangel/Finalcheck, Machina-Belegung und aufklappbare betroffene Links geprüft. Ausführliche Hinweise erzeugen keine Hilfe pro Portal; Linklisten bleiben geschlossen. Resetdialog nennt alle Keys einschließlich außerhalb des Plans und Sicherungsersatz direkt. Kein horizontaler Inhaltsüberlauf (340 px Dialog), keine Browserfehler; Viewport zurückgesetzt. Keine echte IITC-/Mobile-Nutzerabnahme.

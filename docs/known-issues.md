@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.38
+# Bekannte Grenzen in 0.2.0-beta.39
 
 Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Einstellungen speichern ausführliche Hinweise und eigene Planfeldfüllung. Native Auswahlmenüs behalten systembedingt Klartext; farbige Namen stehen außerhalb der Optionslisten. Besitzfarben zeigen Beobachtungen, keine simulierte Eroberung. Die Anordnung der Settings in Beta 36 wurde vom Nutzer bestätigt; Testplattform unbekannt.
 
@@ -376,3 +376,9 @@ Beta 38 korrigiert ausschließlich die vereinbarten Fensterprobleme: Titel und o
 Native IITC-/jQuery-UI-Resizegriffe ausdrücklich aktivieren; zusätzlicher Pointer-/Tastaturgriff als Fallback ohne zusätzliche Bibliothek. Desktop-/Mobile-Praxistest beim Nutzer steht aus.
 
 Lokale Browserprüfung am 2026-10-29 mit originalen IITC-Dialogen und Leaflet erfolgreich: Aufgabenliste gescrollt (657 px), Titel und Toolbarposition unverändert. Mausziehen am rechten Rand vergrößert nur die Breite; Eckziehen vergrößert auch die nutzbare Inhaltshöhe (682×575 px, Inhalt = verfügbar 472,1 px). Einklappen auf 53 px und Aufklappen stellt gewählte Maße wieder her; Verschieben erhält 682×575 px. 360×800 und 280×650 geprüft, Titel/OK im Viewport; Größenänderung zusätzlich per Pfeiltasten geprüft. Keine echte IITC-/Mobile-Nutzerabnahme für Beta 38; synthetische Daten.
+
+
+## Textbereinigung Beta 39
+Beta 39 verändert die Textdarstellung, keine Baubarkeitsprüfung. Allgemeine Erklärungen sind weiterhin per Tastatur/Touch erreichbar; nur Diagnose- und globale Detailwerte können eingeklappt sein. Fehlende Bestandsdaten, unvollständiger Finalcheck und lokale Voraussetzungen bleiben sichtbar. DE/EN gepflegt, andere Sprachen verwenden für geänderte Texte teilweise EN-Fallback. Echter IITC-/Mobile-Nutzertest bleibt ausstehend.
+
+Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit synthetischem Plan auf Desktop und 360×800. Kompakte nächste Aufgabe, direkt sichtbarer Keymangel/Finalcheck, Machina-Belegung und aufklappbare betroffene Links geprüft. Ausführliche Hinweise erzeugen keine Hilfe pro Portal; Linklisten bleiben geschlossen. Resetdialog nennt alle Keys einschließlich außerhalb des Plans und Sicherungsersatz direkt. Kein horizontaler Inhaltsüberlauf (340 px Dialog), keine Browserfehler; Viewport zurückgesetzt. Keine echte IITC-/Mobile-Nutzerabnahme.
