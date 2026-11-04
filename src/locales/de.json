@@ -406,5 +406,6 @@
   "tasks.returnManualOrder": "Rückbesuch · gespeicherte Reihenfolge",
   "tasks.returnPrerequisites": "Rückbesuch · zuvor andere Portal- oder Blockeraufgaben",
   "tasks.returnDistance": "Rückbesuch · kürzere Gesamtstrecke",
-  "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag"
+  "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag",
+  "portal.openDetails": "Details anzeigen: {title}"
 }

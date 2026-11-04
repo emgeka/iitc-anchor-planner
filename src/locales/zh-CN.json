@@ -406,5 +406,6 @@
   "tasks.returnManualOrder": "Return visit · saved order",
   "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
   "tasks.returnDistance": "Return visit · shorter overall route",
-  "tasks.returnLimited": "Return visit · bounded route proposal"
+  "tasks.returnLimited": "Return visit · bounded route proposal",
+  "portal.openDetails": "Show portal details: {title}"
 }

@@ -62,7 +62,7 @@ runtime test. Future maintenance should normally use a pull request.
 New functional areas and substantial reworks increment the minor version;
 patch releases contain fixes and small adjustments. Beta iterations use
 `X.Y.0-beta.N`. Tasks, directed links and integrated routing target `0.2.0`;
-the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.40` with the
+the previous `0.1.56-beta.*` builds are superseded by `0.2.0-beta.41` with the
 compatible saved data. Walk Sim joins the planned 0.2.0 feature scope.
 
 ### Installation channels
@@ -71,7 +71,7 @@ Stable installations and the Community catalog continue to use
 `main/releases/iitc-anchor-planner.user.js`. Branch creation does not publish a
 new plugin release. Initially `beta` and `feature/link-direction` share the
 stable source at branch creation. The current test build is
-`0.2.0-beta.40` under `beta-builds/`, with integrated tasks, explicit link
+`0.2.0-beta.41` under `beta-builds/`, with integrated tasks, explicit link
 directions, preselected direction suggestions, Keys import, complete inventory reset
 and persistent undo with conflict review, a complete searchable key inventory list,
 automatic key consumption for newly observed plan links and Walk Sim.
@@ -158,7 +158,7 @@ sollen normalerweise über einen Pull Request erfolgen.
 Neue Funktionsbereiche und grundlegende Überarbeitungen erhöhen die
 Minor-Version; Patch-Releases enthalten Korrekturen und kleinere Anpassungen.
 Beta-Iterationen verwenden `X.Y.0-beta.N`. Aufgaben, Wurfrichtung und gemeinsame
-Routenplanung zielen auf `0.2.0`; `0.2.0-beta.40` ersetzt die bisherigen
+Routenplanung zielen auf `0.2.0`; `0.2.0-beta.41` ersetzt die bisherigen
 `0.1.56-beta.*`-Builds mit kompatiblen gespeicherten Daten. Walk Sim gehört ebenfalls
 zum vorgesehenen Funktionsumfang von 0.2.0.
 
@@ -168,7 +168,7 @@ Stabile Installationen und Community-Katalog verwenden weiterhin
 `main/releases/iitc-anchor-planner.user.js`. Das Anlegen von Branches erzeugt
 keine neue Pluginveröffentlichung. Anfangs enthalten `beta` und
 `feature/link-direction` beim Anlegen dieselbe stabile Quelle. Der aktuelle
-Testbuild ist `0.2.0-beta.40` unter `beta-builds/` mit gemeinsamen Aufgaben,
+Testbuild ist `0.2.0-beta.41` unter `beta-builds/` mit gemeinsamen Aufgaben,
 ausdrücklichen Wurfrichtungen, vorausgewählten Richtungsvorschlägen, Keyimport,
 vollständigem Bestandsreset, persistenter Rücknahme mit Konfliktprüfung,
 durchsuchbarer Gesamtbestandsliste, automatischer Verbrauchsbuchung bei neu erkannten Planlinks und Walk Sim.
@@ -307,3 +307,9 @@ Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit 
 feature/visit-routing-beta40 von aktuellem beta. Ausdrücklich freigegeben: besuchsorientierte Bündelung und begrenzte Routenbewertung, unabhängige Würfe vorziehen, notwendige Rückkehr erklären. 408 Locale-Schlüssel; sechs neue Texte DE/EN, sonst EN-Fallback. Regressionen zu den beiden nachgestellten Nutzerproblemen sowie Teilbündelung, expliziten Abbauzielen, Richtungs-/Wurffolgensicherheit, Besitzzyklen, Aufwandgrenzen und unveränderter Vorschau/Keys. Alle elf Suiten, Syntax aller Quellen, Locale-/Beta-Build, Branchpolicy und Whitespace prüfen. Stable 0.1.55 unverändert.
 
 Lokale Beta-40-Prüfung am 2026-11-03 mit originalen IITC-Dialogdateien/Leaflet: automatische Route ohne Standort zeigt B (Eroberung und Wurf) → A, gespeicherte Reihenfolge B (Eroberung) → A → B mit Rückbesuchsgrund. Vorschau übernimmt denselben Grund und simuliert bei fehlendem Ziel-Key keinen Wurf. Desktop und 360×800, 340-px-Dialog ohne horizontalen Inhaltsüberlauf, keine Browserfehler; Viewport zurückgesetzt. Zusätzlich 40 deterministische synthetische Besitz-/Richtungsfälle ohne verlorene Würfe oder Zustandsänderung und ein 200-Portal-/199-Link-Fall geprüft: 299 auf 203 Stopps, 192 Versuche, Begrenzung ausgewiesen und alle Links erhalten. Kein echter IITC-/Mobile-Nutzertest.
+
+
+## Beta 41 – abgestimmte Revision
+feature/routing-details-beta41 von beta: Rückbesuche zuerst, Besuchsreihenfolgen unabhängig von Endpunktvarianten budgetieren, einheitlich anklickbare Portalnamen. 409 Locale-Schlüssel, neuer Detail-Labeltext DE/EN, sonst EN. Alle elf Suiten, Quell-/Build-Syntax, Locale-/Beta-Konsistenz, Branchpolicy, Diff-Whitespace und unveränderte Stable-Dateien prüfen. Keine Stable-Freigabe; releases bleibt 0.1.55.
+
+Lokale Beta-41-Prüfung am 2026-11-04 mit originalen IITC-Dialogdateien/Leaflet und synthetischem Plan: Namensklick in Aufgaben, Hauptpanel-Summary, Checkbox-Label, Keybestand und Vorschau öffnet passende IITC-Details. Enter/Space funktionieren; Summary/Checkbox behalten ihren Zustand, keine verschachtelten Namensbuttons, RES-/ENL-Farben erhalten. Nicht geladenes Portal ersetzt alte Details durch Hinweis. Desktop und 360×800: 340-px-Dialog ohne horizontalen Inhaltsüberlauf; keine Browserwarnungen/-fehler, Viewport zurückgesetzt. Keine echte IITC-/Mobile-Nutzerabnahme.

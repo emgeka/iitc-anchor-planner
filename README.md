@@ -28,7 +28,9 @@ Current release: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta testing: 0.2.0-beta.40
+### Beta testing: 0.2.0-beta.41
+
+Beta 41 prioritizes fewer return visits, then fewer stops, then shorter straight-line travel. Small detours remain capped at 5% of the fixed reference distance. A prerequisite-aware visit seed and separate search budgets improve larger plans and plans without GPS. Confirmed directions, selected removal endpoints and manual/Spine throw sequences remain binding. Portal names consistently open IITC details across summaries, Tasks, planners, inventory and preview, including keyboard access. Name clicks do not toggle rows or checkboxes; faction colors remain intact. Unloaded portals show an unavailable-details message.
 
 Beta 40 bundles portal preparation, blocker removal and throws into shared visits. Independent throws can move to an earlier visit; blocked work stays behind its prerequisites. Route scoring now accounts for return visits, with a small, capped distance trade-off. Local consolidation also runs without GPS and outside the larger permutation search. Confirmed sources, explicit removal targets and manual/Spine throw order are preserved. Remaining return visits carry a short reason in Tasks, Next task and Plan preview. Inventory, completion and plan geometry remain unchanged.
 
@@ -61,8 +63,8 @@ The view includes explicit per-link direction and directed key demand.
 Blocker removal stops are inserted before dependent link tasks, choosing an
 endpoint and insertion position with a small additional straight-line distance.
 Automatic routing now compares complete routes, jointly revisiting portal order,
-shared removal endpoints and earlier blocker detours. It accepts only shorter
-variants that retain the work and its removal-before-throw dependencies.
+shared removal endpoints and earlier blocker detours. It prioritizes fewer returns within a capped travel allowance while retaining
+all work and removal-before-throw dependencies.
 Shared blockers occur once; work at the same portal is bundled where possible.
 
 **Tasks → Route from location** uses IITC User Location; **Saved order** preserves
@@ -151,7 +153,7 @@ The stable installation URL always points to the latest published release and is
 
 ## Project status
 
-- Development version: **0.2.0-beta.40**
+- Development version: **0.2.0-beta.41**
 - Latest stable release: **0.1.55**
 - Development source: `src/iitc-anchor-planner.user.js`
 - Published builds: `releases/`
@@ -221,7 +223,7 @@ Open **Plan preview** in the panel or Tasks. Step through with Previous/Next or 
 
 Forward steps now retain existing geometry and pan smoothly for 2.5–5 seconds according to travel distance. Automatic playback waits another 1.2 seconds after the configured movement duration before advancing. Pause/resume does not redraw or move the camera; backward steps rebuild the earlier preview. Reduced-motion preferences disable panning animation.
 
-Joint route search uses the selected portal origin or, in GPS mode, a valid IITC User Location (**Tasks → Route from location**). Saved order and explicit removal endpoints remain authoritative; without GPS the saved order is used in location mode. The bounded search improves a baseline without guaranteeing a shortest route. It runs for up to 40 plan portals and 80 blockers; larger plans retain the baseline.
+Joint route search uses the selected portal origin or IITC User Location (**Tasks → Route from location**). Explicit manual order and removal endpoints remain binding. The larger search supports up to 200 active plan portals, 240 blockers and 600 runtime links, with at most 160 candidates (48 above 40 portals, 24 above 80). Larger plans retain local consolidation up to 400 stops. Without GPS, only travel between stops is compared; the first approach remains unknown. Dependencies and bounded search can still require return visits; neither a global optimum nor one visit per portal is guaranteed.
 
 ## Choose the route start
 **Route from location** in the panel or Tasks plans from current IITC User Location, with feedback when GPS is unavailable. It selects automatic routing without overwriting saved portal order. **Route from this portal** in an expanded plan-portal row or task row fixes that portal as the first stop and route origin, including without GPS. The chosen portal is labeled; GPS changes do not move this origin. If its throws require removal elsewhere, the first stop marks the route origin and the route returns to throw after removal. Only the portal GUID is saved; scan again after reload to resolve it. Missing start portals are labeled. Saved order or Route from location clears the fixed start. **Plan preview** replaces the name Walk Sim; preview and route distance use the selected origin. New portal-start explanations use English outside German/English.
