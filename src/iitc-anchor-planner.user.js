@@ -2,7 +2,7 @@
 // @id             iitc-plugin-anchor-planner
 // @name           IITC plugin: Anchor Planner
 // @category       Layer
-// @version        0.2.0-beta.40
+// @version        0.2.0-beta.41
 // @namespace      https://example.local/iitc
 // @author         emgeka
 // @description    Anchor Planner: scans Draw Tools plans, resolves portal names, lists plan portals and key counts.
@@ -25,13 +25,13 @@ function wrapper(plugin_info) {
   if (typeof window.plugin !== 'function') window.plugin = function () {};
 
   plugin_info.buildName = 'local';
-  plugin_info.dateTimeVersion = '20261103140000';
+  plugin_info.dateTimeVersion = '20261104150000';
   plugin_info.pluginId = 'anchor-planner';
 
   window.plugin.anchorPlanner = function () {};
   var ap = window.plugin.anchorPlanner;
 
-  ap.VERSION = '0.2.0-beta.40';
+  ap.VERSION = '0.2.0-beta.41';
   ap.STORAGE_KEY = 'plugin-anchor-planner-v1';
   ap.DEFAULT_TOLERANCE_M = 25;
   ap.MIN_ANCHOR_LINKS = 3;
@@ -459,7 +459,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Rückbesuch · gespeicherte Reihenfolge",
       "tasks.returnPrerequisites": "Rückbesuch · zuvor andere Portal- oder Blockeraufgaben",
       "tasks.returnDistance": "Rückbesuch · kürzere Gesamtstrecke",
-      "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag"
+      "tasks.returnLimited": "Rückbesuch · begrenzter Routenvorschlag",
+      "portal.openDetails": "Details anzeigen: {title}"
     },
     "en": {
       "language.label": "Language",
@@ -869,7 +870,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "es": {
       "language.label": "Idioma",
@@ -1279,7 +1281,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "fr": {
       "language.label": "Langue",
@@ -1689,7 +1692,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "it": {
       "language.label": "Lingua",
@@ -2099,7 +2103,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "ja": {
       "language.label": "言語",
@@ -2509,7 +2514,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "pl": {
       "language.label": "Język",
@@ -2919,7 +2925,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "pt-BR": {
       "language.label": "Idioma",
@@ -3329,7 +3336,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "ru": {
       "language.label": "Язык",
@@ -3739,7 +3747,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     },
     "zh-CN": {
       "language.label": "语言",
@@ -4149,7 +4158,8 @@ function wrapper(plugin_info) {
       "tasks.returnManualOrder": "Return visit · saved order",
       "tasks.returnPrerequisites": "Return visit · other portal or blocker tasks required first",
       "tasks.returnDistance": "Return visit · shorter overall route",
-      "tasks.returnLimited": "Return visit · bounded route proposal"
+      "tasks.returnLimited": "Return visit · bounded route proposal",
+      "portal.openDetails": "Show portal details: {title}"
     }
   };
   // AP_LOCALES_END
@@ -4247,6 +4257,7 @@ function wrapper(plugin_info) {
       if (title && !title.querySelector('.ap-faction-badge')) title.insertAdjacentHTML('beforeend',ap.factionBadgeHtml());
       if (root) ap.wireDialogResize(handle,root);
     } catch (_) {}
+    ap.wirePortalLinks(root || (settings.html && typeof settings.html==='object' ? settings.html : document.getElementById('dialog-'+settings.id)));
     return handle;
   };
 
@@ -5308,10 +5319,27 @@ function wrapper(plugin_info) {
   ap.helpHtml = function (text, id, summary) {
     return '<details class="ap-help"' + (id ? ' id="' + ap.escapeHtml(id) + '"' : '') + (ap.state.verboseHints ? ' open' : '') + '><summary title="' + ap.escapeHtml(text) + '">' + ap.escapeHtml(summary || ap.t('ui.notes')) + '</summary><div class="ap-help-content">' + ap.escapeHtml(text) + '</div></details>';
   };
-  ap.portalNameHtml = function (guid, title, observedFaction) {
+  ap.portalNameHtml = function (guid, title, observedFaction, passive) {
     var faction = observedFaction || ap.getPortalOwnership(guid).faction;
+    if (['res','enl','mac','neutral','unknown'].indexOf(faction)===-1) faction='unknown';
     var label = ap.t(({res:'faction.res',enl:'faction.enl',mac:'faction.mac',neutral:'faction.neutral'})[faction] || 'faction.noData');
-    return '<span class="ap-portal-name ap-owner-' + faction + '" title="' + ap.escapeHtml(label) + '">' + ap.escapeHtml(ap.displayPortalTitle(title)) + (faction==='unknown' ? '<sup aria-label="' + ap.escapeHtml(label) + '"> ?</sup>' : '') + '</span>';
+    var content = ap.escapeHtml(ap.displayPortalTitle(title)) + (faction==='unknown' ? '<sup aria-label="' + ap.escapeHtml(label) + '"> ?</sup>' : '');
+    var style = 'class="ap-portal-name ap-owner-' + faction + '" title="' + ap.escapeHtml(label) + '"';
+    if (passive || !guid) return '<span '+style+'>'+content+'</span>';
+    return '<a href="#" role="button" data-ap-portal="'+ap.escapeHtml(guid)+'" '+style.replace('ap-portal-name','ap-portal-name ap-portal-link')+' aria-label="'+ap.escapeHtml(ap.t('portal.openDetails',{title:ap.displayPortalTitle(title)}))+'">'+content+'</a>';
+  };
+  ap.wirePortalLinks = function (root) {
+    if (!root || typeof root.addEventListener!=='function' || root.apPortalLinksBound) return;
+    root.apPortalLinksBound=true;
+    function activate(event) {
+      if (event.type==='keydown' && event.key!=='Enter' && event.key!==' ' && event.key!=='Spacebar') return;
+      var node=event.target && typeof event.target.closest==='function' && event.target.closest('.ap-portal-link[data-ap-portal]');
+      if (!node || !root.contains(node)) return;
+      event.preventDefault(); event.stopPropagation();
+      if (!event.repeat) ap.showPortalDetails(node.getAttribute('data-ap-portal'));
+    }
+    root.addEventListener('click',activate,true);
+    root.addEventListener('keydown',activate,true);
   };
   ap.factionBadgeHtml = function () {
     var faction = ap.normalizeFaction(window.PLAYER && window.PLAYER.team);
@@ -5577,14 +5605,16 @@ function wrapper(plugin_info) {
     return { distance: distance, revisits: revisits, visits: visits };
   };
   ap.workRouteReference = function (metrics) {
-    // Charge a repeat visit a quarter of an average leg (25–250 m).
-    // The reference stays fixed throughout a search, preventing accumulating detours.
-    return { distance: metrics.distance, returnCost: Math.min(250, Math.max(25, metrics.distance / Math.max(1, metrics.visits) / 4)) };
+    return { distance: metrics.distance };
   };
   ap.betterWorkRoute = function (next, current, reference) {
     if (!isFinite(next.distance) || next.distance > reference.distance * 1.05 + .001) return false;
-    var gain = current.distance + current.revisits * reference.returnCost - next.distance - next.revisits * reference.returnCost;
-    return gain > .001 || Math.abs(gain) <= .001 && (next.revisits < current.revisits || next.revisits === current.revisits && next.visits < current.visits);
+    // Prefer fewer returns within a small detour from both the fixed reference
+    // and the current best. Keep improvements from accumulating unbounded detours.
+    if (next.distance > current.distance * 1.05 + .001) return false;
+    if (next.revisits !== current.revisits) return next.revisits < current.revisits;
+    if (next.visits !== current.visits) return next.visits < current.visits;
+    return next.distance < current.distance - .001;
   };
 
   // Bundle real work rather than treating preparation and throws as unrelated stops.
@@ -5774,100 +5804,110 @@ function wrapper(plugin_info) {
     return stops;
   };
 
+  // Build a dependency-informed seed before trying local permutations. These are
+  // preferences for a complete visit, not permission to bypass actual prerequisites.
+  ap.orderWorkPortals = function (base, start) {
+    var byGuid=Object.create(null), needs=Object.create(null), rank=Object.create(null);
+    base.forEach(function (portal,index) { byGuid[portal.guid]=portal; needs[portal.guid]=new Set(); rank[portal.guid]=index; });
+    function requireBefore(source,target) { if (source!==target && needs[source] && byGuid[target]) needs[source].add(target); }
+    (ap.runtime.links || []).filter(function (link) { return !link.existing; }).forEach(function (link) {
+      var direction=ap.getLinkDirection(link);
+      if (direction && ap.getPortalOwnership(direction.to).action) requireBefore(direction.from,direction.to);
+    });
+    ap.getWorkBlockers().forEach(function (item) {
+      if (item.manual) return;
+      var a=!!(ap.state.blockerRoutePortals || {})[item.blocker.a], b=!!(ap.state.blockerRoutePortals || {})[item.blocker.b];
+      var target=item.target || (a!==b ? (a?item.blocker.a:item.blocker.b) : '');
+      if (!target) return;
+      item.links.forEach(function (link) { var direction=ap.getLinkDirection(link); if (direction) requireBefore(direction.from,target); });
+    });
+    var pending=new Set(base.map(function (portal) { return portal.guid; })), result=[], point=start;
+    while (pending.size) {
+      var choices=Array.from(pending).map(function (guid) { return {guid:guid,unmet:Array.from(needs[guid]).filter(function (id) { return pending.has(id); }).length}; });
+      choices.sort(function (a,b) {
+        return a.unmet-b.unmet || (point ? ap.workDistance(point,ap.workPoint(byGuid[a.guid]))-ap.workDistance(point,ap.workPoint(byGuid[b.guid])) : 0) || rank[a.guid]-rank[b.guid];
+      });
+      var portal=byGuid[choices[0].guid]; result.push(portal); pending.delete(portal.guid); point=start ? ap.workPoint(portal) : null;
+    }
+    return result;
+  };
+
   ap.buildWorkPlan = function (location) {
     location = ap.getWorkRouteLocation(location);
-    var base = ap.sortedStats(false).filter(function (stat) { return ap.isOpenPlanPortal(stat) || (stat.openLinks || 0)>0 && !!ap.getPortalOwnership(stat.guid).action; });
+    var active=new Set(); (ap.runtime.links || []).filter(function (link) { return !link.existing; }).forEach(function (link) { active.add(link.a); active.add(link.b); });
+    var base = ap.sortedStats(false).filter(function (stat) { return active.has(stat.guid) && (ap.isOpenPlanPortal(stat) || (stat.openLinks || 0)>0 && !!ap.getPortalOwnership(stat.guid).action); });
     var start = location && location.latlng || null;
     var spine = ap.getActiveSpinePlan();
     if (spine) return ap.addWorkRouteStart(ap.buildWorkPlanForOrder(ap.sortedStats(false), start, location, {}, spine.links));
     if (start && ap.state.workRouteMode !== 'manual') {
-      var remaining = base.slice(), sorted = [], point = start;
+      var remaining=base.slice(), sorted=[], point=start;
       while (remaining.length) {
-        var nearest = 0, shortest = Infinity;
-        remaining.forEach(function (portal, index) {
-          var next = ap.workPoint(portal), distance = next ? ap.workDistance(point, next) : Infinity;
-          if (distance < shortest) { shortest = distance; nearest = index; }
-        });
-        var portal = remaining.splice(nearest, 1)[0];
-        sorted.push(portal); point = ap.workPoint(portal) || point;
+        var nearest=0, shortest=Infinity;
+        remaining.forEach(function (portal,index) { var next=ap.workPoint(portal), distance=next?ap.workDistance(point,next):Infinity; if (distance<shortest) { shortest=distance; nearest=index; } });
+        var portal=remaining.splice(nearest,1)[0]; sorted.push(portal); point=ap.workPoint(portal) || point;
       }
-      base = sorted;
+      base=sorted;
     }
-    var baseline = ap.buildWorkPlanForOrder(base, start, location, null);
-    // Without GPS keep the saved order; large/invalid plans retain the valid baseline.
-    if (!start || ap.state.workRouteMode === 'manual' || !base.length || base.length > 40 || baseline.blockers.length > 80 ||
-        base.some(function (portal) { return !ap.workPoint(portal); })) return ap.addWorkRouteStart(baseline);
-    function routeDistance(plan) {
-      var from = start, total = 0;
-      for (var i = 0; i < plan.stops.length; i++) {
-        var to = ap.workPoint(plan.stops[i].portal);
-        if (!to) return Infinity;
-        total += ap.workDistance(from, to); from = to;
-      }
-      return total;
-    }
-    var initialDistance = routeDistance(baseline);
-    if (!isFinite(initialDistance)) return ap.addWorkRouteStart(baseline);
-    var baselineMetrics = ap.measureWorkRoute(baseline.stops,start);
-    var reference = baseline.visitOptimization.reference;
-    var best = { order: base, targets: {}, plan: baseline, distance: initialDistance, metrics:baselineMetrics };
-    var budget = Math.min(160, Math.max(8, Math.floor(100000 / ((base.length + baseline.blockers.length + 1) * (baseline.blockers.length + 1)))));
-    var evaluations = 0, seen = Object.create(null), groups = Object.create(null);
-    // Explore shared removal endpoints together, rather than greedily per link.
+    var baseline=ap.buildWorkPlanForOrder(base,start,location,null);
+    // Local bundling remains available outside this larger bounded search.
+    if (ap.state.workRouteMode==='manual' || !base.length || base.length>200 || baseline.blockers.length>240 ||
+        (ap.runtime.links || []).length>600 || base.some(function (portal) { return !ap.workPoint(portal); })) return ap.addWorkRouteStart(baseline);
+    var baselineMetrics=ap.measureWorkRoute(baseline.stops,start), reference=baseline.visitOptimization.reference;
+    if (!isFinite(baselineMetrics.distance)) return ap.addWorkRouteStart(baseline);
+    var best={order:base,targets:{},plan:baseline,metrics:baselineMetrics};
+    var sizeCap=base.length>80?24:base.length>40?48:160;
+    var budget=Math.min(sizeCap,Math.max(12,Math.floor(120000/((base.length+baseline.blockers.length+1)*(baseline.blockers.length+1)))));
+    var quotas={order:Math.ceil(budget*.6),endpoint:Math.floor(budget*.2)}; quotas.combined=budget-quotas.order-quotas.endpoint;
+    var counts={order:0,endpoint:0,combined:0}, evaluations=0, seen=Object.create(null), groups=Object.create(null), variants=[];
     baseline.blockers.forEach(function (item) {
       if (item.manual || item.target) return;
-      var blocker = item.blocker;
-      var selectedA = !!(ap.state.blockerRoutePortals || {})[blocker.a];
-      var selectedB = !!(ap.state.blockerRoutePortals || {})[blocker.b];
-      if (selectedA !== selectedB) return;
-      [[blocker.a, blocker.latlngA], [blocker.b, blocker.latlngB]].forEach(function (endpoint) {
-        if (!ap.workPoint(endpoint[1])) return;
-        if (!groups[endpoint[0]]) groups[endpoint[0]] = [];
-        groups[endpoint[0]].push(item.id);
-      });
+      var blocker=item.blocker, selectedA=!!(ap.state.blockerRoutePortals || {})[blocker.a], selectedB=!!(ap.state.blockerRoutePortals || {})[blocker.b];
+      if (selectedA!==selectedB) return;
+      [[blocker.a,blocker.latlngA],[blocker.b,blocker.latlngB]].forEach(function (endpoint) { if (ap.workPoint(endpoint[1])) (groups[endpoint[0]] || (groups[endpoint[0]]=[])).push(item.id); });
     });
-    var groupGuids = Object.keys(groups).sort(function (a, b) { return groups[b].length - groups[a].length || a.localeCompare(b); });
-    function evaluate(order, targets) {
-      if (evaluations >= budget) return;
-      var key = JSON.stringify([order.map(function (portal) { return portal.guid; }), Object.keys(targets).sort().map(function (id) { return [id, targets[id]]; })]);
+    var groupGuids=Object.keys(groups).sort(function (a,b) { return groups[b].length-groups[a].length || a.localeCompare(b); });
+    function evaluate(order,targets,kind) {
+      if (counts[kind]>=quotas[kind]) return;
+      var key=JSON.stringify([order.map(function (portal) { return portal.guid; }),Object.keys(targets).sort().map(function (id) { return [id,targets[id]]; })]);
       if (seen[key]) return;
-      seen[key] = true; evaluations++;
-      var plan = ap.buildWorkPlanForOrder(order, start, location, targets);
-      // A shorter route must not obtain its saving by dropping unresolved work.
-      if (plan.unscheduled.length > baseline.unscheduled.length || plan.unassigned.length > baseline.unassigned.length || plan.unscheduledPortals.length > baseline.unscheduledPortals.length) return;
-      var distance = routeDistance(plan);
-      var metrics = ap.measureWorkRoute(plan.stops,start);
-      if (ap.betterWorkRoute(metrics,best.metrics,reference)) best = { order: order, targets: targets, plan: plan, distance: distance, metrics:metrics };
+      seen[key]=true; counts[kind]++; evaluations++;
+      var plan=ap.buildWorkPlanForOrder(order,start,location,targets);
+      if (plan.unscheduled.length>baseline.unscheduled.length || plan.unassigned.length>baseline.unassigned.length || plan.unscheduledPortals.length>baseline.unscheduledPortals.length) return;
+      var metrics=ap.measureWorkRoute(plan.stops,start);
+      if (ap.betterWorkRoute(metrics,best.metrics,reference)) best={order:order,targets:targets,plan:plan,metrics:metrics};
     }
-    for (var pass = 0; pass < 4 && evaluations < budget; pass++) {
-      var before = best;
-      evaluate(best.order, best.targets);
-      groupGuids.forEach(function (guid) {
-        var targets = Object.assign({}, best.targets);
-        groups[guid].forEach(function (id) { targets[id] = guid; });
-        evaluate(best.order, targets);
-      });
-      var order = best.order.slice();
-      for (var from = 0; from < order.length && evaluations < budget; from++) {
-        for (var to = 0; to < order.length && evaluations < budget; to++) {
-          if (from === to) continue;
-          var candidate = order.slice(), moved = candidate.splice(from, 1)[0];
-          candidate.splice(to, 0, moved);
-          evaluate(candidate, best.targets);
-          // Re-evaluate automatic endpoint choice after changing the portal order.
-          evaluate(candidate, {});
-          // A shared endpoint may only pay off together with a different order.
-          groupGuids.forEach(function (guid) {
-            if (groups[guid].length < 2) return;
-            var targets = Object.assign({}, best.targets);
-            groups[guid].forEach(function (id) { targets[id] = guid; });
-            evaluate(candidate, targets);
-          });
+    evaluate(base,{},'order');
+    var seed=ap.orderWorkPortals(base,start); variants.push(seed); evaluate(seed,{},'order');
+    var endpointCursor=0, combinedCursor=0;
+    for (var pass=0;pass<3;pass++) {
+      var order=best.order.slice(), repeats=new Set();
+      best.plan.stops.forEach(function (stop) { if (stop.returnReason) repeats.add(stop.portal.guid); });
+      // Spread trials across the entire plan instead of exhausting the budget
+      // on the first source or on blocker endpoints alone.
+      var indices=[], samples=Math.min(24,order.length);
+      order.forEach(function (portal,index) { if (repeats.has(portal.guid)) indices.push(index); });
+      for (var sample=0;sample<samples;sample++) { var index=Math.floor(sample*order.length/samples); if (indices.indexOf(index)===-1) indices.push(index); }
+      var orderEnd=Math.ceil(quotas.order*(pass+1)/3);
+      for (var radius=1;radius<order.length && counts.order<orderEnd;radius++) {
+        for (var i=0;i<indices.length && counts.order<orderEnd;i++) {
+          var from=indices[i], shift=radius%2 ? -Math.ceil(radius/2) : Math.ceil(radius/2), to=(from+shift+order.length)%order.length;
+          if (from===to) continue;
+          var candidate=order.slice(), moved=candidate.splice(from,1)[0]; candidate.splice(to,0,moved); variants.push(candidate);
+          evaluate(candidate,best.targets,'order');
         }
       }
-      if (best === before) break;
+      var endpointEnd=Math.ceil(quotas.endpoint*(pass+1)/3);
+      for (var g=0;g<groupGuids.length && counts.endpoint<endpointEnd;g++) {
+        var guid=groupGuids[endpointCursor++%groupGuids.length], targets=Object.assign({},best.targets);
+        groups[guid].forEach(function (id) { targets[id]=guid; }); evaluate(best.order,targets,'endpoint');
+      }
+      var combinedEnd=Math.ceil(quotas.combined*(pass+1)/3);
+      for (var c=0;c<groupGuids.length && counts.combined<combinedEnd;c++) {
+        var cursor=combinedCursor++, guid=groupGuids[cursor%groupGuids.length], targets=Object.assign({},best.targets);
+        groups[guid].forEach(function (id) { targets[id]=guid; }); evaluate(variants[cursor%variants.length],targets,'combined');
+      }
     }
-    best.plan.optimization = { evaluations: evaluations, improved: ap.betterWorkRoute(best.metrics,baselineMetrics,reference) };
+    best.plan.optimization={evaluations:evaluations,byKind:counts,budget:budget,improved:ap.betterWorkRoute(best.metrics,baselineMetrics,reference)};
     return ap.addWorkRouteStart(best.plan);
   };
 
@@ -6093,7 +6133,7 @@ function wrapper(plugin_info) {
       var title = ap.displayPortalTitle(portal.title);
       var keyLabel = ap.t('row.keys', { owned: ap.keyCountLabel(portal.guid), required: portal.requiredKeys || 0 }) + (portal.uncertainKeys ? ' · ' + ap.t('tasks.estimatedKeys') : '');
       html += '<tbody class="ap-task-stop' + (index === 0 ? ' ap-task-next' : '') + '" data-stop="' + ap.escapeHtml(stopId) + '"><tr class="ap-task-overview"><td><button class="ap-task-expand" data-stop="' + ap.escapeHtml(stopId) + '" aria-expanded="' + (index === 0 ? 'true' : 'false') + '" aria-label="' + ap.escapeHtml(ap.t('tasks.expandDetails') + ' · ' + title) + '">' + (index + 1) + '<span class="ap-task-chevron" aria-hidden="true">' + (index === 0 ? '▾' : '▸') + '</span></button></td>';
-      html += '<th scope="row"><button class="ap-task-details ap-task-portal-name" data-guid="' + ap.escapeHtml(portal.guid) + '" title="' + ap.escapeHtml(ap.t('row.showDetails')) + '">' + ap.portalNameHtml(portal.guid,title) + '</button>' + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + (stop.returnReason ? '<small>' + ap.escapeHtml(ap.t(stop.returnReason)) + '</small>' : '') + '</th>';
+      html += '<th scope="row">' + ap.portalNameHtml(portal.guid,title) + (stop.portalTask ? '<small>' + ap.escapeHtml(ap.portalTaskText(stop.portalTask)) + '</small>' : '') + (stop.returnReason ? '<small>' + ap.escapeHtml(ap.t(stop.returnReason)) + '</small>' : '') + '</th>';
       html += '<td class="ap-task-numeric' + (stop.planVisit && ap.getOwnedKeys(portal.guid) !== null && ap.getOwnedKeys(portal.guid) < (portal.requiredKeys || 0) ? ' ap-task-key-missing' : '') + '" title="' + ap.escapeHtml(keyLabel) + '">' + (stop.planVisit ? (ap.keyCountLabel(portal.guid)) + '/' + (portal.requiredKeys || 0) + (portal.uncertainKeys ? '~' : '') : '—') + '</td>';
       html += '<td class="ap-task-numeric" title="' + ap.escapeHtml(ap.t('row.links', { count: stop.links.length })) + '">' + stop.links.length + '</td><td class="ap-task-numeric' + (stop.blockers.length ? ' ap-task-blocker-count' : '') + '" title="' + ap.escapeHtml(ap.t('tasks.removeBlocker')) + '">' + stop.blockers.length + '</td></tr>';
       html += '<tr class="ap-task-detail-row"' + (index === 0 ? '' : ' hidden') + '><td colspan="5"><div class="ap-task-detail-content">';
@@ -6125,7 +6165,7 @@ function wrapper(plugin_info) {
       manualBlockers.forEach(function (item) { html += ap.taskBlockerHtml(item, plan.blockers.indexOf(item)); });
       existing.forEach(function (link) { html += ap.taskLinkHtml(link, ap.runtime.links.indexOf(link), suggestions); });
       completed.forEach(function (portal) {
-        html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '" checked> ' + ap.escapeHtml(ap.displayPortalTitle(portal.title)) + ' · ' + ap.escapeHtml(ap.t('tasks.manualDone')) + '</label>';
+        html += '<label class="ap-task-check"><input class="ap-task-portal-done" type="checkbox" data-guid="' + ap.escapeHtml(portal.guid) + '" checked> ' + ap.portalNameHtml(portal.guid,portal.title) + ' · ' + ap.escapeHtml(ap.t('tasks.manualDone')) + '</label>';
       });
       html += '</details>';
     }
@@ -6943,7 +6983,7 @@ function wrapper(plugin_info) {
     if (plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length) html += '<p class="ap-task-warning">' + ap.escapeHtml(ap.t('tasks.unresolved')) + '</p>';
     if (!stop) return html + '<p>' + ap.escapeHtml(ap.t(plan.unscheduled.length || plan.unassigned.length || (plan.unscheduledPortals || []).length ? 'next.review' : Object.keys(ap.runtime.stats).length ? 'route.complete' : 'next.empty')) + '</p>';
     var portal = stop.portal, nav = ap.navigationLinks(portal);
-    html += '<h2><button class="ap-task-details" data-guid="' + ap.escapeHtml(portal.guid) + '">' + ap.portalNameHtml(portal.guid,portal.title) + '</button></h2>';
+    html += '<h2>' + ap.portalNameHtml(portal.guid,portal.title) + '</h2>';
     if (location) html += '<p>' + ap.escapeHtml(ap.formatDistance(ap.distanceToPortal(location, portal))) + ' · ' + ap.escapeHtml(ap.t('route.aerial')) + '</p>';
     html += '<div class="ap-task-actions"><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.waze) + '">Waze</a><a target="_blank" rel="noopener" href="' + ap.escapeHtml(nav.google) + '">Google Maps</a><button class="ap-task-actions-button" data-stop-index="' + index + '">' + ap.escapeHtml(ap.t('row.actions')) + '</button></div>';
     html += statusHtml;
@@ -8139,7 +8179,7 @@ function wrapper(plugin_info) {
     var element = document.createElement('div');
     var html = '<p>' + ap.escapeHtml(ap.t('keys.undoOverwrite')) + '</p>' + ap.helpHtml(ap.t('keys.undoReview')) + '<div class="ap-scroll-table"><table><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.restore', 'keys.undoStatus'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
     rows.forEach(function (row, index) {
-      html += '<tr><td><input type="checkbox" data-index="' + index + '" aria-label="' + ap.escapeHtml(ap.t('keys.select')) + '"' + (row.selected ? ' checked' : '') + (row.restored || row.current === null ? ' disabled' : '') + '></td><td>' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + '</td><td>' + (row.current === null ? '?' : row.current) + '</td><td>' + row.before + '</td><td>' + ap.escapeHtml(ap.t(row.restored ? 'keys.alreadyRestored' : row.conflict ? 'keys.undoConflict' : 'keys.undoReady')) + '</td></tr>';
+      html += '<tr><td><input type="checkbox" data-index="' + index + '" aria-label="' + ap.escapeHtml(ap.t('keys.select')) + '"' + (row.selected ? ' checked' : '') + (row.restored || row.current === null ? ' disabled' : '') + '></td><td>' + ap.portalNameHtml(row.guid,row.title) + '</td><td>' + (row.current === null ? '?' : row.current) + '</td><td>' + row.before + '</td><td>' + ap.escapeHtml(ap.t(row.restored ? 'keys.alreadyRestored' : row.conflict ? 'keys.undoConflict' : 'keys.undoReady')) + '</td></tr>';
     });
     element.innerHTML = html + '</tbody></table></div><p><button>' + ap.escapeHtml(ap.t('keys.undo')) + '</button></p><p role="status"></p>';
     element.querySelector('button').onclick = function () {
@@ -8304,7 +8344,7 @@ function wrapper(plugin_info) {
         rows = await ap.scanKeyFiles(files, portals, element.querySelector('.ap-key-language').value, job, function (text) { status.textContent = text; });
         if (job.signal.aborted) return;
         var html = '<table><thead><tr>' + ['keys.select', 'keys.portal', 'keys.current', 'keys.recognized', 'keys.needed'].map(function (key) { return '<th>' + ap.escapeHtml(ap.t(key)) + '</th>'; }).join('') + '</tr></thead><tbody>';
-        rows.forEach(function (row, i) { html += '<tr><td><input type="checkbox" data-index="' + i + '"' + (row.selected ? ' checked' : '') + '></td><td title="' + ap.escapeHtml(row.evidence) + '">' + ap.escapeHtml(ap.displayPortalTitle(row.title)) + (row.conflict ? ' ⚠' : '') + '</td><td>' + ap.keyCountLabel(row.guid) + '</td><td><input type="number" min="0" step="1" class="ap-count-input" data-index="' + i + '" value="' + (row.count === null ? '' : row.count) + '"></td><td>' + row.required + '</td></tr>'; });
+        rows.forEach(function (row, i) { html += '<tr><td><input type="checkbox" data-index="' + i + '"' + (row.selected ? ' checked' : '') + '></td><td title="' + ap.escapeHtml(row.evidence) + '">' + ap.portalNameHtml(row.guid,row.title) + (row.conflict ? ' ⚠' : '') + '</td><td>' + ap.keyCountLabel(row.guid) + '</td><td><input type="number" min="0" step="1" class="ap-count-input" data-index="' + i + '" value="' + (row.count === null ? '' : row.count) + '"></td><td>' + row.required + '</td></tr>'; });
         element.querySelector('.ap-key-review').innerHTML = html + '</tbody></table>';
         status.textContent = ap.t(rows.some(function (row) { return row.conflict; }) ? 'keys.reviewConflicts' : 'keys.review'); apply.disabled = !rows.length;
       } catch (error) { status.textContent = job.signal.aborted ? ap.t('keys.cancelled') : error.message; }
@@ -9174,7 +9214,7 @@ function wrapper(plugin_info) {
       // Alle erkannten Planportale sichtbar markieren.
 
       var status = ap.getStatus(guid, stat);
-      var title = ap.portalNameHtml(stat.guid,stat.title) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: ap.keyCountLabel(guid), required: stat.requiredKeys }));
+      var title = ap.portalNameHtml(stat.guid,stat.title,null,true) + '<br>' + ap.escapeHtml(status.label) + ' · ' + ap.escapeHtml(ap.t('overlay.keysNeeded', { owned: ap.keyCountLabel(guid), required: stat.requiredKeys }));
       ap.addHtmlStatusMarker(stat, status, title, !!(nextPortal && nextPortal.guid === guid));
     });
     var routeGuids = {};
@@ -9821,7 +9861,7 @@ function wrapper(plugin_info) {
       }
       else html += '<div class="ap-home-cards"><button id="ap-home-anchors"><b>' + ap.escapeHtml(ap.t('workspace.anchors')) + '</b><span>' + ap.escapeHtml(ap.t('ui.anchorsHelp')) + '</span></button><button id="ap-home-fan"><b>' + ap.escapeHtml(ap.t('fan.title')) + '</b><span>' + ap.escapeHtml(ap.t('ui.fanHelp')) + '</span></button></div>';
     }
-    panel.innerHTML = html; ap.wireDialogResize(null,panel); panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
+    panel.innerHTML = html; ap.wireDialogResize(null,panel); ap.wirePortalLinks(panel); panel.classList.remove('ap-show-more'); ap.correctPanelPosition(true);
     ap.wireIntelFieldControls(panel);
     document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = !ap.state.panelCollapsed; ap.save(); ap.renderPanel(); };
     var settings = document.getElementById('ap-settings'); if (settings) settings.onclick = ap.showPluginSettings;
@@ -9881,7 +9921,7 @@ function wrapper(plugin_info) {
     html += '<div class="ap-head"><b>Anchor Planner</b>' + ap.factionBadgeHtml() + '<span>v' + ap.VERSION + '</span><button id="ap-collapse">' + (ap.state.panelCollapsed ? '▴' : '▾') + '</button></div>';
     if (ap.state.panelCollapsed) {
       html += '<div class="ap-mini">' + ap.escapeHtml(ap.tp('panel.planPortal', planPortalCount)) + '</div>';
-      panel.innerHTML = html;
+      panel.innerHTML = html; ap.wirePortalLinks(panel);
       ap.correctPanelPosition(true);
       document.getElementById('ap-collapse').onclick = function () { ap.state.panelCollapsed = false; ap.save(); ap.renderPanel(); };
       return;
@@ -9987,7 +10027,7 @@ function wrapper(plugin_info) {
           html += '<div class="ap-blocker-work-row" data-guid="' + ap.escapeHtml(candidate.guid) + '" data-lat="' + ap.escapeHtml(candidate.lat) + '" data-lng="' + ap.escapeHtml(candidate.lng) + '">';
           html += '<div class="ap-blocker-work-main">';
           if (candidate.isOpenPlanPortal) html += '<span class="ap-blocker-work-plan">✓</span> <b>' + ap.portalNameHtml(candidate.guid,candidate.title) + '</b>';
-          else html += '<label class="ap-blocker-work-select"><input type="checkbox" class="ap-blocker-route-check" data-guid="' + ap.escapeHtml(candidate.guid) + '"' + (candidate.selected ? ' checked' : '') + '> <b>' + ap.escapeHtml(candidate.title) + '</b></label>';
+          else html += '<label class="ap-blocker-work-select"><input type="checkbox" class="ap-blocker-route-check" data-guid="' + ap.escapeHtml(candidate.guid) + '"' + (candidate.selected ? ' checked' : '') + '> <b>' + ap.portalNameHtml(candidate.guid,candidate.title) + '</b></label>';
           html += '</div>';
           html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.tp('blocker.endpointOf', candidate.blockerCount)) + (candidate.isOpenPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.openPlanPortal')) : (candidate.isPlanPortal ? ' · ' + ap.escapeHtml(ap.t('blocker.donePlanPortal')) : '')) + '<span class="ap-blocker-work-distance">' + (blockerDistance ? ' · ' + ap.escapeHtml(blockerDistance) + ' ' + ap.escapeHtml(ap.t('route.aerial')) : '') + '</span></div>';
           html += '<div class="ap-blocker-work-meta">' + ap.escapeHtml(ap.blockerFactionSummary(Object.values(candidate.blockersById))) + '</div>';
@@ -10015,7 +10055,7 @@ function wrapper(plugin_info) {
     html += '</div>';
     if (!visibleStats.length && stats.length) html += '<div class="ap-list-empty">' + ap.escapeHtml(ap.t('row.emptyFilter')) + '</div>';
 
-    panel.innerHTML = html;
+    panel.innerHTML = html; ap.wirePortalLinks(panel);
     panel.classList.toggle('ap-show-more', moreOpen);
     ap.correctPanelPosition(true);
 
@@ -10288,14 +10328,19 @@ function wrapper(plugin_info) {
 @media(max-width:600px){#iitc-anchor-planner{right:5px;left:5px;bottom:76px;width:auto;max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}#iitc-anchor-planner.ap-positioned{right:auto;width:calc(100vw - 10px)}#iitc-anchor-planner .ap-primary-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}#iitc-anchor-planner .ap-filters button{min-height:36px}.ap-dialog-body{padding:10px;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px)}#ap-task-list,#ap-next-work,#ap-fan-planner{max-height:calc(100vh - 170px);max-height:calc(100dvh - 170px)}.ap-ui .ap-task-toolbar button{flex:1 1 120px}.ap-ui .ap-task-col-number{width:30px}.ap-ui .ap-task-col-keys{width:50px}.ap-ui .ap-task-col-count{width:36px}.ap-ui .ap-task-col-blockers{width:48px}.ap-ui .ap-task-table th,.ap-ui .ap-task-table td{padding:5px 3px}.ap-ui .ap-task-detail-content{padding:10px}.ap-ui .ap-task-table .ap-task-portal-name{font-size:12px}}
 @media(prefers-reduced-motion:reduce){:is(#iitc-anchor-planner,.ap-ui,.ap-dialog) *{scroll-behavior:auto}}
 
+
+:where(#iitc-anchor-planner,.ap-ui) a.ap-portal-link{display:inline;min-height:0;padding:0;border:0;border-radius:2px;background:none;box-shadow:none;font:inherit;line-height:inherit;text-decoration:none;cursor:pointer;overflow-wrap:anywhere}
+:where(#iitc-anchor-planner,.ap-ui) a.ap-portal-link:hover{text-decoration:underline;background:none}
+:where(#iitc-anchor-planner,.ap-ui) a.ap-portal-link:focus-visible{outline:2px solid var(--ap-accent);outline-offset:2px;text-decoration:underline}
+
 .ap-help{margin:4px 0;min-width:0;font-size:12px;color:var(--ap-muted)}
 .ap-help>summary{width:fit-content;max-width:100%;font-size:12px;min-height:28px;padding:2px 0}
 .ap-help-content{margin:4px 0;overflow-wrap:anywhere}
-:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-res{color:#6ca8ff}
-:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-enl{color:#43d879}
-:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-mac{color:#ff5b68}
-:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-neutral{color:#d7dfe5}
-:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-unknown{color:#aebbc7}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-res,:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-portal-name.ap-owner-res{color:#6ca8ff}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-enl,:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-portal-name.ap-owner-enl{color:#43d879}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-mac,:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-portal-name.ap-owner-mac{color:#ff5b68}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-neutral,:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-portal-name.ap-owner-neutral{color:#d7dfe5}
+:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-owner-unknown,:where(#iitc-anchor-planner,.ap-ui,.ap-dialog) .ap-portal-name.ap-owner-unknown{color:#aebbc7}
 .ap-faction-badge{position:relative;display:inline-block;vertical-align:middle;margin:0 5px;font-weight:normal;flex:none}
 .ap-faction-badge>summary{list-style:none;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:28px;padding:0;cursor:pointer;font-size:16px}
 .ap-faction-badge>summary::-webkit-details-marker{display:none}

@@ -1,4 +1,13 @@
-# Anforderungen für Entwicklungsstand 0.2.0-beta.40
+# Anforderungen für Entwicklungsstand 0.2.0-beta.41
+
+## Portalnamen als einheitlicher Detailzugang (Beta 41, 2026-11-04)
+
+Verbindliche Bedienregel für künftige Änderungen; bestehende Ansichten sind mit der ausdrücklich beauftragten Beta 41 vereinheitlicht:
+
+- Portalnamen in Übersichten, Aufgaben, Link-/Blockerlisten, Planern, Keybestand und Vorschau öffnen per Klick/Antippen die zugehörigen IITC-Portaldetails. Tastaturbedienung und sichtbaren Fokus vorsehen; beim Darüberfahren unterstreichen, Fraktionsfarbe erhalten.
+- Namensaktionen von Zeilen-Aufklappen, Blocker-Auswahl und anderen umgebenden Aktionen trennen. Keine verschachtelten interaktiven Elemente. Native Auswahlfelder dienen weiterhin der Auswahl.
+- Die vorhandene sichere IITC-Detailfunktion nutzen. Sie benötigt derzeit ein geladenes Portalobjekt; fehlende Daten kenntlich machen und keine falschen oder leeren Details anzeigen. Ein gespeicherter Name allein garantiert keine verfügbaren Details.
+- Native Auswahloptionen behalten ihre Auswahlfunktion; passive Kartenstatus-Badges bleiben ohne Detailaktion. Neue Ansichten nutzen denselben Renderer.
 
 ## Abgestimmte UI-Anforderungen (2026-10-29, umgesetzt in Beta 37)
 
@@ -464,3 +473,9 @@ Beta 40 bündelt Portalvorbereitung, Blockerabbau und Würfe in gemeinsamen Besu
 - Alle offenen Würfe genau einmal erhalten; Besitzaufgaben an beiden Enden und erforderlichen Abbau vor jedem abhängigen Wurf prüfen. Bei gleichem Einfügepreis einen vorhandenen Portalbesuch bevorzugen. Kein pauschaler separater Vorbereitungsdurchlauf.
 - Nicht alle Aufgaben sind beim ersten Besuch ausführbar: unabhängige Würfe vorziehen, notwendige Rückkehr erhalten. Unbekannter Besitz bleibt ungeklärt, Vorschau bucht keine echten Keys. Manuelle Vorgaben dürfen keine verlorenen oder zu früh ausgeführten Aufgaben verursachen.
 - Die frühere Vorgabe ausschließlich strikt kürzerer Varianten und unveränderter automatischer Reihenfolge ohne GPS wird durch die begrenzte Besuchsoptimierung ersetzt; ausdrücklich manuelle Wurffolgen bleiben geschützt.
+
+
+## Besuchsreihenfolge und Portalzugang Beta 41
+Beta 41 priorisiert weniger Rückbesuche, dann weniger Stopps und schließlich die kürzere Luftlinie. Kleine Umwege bleiben auf 5 % der festen Bezugsstrecke begrenzt. Eine voraussetzungsorientierte Besuchsfolge und getrennte Suchbudgets verbessern auch größere Pläne und Pläne ohne GPS. Bestätigte Wurfrichtungen, gewählte Abbauziele und manuelle/Spine-Wurffolgen bleiben verbindlich. Portalnamen öffnen in Übersichten, Aufgaben, Planern, Keybestand und Vorschau einheitlich die IITC-Details, auch per Tastatur. Namensklicks ändern keine Zeilenauswahl oder Checkbox; Fraktionsfarben bleiben erhalten. Nicht geladene Portale erhalten einen Hinweis statt falscher Details.
+Die größere Suche gilt bis 200 aktive Planportale, 240 Blocker und 600 Laufzeitlinks. Höchstens 160 Kandidaten, über 40 Portalen 48 und über 80 Portalen 24; das größenabhängige Budget beträgt mindestens 12. Größere Pläne behalten die lokale Bündelung bis 400 Stopps. Ohne GPS wird nur die Strecke zwischen Stopps verglichen, keine erste Anfahrt erfunden. Keine Garantie für ein globales Optimum oder genau einen Besuch; Abhängigkeiten und Suchgrenzen können Rückbesuche erhalten.
+Die Bewertung darf keinen Rückbesuch allein für eine kürzere Strecke hinzufügen. Gegenüber der gerade besten Route gilt ebenfalls die 5-%-Grenze, damit große bereits erreichte Einsparungen nicht verloren gehen. Keine automatische Bestätigung von Richtungen oder Änderung gespeicherter Reihenfolgen, Besitzstände, Keys oder Erledigung.

@@ -1,4 +1,4 @@
-# Bekannte Grenzen in 0.2.0-beta.40
+# Bekannte Grenzen in 0.2.0-beta.41
 
 Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Einstellungen speichern ausführliche Hinweise und eigene Planfeldfüllung. Native Auswahlmenüs behalten systembedingt Klartext; farbige Namen stehen außerhalb der Optionslisten. Besitzfarben zeigen Beobachtungen, keine simulierte Eroberung. Die Anordnung der Settings in Beta 36 wurde vom Nutzer bestätigt; Testplattform unbekannt.
 
@@ -231,8 +231,8 @@ Die sechs ausdrücklich für Beta 37 beauftragten UI-Punkte sind umgesetzt. Eins
 
 ## Gemeinsame Routenverbesserung
 - Der Nutzerplan in beta.9 bestätigte Gedenkstein → Ratskellersaal als Stopps 4/5 mit rund 9,2 km zusätzlicher Luftlinie und anschließendem Rückweg. beta.10 vergleicht vollständige Varianten; anonymisierte Geometrie als automatisierter Regressionstest, reale Portaldaten nur lokal für die Nachstellung.
-- Automatischer Modus ab gültigem GPS- oder Portalursprung. Aufgaben → Route ab Standort verwendet GPS. Manuelle Reihenfolge bleibt auch dann erhalten, wenn sie einen längeren Weg erzeugt. Explizite Endportalwahlen können gemeinsame Abbauorte verhindern.
-- Begrenzte lokale Verbesserung, kein globales Optimum. Höchstens 40 Planportale/80 Blocker, darüber bleibt der Ausgangsvorschlag. Keine Straßen-/Zugangsprüfung oder Eroberungs-/Linklimit-/Feldprüfung. Abbauportalwahl minimiert Strecke, nicht Besuchszahl.
+- Automatischer Modus mit oder ohne gültigen GPS-/Portalursprung. Aufgaben → Route ab Standort verwendet GPS. Manuelle Reihenfolge bleibt auch dann erhalten, wenn sie einen längeren Weg erzeugt. Explizite Endportalwahlen können gemeinsame Abbauorte verhindern.
+- Die größere Suche gilt bis 200 aktive Planportale, 240 Blocker und 600 Laufzeitlinks. Höchstens 160 Kandidaten, über 40 Portalen 48 und über 80 Portalen 24; das größenabhängige Budget beträgt mindestens 12. Größere Pläne behalten die lokale Bündelung bis 400 Stopps. Ohne GPS wird nur die Strecke zwischen Stopps verglichen, keine erste Anfahrt erfunden. Keine Garantie für ein globales Optimum oder genau einen Besuch; Abhängigkeiten und Suchgrenzen können Rückbesuche erhalten. Keine Straßen-/Zugangs-, Ausbau-, Reichweiten-, Linklimit- oder Unterfeldprüfung.
 - Reale Standortkoordinaten waren im Export nicht enthalten; verglichene Testursprünge sind Annahmen. Tatsächliche neue Reihenfolge/Strecke hängen vom Standort und gespeicherten Vorgaben ab. IITC-Desktop-/Mobile-Praxistest von beta.10 steht aus.
 
 ## Portalstart / Planvorschau
@@ -385,7 +385,12 @@ Lokale Beta-39-Prüfung am 2026-11-03: originale IITC-Dialogdateien/Leaflet mit 
 
 
 ## Besuchsorientiertes Routing Beta 40
-Lokale Heuristik, keine Garantie für einen einzigen Besuch je Portal oder ein globales Optimum. Aufgabenzyklen, bestätigte Richtungen, manuelle/Spine-Wurffolgen und Abbauvorgaben können Rückkehr erfordern. Ein Rückbesuch kann zugunsten einer kürzeren Strecke bleiben; Suchbegrenzung wird als Vorschlag statt als zwingende Voraussetzung benannt. Kleine Umwege zum Einsparen von Rückbesuchen sind auf 5 % der Bezugsstrecke und die Besuchsbewertung (25–250 m je Rückbesuch) begrenzt. Ohne GPS keine Aussage über die erste Anfahrt. Bis 400 Stopps lokale Bündelung; größere/inkonsistente Routen behalten ihre Aufgaben ohne zusätzliche Suche. Die volle Reihenfolgensuche bleibt auf 40 Planportale/80 Blocker begrenzt.
+Lokale Heuristik, keine Garantie für einen einzigen Besuch je Portal oder ein globales Optimum. Aufgabenzyklen, bestätigte Richtungen, manuelle/Spine-Wurffolgen und Abbauvorgaben können Rückkehr erfordern. In Beta 40 konnte ein Rückbesuch zugunsten einer kürzeren Strecke bleiben; seit Beta 41 hat die Besuchszahl Vorrang; Suchbegrenzung wird als Vorschlag statt als zwingende Voraussetzung benannt. Kleine Umwege zum Einsparen von Rückbesuchen sind auf 5 % der Bezugsstrecke und die Besuchsbewertung (25–250 m je Rückbesuch) begrenzt. Ohne GPS keine Aussage über die erste Anfahrt. Bis 400 Stopps lokale Bündelung; größere/inkonsistente Routen behalten ihre Aufgaben ohne zusätzliche Suche. Diese damalige Grenze und die Entfernungspauschale sind seit Beta 41 ersetzt (siehe unten).
 Keys beeinflussen weiter gesonderte Richtungsvorschläge; diese Fassung dreht keine bestätigten Links um und plant kein Farmen/Verteilen von Keys. Eigene Portale gelten weiterhin als ausgebaut; Wege/Zugang, ausgehende Limits, Reichweite und Linken unter Feldern werden nicht neu validiert. Echter IITC-/Mobile-Nutzertest von Beta 40 steht aus.
 
 Lokale Beta-40-Prüfung am 2026-11-03 mit originalen IITC-Dialogdateien/Leaflet: automatische Route ohne Standort zeigt B (Eroberung und Wurf) → A, gespeicherte Reihenfolge B (Eroberung) → A → B mit Rückbesuchsgrund. Vorschau übernimmt denselben Grund und simuliert bei fehlendem Ziel-Key keinen Wurf. Desktop und 360×800, 340-px-Dialog ohne horizontalen Inhaltsüberlauf, keine Browserfehler; Viewport zurückgesetzt. Zusätzlich 40 deterministische synthetische Besitz-/Richtungsfälle ohne verlorene Würfe oder Zustandsänderung und ein 200-Portal-/199-Link-Fall geprüft: 299 auf 203 Stopps, 192 Versuche, Begrenzung ausgewiesen und alle Links erhalten. Kein echter IITC-/Mobile-Nutzertest.
+
+
+## Aktueller Stand Beta 41
+Die größere Suche gilt bis 200 aktive Planportale, 240 Blocker und 600 Laufzeitlinks. Höchstens 160 Kandidaten, über 40 Portalen 48 und über 80 Portalen 24; das größenabhängige Budget beträgt mindestens 12. Größere Pläne behalten die lokale Bündelung bis 400 Stopps. Ohne GPS wird nur die Strecke zwischen Stopps verglichen, keine erste Anfahrt erfunden. Keine Garantie für ein globales Optimum oder genau einen Besuch; Abhängigkeiten und Suchgrenzen können Rückbesuche erhalten.
+Die Detailaktion erfordert weiterhin ein geladenes, zur GUID passendes IITC-Portalobjekt. Gespeicherter Name oder Keyeintrag allein genügt nicht; fehlende Details werden gemeldet. Native Auswahloptionen und passive Kartenstatus-Badges sind keine Detailbuttons. Neue Beschriftung Deutsch/Englisch, andere Sprachen zunächst Englisch. Synthetische Browserprüfung ersetzt keine Nutzerabnahme auf echtem Desktop-IITC/IITC Mobile.

@@ -28,7 +28,9 @@ Aktuelle Veröffentlichung: **0.1.55**
 
 <https://github.com/emgeka/iitc-anchor-planner/releases/tag/v0.1.55>
 
-### Beta-Test: 0.2.0-beta.40
+### Beta-Test: 0.2.0-beta.41
+
+Beta 41 priorisiert weniger Rückbesuche, dann weniger Stopps und schließlich die kürzere Luftlinie. Kleine Umwege bleiben auf 5 % der festen Bezugsstrecke begrenzt. Eine voraussetzungsorientierte Besuchsfolge und getrennte Suchbudgets verbessern auch größere Pläne und Pläne ohne GPS. Bestätigte Wurfrichtungen, gewählte Abbauziele und manuelle/Spine-Wurffolgen bleiben verbindlich. Portalnamen öffnen in Übersichten, Aufgaben, Planern, Keybestand und Vorschau einheitlich die IITC-Details, auch per Tastatur. Namensklicks ändern keine Zeilenauswahl oder Checkbox; Fraktionsfarben bleiben erhalten. Nicht geladene Portale erhalten einen Hinweis statt falscher Details.
 
 Beta 40 bündelt Portalvorbereitung, Blockerabbau und Würfe in gemeinsamen Besuchen. Unabhängige Würfe können beim früheren Besuch erledigt werden; gesperrte Aufgaben bleiben hinter ihren Voraussetzungen. Die Routenbewertung berücksichtigt Rückbesuche und erlaubt dafür nur kleine, begrenzte Umwege. Die lokale Bündelung funktioniert auch ohne GPS und außerhalb der größeren Reihenfolgensuche. Bestätigte Quellen, gewählte Abbauportale und manuelle/Spine-Wurffolgen bleiben verbindlich. Verbleibende Rückbesuche erhalten einen kurzen Grund in Aufgaben, Nächste Aufgabe und Planvorschau. Bestand, Erledigung und Plangeometrie bleiben unverändert.
 
@@ -64,8 +66,8 @@ Endportal und Position werden mit möglichst wenig zusätzlicher Luftlinie
 gewählt. Gemeinsame Blocker erscheinen einmal; Arbeiten an demselben Portal
 werden nach Möglichkeit gebündelt. Die automatische Route vergleicht jetzt
 gesamte Strecken und überprüft Portalreihenfolge, gemeinsame Abbau-Endportale
-und bereits eingefügte Blocker-Abstecher zusammen. Nur kürzere Varianten mit
-erhaltenen Aufgaben und Abbau-vor-Wurf-Abhängigkeiten werden übernommen.
+und bereits eingefügte Blocker-Abstecher zusammen. Weniger Rückbesuche erhalten innerhalb des begrenzten Streckenbudgets Vorrang;
+Aufgaben und Abbau-vor-Wurf-Abhängigkeiten bleiben erhalten.
 
 **Aufgaben → Route ab Standort** verwendet IITC User Location; **Gespeicherte
 Reihenfolge** bewahrt die Portalreihenfolge und fügt nötige Abbau-Stopps ein.
@@ -157,7 +159,7 @@ Die stabile Installationsadresse zeigt immer auf die zuletzt veröffentlichte Ve
 
 ## Projektstatus
 
-- Entwicklungsversion: **0.2.0-beta.40**
+- Entwicklungsversion: **0.2.0-beta.41**
 - Aktuelle stabile Veröffentlichung: **0.1.55**
 - Arbeitsfassung: `src/iitc-anchor-planner.user.js`
 - Freigegebene Fassungen: `releases/`
@@ -232,7 +234,7 @@ Neu erkannte Planlinks ziehen automatisch einen Key am Ziel der bestätigten Wur
 
 Vorwärtsschritte erhalten vorhandene Geometrie und bewegen die Karte je nach Streckenlänge weich über 2,5–5 Sekunden. Automatisches Abspielen wartet nach der vorgesehenen Bewegung weitere 1,2 Sekunden vor dem nächsten Stopp. Abspielen/Pause zeichnet nicht erneut und bewegt die Kamera nicht; Zurück rekonstruiert die frühere Vorschau. Die Systemeinstellung für reduzierte Bewegung deaktiviert die Kartenanimation.
 
-Die gemeinsame Routensuche verwendet das gewählte Startportal oder im GPS-Modus einen gültigen IITC-User-Location-Standort (**Aufgaben → Route ab Standort**). Gespeicherte Reihenfolge und ausdrücklich gewählte Abbau-Endportale bleiben maßgeblich; ohne GPS gilt im Standortmodus die gespeicherte Reihenfolge. Die begrenzte Suche verbessert einen Ausgangsvorschlag, ohne den kürzesten Weg zu garantieren. Bis 40 Planportale und 80 Blocker; größere Pläne behalten den Ausgangsvorschlag.
+Die gemeinsame Routensuche nutzt das gewählte Startportal oder IITC User Location (**Aufgaben → Route ab Standort**). Ausdrücklich manuelle Reihenfolge und Abbau-Endportale bleiben maßgeblich. Die größere Suche gilt bis 200 aktive Planportale, 240 Blocker und 600 Laufzeitlinks. Höchstens 160 Kandidaten, über 40 Portalen 48 und über 80 Portalen 24; das größenabhängige Budget beträgt mindestens 12. Größere Pläne behalten die lokale Bündelung bis 400 Stopps. Ohne GPS wird nur die Strecke zwischen Stopps verglichen, keine erste Anfahrt erfunden. Keine Garantie für ein globales Optimum oder genau einen Besuch; Abhängigkeiten und Suchgrenzen können Rückbesuche erhalten.
 
 ## Routenstart wählen
 **Route ab Standort** im Panel oder unter Aufgaben plant ab dem aktuellen IITC-User-Location-Standort und meldet fehlendes GPS. Die Aktion aktiviert automatische Planung, ohne die gespeicherte Portalreihenfolge zu überschreiben. **Route ab diesem Portal** in der aufgeklappten Planportal- oder Aufgabenzeile legt dieses Portal als ersten Stopp und Ursprung fest, auch ohne GPS. Das Startportal wird angezeigt; GPS-Bewegung verschiebt diesen Ursprung nicht. Müssen Blocker andernorts abgebaut werden, markiert der erste Stopp den Routenstart und die Route kehrt für den Wurf zurück. Gespeichert wird nur die Portal-GUID; nach Neuladen erneut scannen. Fehlende Startportale bleiben gekennzeichnet. Gespeicherte Reihenfolge oder Route ab Standort hebt den festen Start auf. **Planvorschau** ersetzt den Namen Walk Sim; Vorschau und Routenstrecke verwenden den gewählten Ursprung. Neue Startportal-Hinweise verwenden außerhalb Deutsch/Englisch zunächst Englisch.

@@ -191,6 +191,7 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
 }
 {
   const { ap } = runtime(); portal(ap, 'A', 1); portal(ap, 'B', 3);
+  ap.state.workRouteMode='manual'; // Keep the chosen source order while checking blocker-only rank isolation.
   const ab = link(ap, 'A', 'B', [blocker('earlyB', 'B', 3, 'X', 20)]);
   ap.setBlockerTask('earlyB', 'B', false);
   assert.equal(ap.getWorkPlan().stops[0].planVisit, false);
@@ -261,7 +262,7 @@ function direction(ap, item, from) { ap.state.linkDirections[item.id] = from; }
   assert.equal(jointCalls, 0, 'An explicitly prepared empty snapshot does not trigger per-link recomputation.');
 }
 {
-  const { ap, context } = runtime(); ['A', 'C', 'D', 'B'].forEach((guid, index) => portal(ap, guid, index));
+  const { ap, context } = runtime(); ap.state.workRouteMode='manual'; ['A', 'C', 'D', 'B'].forEach((guid, index) => portal(ap, guid, index));
   const links = ['A', 'C', 'D'].map(guid => link(ap, guid, 'B'));
   context.window.plugin.keys = { keys: { A: 1, B: 1, C: 1, D: 1 }, addKey() {} };
   const proposals = links.map(item => ap.getSuggestedLinkDirection(item));
@@ -385,7 +386,8 @@ function assertDependencies(ap,plan){
   const base=ap.sortedStats(false).slice().sort((a,b)=>origin.distanceTo(point(a.lat,a.lng))-origin.distanceTo(point(b.lat,b.lng)));
   const old=ap.buildWorkPlanForOrder(base,origin,location,null),before=JSON.stringify(ap.state);
   const plan=ap.buildWorkPlan(location),cost=routeDistance(plan,origin),oldCost=routeDistance(old,origin);
-  assert.ok(cost<=oldCost,'Joint optimization never lengthens the route after redundant targets are removed.');
+  assert.ok(cost<=oldCost*1.05+.001,'Return-focused search respects the detour bound.');
+  if(cost>oldCost+.001){const a=ap.measureWorkRoute(plan.stops,origin),b=ap.measureWorkRoute(old.stops,origin);assert.ok(a.revisits<b.revisits || a.revisits===b.revisits && a.visits<b.visits,'Extra travel must save visits');}
   assert.ok(!plan.stops.some(s=>s.portal.guid==='B'),'The distant receiving-only target has no work stop.');
   assert.equal(plan.unscheduled.length,0);assert.equal(plan.unassigned.length,0);assertDependencies(ap,plan);
   assert.equal(JSON.stringify(ap.state),before,'Order and endpoint suggestions do not overwrite saved choices, directions or completion.');
@@ -399,7 +401,7 @@ function assertDependencies(ap,plan){
   assert.deepEqual(Array.from(manual.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','C'],'Manual order among actionable portals remains authoritative.');
   assertDependencies(ap,manual);assert.equal(manual.optimization,undefined);
   ap.state.workRouteMode='location';
-  const noGPS=ap.buildWorkPlan(null);assert.deepEqual(Array.from(noGPS.stops.filter(s=>s.planVisit),s=>s.portal.guid),['A','C']);
+  const noGPS=ap.buildWorkPlan(null);assert.deepEqual(Array.from(noGPS.stops.filter(s=>s.planVisit),s=>s.portal.guid).sort(),['A','C']);assertDependencies(ap,noGPS);assert.ok(noGPS.optimization,'Without GPS the visit order is also searched');
   const signature=ap.runtime.links.map(l=>l.id).sort().join(';');ap.state.blockerTasks.spring1={plan:signature,target:'X',done:false};
   const fixed=ap.buildWorkPlan(location);assert.equal(fixed.stops.find(s=>s.blockers.some(b=>b.id==='spring1')).portal.guid,'X','Optimization preserves explicit endpoints.');
   ap.state.blockerRoutePortals.Y=true;
@@ -418,7 +420,7 @@ function assertDependencies(ap,plan){
 {
   const {ap}=runtime();for(let i=0;i<41;i++)portal(ap,'P'+i,i/100);
   link(ap,'P0','P40');const plan=ap.buildWorkPlan({latlng:point(0,-1)});
-  assert.equal(plan.optimization,undefined,'Large plans use the valid bounded fallback.');assert.equal(plan.stops.length,1,'Unused portals are skipped even in bounded fallback.');
+  assert.ok(plan.optimization.evaluations<=160,'The search includes plans beyond the former 40-portal limit.');assert.equal(plan.stops.length,1,'Unused portals are skipped even in bounded fallback.');
 }
 {
   const {ap}=runtime();portal(ap,'A',1);portal(ap,'B',3);
@@ -514,7 +516,7 @@ function assertDependencies(ap,plan){
   assert.equal(plan.stops[0].routeTargetType,'start');
   const before=JSON.stringify(ap.state);
   const html=ap.nextTaskHtml();assert.equal(JSON.stringify(ap.state),before);
-  assert.ok(html.includes('data-guid="'+firstWork.portal.guid+'"'),'Next task follows the first concrete work stop rather than a synthetic origin.');
+  assert.ok(html.includes('data-ap-portal="'+firstWork.portal.guid+'"'),'Next task follows the first concrete work stop rather than a synthetic origin.');
   assert.ok(html.includes('Remove blocker link'));assert.ok(html.includes('waze.com'));assert.ok(html.includes('google.com/maps'));
   assert.ok(ap.taskListHtml().includes('Next task'));
   const controls={},notes={open:true};
@@ -690,7 +692,7 @@ function assertVisitPrerequisites(ap,plan) {
   assert.equal(ap.betterWorkRoute({distance:1010,revisits:0,visits:9},current,reference),true,'A small detour may save a return visit');
   assert.equal(ap.betterWorkRoute({distance:1000,revisits:0,visits:9},current,reference),true,'Always prefer fewer returns at equal distance');
   assert.equal(ap.betterWorkRoute({distance:1060,revisits:0,visits:9},current,reference),false,'Never trade a return for more than 5% additional distance');
-  assert.equal(ap.betterWorkRoute({distance:1026,revisits:0,visits:9},current,reference),false,'The detour must also pay for itself in saved visits');
+  assert.equal(ap.betterWorkRoute({distance:1026,revisits:0,visits:9},current,reference),true,'Fewer returns have priority inside the allowed detour');
   assert.equal(ap.betterWorkRoute({distance:Infinity,revisits:0,visits:9},current,reference),false);
   portal(ap,'A',0);portal(ap,'B',1);const ab=link(ap,'A','B');direction(ap,ab,'A');
   const plan=ap.buildWorkPlan(null);assert.ok(plan.visitOptimization.evaluations<=192);assert.equal(plan.visitOptimization.after.revisits,0);
@@ -747,3 +749,29 @@ console.log('Visit bundling: one-visit capture/throws, no-GPS planning, fixed/ma
   const {ap}=runtime(),reference=ap.workRouteReference({distance:1000,visits:10,revisits:3});
   assert.equal(ap.betterWorkRoute({distance:1060,visits:8,revisits:1},{distance:1040,visits:9,revisits:2},reference),false,'Several accepted steps cannot accumulate more than the original detour budget');
 }
+
+{
+  const {ap,context,realOwnership,storage}=runtime();ap.getPortalOwnership=realOwnership;context.window.PLAYER={team:'RESISTANCE'};
+  for(let i=0;i<63;i++){const id='P'+i;portal(ap,id,i/1000);context.window.portals[id]={options:{team:'ENLIGHTENED'}};}
+  for(let i=0;i<62;i++)direction(ap,link(ap,'P'+i,'P'+(i+1)),'P'+i);
+  const before=JSON.stringify(ap.state),plan=ap.buildWorkPlan(null);
+  assert.ok(plan.optimization,'A 63-portal plan gets a visit-order search without GPS');
+  assert.equal(ap.measureWorkRoute(plan.stops,null).revisits,0,'Prepare and throw along the dependency chain in reverse source order');
+  assert.equal(plan.stops.length,63);assertVisitPrerequisites(ap,plan);
+  assert.equal(JSON.stringify(ap.state),before);assert.equal(storage.size,0);assert.ok(plan.optimization.evaluations<=48);
+  const order=ap.orderWorkPortals(ap.sortedStats(false),null);assert.equal(order[0].guid,'P62');assert.equal(order.at(-1).guid,'P0');
+}
+{
+  const {ap}=runtime();portal(ap,'T',.05);
+  for(let i=0;i<40;i++){portal(ap,'S'+i,i/1000);const blockers=[0,1].map(j=>blocker('B'+i+'-'+j,'X'+i+'-'+j,i/1000+.0001,'Y'+i+'-'+j,i/1000+.0002));direction(ap,link(ap,'S'+i,'T',blockers),'S'+i);}
+  const plan=ap.buildWorkPlan({latlng:point(0,-.001)}),counts=plan.optimization.byKind;
+  assert.ok(counts.order>=4,'Blocker endpoints cannot consume the reserved order-search budget');
+  assert.ok(counts.endpoint>0);assert.ok(plan.optimization.evaluations<=plan.optimization.budget);assert.ok(plan.optimization.budget<=48);assertDependencies(ap,plan);
+}
+{
+  const {ap}=runtime(),current={distance:20000,revisits:1,visits:20},reference=ap.workRouteReference(current);
+  assert.equal(ap.betterWorkRoute({distance:20300,revisits:0,visits:19},current,reference),true,'A 300 m detour inside the limit can remove a return, without the former 250 m penalty ceiling');
+  assert.equal(ap.betterWorkRoute({distance:19900,revisits:2,visits:21},current,reference),false,'A small distance saving must not introduce another return');
+  assert.equal(ap.betterWorkRoute({distance:22000,revisits:0,visits:19},current,reference),false);
+}
+console.log('Return-first search: 63-portal no-GPS dependency order, protected search quotas, bounded detours and complete unchanged work passed.');

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-beta.41
+
+### English
+- Beta 41 prioritizes fewer return visits, then fewer stops, then shorter straight-line travel. Small detours remain capped at 5% of the fixed reference distance. A prerequisite-aware visit seed and separate search budgets improve larger plans and plans without GPS. Confirmed directions, selected removal endpoints and manual/Spine throw sequences remain binding. Portal names consistently open IITC details across summaries, Tasks, planners, inventory and preview, including keyboard access. Name clicks do not toggle rows or checkboxes; faction colors remain intact. Unloaded portals show an unavailable-details message.
+
+### Deutsch
+- Beta 41 priorisiert weniger Rückbesuche, dann weniger Stopps und schließlich die kürzere Luftlinie. Kleine Umwege bleiben auf 5 % der festen Bezugsstrecke begrenzt. Eine voraussetzungsorientierte Besuchsfolge und getrennte Suchbudgets verbessern auch größere Pläne und Pläne ohne GPS. Bestätigte Wurfrichtungen, gewählte Abbauziele und manuelle/Spine-Wurffolgen bleiben verbindlich. Portalnamen öffnen in Übersichten, Aufgaben, Planern, Keybestand und Vorschau einheitlich die IITC-Details, auch per Tastatur. Namensklicks ändern keine Zeilenauswahl oder Checkbox; Fraktionsfarben bleiben erhalten. Nicht geladene Portale erhalten einen Hinweis statt falscher Details.
+
 ## 0.2.0-beta.40
 
 ### English

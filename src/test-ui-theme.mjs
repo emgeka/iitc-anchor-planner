@@ -143,3 +143,24 @@ console.log('Presentation preferences: persistence, independent owners, safe nam
   events['dialogclose.ap-window']();assert.equal(disconnected,1);assert.equal(removed,1);
 }
 console.log('Window sizing: pointer drag/cancel, keyboard, viewport limits, widget size synchronization and observer cleanup passed.');
+
+// Unified portal-name actions: dynamic children, accessible keys and no parent action.
+{
+  const {ap}=runtime(1280),handlers={},calls=[];let registrations=0;
+  const link={getAttribute:key=>key==='data-ap-portal'?'portalA':null};
+  const root={addEventListener(type,fn,capture){assert.equal(capture,true);handlers[type]=fn;registrations++;},contains:node=>node===link};
+  ap.showPortalDetails=guid=>calls.push(guid);
+  const state=JSON.stringify(ap.state);ap.wirePortalLinks(root);ap.wirePortalLinks(root);assert.equal(registrations,2,'One delegation per surviving root, including after rerenders');
+  function event(type,key,repeat=false){return{type,key,repeat,target:{closest:()=>link},preventDefault(){this.prevented=true;},stopPropagation(){this.stopped=true;}};}
+  for(const e of [event('click'),event('keydown','Enter'),event('keydown',' ')]){handlers[e.type](e);assert.ok(e.prevented&&e.stopped,'Do not toggle a surrounding summary or checkbox label');}
+  assert.deepEqual(calls,['portalA','portalA','portalA']);
+  handlers.keydown(event('keydown','Enter',true));const tab=event('keydown','Tab');handlers.keydown(tab);assert.equal(tab.prevented,undefined);assert.equal(calls.length,3);
+  const outside=event('click');outside.target.closest=()=>({});handlers.click(outside);assert.equal(outside.prevented,undefined,'Do not handle another root or another control');
+  assert.match(ap.portalNameHtml('A" data-bad="x','<img onerror=x>'),/data-ap-portal="A&amp;quot;|data-ap-portal="A&quot;/);
+  assert.doesNotMatch(ap.portalNameHtml('A','<img onerror=x>'),/<img/);
+  assert.match(ap.portalNameHtml('A','Portal A'),/role="button".*data-ap-portal="A"/);
+  assert.doesNotMatch(ap.portalNameHtml('A','Portal A',null,true),/href=|data-ap-portal=/,'Noninteractive map badges retain passive text');
+  assert.doesNotMatch(ap.portalNameHtml('','Unknown'),/href=/);
+  assert.equal(JSON.stringify(ap.state),state);
+}
+console.log('Portal name actions: root delegation, click/keyboard activation, parent isolation, safe markup and passive map labels passed.');
